@@ -22,15 +22,12 @@ scalable, fault-tolerant computation and data processing for the .NET/mono frame
 The MBrace programming model uses a distributed continuation-based approach elegantly
 manifested through computation expressions in F#.
 
-NB: Documentation pages reference the [legacy MBrace codebase](https://github.com/mbraceproject/MBrace.Legacy).
-For information in the new implementation please refer to the [MBrace.Core](https://github.com/mbraceproject/MBrace.Core) repo.
-
 <div class="row">
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      A prerelease of MBrace can be <a href="https://nuget.org/packages/MBrace.Runtime">installed from NuGet</a>:
-      <pre>PM> Install-Package MBrace.Runtime -Pre</pre>
+      A prerelease of MBrace can be <a href="https://nuget.org/packages/MBrace.Core">installed from NuGet</a>:
+      <pre>PM> Install-Package MBrace.Core -Pre</pre>
     </div>
   </div>
   <div class="span1"></div>

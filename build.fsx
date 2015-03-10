@@ -18,7 +18,7 @@ open System.IO
 Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
 
 let gitHome = "https://github.com/mbraceproject"
-let gitName = "MBrace"
+let gitName = "mbrace-docs"
 
 // --------------------------------------------------------------------------------------
 // Clean

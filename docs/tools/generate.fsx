@@ -9,7 +9,7 @@ let referenceBinaries = [ "MBrace.Core.dll" ; "MBrace.Runtime.Core.dll" ; "MBrac
 //let website = "http://nessos.github.io/MBrace"
 let website = "http://www.m-brace.net"
 
-let githubLink = "http://github.com/mbraceproject"
+let githubLink = "http://github.com/mbraceproject/MBrace.Core"
 
 // Specify more information about your project
 let info =
@@ -17,7 +17,7 @@ let info =
     "project-author", "Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"
     "project-summary", "An open source framework for large-scale distributed computation and data processing written in F#."
     "project-github", githubLink
-    "project-nuget", "http://www.nuget.org/packages/MBrace.Runtime" ]
+    "project-nuget", "http://www.nuget.org/packages/MBrace.Core" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below
