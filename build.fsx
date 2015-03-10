@@ -50,9 +50,16 @@ Target "ReleaseDocs" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
+Target "Default" DoNothing
+Target "Release" DoNothing
+
 "Clean"
   ==> "GenerateDocs"
+  ==> "Default"
+
+"Default"
   ==> "ReleaseDocs"
+  ==> "Release"
 
 //// start build
-RunTargetOrDefault "GenerateDocs"
+RunTargetOrDefault "Default"

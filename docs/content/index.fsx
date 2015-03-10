@@ -4,7 +4,7 @@
 #I "../../packages/MBrace.Azure.Client/tools"
 
 #r "MBrace.Core.dll"
-#r "MBrace.Azure.Runtime.Common.dll"
+#r "MBrace.Azure.Runtime.dll"
 #r "MBrace.Azure.Client.dll"
 
 open MBrace

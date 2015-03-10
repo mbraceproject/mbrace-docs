@@ -1,6 +1,6 @@
 source https://nuget.org/api/v2
 
 nuget FAKE
-nuget FSharp.Formatting
+nuget FSharp.Formatting 2.7.4
 nuget MBrace.Azure.Client
 nuget MBrace.Core
