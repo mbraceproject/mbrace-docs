@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Distributed - MBrace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://nessos.github.io">nessos</a></li>
+          <li><a href="http://github.com/mbraceproject">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Distributed</h1>
+<div class="xmldoc">
+<p>Collection of distributed workflow combinators</p>
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
+            choose chooser source
+          </code>
+          <div class="tip" id="73">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; Local&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed choose combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
+            choose2 chooser source
+          </code>
+          <div class="tip" id="74">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;S option) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed choose combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
+            collect collector source
+          </code>
+          <div class="tip" id="75">
+            <strong>Signature:</strong> collector:(&#39;T -&gt; Local&lt;&#39;?53190&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?53190, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distrbuted collect combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '76', 76)" onmouseover="showTip(event, '76', 76)">
+            collect2 collector source
+          </code>
+          <div class="tip" id="76">
+            <strong>Signature:</strong> collector:(&#39;T -&gt; &#39;?53194) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?53194, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distrbuted collect combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '77', 77)" onmouseover="showTip(event, '77', 77)">
+            filter predicate source
+          </code>
+          <div class="tip" id="77">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; Local&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed filter combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '78', 78)" onmouseover="showTip(event, '78', 78)">
+            filter2 predicate source
+          </code>
+          <div class="tip" id="78">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed filter combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '79', 79)" onmouseover="showTip(event, '79', 79)">
+            fold folder reducer init source
+          </code>
+          <div class="tip" id="79">
+            <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; Local&lt;&#39;State&gt;) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; Local&lt;&#39;State&gt;) -&gt; init:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'State, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed fold combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '80', 80)" onmouseover="showTip(event, '80', 80)">
+            fold2 folder reducer init source
+          </code>
+          <div class="tip" id="80">
+            <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; init:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'State, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed fold combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
+            iter body source
+          </code>
+          <div class="tip" id="81">
+            <strong>Signature:</strong> body:(&#39;T -&gt; Local&lt;unit&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed iter combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '82', 82)" onmouseover="showTip(event, '82', 82)">
+            map mapper source
+          </code>
+          <div class="tip" id="82">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; Local&lt;&#39;S&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed map combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '83', 83)" onmouseover="showTip(event, '83', 83)">
+            map2 mapper source
+          </code>
+          <div class="tip" id="83">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;S) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed map combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '84', 84)" onmouseover="showTip(event, '84', 84)">
+            mapReduce mapper reducer init source
+          </code>
+          <div class="tip" id="84">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; Local&lt;&#39;R&gt;) -&gt; reducer:(&#39;R -&gt; &#39;R -&gt; Local&lt;&#39;R&gt;) -&gt; init:&#39;R -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed Map/Reduce workflow with cluster balancing.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '85', 85)" onmouseover="showTip(event, '85', 85)">
+            mapReduce2 mapper reducer init source
+          </code>
+          <div class="tip" id="85">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;R) -&gt; reducer:(&#39;R -&gt; &#39;R -&gt; &#39;R) -&gt; init:&#39;R -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed Map/Reduce workflow with cluster balancing.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '86', 86)" onmouseover="showTip(event, '86', 86)">
+            reduceCombine reducer combiner source
+          </code>
+          <div class="tip" id="86">
+            <strong>Signature:</strong> reducer:(&#39;T [] -&gt; Local&lt;&#39;State&gt;) -&gt; combiner:(&#39;State [] -&gt; Local&lt;&#39;State&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'State          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed reduceCombine combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '87', 87)" onmouseover="showTip(event, '87', 87)">
+            search chooser source
+          </code>
+          <div class="tip" id="87">
+            <strong>Signature:</strong> chooser:(&#39;T [] -&gt; Local&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed search combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '88', 88)" onmouseover="showTip(event, '88', 88)">
+            tryFind predicate source
+          </code>
+          <div class="tip" id="88">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; Local&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryFind combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '89', 89)" onmouseover="showTip(event, '89', 89)">
+            tryFind2 predicate source
+          </code>
+          <div class="tip" id="89">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryFind combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '90', 90)" onmouseover="showTip(event, '90', 90)">
+            tryPick chooser source
+          </code>
+          <div class="tip" id="90">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; Local&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryPick combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '91', 91)" onmouseover="showTip(event, '91', 91)">
+            tryPick2 chooser source
+          </code>
+          <div class="tip" id="91">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;S option) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryPick combinator. Input data is partitioned according to cluster size
+and distributed to worker nodes accordingly. It is then further partitioned
+according to the processor count of each worker.</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Runtime">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/runtime-deployment.html">Cluster Deployment Guide</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure Guide</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://skillsmatter.com/skillscasts/5157-mbrace-large-scale-distributed-computation-with-f">Video presentation</a></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/client-api.html">Client API</a></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-manual.pdf">MBrace Manual</a></li>
+            <li><a href="http://www.m-brace.net/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

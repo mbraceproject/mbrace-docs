@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Cloud - MBrace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://nessos.github.io">nessos</a></li>
+          <li><a href="http://github.com/mbraceproject">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Cloud</h1>
+<div class="xmldoc">
+<p>Cloud workflows user API</p>
+</div>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '135', 135)" onmouseover="showTip(event, '135', 135)">
+            AsLocal(workflow)
+          </code>
+          <div class="tip" id="135">
+            <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; Local&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Wraps provided cloud workflow as a local workflow.
+Any distributed parallelism combinators called by the
+workflow will be re-interpreted using thread parallelism semantics.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '136', 136)" onmouseover="showTip(event, '136', 136)">
+            AwaitCloudTask(...)
+          </code>
+          <div class="tip" id="136">
+            <strong>Signature:</strong> (task:ICloudTask&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; Local&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously awaits cloud task for completion and returns its result.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '137', 137)" onmouseover="showTip(event, '137', 137)">
+            AwaitTask(task, timeoutMilliseconds)
+          </code>
+          <div class="tip" id="137">
+            <strong>Signature:</strong> (task:Task&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; Local&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously awaits a System.Threading.Task for completion.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '138', 138)" onmouseover="showTip(event, '138', 138)">
+            CancellationToken
+          </code>
+          <div class="tip" id="138">
+            <strong>Signature:</strong> Local&lt;ICloudCancellationToken&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the current cancellation token.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '139', 139)" onmouseover="showTip(event, '139', 139)">
+            Catch(workflow)
+          </code>
+          <div class="tip" id="139">
+            <strong>Signature:</strong> workflow:Workflow&lt;&#39;T&gt; -&gt; Cloud&lt;Choice&lt;&#39;T,exn&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Catch exception from given cloud workflow.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '140', 140)" onmouseover="showTip(event, '140', 140)">
+            Choice(computations)
+          </code>
+          <div class="tip" id="140">
+            <strong>Signature:</strong> (computations:seq&lt;&#39;?52869 * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> '?52869, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a cloud computation that will execute the given computation on the corresponding worker,
+possibly in parallel and will return when any of the supplied computations
+have returned a successful value or if all of them fail to succeed. 
+If a computation succeeds the rest of them are canceled.
+The success of a computation is encoded as an option type.
+This operator may create distribution.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '141', 141)" onmouseover="showTip(event, '141', 141)">
+            Choice(computations)
+          </code>
+          <div class="tip" id="141">
+            <strong>Signature:</strong> computations:seq&lt;&#39;?52866&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> '?52866, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a cloud computation that will execute given computations
+possibly in parallel and will return when any of the supplied computations
+have returned a successful value or if all of them fail to succeed. 
+If a computation succeeds the rest of them are canceled.
+The success of a computation is encoded as an option type.
+This operator may create distribution.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '142', 142)" onmouseover="showTip(event, '142', 142)">
+            ChoiceEverywhere(computation)
+          </code>
+          <div class="tip" id="142">
+            <strong>Signature:</strong> (computation:Workflow&lt;&#39;T option&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a cloud computation that will execute the given computation on every available worker
+possibly in parallel and will return when any of the supplied computations
+have returned a successful value or if all of them fail to succeed. 
+If a computation succeeds the rest of them are canceled.
+The success of a computation is encoded as an option type.
+This operator may create distribution.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '143', 143)" onmouseover="showTip(event, '143', 143)">
+            CreateCancellationTokenSource()
+          </code>
+          <div class="tip" id="143">
+            <strong>Signature:</strong> unit -&gt; Local&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new cloud cancellation token source</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '144', 144)" onmouseover="showTip(event, '144', 144)">
+            CreateLinkedCancellationTokenSource(...)
+          </code>
+          <div class="tip" id="144">
+            <strong>Signature:</strong> tokens:seq&lt;ICloudCancellationToken&gt; -&gt; Local&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a linked cloud cancellation token source.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '145', 145)" onmouseover="showTip(event, '145', 145)">
+            CreateLinkedCancellationTokenSource(...)
+          </code>
+          <div class="tip" id="145">
+            <strong>Signature:</strong> (token1:ICloudCancellationToken * token2:ICloudCancellationToken) -&gt; Local&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a linked cloud cancellation token source.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '146', 146)" onmouseover="showTip(event, '146', 146)">
+            CreateLinkedCancellationTokenSource(...)
+          </code>
+          <div class="tip" id="146">
+            <strong>Signature:</strong> (parent:ICloudCancellationToken option) -&gt; Local&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a linked cloud cancellation token source.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '147', 147)" onmouseover="showTip(event, '147', 147)">
+            CurrentWorker
+          </code>
+          <div class="tip" id="147">
+            <strong>Signature:</strong> Local&lt;IWorkerRef&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets information on the execution cluster.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
+            Dispose(disposable)
+          </code>
+          <div class="tip" id="148">
+            <strong>Signature:</strong> disposable:&#39;Disposable -&gt; Local&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'Disposable          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Disposes of a distributed resource.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
+            GetAvailableWorkers()
+          </code>
+          <div class="tip" id="149">
+            <strong>Signature:</strong> unit -&gt; Local&lt;IWorkerRef []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets all workers in currently running cluster context.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
+            GetFaultPolicy()
+          </code>
+          <div class="tip" id="150">
+            <strong>Signature:</strong> unit -&gt; Local&lt;FaultPolicy&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the current fault policy.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
+            GetJobId()
+          </code>
+          <div class="tip" id="151">
+            <strong>Signature:</strong> unit -&gt; Local&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the assigned id of the currently running cloud job.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
+            GetProcessId()
+          </code>
+          <div class="tip" id="152">
+            <strong>Signature:</strong> unit -&gt; Local&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the assigned id of the currently running cloud process.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
+            GetWorkerCount()
+          </code>
+          <div class="tip" id="153">
+            <strong>Signature:</strong> unit -&gt; Local&lt;int&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets total number of available workers in cluster context.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
+            Ignore(workflow)
+          </code>
+          <div class="tip" id="154">
+            <strong>Signature:</strong> workflow:&#39;?52847 -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> '?52847, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Performs a cloud computations, discarding its result</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
+            IsTargetedWorkerSupported
+          </code>
+          <div class="tip" id="155">
+            <strong>Signature:</strong> Local&lt;bool&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns true iff runtime supports executing workflows in specific worker.
+Should be used with combinators that support worker targeting like Cloud.Parallel/Choice/StartChild.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
+            Log(logEntry)
+          </code>
+          <div class="tip" id="156">
+            <strong>Signature:</strong> logEntry:string -&gt; Local&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Writes an entry to a logging provider, if it exists.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
+            Logf(fmt)
+          </code>
+          <div class="tip" id="157">
+            <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?52855,Local&lt;unit&gt;&gt; -&gt; &#39;?52855<br />
+                          <strong>Type parameters:</strong> '?52855          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Writes an entry to a logging provider, if it exists.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '158', 158)" onmouseover="showTip(event, '158', 158)">
+            OfAsync(asyncWorkflow)
+          </code>
+          <div class="tip" id="158">
+            <strong>Signature:</strong> asyncWorkflow:Async&lt;&#39;T&gt; -&gt; Local&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Wraps an asynchronous workflow into a cloud workflow.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '159', 159)" onmouseover="showTip(event, '159', 159)">
+            Parallel(computations)
+          </code>
+          <div class="tip" id="159">
+            <strong>Signature:</strong> (computations:seq&lt;&#39;?52861 * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> '?52861, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a cloud computation that will execute given computations to targeted workers
+possibly in parallel and if successful returns the array of gathered results.
+This operator may create distribution.
+Exceptions raised by children carry cancellation semantics.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '160', 160)" onmouseover="showTip(event, '160', 160)">
+            Parallel(computations)
+          </code>
+          <div class="tip" id="160">
+            <strong>Signature:</strong> computations:seq&lt;&#39;?52858&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> '?52858, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a cloud computation that will execute the given computations
+possibly in parallel and if successful returns the array of gathered results.
+This operator may create distribution.
+Exceptions raised by children carry cancellation semantics.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '161', 161)" onmouseover="showTip(event, '161', 161)">
+            ParallelEverywhere(computation)
+          </code>
+          <div class="tip" id="161">
+            <strong>Signature:</strong> computation:Workflow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a cloud computation that will execute provided computation on every available worker
+in the cluster and if successful returns the array of gathered results.
+This operator may create distribution.
+Any exception raised by children carry cancellation semantics.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '162', 162)" onmouseover="showTip(event, '162', 162)">
+            Raise(e)
+          </code>
+          <div class="tip" id="162">
+            <strong>Signature:</strong> e:exn -&gt; Local&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Raise an exception.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '163', 163)" onmouseover="showTip(event, '163', 163)">
+            Sleep(millisecondsDue)
+          </code>
+          <div class="tip" id="163">
+            <strong>Signature:</strong> millisecondsDue:int -&gt; Local&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a cloud workflow that asynchronously sleeps for a given amount of time.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '164', 164)" onmouseover="showTip(event, '164', 164)">
+            StartAsCloudTask(...)
+          </code>
+          <div class="tip" id="164">
+            <strong>Signature:</strong> (computation:Workflow&lt;&#39;T&gt; * faultPolicy:FaultPolicy option * target:IWorkerRef option * cancellationToken:ICloudCancellationToken option) -&gt; Cloud&lt;ICloudTask&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Start cloud computation as a task. Returns a cloud workflow that queries the result.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '165', 165)" onmouseover="showTip(event, '165', 165)">
+            StartChild(workflow, target)
+          </code>
+          <div class="tip" id="165">
+            <strong>Signature:</strong> (workflow:Workflow&lt;&#39;T&gt; * target:IWorkerRef option) -&gt; Cloud&lt;Local&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Start cloud computation as child process. Returns a cloud workflow that queries the result.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
+            TryFinally(body, finalizer)
+          </code>
+          <div class="tip" id="166">
+            <strong>Signature:</strong> (body:Workflow&lt;&#39;T&gt; * finalizer:Local&lt;unit&gt;) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Try/Finally combinator for monadic finalizers.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+            WithFaultPolicy(policy workflow)
+          </code>
+          <div class="tip" id="167">
+            <strong>Signature:</strong> policy:FaultPolicy -&gt; workflow:Workflow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sets a new fault policy for given workflow.</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Runtime">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/runtime-deployment.html">Cluster Deployment Guide</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure Guide</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://skillsmatter.com/skillscasts/5157-mbrace-large-scale-distributed-computation-with-f">Video presentation</a></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/client-api.html">Client API</a></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-manual.pdf">MBrace Manual</a></li>
+            <li><a href="http://www.m-brace.net/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
