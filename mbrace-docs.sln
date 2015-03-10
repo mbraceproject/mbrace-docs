@@ -1,14 +1,13 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{798FCBC2-77FD-4455-9A02-250A2CCEB1AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{01FFB892-21CF-4C33-BA3C-3ABCC92E5AAE}"
 	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-		.nuget\packages.config = .nuget\packages.config
+		.paket\paket.bootstrapper.exe = .paket\paket.bootstrapper.exe
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+		.paket\paket.targets = .paket\paket.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{B6E824CD-AFA5-4F1A-96F8-3100300FE0AA}"
@@ -71,6 +70,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{01FFB892-21CF-4C33-BA3C-3ABCC92E5AAE} = {B6E824CD-AFA5-4F1A-96F8-3100300FE0AA}
 		{4C2FC4EE-FC72-429F-BCC7-0D9BD46EFA37} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
 		{298103B8-C3A7-4EA6-A108-7F8B41F4FD1A} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
 		{F53605EB-3D25-4ADF-9BBD-D8638A35EA71} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
