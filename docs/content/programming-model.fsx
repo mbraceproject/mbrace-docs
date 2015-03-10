@@ -1,18 +1,18 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin/"
-#I "../../src/MBrace.Client/"
+#I "../../packages/MBrace.Azure.Client/tools"
 
-#load "bootstrap.fsx"
+#r "MBrace.Core.dll"
+#r "MBrace.Azure.Runtime.Common.dll"
+#r "MBrace.Azure.Client.dll"
 
-#r "FsPickler.dll"
+open MBrace
+open MBrace.Workflows
+open MBrace.Azure
+open MBrace.Azure.Client
 
-open Nessos.MBrace
-open Nessos.MBrace.Lib
-open Nessos.MBrace.Client
-
-open Nessos.FsPickler
+let config = Unchecked.defaultof<Configuration>
 
 (**
 
@@ -306,8 +306,8 @@ The following workflow stores the downloaded content of a web page and returns a
 let getTextRef () = cloud {
     // download a piece of data
     let! text = download "http://www.m-brace.net/"
-    // store data to a new CloudRef
-    let! cref = CloudRef.New text
+    // store data to a new CloudCell
+    let! cref = CloudCell.New text
     // return the ref
     return cref
 }
@@ -318,7 +318,7 @@ Dereferencing a cloud ref can be done by getting its `.Value` property:
 
 *)
 
-let dereference (data : ICloudRef<byte []>) = cloud {
+let dereference (data : CloudCell<byte []>) = cloud {
     return data.Value
 }
 
@@ -336,7 +336,7 @@ type CloudTree<'T> =
     | Leaf of 'T
     | Branch of TreeRef<'T> * TreeRef<'T>
 
-and TreeRef<'T> = ICloudRef<CloudTree<'T>>
+and TreeRef<'T> = CloudCell<CloudTree<'T>>
 
 (**
 
@@ -345,18 +345,20 @@ The cloud tree gives rise to a number of naturally distributable combinators. Fo
 *)
 
 let rec map (f : 'T -> 'S) (ttree : TreeRef<'T>) = cloud { 
-    match ttree.Value with
-    | Empty -> return! CloudRef.New Empty
-    | Leaf t -> return! CloudRef.New <| Leaf (f t)
+    let! value = ttree.Value
+    match value with
+    | Empty -> return! CloudCell.New Empty
+    | Leaf t -> return! CloudCell.New <| Leaf (f t)
     | Branch(l,r) ->
         let! l',r' = map f l <||> map f r 
-        return! CloudRef.New <| Branch(l', r')
+        return! CloudCell.New <| Branch(l', r')
 }
 
 (** and *)
 
 let rec reduce (id : 'R) (reduceF : 'R -> 'R -> 'R) (rtree : TreeRef<'R>) = cloud { 
-    match rtree.Value with
+    let! value = rtree.Value
+    match value with
     | Empty -> return id
     | Leaf r -> return r
     | Branch(l,r) ->
@@ -386,8 +388,8 @@ of values with on-demand fetching semantics. The CloudSeq implements the .NET
 let getLines (url : string) =
     cloud {
         let! lines = download url
-        let! cseq = CloudSeq.New lines
-        return cseq :> seq<string>
+        let! cseq = CloudSequence.New lines
+        return cseq
     }
 
 (**
@@ -400,12 +402,15 @@ In other words, it is an interface for storing or accessing binary blobs in the 
 
 *)
 
+#r "FsPickler.dll"
+open Nessos.FsPickler
+
 cloud {
     // enumerate all files from underlying storage container
     let! files = CloudFile.Enumerate "path/to/container"
 
     // read a cloud file and return its word count
-    let wordCount (f : ICloudFile) = cloud {
+    let wordCount (f : CloudFile) = cloud {
         let! text = CloudFile.ReadAllText f
         let count =
             text.Split(' ')
@@ -413,7 +418,7 @@ cloud {
             |> Seq.map (fun (token,instances) -> token, Seq.length instances)
             |> Seq.toArray
 
-        return f.Name, count
+        return f.Path, count
     }
 
     // perform computation in parallel
@@ -421,13 +426,13 @@ cloud {
 
     // persist results to a new Cloud file
     let serializer = FsPickler.CreateXml()
-    let! file = CloudFile.New(fun fs -> async { return serializer.Serialize(fs, results) })
+    let! file = CloudFile.Create(fun fs -> async { return serializer.Serialize(fs, results) })
     return file
 }
 
 (**
 
-### Mutable Cloud Refs
+### Mutable Cloud Refs[CloudAtom]
 
 The `MutableCloudRef` primitive is, similarly to the CloudRef, 
 a reference to data saved in the underlying storage provider. 
@@ -492,10 +497,6 @@ In this section we describe some of the other
 
   * `Cloud.GetTaskid` : Gets the runtime-assigned id for the currently executing task. 
     Tasks are units of computation executed by worker nodes.
-
-  * `Cloud.ToLocal` : Dynamically converts a cloud workflow so that it is wholly executed within
-    the current worker node using thread parallelism semantics. Useful in divide-and-conquer workflows
-    in order to minimize communication after a certain depth.
 
   * `Cloud.Log` : appends an entry to the cloud process log; this operation introduces runtime communication.
 

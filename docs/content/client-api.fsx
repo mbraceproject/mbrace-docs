@@ -1,23 +1,17 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin/"
-#I "../../src/MBrace.Client/"
-#I "../../src/MBrace.Azure/"
+#I "../../packages/MBrace.Azure.Client/tools"
 
-#load "bootstrap.fsx"
+#r "MBrace.Core.dll"
+#r "MBrace.Azure.Runtime.Common.dll"
+#r "MBrace.Azure.Client.dll"
 
-#r "FsPickler.dll"
-#r "MBrace.Azure.dll"
+open MBrace
+open MBrace.Azure
+open MBrace.Azure.Client
 
-open System
-
-open Nessos.MBrace
-open Nessos.MBrace.Lib
-open Nessos.MBrace.Client
-open Nessos.MBrace.Runtime.Logging
-
-open Nessos.FsPickler
+let config = Unchecked.defaultof<Configuration>
 
 (**
 

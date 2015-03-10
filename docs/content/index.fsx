@@ -1,13 +1,17 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin/"
-#I "../../src/MBrace.Client/"
+#I "../../packages/MBrace.Azure.Client/tools"
 
-#load "bootstrap.fsx"
-open Nessos.MBrace
-open Nessos.MBrace.Lib
-open Nessos.MBrace.Client
+#r "MBrace.Core.dll"
+#r "MBrace.Azure.Runtime.Common.dll"
+#r "MBrace.Azure.Client.dll"
+
+open MBrace
+open MBrace.Azure
+open MBrace.Azure.Client
+
+let config = Unchecked.defaultof<Configuration>
 
 (**
 
@@ -38,18 +42,16 @@ An MBrace session can be initialized from F# interactive as follows:
 
 *)
 
-#load "../packages/MBrace.Runtime/bootstrap.fsx"
+open MBrace
+open MBrace.Azure
+open MBrace.Azure.Client
 
-open Nessos.MBrace
-open Nessos.MBrace.Client
-
-[<Cloud>]
 let lineCount () = cloud {
     // enumerate all files from underlying storage container
     let! files = CloudFile.Enumerate "path/to/container"
 
     // read the contents of a file and return its line count
-    let count f = cloud {
+    let count (f : CloudFile) = cloud {
         let! text = CloudFile.ReadAllText f
         return text.Split('\n').Length
     }
@@ -59,8 +61,9 @@ let lineCount () = cloud {
     return Array.sum sizes
 }
 
-let runtime = MBrace.Connect("192.168.0.40", port = 2675) // connect to an MBrace runtime
-let proc = runtime.CreateProcess <@ lineCount () @> // send computation to the runtime
+// get handle to Azure MBrace cluster
+let cluster = Runtime.GetHandle(config)
+let proc = cluster.CreateProcess (lineCount ()) // send computation to the runtime
 let lines = proc.AwaitResult () // await completion
 
 (**

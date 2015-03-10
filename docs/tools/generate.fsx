@@ -4,7 +4,7 @@
 // --------------------------------------------------------------------------------------
 
 // Binaries that have XML documentation (in a corresponding generated XML file)
-let referenceBinaries = [ "MBrace.Core.dll" ; "MBrace.Lib.dll" ; "MBrace.Store.dll" ; "MBrace.Client.dll" ]
+let referenceBinaries = [ "MBrace.Core.dll" ; "MBrace.Runtime.Core.dll" ; "MBrace.Azure.Store.dll" ; "MBrace.Azure.Client.dll" ]
 // Web site location for the generated documentation
 //let website = "http://nessos.github.io/MBrace"
 let website = "http://www.m-brace.net"
@@ -23,14 +23,15 @@ let info =
 // For typical project, no changes are needed below
 // --------------------------------------------------------------------------------------
 
-#I "../../packages/FSharp.Formatting.2.4.24/lib/net40"
-#I "../../packages/RazorEngine.3.3.0/lib/net40"
-#I "../../packages/FSharp.Compiler.Service.0.0.44/lib/net40"
-#r "../../packages/Microsoft.AspNet.Razor.2.0.30506.0/lib/net40/System.Web.Razor.dll"
+#I "../../packages/FSharp.Formatting/lib/net40"
+#I "../../packages/FSharpVSPowerTools.Core/lib/net45"
+#I "../../packages/FSharp.Compiler.Service/lib/net40"
 #r "../../packages/FAKE/tools/FakeLib.dll"
-#r "RazorEngine.dll"
+#r "FSharpVSPowerTools.Core.dll"
+#r "FSharp.Markdown.dll"
 #r "FSharp.Literate.dll"
 #r "FSharp.CodeFormat.dll"
+#r "CSharpFormat.dll"
 #r "FSharp.MetadataFormat.dll"
 open Fake
 open System.IO
@@ -47,12 +48,12 @@ let root = "file://" + (__SOURCE_DIRECTORY__ @@ "../output")
 #endif
 
 // Paths with template/source/output locations
-let bin        = __SOURCE_DIRECTORY__ @@ "../../bin"
+let mbracePkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Azure.Client/tools"
 let content    = __SOURCE_DIRECTORY__ @@ "../content"
 let output     = __SOURCE_DIRECTORY__ @@ "../output"
 let files      = __SOURCE_DIRECTORY__ @@ "../files"
 let templates  = __SOURCE_DIRECTORY__ @@ "templates"
-let formatting = __SOURCE_DIRECTORY__ @@ "../../packages/FSharp.Formatting.2.4.24/"
+let formatting = __SOURCE_DIRECTORY__ @@ "../../packages/FSharp.Formatting/"
 let docTemplate = formatting @@ "templates/docpage.cshtml"
 
 // Where to look for *.csproj templates (in this order)
@@ -72,13 +73,14 @@ let buildReference () =
   CleanDir (output @@ "reference")
   let binaries =
     referenceBinaries
-    |> List.map (fun lib-> bin @@ lib)
+    |> List.map (fun lib-> mbracePkg @@ lib)
+    
   MetadataFormat.Generate
-    ( binaries, output @@ "reference", layoutRoots, 
+    ( binaries , output @@ "reference", layoutRoots, 
       parameters = ("root", root)::info,
       sourceRepo = githubLink @@ "tree/master",
       sourceFolder = __SOURCE_DIRECTORY__ @@ ".." @@ "..",
-      libDirs = [bin],
+      libDirs = [mbracePkg],
       publicOnly = true )
 
 // Build documentation from `fsx` and `md` files in `docs/content`

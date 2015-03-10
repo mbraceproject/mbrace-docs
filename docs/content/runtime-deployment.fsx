@@ -1,22 +1,17 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin"
+#I "../../packages/MBrace.Azure.Client/tools"
 
-#r "Thespian.dll"
-#r "Vagrant.dll"
 #r "MBrace.Core.dll"
-#r "MBrace.Utils.dll"
-#r "MBrace.Lib.dll"
-#r "MBrace.Store.dll"
-#r "MBrace.Runtime.Base.dll"
-#r "MBrace.Client.dll"
+#r "MBrace.Azure.Runtime.Common.dll"
+#r "MBrace.Azure.Client.dll"
 
-open Nessos.MBrace
-open Nessos.MBrace.Store
-open Nessos.MBrace.Client
+open MBrace
+open MBrace.Azure
+open MBrace.Azure.Client
 
-MBraceSettings.MBracedExecutablePath <- System.IO.Path.Combine(__SOURCE_DIRECTORY__, "../../bin/mbraced.exe")
+let config = Unchecked.defaultof<Configuration>
 
 (**
 
