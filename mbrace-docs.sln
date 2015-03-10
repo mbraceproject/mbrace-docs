@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{798FCBC2-77FD-4455-9A02-250A2CCEB1AE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{B6E824CD-AFA5-4F1A-96F8-3100300FE0AA}"
+	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		build.fsx = build.fsx
+		build.sh = build.sh
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{4C2FC4EE-FC72-429F-BCC7-0D9BD46EFA37}"
+	ProjectSection(SolutionItems) = preProject
+		docs\content\azure-tutorial.fsx = docs\content\azure-tutorial.fsx
+		docs\content\client-api.fsx = docs\content\client-api.fsx
+		docs\content\index.fsx = docs\content\index.fsx
+		docs\content\programming-model.fsx = docs\content\programming-model.fsx
+		docs\content\runtime-deployment.fsx = docs\content\runtime-deployment.fsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{298103B8-C3A7-4EA6-A108-7F8B41F4FD1A}"
+	ProjectSection(SolutionItems) = preProject
+		docs\files\CNAME = docs\files\CNAME
+		docs\files\img\favicon-160x160.png = docs\files\img\favicon-160x160.png
+		docs\files\img\favicon-16x16.png = docs\files\img\favicon-16x16.png
+		docs\files\img\favicon-196x196.png = docs\files\img\favicon-196x196.png
+		docs\files\img\favicon-32x32.png = docs\files\img\favicon-32x32.png
+		docs\files\img\favicon-96x96.png = docs\files\img\favicon-96x96.png
+		docs\files\img\favicon.ico = docs\files\img\favicon.ico
+		docs\files\img\fsharp.png = docs\files\img\fsharp.png
+		docs\files\mbrace-manual.pdf = docs\files\mbrace-manual.pdf
+		docs\files\mbrace-plos.pdf = docs\files\mbrace-plos.pdf
+		docs\files\img\mbrace.png = docs\files\img\mbrace.png
+		docs\files\img\nessos.png = docs\files\img\nessos.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{F53605EB-3D25-4ADF-9BBD-D8638A35EA71}"
+	ProjectSection(SolutionItems) = preProject
+		docs\tools\generate.fsx = docs\tools\generate.fsx
+		docs\tools\packages.config = docs\tools\packages.config
+		docs\tools\templates\template.cshtml = docs\tools\templates\template.cshtml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tex", "tex", "{908EB26E-3FC1-4EF2-9C6D-0F710607EB57}"
+	ProjectSection(SolutionItems) = preProject
+		docs\tex\Makefile = docs\tex\Makefile
+		docs\tex\mbrace-full.png = docs\tex\mbrace-full.png
+		docs\tex\mbrace-manual.tex = docs\tex\mbrace-manual.tex
+		docs\tex\mbrace.png = docs\tex\mbrace.png
+		docs\tex\preamble.tex = docs\tex\preamble.tex
+		docs\tex\runtime.png = docs\tex\runtime.png
+		docs\tex\shell.png = docs\tex\shell.png
+		docs\tex\shell2.png = docs\tex\shell2.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C2FC4EE-FC72-429F-BCC7-0D9BD46EFA37} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
+		{298103B8-C3A7-4EA6-A108-7F8B41F4FD1A} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
+		{F53605EB-3D25-4ADF-9BBD-D8638A35EA71} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
+		{908EB26E-3FC1-4EF2-9C6D-0F710607EB57} = {5F7AB181-FCDB-4BC3-9486-D2E6CBF0E06F}
+	EndGlobalSection
+EndGlobal
