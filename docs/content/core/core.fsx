@@ -15,9 +15,9 @@ let config = Unchecked.defaultof<Configuration>
 
 (**
 
-# MBrace framework
+# MBrace.Core
 
-The MBrace framework is an open-source distributed runtime that enables
+MBrace is an open-source distributed runtime that enables
 scalable, fault-tolerant computation and data processing for the .NET/mono frameworks.
 The MBrace programming model uses a distributed continuation-based approach elegantly
 manifested through computation expressions in F#.
