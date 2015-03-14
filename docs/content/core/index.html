@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+ <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>MBrace</title>
+    <meta name="keywords" content="Cloud, Data, Distributed Computing, Scale" />
+    <meta name="description" content="" />
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- mobile settings -->
+    <meta name="viewport" contenht="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/images/demo/favicon.ico" />
+    <!-- WEB FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+    <!-- CORE CSS -->
+    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/sky-forms.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/weather-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/line-icons.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/owl-carousel/owl.pack.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/flexslider.css" rel="stylesheet" type="text/css" />
+    <!-- FAV ICON -->
+    <link rel="shortcut icon" href="http://akkadotnet.github.io/favicon.ico?v=2" />
+    <!-- REVOLUTION SLIDER -->
+    <link href="/assets/css/revolution-slider.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/layerslider.css" rel="stylesheet" type="text/css" />
+    <!-- BLOG -->
+    <link href="/assets/css/layout-blog.css" rel="stylesheet" type="text/css" />
+    <!-- THEME CSS -->
+    <link href="/assets/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/header-default.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/footer-default.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/color_scheme/red.css" rel="stylesheet" type="text/css" id="color_scheme" />
+
+
+    <!-- Highlighting -->
+    <link href="https://highlightjs.org/static/styles/github.css" rel="stylesheet" type="text/css" />
+    <link href="/content/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- Morenizr -->
+    <script type="text/javascript" src="/assets/plugins/modernizr.min.js"></script>
+    <!--[if lte IE 8]>
+        <script src="/assets/plugins/respond.js"></script>
+    <![endif]-->
+</head>
+
+<!--
+    Available body classes:
+        smoothscroll			= enable chrome browser smooth scroll
+        grey 					= grey content background
+        boxed 					= boxed style
+        pattern1 ... pattern10 	= background pattern
+
+    Background Image - add to body:
+        data-background="/assets/images/boxed_background/1.jpg"
+-->
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <!-- class="sticky" for sticky menu -->
+            <!-- Top Bar -->
+            <header id="topBar">
+                <div class="container">
+                    <div class="pull-right fsize13 margin-top10 hide_mobile">
+                        <!-- mail , phone -->
+                        <a href="mailto:akkadotnet@gmail.com">AkkaDotNet@Gmail.com</a> &bull;
+
+                        <div class="block text-right">
+                            <!-- social -->
+                            <a href="https://www.facebook.com/akkadotnet" class="social fa fa-facebook"></a>
+                            <a href="http://stackoverflow.com/questions/tagged/akka.net" class="social fa fa-stack-overflow"></a>
+                            <a href="https://twitter.com/AkkaDotNET" class="social fa fa-twitter"></a>
+                        </div><!-- /social -->
+                    </div>
+                    <!-- Logo -->
+                    <a class="logo" href="/">
+                        <img src="/content/images/akkalogo.png" alt="" style="padding-top:0px;padding-left: 5px;" />
+                    </a>
+                </div><!-- /.container -->
+            </header>
+            <!-- /Top Bar -->
+            <!-- Top Nav -->
+            <header id="topNav">
+                <div class="container">
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <!-- Search -->
+                    <form class="search" method="get" action="/search">
+                        <input type="text" class="form-control" name="q" value="" placeholder="Search">
+                        <button class="fa fa-search"></button>
+                    </form>
+                    <!-- /Search -->
+                    <!-- Top Nav -->
+                    <div class="navbar-collapse nav-main-collapse collapse">
+                        <nav class="nav-main">
+                            <!--
+                                NOTE
+
+                                For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+                                Direct Link Example:
+
+                                <li>
+                                    <a href="#">HOME</a>
+                                </li>
+                            -->
+                            <!-- pageurl /index -->
+                            <ul id="topMain" class="nav nav-pills nav-main">
+                                <li class="mega-menu active">
+                                    <a href="/">
+                                        HOME <span>welcome</span>
+                                    </a>
+                                </li>
+                                <li class="mega-menu">
+                                    <a href="/wiki/">DOCUMENTATION <span>Wiki</span></a>
+                                </li>
+                                <li class="mega-menu">
+                                    <a href="https://github.com/akkadotnet/akka.net">CODE <span>Github repository</span></a>
+                                </li>
+                                <li class="mega-menu">
+                                    <a href="https://groups.google.com/forum/#!forum/akkadotnet-user-list">MAILINGLIST <span>Discuss</span></a>
+                                </li>
+                                <li class="mega-menu">
+                                    <a href="https://github.com/akkadotnet/akka.net/issues">TRACKER <span>Issues and Features</span></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- /Top Nav -->
+                </div><!-- /.container -->
+            </header>
+            <!-- /Top Nav -->
+        </div>
+
+        <div class="parallax parallax-1" style='background-image: url("/content/images/akka.jpg")'>
+            <span class="parallax-overlay"></span>
+            <div class="container parallax-content">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+
+                        <h1 style="text-shadow: 1px 1px #000;">Try <strong>Akka.NET</strong> now!</h1>
+                        <p>Follow our tutorial and build your first Akka.NET application today.</p>
+                        <div class="btn-group btn-group-lg">
+                            <a href="/wiki/Getting started" class="btn btn-success btn-lg" style="text-shadow: 1px 1px #000;"><i class="fa fa-play"></i> Get Started Now</a>
+                        </div> <div class="btn-group btn-group-lg">
+                            <a href="/wiki" class="btn btn-warning btn-lg" style="text-shadow: 1px 1px #000;"><i class="fa fa-graduation-cap"></i> Documentation</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 text-right">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="callout dark arrow-down">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h2>
+                            Build powerful <strong>concurrent</strong> &amp; <strong>distributed</strong> applications.
+                        </h2>
+                        <p class="">Akka.NET is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on .NET and Mono..</p>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- WELCOME -->
+        <section>
+            <div class="container">
+                <!-- FEATURED BOXES 3 -->
+                <div class="row featured-box-minimal">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <h4><i class="fa fa-arrows-alt"></i> Simple Concurrency &amp; Distribution</h4>
+                        <p>Asynchronous and Distributed by design. High-level abstractions like Actors and FSM.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <h4><i class="fa fa-flash"></i> High Performance</h4>
+                        <p>50 million msg/sec on a single machine. Small memory footprint; ~2.5 million actors per GB of heap.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <h4><i class="fa fa-shield"></i> Resilient by Design</h4>
+                        <p>Write systems that self-heal. Remote and/or local supervisor hierarchies.</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <h4><i class="fa fa-th-large"></i> Elastic & Decentralized</h4>
+                        <p>Adaptive load balancing, routing, partitioning and configuration-driven remoting.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <h4><i class="fa fa-plus-circle"></i> Extensible</h4>
+                        <p>Use Akka.NET Extensions to adapt Akka to fit your needs.</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <h4><i class="fa fa-exclamation"></i> Open Source </h4>
+                        <p>Akka.NET is released under the Apache 2 license</p>
+                    </div>
+
+                </div>
+                <!-- /FEATURED BOXES 3 -->
+            </div>
+        </section>
+        <!-- /WELCOME -->
+        <!-- PREMIUM -->
+        <section class="alternate">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><strong>Actor</strong> Model</h2>
+                        <p class="lead">
+                            The Actor Model provides a higher level of abstraction for writing concurrent and distributed systems. It alleviates the developer from having to deal with explicit locking and thread management, making it easier to write correct concurrent and parallel systems.
+                        </p>
+                        <p>Actors were defined in the 1973 paper by <a href="http://en.wikipedia.org/wiki/Carl_Hewitt">Carl Hewitt</a> but have been popularized by the Erlang language, and used for example at Ericsson with great success to build highly concurrent and reliable telecom systems.</p>
+                        <p><a href="/wiki/Actors">Read more</a></p>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <img class="img-responsive img-rounded appear-animation" data-animation="fadeIn" style="border:2px solid white;width:100%;border-radius:10px" src="/content/images/actor.png" alt="" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><strong>Distributed</strong> by Default</h2>
+                        <p class="lead">
+                            Everything in Akka.NET is designed to work in a distributed setting: all interactions of actors use purely message passing and everything is asynchronous.
+                        </p>
+                        <p>
+                            This effort has been undertaken to ensure that all functions are available equally when running within a single process or on a cluster of hundreds of machines. The key for enabling this is to go from remote to local by way of optimization instead of trying to go from local to remote by way of generalization. See this classic paper for a detailed discussion on why the second approach is bound to fail.
+                        </p>
+                        <p><a href="/wiki/Remoting">Read more</a></p>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <img class="img-responsive img-rounded appear-animation" data-animation="fadeIn" style="border:2px solid white;width:100%;border-radius:10px" src="/content/images/network.png" alt="" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><strong>Supervision</strong> &amp; monitoring</h2>
+                        <p class="lead">
+                            Actors form a tree with actors being parents to the actors they've created.
+                        </p>
+                        <p>
+                            As a parent, the actor is responsible for handling its children’s failures (so-called supervision), forming a chain of responsibility, all the way to the top. When an actor crashes, its parent can either restart or stop it, or escalate the failure up the hierarchy of actors.
+                            This enables a clean set of semantics for managing failures in a concurrent, distributed system and allows for writing highly fault-tolerant systems that self-heal.
+                        </p>
+                        <p><a href="/wiki/Supervision">Read more</a></p>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <img class="img-responsive img-rounded appear-animation" data-animation="fadeIn" style="border:2px solid white;width:100%;border-radius:10px" src="/content/images/supervision.png" alt="" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /PREMIUM -->
+        <section class="callout styleBackgroundColor">
+            <!-- add "styleBackgroundColor" class for colored background and white text OR "dark" for a dark callout -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <!-- title + shortdesc -->
+                        <h3>Who are we?</h3>
+                        <p>Meet the people behind Akka.NET!</p>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- button -->
+                        <a href="/pages/team" class="btn btn-primary btn-lg">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <!-- col #1 -->
+                    <div class="spaced dark col-md-3">
+                        <h4>About <strong>Akka.NET</strong></h4>
+                        <p class="block">
+                            Akka.NET is a port of the popular <br />
+                            Java/Scala framework <a href="http://akka.io">Akka</a> to .NET.<br />
+                            <br />
+                            This is a community driven port and <br />
+                            is not affiliated with <a href="http://typesafe.com">Typesafe</a> who <br />
+                            makes the original Java/Scala version.<br />
+                        </p>
+                        <p class="block">
+                            <!-- social -->
+                            <a href="https://www.facebook.com/akkadotnet" class="social fa fa-facebook"></a>
+                            <a href="http://stackoverflow.com/questions/tagged/akka.net" class="social fa fa-stack-overflow"></a>
+                            <a href="https://twitter.com/AkkaDotNET" class="social fa fa-twitter"></a>
+                        </p><!-- /social -->
+                    </div>
+                    <!-- /col #1 -->
+                    <!-- col #3 -->
+                    <div class="spaced col-md-6 col-sm-4">
+                        <h4>Recent <strong>Tweets</strong></h4>
+                        <ul class="list-unstyled fsize13" id="recent_tweets">
+                            <!--	<li>
+                                    <i class="fa fa-twitter"></i> <a href="#">@John Doe</a> Pilsum dolor lorem sit consectetur adipiscing orem sequat <small class="ago">8 mins ago</small>
+                                </li>
+                                <li>
+                                    <i class="fa fa-twitter"></i> <a href="#">@John Doe</a> Remonde sequat ipsum dolor lorem sit consectetur adipiscing  <small class="ago">8 mins ago</small>
+                                </li>
+                                <li>
+                                    <i class="fa fa-twitter"></i> <a href="#">@John Doe</a> Imperdiet condimentum diam dolor lorem sit consectetur adipiscing <small class="ago">8 mins ago</small>
+                                </li>-->
+                        </ul>
+                    </div>
+                    <!-- /col #3 -->
+
+                    <div class="spaced col-md-3 col-sm-4">
+                        <h4>Keep <strong>Updated</strong></h4>
+                        <h4><small><strong>Subscribe to our Newsletter</strong></small></h4>
+
+                        <!-- Begin MailChimp Signup Form -->
+                        <div id="mc_embed_signup">
+                            <form class="input-group" action="//github.us8.list-manage.com/subscribe/post?u=945d2a2edaa89aaabd396bc45&amp;id=5f9a7a993d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+                                <input type="email" value="" name="EMAIL" class="form-control placeholder required email" id="mce-EMAIL" placeholder="E-mail Address">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit" name="subscribe" id="mc-embedded-subscribe">SUBMIT</button>
+                                </span>
+
+                                <div id="mce-responses" class="clear">
+                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                <div style="position: absolute; left: -5000px;"><input type="text" name="b_945d2a2edaa89aaabd396bc45_5f9a7a993d" tabindex="-1" value=""></div>
+                                <div class="clear"></div>
+                            </form>
+                        </div>
+
+                        <!--End mc_embed_signup-->
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="copyright">
+                <div class="container text-center fsize12">
+                    <!--Epona theme by <a href="http://www.stepofweb.com" target="_blank" title="bootstrap themes &amp; templates" class="copyright">stepofweb</a> &bull; All Right Reserved &copy; Your Company LLC. &nbsp;
+                    <a href="page-privacy.html" class="fsize11">Privacy Policy</a> &bull;
+                    <a href="page-terms.html" class="fsize11">Terms of Service</a>-->
+                </div>
+            </div>
+        </footer>
+        <!-- /FOOTER -->
+        <a href="#" id="toTop"></a>
+    </div><!-- /#wrapper -->
+    <!-- JAVASCRIPT FILES -->
+    <script type="text/javascript" src="/assets/plugins/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery.isotope.js"></script>
+    <script type="text/javascript" src="/assets/plugins/masonry.js"></script>
+    <script type="text/javascript" src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/knob/js/jquery.knob.js"></script>
+    <script type="text/javascript" src="/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+    <!-- REVOLUTION SLIDER -->
+    <script type="text/javascript" src="/assets/plugins/revolution-slider/js/jquery.themepunch.plugins.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="/assets/js/revolution_slider.js"></script>
+    <script type="text/javascript" src="/content/jquery-toc.js"></script>
+
+    <script type="text/javascript" src="/assets/js/scripts.js"></script>
+    <script type="text/javascript" src="/content/scripts.js"></script>
+</body>
+</html>
