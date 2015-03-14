@@ -225,7 +225,7 @@
                 <div class="row featured-box-minimal">
 
                     <div class="col-md-4 col-sm-4">
-                        <h4><i class="fa fa-code"></i> Scripting for Big Compute and Big Data</h4>
+                        <h4><i class="fa fa-code"></i> Scripting for Big Compute and Data</h4>
                         <p>Integrate cloud-scale compute and data processing directly into your F#/C# scripting.</p>
                     </div>
 
@@ -367,7 +367,6 @@
                 </div>
 
                 <div class="row text-left hidden-xs">
-                    <div class="col-md-2 col-sm-2"></div>
                     <div class="col-md-4 col-sm-4">
                         <p>
                             MBrace.Core is an open source software framework, initiated by experts, for
@@ -379,12 +378,18 @@
 
                     <div class="col-md-4 col-sm-4">
                         <p>
+                            MBrace.Core abstracts the underlying cloud infrastructure
+                            - code developed using MBrace.Core can run locally or on a supported private
+                            or public clouds.
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <p>
                             MBrace.Core provides the MBrace framework shell where you can delve
                             into REPL style programming which enables fast code prototyping in a
                             cloud scale, job monitoring and code deployment.
                         </p>
                     </div>
-                    <div class="col-md-2 col-sm-2"></div>
 
 
 
@@ -431,16 +436,19 @@
                     </div>
                 </div>
                 <div class="row text-left hidden-xs">
-                    <div class="col-md-2 col-sm-2"></div>
                     <div class="col-md-4 col-sm-4">
                         <p>
                             MBrace.Azure takes care of task orchestration and data flow between
-                            worker nodes, allowing you to deal just with the algorithm that
-                            you want to execute. It abstracts the underlying cloud infrastructure
-                            - code developed using MBrace framework can either run on a supported private
-                            or a public cloud.
+                            your scripting environment and worker nodes: you deal with the data and algorithm 
+                            you want to execute. 
                         </p>
+                    </div>
 
+                    <div class="col-md-4 col-sm-4">
+                        <p>
+                            MBrace.Azure uses Azure storage and Azure Service Bus. Azure geo-replication
+                            and Premium storage options give additional storage safety and performance.
+                        </p>
                     </div>
 
                     <div class="col-md-4 col-sm-4">
@@ -449,7 +457,7 @@
                             The MBrace.Azure runtime makes executing processes fault tolerant.
                             If the underlying platform resources fail, e.g. a security
                             patch is applied abruptly, the computations are either already replicated over
-                            different nodes, or they would simply be restarted.
+                            different nodes, or they will be restarted.
                         </p>
                     </div>
 
