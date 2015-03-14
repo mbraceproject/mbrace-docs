@@ -1,0 +1,804 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>MBrace - Scripting Compute and Data Jobs in the Cloud Made Simple</title>
+    <meta name="keywords" content="Azure,Cloud,MBrace,Data,Distributed,FSharp,CSharp" />
+    <meta name="description" content="" />
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+    <!-- WEB FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" rel="stylesheet" type="text/css" />
+
+    <!-- CORE CSS -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/sky-forms.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/weather-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/line-icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/owl-carousel/owl.pack.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/flexslider.css" rel="stylesheet" type="text/css" />
+
+    <!-- REVOLUTION SLIDER -->
+    <link href="assets/css/revolution-slider.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/layerslider.css" rel="stylesheet" type="text/css" />
+
+    <!-- THEME CSS -->
+    <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/header-default.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/footer-default.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
+    <!-- <link href="assets/css/layout-dark.css" rel="stylesheet" type="text/css"  /> -->
+    <!-- Morenizr -->
+    <script type="text/javascript" src="assets/plugins/modernizr.min.js"></script>
+
+    <!--[if lte IE 8]>
+    <script src="assets/plugins/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body class="smoothscroll">
+
+    <div id="wrapper">
+
+        <div id="header">
+            <!-- class="sticky" for sticky menu -->
+            <!-- Top Bar -->
+            <header id="topBar">
+                <div class="container">
+
+                    <div class="pull-right fsize13 margin-top10 hide_mobile">
+
+                        <!-- mail , phone -->
+                        <a href="http://github.com/mbraceproject/MBrace.Core">MBrace.Core on github</a> &bull; <a href="http://github.com/mbraceproject/MBrace.Azure">MBrace.Azure on github</a>
+
+                        <div class="block text-right">
+                            <!-- social -->
+                            <!--								<a href="#" class="social fa fa-facebook"></a> -->
+                            <a href="https://twitter.com/mbracethecloud" class="social fa fa-twitter"></a>
+                            <!--								<a href="#" class="social fa fa-google-plus"></a>
+                                                        <a href="#" class="social fa fa-linkedin"></a>
+                                                        <a href="#" class="social fa fa-pinterest"></a> -->
+                        </div><!-- /social -->
+
+                    </div>
+
+                    <!-- Logo -->
+                    <a class="logo" href="index.html">
+                        <img src="assets/images/mbrace-banner-50-height.png" height="50" alt="" />
+                    </a>
+
+                </div><!-- /.container -->
+            </header>
+            <!-- /Top Bar -->
+            <!-- Top Nav -->
+            <header id="topNav">
+                <div class="container">
+
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Search 
+                    <form class="search" method="get" action="page-search.html">
+                        <input type="text" class="form-control" name="s" value="" placeholder="Search">
+                        <button class="fa fa-search"></button>
+                    </form>
+                    -->
+                    <!-- Top Nav -->
+                    <div class="navbar-collapse nav-main-collapse collapse">
+                        <nav class="nav-main">
+
+                            <ul id="topMain" class="nav nav-pills nav-main">
+
+                                <li>
+                                    <a href="#try">LEARN <span>get started</span></a>
+                                </li>
+                                <li>
+                                    <a href="#features">FEATURES <span>details</span></a>
+                                </li>
+                                <li>
+                                    <a href="#contribute">CONTRIBUTE <span>open source</span></a>
+                                </li>
+                                <li>
+                                    <a href="#training">SUPPORT <span>training</span></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">DOCUMENTATION <span>API reference</span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="reference/index.html">API Reference</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="https://github.com/elastacloud/mbrace-on-brisk-starter/">MBrace.Azure Tutorials</a></li>
+                                        <li><a href="https://github.com/mbraceproject/MBrace.Demos">MBrace.Demos</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="mbrace-manual.pdf">Manual (previous version)</a></li>
+                                        <li><a href="mbrace-plos.pdf">PLOS Paper (previous version)</a></li>
+                                        <li><a href="core/core.html">Overview (previous version)</a></li>
+                                        <li><a href="core/azure-tutorial.html">Azure Tutorial (previous version)</a></li>
+                                        <li><a href="core/runtime-deployment.html">Runtime Deployment (previous version)</a></li>
+                                        <li><a href="core/programming-model.html">Programming Model (previous version)</a></li>
+                                        <li><a href="core/client-api.html">Client API (previous version)</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </nav>
+                    </div>
+                    <!-- /Top Nav -->
+
+                </div><!-- /.container -->
+            </header>
+            <!-- /Top Nav -->
+
+        </div>
+
+        <!-- CALLOUT -->
+        <div class="callout dark">
+            <!-- add "styleBackgroundColor" class for colored background and white text OR "dark" for a dark callout -->
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-9">
+                        <img class="img-responsive animate_fade_in" src="assets/images/mbrace-banner900x300.png" alt="" />
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-2">
+                        <!-- button -->
+                        <a href="#try" rel="nofollow" target="_blank" class="btn btn-primary btn-lg">Get Started Now</a>
+                    </div>
+
+                    <div class="col-md-9">
+                        <!-- title + shortdesc -->
+                        <h3>Integrated Data Scripting for the Cloud - Get started with MBrace.Core and MBrace.Azure today.</h3>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /CALLOUT -->
+        <!-- WELCOME -->
+        <section>
+            <div class="container">
+                <header>
+                    <h2>
+                        Welcome to
+                        <span class="word-rotator" data-delay="2000">
+                            <!-- word rotator - default delay: 2000. Change rotating delay: data-delay="5000" -->
+                            <span class="items bold">
+                                <span><em>MBrace</em></span>
+                                <span><em>simple scripting of scalable compute and data jobs</em></span>
+                                <span><em>big data and big compute</em></span>
+                            </span>
+                        </span><!-- /word rotator -->
+                    </h2>
+                    <p class="lead">
+                        MBrace.Core is a simple programming model for scalable cloud data scripting and programming with F# and C#.
+                        With MBrace.Azure, you can script Azure for large-scale compute and data processing, directly from Visual Studio.
+                    </p>
+                </header>
+
+
+
+                <!-- FEATURED BOXES 3 -->
+                <div class="row featured-box-minimal">
+
+                    <div class="col-md-4 col-sm-4">
+                        <h4><i class="fa fa-group"></i> Simple Cloud Programming</h4>
+                        <p>MBrace.Core is a cloud programming model simple enough to be explained on a single slide.</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                        <h4><i class="fa fa-bars"></i> Azure Support</h4>
+                        <p>MBrace.Azure implements MBrace.Core on the Azure cloud platform.</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                        <h4><i class="fa fa-check"></i> Simple Provisioning</h4>
+                        <p>Simple one-stop cluster provisioning for Azure with Elastacloud Brisk Engine.</p>
+                    </div>
+
+                </div>
+                <div class="row featured-box-minimal">
+
+                    <div class="col-md-4 col-sm-4">
+                        <h4><i class="fa fa-code"></i> Scripting for Big Compute and Big Data</h4>
+                        <p>Integrate cloud-scale compute and data processing directly into your F#/C# scripting.</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                        <h4><i class="fa fa-check"></i> Scalable</h4>
+                        <p>
+                            Scale your data scripts across tens to thousands of machines with seamless access
+                            to cloud storage.
+                        </p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                        <h4><i class="fa fa-desktop"></i> Direct from Visual Studio</h4>
+                        <p>
+                            With MBrace.Azure, use your Azure storage and compute assets,
+                            at your fingertips in Visual Studio.
+                        </p>
+                    </div>
+
+                </div>
+                <!-- /FEATURED BOXES 3 -->
+
+            </div>
+        </section>
+        <!-- /WELCOME -->
+
+
+        <section>
+            <div class="callout dark" id="try">
+                <div class="container text-left">
+
+                    <h2>Getting Started with the MBrace.Azure preview in Visual Studio 2013</h2>
+
+                    <ol>
+                        <li>If necessary, <a href="http://fsharp.org/about/learning.html" target="_blank">learn basic F# scripting in Visual Studio 2013</a> </li>
+                        <li><a href="https://www.briskengine.com/" target="_blank">Create an Azure MBrace cluster</a> using Brisk Engine</li>
+                        <li><a href="https://github.com/elastacloud/mbrace-on-brisk-starter/archive/master.zip" target="_blank">Download the samples</a> and learn MBrace</li>
+                        <li><a href="https://github.com/mbraceproject/MBrace.Azure/issues/new" target="_blank">Give feedback</a> on github</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="alternate">
+            <div class="container" id="training">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><strong>Training</strong> and <strong>Support</strong></h2>
+                        <p class="lead">Consultancy partners including <strong>Nessos</strong> and <strong>Elastacloud</strong> contribute to MBrace and provide training, support and consultancy services.</p>
+                        <p>Combining the strength and experience of two consultancies, Nessos and Elastacloud partner to bring you training and support for both MBrace.Core and MBrace.Azure.</p>
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        <a href="http://www.nessos.gr/"><img class="img-responsive animate_fade_in" src="assets/images/nessos-200-200.png" alt="" /></a>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <a href="http://www.elastacloud.com/"><img class="img-responsive animate_fade_in" src="assets/images/elastalogo-200-200.png" alt="" /></a>
+                    </div>
+                </div>
+
+                <!--
+
+                                <div class="row text-center countTo">
+                                        <div class="col-md-3 col-sm-6">
+                                            <span class="boxed radius3">
+                                                <strong class="styleColor" data-to="13">13</strong>
+                                                <label>Years Experience</label>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-6">
+                                            <span class="boxed radius3">
+                                                <strong class="styleColor" data-to="12000">12000</strong>
+                                                <label>Hours of Development</label>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-6">
+                                            <span class="boxed radius3">
+                                                <strong class="styleColor" data-to="3890">3890</strong>
+                                                <label>Happy Customers</label>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-6">
+                                            <span class="boxed radius3">
+                                                <strong class="styleColor" data-to="11000">11000</strong>
+                                                <label>Cups of Coffee</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                -->
+            </div>
+
+        </section>
+
+
+
+        <!-- DARK CALLOUT -->
+        <div class="callout dark arrow-down" id="features">
+            <div class="container text-center">
+
+                <h2>MBrace.Core - Cloud Programming Made Simple</h2>
+
+                <p>
+                    Confused by the cloud?  Cloud computation and data can be simple,
+                    if using the right framework. MBrace.Core
+                    helps the cloud empower you, not enslave you.
+                </p>
+                <div class="divider half-margins hidden-xs"><!-- divider --></div>
+
+                <div class="row text-left hidden-xs">
+                    <div class="col-md-4 col-sm-4">
+                        <ul class="list-icon spaced check-circle">
+                            <li>Cloud Workflows</li>
+                            <li>Concurrent</li>
+                            <li>Fault Tolerant</li>
+                            <li>High Availability</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <ul class="list-icon spaced check-circle">
+                            <li>Functional Cloud Data Flows</li>
+                            <li>Partitioned Cloud Vectors</li>
+                            <li>Abstract and Reuse Common Cloud Patterns</li>
+                            <li>Strong Typing For Cloud Data</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <ul class="list-icon spaced check-circle">
+                            <li>Full F# and C# Support</li>
+                            <li>Cloud Vendor Neutral</li>
+                            <li>100% Open Source</li>
+                            <li>Extensible Data Serialization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row text-left hidden-xs">
+                    <div class="col-md-2 col-sm-2"></div>
+                    <div class="col-md-4 col-sm-4">
+                        <p>
+                            MBrace.Core is an open source software framework, initiated by experts, for
+                            developing big data algorithms that will execute on a private or
+                            public cloud. It is similar to Hadoop but simpler,
+                            explorative and not confined to the map-reduce paradigm.
+                        </p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                        <p>
+                            MBrace.Core provides the MBrace framework shell where you can delve
+                            into REPL style programming which enables fast code prototyping in a
+                            cloud scale, job monitoring and code deployment.
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-sm-2"></div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="callout dark arrow-up">
+            <div class="container text-center">
+
+                <h2>MBrace.Azure - Included Features</h2>
+                <p>Whether new to Azure or an advanced Azure developer, MBrace.Azure brings Azure storage and compute to your fingertips.</p>
+
+                <div class="divider half-margins hidden-xs"><!-- divider --></div>
+
+                <div class="row text-left hidden-xs">
+                    <div class="col-md-4 col-sm-4">
+                        <ul class="list-icon spaced check-circle">
+                            <li>Cloud Scripting from Visual Studio</li>
+                            <li>Programmatic Data Upload</li>
+                            <li>Automatic Code Transport</li>
+                            <li>Extensible Data Serialization</li>
+                            <li>Fault Tolerance Options</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <ul class="list-icon spaced check-circle">
+                            <li>Full F# and C# Support</li>
+                            <li>Job Creation and Control</li>
+                            <li>Integrated Cloud Logging</li>
+                            <li>Smooth Transitions From Scripts to Code</li>
+                            <li>Nuget Packages</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <ul class="list-icon spaced check-circle">
+                            <li>All MBrace.Core Features</li>
+                            <li>Interoperate With Azure Services</li>
+                            <li>Local Prototyping</li>
+                            <li>Native CPU Performance</li>
+                            <li>100% Open Source</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row text-left hidden-xs">
+                    <div class="col-md-2 col-sm-2"></div>
+                    <div class="col-md-4 col-sm-4">
+                        <p>
+                            MBrace.Azure takes care of task orchestration and data flow between
+                            worker nodes, allowing you to deal just with the algorithm that
+                            you want to execute. It abstracts the underlying cloud infrastructure
+                            - code developed using MBrace framework can either run on a supported private
+                            or a public cloud.
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+
+                        <p>
+                            The MBrace.Azure runtime makes executing processes fault tolerant.
+                            If the underlying platform resources fail, e.g. a security
+                            patch is applied abruptly, the computations are either already replicated over
+                            different nodes, or they would simply be restarted.
+                        </p>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <section>
+            <div class="container">
+
+                <div class="text-center">
+                    <img class="img-responsive animate_fade_in" src="assets/images/code/example-flow.png" alt="" />
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section>
+            <div class="container">
+
+
+                <header class="text-center">
+                    <h2>MBrace.Azure brings Azure scalability directly into Visual Studio</h2>
+                    <blockquote class="noborder nopadding nomargin">
+                        <i>
+                            MBrace.Azure integrates Azure storage and compute VMs as a kind of co-processor to your F# Interactive scripting sessions or your F#/C# applications.
+                            It brings Azure scalability directly into Visual Studio using an intuitive and powerful data scripting model. Combining
+                            MBrace.Azure with F# gives a powerful and scalable cloud data scripting solution.
+                        </i>
+                        <cite class="block">Don Syme, F# Language Designer</cite>
+                    </blockquote>
+
+                    <div class="divider half-margins"><!-- divider --></div>
+
+                </header>
+
+                <!--
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="testimonial classic female animate_from_bottom">
+                                                <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                                <cite><strong>John Doe</strong>, Customer</cite>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="testimonial classic male animate_from_bottom">
+                                                <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                                <cite><strong>John Doe</strong>, Customer</cite>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="testimonial classic male animate_from_bottom">
+                                                <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                                <cite><strong>John Doe</strong>, Customer</cite>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="testimonial classic female animate_from_bottom">
+                                                <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                                <cite><strong>John Doe</strong>, Customer</cite>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="testimonial classic male animate_from_bottom">
+                                                <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                                <cite><strong>John Doe</strong>, Customer</cite>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="owl-carousel animate_from_bottom text-center" data-plugin-options='{"items": 1, "singleItem": true, "navigation": false, "pagination": true, "autoPlay": true, "transitionStyle":"fadeUp"}'>
+                                        <div class="testimonial">
+                                            <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                            <cite><strong>John Doe</strong>, Customer</cite>
+                                        </div>
+
+                                        <div class="testimonial">
+                                            <p>Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa.</p>
+                                            <cite><strong>Jessica Doe</strong>, Customer</cite>
+                                        </div>
+
+                                        <div class="testimonial">
+                                            <p>Praesent est laborum dolo rumes fugats untras. Etha rums ser quidem rerum facilis dolores nemis onis fugats vitaes nemo minima rerums unsers sadips amets.</p>
+                                            <cite><strong>Dorin Doe</strong>, Customer</cite>
+                                        </div>
+
+                                        <div class="testimonial">
+                                            <p>Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa.</p>
+                                            <cite><strong>Melissa Doe</strong>, Customer</cite>
+                                        </div>
+
+                                    </div>
+                -->
+            </div>
+        </section>
+        <!-- /TESTIMONIALS -->
+        <!-- CALLOUT -->
+        <div class="callout dark">
+            <!-- add "styleBackgroundColor" class for colored background and white text OR "dark" for a dark callout -->
+            <div class="container" id="contribute">
+
+                <div class="row">
+
+                    <div class="col-md-9">
+                        <!-- title + shortdesc -->
+                        <h3>Contribute to MBrace!</h3>
+                        <p>MBrace.Core and MBrace.Azure are both fully open source under an Apache 2.0 license. You can contribute to them today.</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <!-- button -->
+                        <a href="#try" rel="nofollow" target="_blank" class="btn btn-primary btn-lg">MBrace on GitHub</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /CALLOUT -->
+
+        <section class="callout styleBackgroundColor">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h3>Who are we?</h3>
+                        <p>Meet the people behind MBrace!</p>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-sm-4 col-md-3 fadeInUpBig">
+                        <div class="box-content thumbnail text-center">
+                            <span class="item-image">
+                                <img class="img-responsive" src="assets/images/people/tsarpalis.jpg" alt="">
+                            </span>
+                            <div class="caption text-left">
+
+                                <div class="clearfix margin-bottom10">
+                                    <div class="pull-left">
+                                        <h4 class="nomargin">
+                                            Eirik Tsarpalis
+                                            <small class="block">Core team</small>
+                                        </h4>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="https://twitter.com/eiriktsarpalis" class="btn ico-only btn-twitter btn-xs"><i class="fa fa-twitter"></i></a>
+                                        <a href="https://github.com/eiriktsarpalis" class="btn ico-only btn-stackoverflow btn-xs"><i class="fa fa-github"></i></a>
+                                    </div>
+
+                                </div>
+
+                                <p class="noborder nomargin nopadding">Eirik works at Nessos on MBrace.Core and MBrace.Azure.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 fadeInUpBig">
+                        <div class="box-content thumbnail text-center">
+                            <span class="item-image">
+                                <img class="img-responsive" src="assets/images/people/nick.jpg" alt="">
+                            </span>
+                            <div class="caption text-left">
+
+                                <div class="clearfix margin-bottom10">
+                                    <div class="pull-left">
+                                        <h4 class="nomargin">
+                                            Nick Palladinos
+                                            <small class="block">Founder / Core team</small>
+                                        </h4>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="https://twitter.com/NickPalladinos" class="btn ico-only btn-twitter btn-xs"><i class="fa fa-twitter"></i></a>
+                                        <a href="https://github.com/palladin/" class="btn ico-only btn-stackoverflow btn-xs"><i class="fa fa-github"></i></a>
+                                    </div>
+
+                                </div>
+
+                                <p class="noborder nomargin nopadding">Nick is lead software designer and researcher at Nessos.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 fadeInUpBig">
+                        <div class="box-content thumbnail text-center">
+                            <span class="item-image">
+                                <img class="img-responsive" src="assets/images/people/kostas.jpg" alt="">
+                            </span>
+                            <div class="caption text-left">
+
+                                <div class="clearfix margin-bottom10">
+                                    <div class="pull-left">
+                                        <h4 class="nomargin">
+                                            Kostas Rontogiannis
+                                            <small class="block">Core team</small>
+                                        </h4>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="http://twitter.com/krontogiannis" class="btn ico-only btn-twitter btn-xs"><i class="fa fa-twitter"></i></a>
+                                        <a href="https://github.com/krontogiannis" class="btn ico-only btn-stackoverflow btn-xs"><i class="fa fa-github"></i></a>
+                                    </div>
+
+                                </div>
+
+                                <p class="noborder nomargin nopadding">F# Developer at Nessos on {m}brace.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 fadeInUpBig">
+                        <!-- member -->
+                        <div class="box-content thumbnail text-center">
+                            <span class="item-image">
+                                <img class="img-responsive" src="assets/images/people/isaac.png" alt="">
+                            </span>
+                            <div class="caption text-left">
+
+                                <div class="clearfix margin-bottom10">
+                                    <div class="pull-left">
+                                        <h4 class="nomargin">
+                                            Isaac Abraham
+                                            <small class="block">Elastacloud Brisk team</small>
+                                        </h4>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="https://twitter.com/isaac_abraham" class="btn ico-only btn-twitter btn-xs"><i class="fa fa-twitter"></i></a>
+                                        <a href="https://github.com/isaacabraham" class="btn ico-only btn-stackoverflow btn-xs"><i class="fa fa-github"></i></a>
+                                    </div>
+
+                                </div>
+
+                                <p class="noborder nomargin nopadding">F# MVP, experienced C# consultant, user of Azure, guitar shredder and mad Tottenham fan. Follow Isaac on <a href="https://twitter.com/isaac_abraham"> twitter</a> or at <a href="https://cockneycoder.wordpress.com/">his personal blog</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer id="footer">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="logo_footer dark col-md-3">
+
+                        <img alt="" src="assets/images/mbrace-banner-50-height.png" height="50" class="logo" />
+
+                        <p class="block">
+                            <!-- social -->
+                            <a href="https://twitter.com/mbracethecloud" class="social fa fa-twitter"></a>
+                        </p><!-- /social -->
+                    </div>
+                        <!--
+                    <div class="spaced col-md-6 col-sm-6 hidden-xs">
+                                                    <h4>Recent <strong>Posts</strong></h4>
+                                                    <ul class="list-unstyled">
+                                                        <li>
+                                                            <a class="block" href="#">New CSS3 Transitions this Year</a>
+                                                            <small>June 29, 2014</small>
+                                                        </li>
+                                                        <li>
+                                                            <a class="block" href="#">Inteligent Transitions In UX Design</a>
+                                                            <small>June 29, 2014</small>
+                                                        </li>
+                                                        <li>
+                                                            <a class="block" href="#">Lorem Ipsum Dolor</a>
+                                                            <small>June 29, 2014</small>
+                                                        </li>
+                                                    </ul>
+                    </div>
+                    <div class="spaced col-md-6 col-sm-6 hidden-xs">
+                        <!--
+                                                    <h4>Recent <strong>Tweets</strong></h4>
+                                                    <ul class="list-unstyled fsize13">
+                                                        <li>
+                                                            <i class="fa fa-twitter"></i> <a href="#">@John Doe</a> Pilsum dolor lorem sit consectetur adipiscing orem sequat <small class="ago">8 mins ago</small>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-twitter"></i> <a href="#">@John Doe</a> Remonde sequat ipsum dolor lorem sit consectetur adipiscing  <small class="ago">8 mins ago</small>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-twitter"></i> <a href="#">@John Doe</a> Imperdiet condimentum diam dolor lorem sit consectetur adipiscing <small class="ago">8 mins ago</small>
+                                                        </li>
+                                                    </ul>
+                    </div>
+                -->
+                    <div class="spaced col-md-6 col-sm-6">
+                        <h4>About <strong>Us</strong></h4>
+                        <p>
+                            MBrace.Core and MBrace.Azure are open source projects supported by an open community
+                            of contributors including Nessos and Elastacloud.
+                        </p>
+
+                        <h4><small><strong><a href="http://github.com/mbraceproject">Join us on GitHub today</a></strong></small></h4>
+                        <!--							<form id="newsletterSubscribe" method="post" action="php/newsletter.php" class="input-group">
+                                                        <input required type="email" class="form-control" name="newsletter_email" id="newsletter_email" value="" placeholder="E-mail Address">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary">SUBMIT</button>
+                                                        </span>
+                                                    </form>
+                        -->
+                    </div>
+                    <!-- /col #4 -->
+
+                </div>
+
+            </div>
+
+            <hr />
+
+            <!--				<div class="copyright">
+                                <div class="container text-center fsize12">
+                                    MBrace theme by <a href="http://www.stepofweb.com" target="_blank" title="bootstrap themes &amp; templates" class="copyright">stepofweb</a> &bull; All Right Reserved &copy; Your Company LLC. &nbsp;
+                                    <a href="page-privacy.html" class="fsize11">Privacy Policy</a> &bull;
+                                    <a href="page-terms.html" class="fsize11">Terms of Service</a>
+                                </div>
+                            </div>
+            -->
+        </footer>
+        <!-- /FOOTER -->
+
+        <a href="#" id="toTop"></a>
+
+    </div><!-- /#wrapper -->
+    <!-- JAVASCRIPT FILES -->
+    <script type="text/javascript" src="assets/plugins/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.isotope.js"></script>
+    <script type="text/javascript" src="assets/plugins/masonry.js"></script>
+
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/knob/js/jquery.knob.js"></script>
+    <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+
+    <script type="text/javascript" src="assets/js/scripts.js"></script>
+</body>
+</html>
