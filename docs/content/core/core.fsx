@@ -26,8 +26,12 @@ manifested through computation expressions in F#.
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      A prerelease of MBrace can be <a href="https://nuget.org/packages/MBrace.Core">installed from NuGet</a>:
+      A prerelease of MBrace.Core can be <a href="https://nuget.org/packages/MBrace.Core">installed from NuGet</a>:
       <pre>PM> Install-Package MBrace.Core -Pre</pre>
+    </div>
+    <div class="well well-small" id="nuget">
+      A prerelease of MBrace.Azure can be <a href="https://nuget.org/packages/MBrace.Azure">installed from NuGet</a>:
+      <pre>PM> Install-Package MBrace.Azure -Pre</pre>
     </div>
   </div>
   <div class="span1"></div>
@@ -35,7 +39,7 @@ manifested through computation expressions in F#.
 
 ## Example
 
-An MBrace session can be initialized from F# interactive as follows:
+AnWhen using MBrace.Azure, an MBrace session can be initialized from F# interactive as follows:
 
 *)
 
