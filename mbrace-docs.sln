@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{298103B8
 		docs\files\img\favicon-96x96.png = docs\files\img\favicon-96x96.png
 		docs\files\img\favicon.ico = docs\files\img\favicon.ico
 		docs\files\img\fsharp.png = docs\files\img\fsharp.png
+		docs\files\index.html = docs\files\index.html
 		docs\files\mbrace-manual.pdf = docs\files\mbrace-manual.pdf
 		docs\files\mbrace-plos.pdf = docs\files\mbrace-plos.pdf
 		docs\files\img\mbrace.png = docs\files\img\mbrace.png
