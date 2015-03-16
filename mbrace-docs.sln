@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{4C2F
 	ProjectSection(SolutionItems) = preProject
 		docs\content\azure-tutorial.fsx = docs\content\azure-tutorial.fsx
 		docs\content\client-api.fsx = docs\content\client-api.fsx
-		docs\content\index.fsx = docs\content\index.fsx
+		docs\content\core.fsx = docs\content\core.fsx
 		docs\content\programming-model.fsx = docs\content\programming-model.fsx
 		docs\content\runtime-deployment.fsx = docs\content\runtime-deployment.fsx
 	EndProjectSection
