@@ -35,7 +35,7 @@ runtime.Run (cloud { return f 20 })
 
 (**
 
-MBrace is compatible with Visual Studio 2012 and 2013.
+MBrace is compatible with Visual Studio 2012 and above.
 If using F# 3.0/Visual Studio 2012, a binding redirect for `FSharp.Core`
 needs to be set up
 
