@@ -91,3 +91,4 @@ and access the runtime from a remote client (your on-premises computer).
 If you use a virtual network, create and upload certificates and finally configure your VPN client. 
 The process is described in [here](http://msdn.microsoft.com/en-us/library/azure/dn133792.aspx).
 
+*)
