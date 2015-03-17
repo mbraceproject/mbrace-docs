@@ -23,42 +23,57 @@ The easiest path to provision an MBrace cluster on Azure using
 an Azure Cloud Service is to use [Brisk Engine](http://briskengine.com).
 See the [Brisk Engine Tutorial](brisk-tutorial.html).
 
-## Provisioning Explicitly
+## Provisioning an Azure Cloud Service Explicitly
 
 In some cases you may decide to provision explicitly, if the options provided
-by Brisk Engine do not yet meet your needs.  For example you may want to:
+by Brisk Engine do not yet meet your needs.  
 
-* adjust the size of VM used for worker instances in your cluster;
+If so, see [Creating a Custom Azure Cloud Service which includes MBrace runtime instances](https://github.com/mbraceproject/MBrace.Demos/blob/master/azure/AZURE.md).
+
+For example you may want to:
+
+* adjust the size of VM used for worker instances in your cluster; or
 
 * add endpoints to your cloud service (so your MBrace cluster can publish 
   TCP and HTTP endpoints, either public or to your virtual network, 
-  for example, you want your MBrace cluster to publish a web server);
+  for example, you want your MBrace cluster to publish a web server); or
 
-* enable Remote Access to MBrace cluster worker instances;
+* enable Remote Access to MBrace cluster worker instances; or
 
-* specify the size of local storage available on MBrace cluster worker instances;
+* specify the size of local storage available on MBrace cluster worker instances; or
 
-* upload certificates as part of your provisioning process;
+* upload certificates as part of your provisioning process; or
 
-* specify Azure-specific local caching options;
+* specify Azure-specific local caching options; or
 
-* compile and deploy your own version of the MBrace cluster worker instance software.
+* include additional web and worker roles in your cloud service; or
+
+* compile and deploy your own version of the MBrace cluster worker instance software. 
 
 
-At the time of writing these options were not yet available via the Brisk Engine provisioning
-service.
+At the time of writing these options were not yet via the Brisk Engine provisioning
+service. In this case, you must create and deploy your own Azure cloud service.
 
 In order to provision explicitly, as a prerequisite you need 
 to have a Windows Azure account, basic knowledge of the Azure computing and
 optionally Microsoft Visual Studio (or any environment supporting F#).
 
-Typically you will host your MBrace runtime/cluster nodes in one of
 
-* the VMs of an Azure cloud service (normal); or 
+## Deploying as an Azure Web job or explicit VMs
+
+The above deployment techniques use an Azure Cloud Service.
+Alternatively you may want to host your MBrace runtime/cluster nodes in one of
 
 * explicit VMs; or
 
-* the execution environment of an Azure web job.
+* an Azure web job.
+
+These options are not yet documented but you may be able
+to utilize the relevant components used by the
+[Custom Azure Cloud Service](https://github.com/mbraceproject/MBrace.Demos/blob/master/azure/AZURE.md).
+
+
+### Where your MBrace client code runs
 
 Typically the MBrace client will run in:
 
@@ -70,14 +85,6 @@ Typically the MBrace client will run in:
 
 In all cases, the client will need sufficient network access to be able to write to the
 Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.
-
-## Authoring a Cloud Service which uses the MBrace Runtime
-
-This is the normal option when provisioning eplicitly.
-
-See [using an Azure cloud service for the MBrace runtime instances](https://github.com/mbraceproject/MBrace.Demos/blob/master/azure/AZURE.md).
-
-
 
 ## Using a virtual network 
 
