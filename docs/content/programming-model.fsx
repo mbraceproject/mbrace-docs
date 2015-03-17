@@ -1,16 +1,13 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../packages/MBrace.Azure.Client/tools"
-
-#r "MBrace.Core.dll"
-#r "MBrace.Azure.Runtime.Common.dll"
-#r "MBrace.Azure.Client.dll"
+#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
 
 open MBrace
 open MBrace.Workflows
 open MBrace.Azure
 open MBrace.Azure.Client
+open MBrace.Streams
 
 let config = Unchecked.defaultof<Configuration>
 
@@ -78,12 +75,13 @@ Recursion and higher-order computations are possible:
 
 *)
 
-let rec foldl f s ts = cloud {
+/// Sequentially fold along a set of jobs
+let rec foldLeftCloud f state ts = cloud {
     match ts with
-    | [] -> return s
+    | [] -> return state
     | t :: ts' ->
-        let! s' = f s t
-        return! foldl f s' ts'
+        let! s' = f state t
+        return! foldLeftCloud f s' ts'
 }
 
 (**
@@ -92,6 +90,7 @@ and so are for loops and while loops.
 
 *)
 
+/// Sequentially iterate and loop 
 cloud {
     for i in [| 1 .. 100 |] do
         do! Cloud.Logf "Logging entry %d of 100" i
@@ -121,16 +120,16 @@ Asynchronous workflows can be embedded into cloud workflows:
 
 *)
 
-let downloadLines (url : string) = async {
-    use http = new System.Net.WebClient()
-    let! html = http.AsyncDownloadString(System.Uri url) 
+let downloadAsync (url : string) = async {
+    use webClient = new System.Net.WebClient()
+    let! html = webClient.AsyncDownloadString(System.Uri url) 
     return html.Split('\n')
 }
 
+
 cloud {
-    let download u = Cloud.OfAsync(downloadLines u)
-    let! t1 = download "http://www.nessos.gr/"
-    let! t2 = download "http://www.m-brace.net/"
+    let! t1 = downloadAsync "http://www.nessos.gr/" |> Cloud.OfAsync
+    let! t2 = downloadAsync "http://www.m-brace.net/" |> Cloud.OfAsync
     return t1.Length + t2.Length
 }
 
@@ -147,9 +146,10 @@ The previous example could be altered so that downloading happens in parallel:
 
 *)
 
+let downloadCloud url = downloadAsync url |> Cloud.OfAsync
+
 cloud {
-    let download = Cloud.OfAsync << downloadLines
-    let! t1,t2 = download "http://www.m-brace.net" <||> download "http://www.nessos.gr/"
+    let! t1,t2 = downloadCloud "http://www.m-brace.net" <||> downloadCloud "http://www.nessos.gr/"
     return t1.Length + t2.Length
 }
 
@@ -181,15 +181,13 @@ A point of interest here is exception handling. Consider the workflow
 *)
 
 cloud {
-    let download = Cloud.OfAsync << downloadLines
 
     try
         let! results =
-            [
-                "http://www.m-brace.net/"
-                "http://www.nessos.gr/"
-                "http://non.existent.domain/" ]
-            |> List.map download
+            [ "http://www.m-brace.net/"
+              "http://www.nessos.gr/"
+              "http://non.existent.domain/" ]
+            |> List.map downloadCloud
             |> Cloud.Parallel
 
         return results |> Array.sumBy(fun r -> r.Length)
@@ -224,7 +222,6 @@ module List =
     /// splits a list into two halves
     let split ts = ts,ts
 
-let download = downloadLines >> Cloud.OfAsync
 (** *)
 
 let mapReduce (map : 'T -> 'R) (reduce : 'R -> 'R -> 'R)
@@ -293,19 +290,19 @@ of modern big data applications.  MBrace offers a plethora of mechanisms for man
 data in a more global and massive scale. These provide an essential decoupling 
 between distributed computation and distributed data.
 
-### Cloud Refs
+### Cloud Cells (Cloud Values)
 
 The mbrace programming model offers access to persistable and distributed data 
-entities known as cloud refs. Cloud refs very much resemble references found in 
+entities known as cloud cells. Cloud cells very much resemble values found in 
 the ML family of languages but are "monadic" in nature. In other words, their 
 declaration entails a scheduling decision by the runtime. 
-The following workflow stores the downloaded content of a web page and returns a cloud ref to it:
+The following workflow stores the downloaded content of a web page and returns a cloud cell to it:
 
 *)
 
-let getTextRef () = cloud {
+let getTextCell () = cloud {
     // download a piece of data
-    let! text = download "http://www.m-brace.net/"
+    let! text = downloadCloud "http://www.m-brace.net/"
     // store data to a new CloudCell
     let! cref = CloudCell.New text
     // return the ref
@@ -314,19 +311,25 @@ let getTextRef () = cloud {
 
 (**
 
-Dereferencing a cloud ref can be done by getting its `.Value` property:
+Dereferencing a cloud cell can be done by getting its `.Value` property:
 
 *)
 
 let dereference (data : CloudCell<byte []>) = cloud {
-    return data.Value
+    let! v = data.Value
+    return v
 }
 
+(** 
+Cloud cells are stored in named locations and can be resurrected (parsed) from
+this locations using `CloudCell.Parse`, supplying a type.
+
+*)
 (**
 
-### Example: Data Sharding
+### Example: Distributed Binary Trees
 
-An interesting aspect of cloud refs is the ability to define large, distributed data structures. 
+An interesting aspect of cloud cells is the ability to define distributed data structures. 
 For example, one could define a distributed binary tree like so:
 
 *)
@@ -368,41 +371,64 @@ let rec reduce (id : 'R) (reduceF : 'R -> 'R -> 'R) (rtree : TreeRef<'R>) = clou
 
 (**
 
-The above functions enable distributed MapReduce workflows that are 
+The above functions enable distributed workflows that are 
 driven by the structural properties of the cloud tree.
-The use of cloud refs accounts for data parallelism in a way not achievable
-by the previous MapReduce example.
 
-### Cloud Sequences
+### Cloud Sequences and Cloud Vectors
 
-While cloud refs are useful for storing relatively small chunks of data, 
+While cloud cells are useful for storing relatively small chunks of data, 
 they might not scale well when it comes to large collections of objects.
-Evaluating a cloud ref that points to a big array may place unnecessary 
-memory strain on the runtime. For that reason, mbrace offers the `CloudSeq` 
-primitive, a construct similar to the CloudRef that offers access to a collection 
-of values with on-demand fetching semantics. The CloudSeq implements the .NET 
-`IEnumerable` interface and is immutable, just like `CloudRef`.
+Evaluating a cloud cell that points to a big array may place unnecessary 
+memory strain on the runtime. For that reason, mbrace offers the `CloudSequence` 
+primitive, a construct similar to the CloudCell that offers access to a collection 
+of values with on-demand fetching semantics. The CloudSequence type
+is immutable and by default may be cached on local worker nodes, 
+just like `CloudCell`.
 
 *)
 
-let getLines (url : string) =
+/// Download the page and store it as a new cloud sequence of lines
+let storePagesInCloudSequence (url : string) =
     cloud {
-        let! lines = download url
+        let! lines = downloadCloud url
         let! cseq = CloudSequence.New lines
         return cseq
+    }
+
+
+(**
+A cloud sequence is still read linearly. To create a partitioned array of data
+you can create a `CloudVector` from one of more cloud sequences, each of
+which acts as a partition.  Cloud vectors can be merged (merging partitions).
+
+A cloud vector is logically just a single, partitioned cloud sequence.
+
+*)
+
+/// Download the pages and store them as a new single cloud vector of all the
+/// lines in all the pages, partitioned by page.
+let storePagesInCloudVector (urls : string list) =
+    cloud {
+        let! results = 
+            urls 
+            |> List.map storePagesInCloudSequence 
+            |> Cloud.Parallel
+
+        let! cv = CloudVector.OfPartitions results
+
+        return cv
     }
 
 (**
 
 ### Cloud Files
 
-Like Cloud refs and Cloud sequences, CloudFile is an immutable storage primitive 
+Like cloud cells, sequences and vectors, CloudFile is an immutable storage primitive 
 that a references a file saved in the global store. 
 In other words, it is an interface for storing or accessing binary blobs in the runtime.
 
 *)
 
-#r "FsPickler.dll"
 open Nessos.FsPickler
 
 cloud {
@@ -422,9 +448,9 @@ cloud {
     }
 
     // perform computation in parallel
-    let! results = files |> Seq.map wordCount |> Cloud.Parallel
+    let! results = files |> Array.map wordCount |> Cloud.Parallel
 
-    // persist results to a new Cloud file
+    // persist results to a new Cloud file in XML format
     let serializer = FsPickler.CreateXml()
     let! file = CloudFile.Create(fun fs -> async { return serializer.Serialize(fs, results) })
     return file
@@ -432,57 +458,49 @@ cloud {
 
 (**
 
-### Mutable Cloud Refs[CloudAtom]
+### Mutable cloud cells[CloudAtom]
 
-The `MutableCloudRef` primitive is, similarly to the CloudRef, 
+The `CloudAtom` primitive is, similarly to the CloudCell, 
 a reference to data saved in the underlying storage provider. 
 However,
 
-  * MutableCloudRefs are mutable. The value of a mutable cloud ref can be updated and, as a result,
-    its values are never cached. Mutable cloud refs can be updated conditionally using the 
-    `MutableCloudRef.Set` methods or forcibly using the `MutableCloudRef.Force` method.
+  * CloudAtoms are mutable. The value of a cloud atom can be updated and, as a result,
+    its values are never cached. Mutable cloud cells can be updated conditionally using the 
+    `CloudAtom.Set` methods or forcibly using the `CloudAtom.Force` method.
 
-  * MutableCloudRefs can be deallocated manually. This can be done using the `MutableCloudRef.Free` method.
-    The MutableCloudRef is a powerful primitive that can be used to create runtime-wide synchronization 
-    mechanisms like locks, semaphores, etc.
+  * CloudAtoms can be deallocated manually. This can be done using the `CloudAtom.Free` method.
+ 
+The CloudAtom is a powerful primitive that can be used to create runtime-wide synchronization 
+mechanisms like locks, semaphores, etc.
 
-The following demonstrates simple use of the mutable cloud ref:
+The following demonstrates simple use of the cloud atom:
 
 *)
 
 let race () = cloud {
-    let! mr = MutableCloudRef.New(0)
+    let! mr = CloudAtom.New(0)
     let! _ =
-        MutableCloudRef.Force(mr,1)
+        CloudAtom.Force(mr,1)
             <||>
-        MutableCloudRef.Force(mr,2)
+        CloudAtom.Force(mr,2)
 
-    return! MutableCloudRef.Read(mr)
+    return! CloudAtom.Read(mr)
 }
 
 (**
 
 The snippet will return a result of either 1 or 2, depending on which update operation was run last.
 
-The following snippet implements an optimistic incrementing function acting on a mutable cloud ref:
+The following snippet implements an transactionally incrementing function acting on a cloud atom:
 
 *)
 
-let increment (counter : IMutableCloudRef<int>) = cloud {
-    let rec spin () = cloud {
-        let! v = MutableCloudRef.Read counter
-        let! ok = MutableCloudRef.Set(counter, v + 1)
-        if ok then return ()
-        else
-            return! spin ()
-    }
-
-    return! spin ()
+let increment (counter : ICloudAtom<int>) = cloud {
+    let! v = CloudAtom.Read counter
+    let! ok = CloudAtom.Transact(counter, (fun v -> true, v + 1))
+    return ok
 }
 
-(**  The same effect can be achieved using the included MutableCloudRef.SpinSet method *)
-[<Cloud>]
-let increment' counter = MutableCloudRef.SpinSet(counter, fun x -> x + 1)
 
 (**
 
@@ -494,9 +512,6 @@ In this section we describe some of the other
   * `Cloud.GetWorkerCount` : Returns the current number of cluster nodes as reported by the runtime.
 
   * `Cloud.GetProcessId` : Gets the runtime-assigned cloud process id for the currently executing workflow.
-
-  * `Cloud.GetTaskid` : Gets the runtime-assigned id for the currently executing task. 
-    Tasks are units of computation executed by worker nodes.
 
   * `Cloud.Log` : appends an entry to the cloud process log; this operation introduces runtime communication.
 
