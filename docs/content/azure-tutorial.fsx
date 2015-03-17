@@ -1,15 +1,13 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../packages/MBrace.Azure.Client/tools"
+#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
 
-#r "MBrace.Core.dll"
-#r "MBrace.Azure.Runtime.Common.dll"
-#r "MBrace.Azure.Client.dll"
 
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
+open MBrace.Azure.Runtime
 
 let config = Unchecked.defaultof<Configuration>
 
@@ -17,7 +15,12 @@ let config = Unchecked.defaultof<Configuration>
 
 # Using MBrace on Windows Azure IaaS
 
-In this tutorial you will learn how to setup MBrace on Windows Azure IaaS. 
+In this tutorial you will learn how to setup MBrace on Windows Azure IaaS "from scratch".
+
+> For details on setting up MBrace.Azure, see the getting started instructions on [the home page](http://m-brace.net).
+
+**This documentation is out-of-date and may refer to an earlier version of MBrace.**
+
 As a prerequisite you need to have a Windows Azure account, basic knowledge of the Azure computing/virtual machine services and
 optionally Microsoft Visual Studio (or any environment supporting F#).
 
@@ -29,6 +32,7 @@ Because of this restriction in this tutorial you have two choices: you can eithe
 the Windows Azure VPN service to join the virtual network created in Azure and access the runtime from a remote client (your on-premises computer).
 
 ## Creating a virtual network
+
 At this point you should decide if you are going to use a remote client or one of
 the virtual machines as a client. If you choose the first 
 option you need to create a virtual network, create and upload certificates and finally configure your VPN client. 
@@ -38,6 +42,7 @@ You can skip this step if you want to use a client in one of your virtual machin
 for you during the virtual machine creation.
 
 ## Creating a virtual machine
+
 Now you need to create your virtual machines. You can follow 
 [this](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-tutorial/) tutorial
 to create a virtual machine (you can skip the 'How to attach a data disk to the new virtual machine' section).
@@ -49,6 +54,7 @@ Note that although there are no minimal requirements for the VM size it's recomm
 a Medium (A2) (2 cores, 3.5GB Memory) instance. After the virtual machine is created log on to it.
 
 ## Installing the MBrace and Configuring Runtime
+
 At this point you need to install MBrace in this machine using the instructions
 in our [Runtime Installation](runtime-deployment.html) guide.
 Follow the [Installing the MBrace Runtime Service](runtime-deployment.html#installservice) section to install MBrace as a Windows Service .

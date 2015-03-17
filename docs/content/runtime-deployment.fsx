@@ -1,11 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../packages/MBrace.Azure.Client/tools"
-
-#r "MBrace.Core.dll"
-#r "MBrace.Azure.Runtime.Common.dll"
-#r "MBrace.Azure.Client.dll"
+#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
 
 open MBrace
 open MBrace.Azure
@@ -17,7 +13,11 @@ let config = Unchecked.defaultof<Configuration>
 
 # Deploying the MBrace Runtime 
 
-In this tutorial you will learn how to install and setup MBrace.
+In this tutorial you will learn how to install and setup MBrace.Core "from scratch".
+
+> For details on setting up MBrace.Azure, see the getting started instructions on [the home page](http://m-brace.net).
+
+**This documentation is out-of-date and refers to an earlier version of MBrace.**
 
 Typically you need some machines to run the MBrace daemons/nodes and a client
 that manages the runtime (usually the client runs on a F# interactive instance). Any nodes in a MBrace runtime,
@@ -195,4 +195,4 @@ Finally boot the runtime and send your first cloud computation.
 
 let runtime = MBrace.Boot nodes
 
-runtime.Run <@ cloud { return 42 } @>
+runtime.Run (cloud { return 42 })

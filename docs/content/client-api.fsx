@@ -1,11 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../packages/MBrace.Azure.Client/tools"
-
-#r "MBrace.Core.dll"
-#r "MBrace.Azure.Runtime.Common.dll"
-#r "MBrace.Azure.Client.dll"
+#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
 
 open MBrace
 open MBrace.Azure
@@ -32,7 +28,7 @@ These include
       * Cloud process management functionality, that includes submission of computations, 
         process monitoring, debugging and storage access.
 
-  3. The MBrace shell, which enables interactive, on-the-fly declaration, 
+  3. The MBrace integration into F# Interactive, which enables interactive, on-the-fly declaration, 
      deployment and debugging of cloud computation through the F# REPL.
 
   4. A collection of command line tools for server-side deployments.
@@ -42,22 +38,24 @@ These include
 
 ## Installation
 
-These can be accessed by adding the [`MBrace.Client`](http://www.nuget.org/packages/MBrace.Client) 
+For MBrace.Local, use the MBrace.SampleRuntime in the samples.
+
+For MBrace.Azure, these can be accessed by adding 
+the [`MBrace.Azure`](http://www.nuget.org/packages/MBrace.Azure) 
 nuget package to projects. Alternatively, they can be consumed from F# interactive 
-by installing [`MBrace.Runtime`](http://www.nuget.org/packages/MBrace.Runtime) and loading
+by installing [`MBrace.Azure.Client`](http://www.nuget.org/packages/MBrace.Azure.Client) and loading
 *)
-#load "../packages/MBrace.Runtime/bootstrap.fsx"
+#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
 
-open Nessos.MBrace
-open Nessos.MBrace.Client
 
-let runtime = MBrace.InitLocal(totalNodes = 3)
+//let runtime = MBrace.SampleRuntime.InitLocal(totalNodes = 3)
+let runtime = MBrace.Azure.Client.Runtime.GetHandle(config)
 
-runtime.Run <@ cloud { return 1 + 1 } @>
+runtime.Run (cloud { return 1 + 1 })
 
 (**
 
-MBrace is compatible with Visual Studio 2012 and 2013.
+MBrace is compatible with Visual Studio 2012 and above.
 If using F# 3.0/Visual Studio 2012, a binding redirect for `FSharp.Core`
 needs to be set up
 
@@ -73,60 +71,32 @@ needs to be set up
       </runtime>
     </configuration>
 
-## The Cloud Attribute
+## Job Creation 
 
 A primary function of the MBrace client is statically traversing cloud workflows for library dependencies, 
 extracting metadata to be used for debugging purposes, 
 as well as detecting and emitting warnings for potentially invalid patterns. 
-This static traversal is in part achieved through the help of F# code quotations. 
-Quotations are an excellent resource for metadata and as such, they are utilized by MBrace.
 
 Cloud computations in MBrace are initialized like so:
 *)
 
-let proc = runtime.CreateProcess <@ cloud { return 1 + 1 } @>
+let job1 = runtime.CreateProcess (cloud { return 1 + 1 })
 
 (**
 
-where runtime denotes a client object to a running MBrace cluster. 
-A peculiar feature of this syntax is that cloud blocks are delimited by `<@` and `@>` symbols. 
-These are part of the F# language feature known as [code quotations](http://msdn.microsoft.com/en-us/library/dd233212.aspx). 
-Any F# expression enclosed in these symbols will yield a typed syntax tree 
-of the given expression, also known as its quotation. Evaluating
+where runtime denotes a client object to a running MBrace cluster.  
+
+You can also call functions both in and outside cloud computations:
 *)
 
-let expr = <@ 1 + 1 @>
-
-(**
-
-gives a syntax tree which, if evaluated, will yield a result of type `int`.
-
-Even though workflows need to be quoted for execution, it does not mean 
-that all referenced workfows have to be expression trees;
-only the top-level expression need be so.
-
-*)
-
-[<Cloud>]
 let test () = cloud { return 1 + 1 }
 
-runtime.Run <@ test () @>
-
-(**
-Despite this, all nested calls to cloud workflows should be affixed with a `[<Cloud>]` attribute. 
-Failing to do so will result in warning messages being raised. 
-The Cloud attribute is just an abbreviation of the 
-[`ReflectedDefinitionAttribute`](http://msdn.microsoft.com/en-us/library/ee353643.aspx) 
-provided by F#. Adding this to a declaration makes the F# compiler generate a reflected quotation to the tagged code.
-
-It should be noted that the Cloud attribute is not needed for F# declarations that are not cloud workflows. 
-For example, the following code is perfectly valid:
-
-*)
+runtime.Run (test ())
 
 let f x = x + 1
 
-runtime.Run <@ cloud { return f 41 } @>
+runtime.Run (cloud { return f 41 })
+
 
 (**
 
@@ -138,29 +108,8 @@ and is used by internally the runtime for logging purposes.
 The MBrace runtime does not provide its own distributed storage implementation, 
 rather it relies on pluggable storage providers which can be user defined.
 
-*)
-
-open Nessos.MBrace.Store
-
-let fsStore = FileSystemStore.Create(@"\\FileServer\path\to\mbrace")
-let sqlStore = SqlServerStore.Create(connectionString = "connectionString")
-
-open Nessos.MBrace.Azure
-
-let azureStore = AzureStore.Create(accountName = "name", accountKey = "key")
-
-(**
-
-The default store implementation of a client session can be specified by setting
-
-*)
-
-MBraceSettings.DefaultStore <- azureStore
-
-(**
-
 User-defined storage providers can be created by implementing the 
-[`ICloudStore`](reference/nessos-mbrace-store-icloudstore.html) interface.
+`MBrace.Store.ICloudFileStore` interface.
 
 ## Managing the MBrace Runtime
 
@@ -170,105 +119,33 @@ Every computer participating in an MBrace runtime is called an MBrace node.
 In this section we offer an overview of how the MBrace client stack can be used to initialize, 
 manage and monitor remote MBrace runtimes.
 
-### MBraceNode
+### WorkerRef
 
-An [`MBraceNode`](reference/nessos-mbrace-client-mbracenode.html) represents any 
-physical machine that runs the MBrace daemon, the server-side component of the framework. 
+`WorkerRef` represents any physical machine that runs the MBrace daemon, the server-side component of the framework. 
 Every MBrace daemon accepts connections from a predetermined tcp port on the host. 
 MBrace nodes are identifiable by the uri format
 
     [lang=ascii]
     mbrace://hostname:port/
 
-The MBrace client can connect to a remote node by calling
+
 
 *)
 
-let node  = Node.Connect("mbrace://hostname:2675")
-let node' = Node.Connect("hostname", 2675) // equivalent to the above
+let workers = runtime.GetWorkers() |> Seq.toArray
 
-(** A node in the local machine can be initialized by calling *)
+let worker = workers.[0]
 
-let node'' = Node.Spawn(hostname = "10.0.0.12", primaryPort = 2675)
-
-(**
-
-This will initialize an object of type MBraceNode. 
-This object acts as a handle to the remote node. 
-It can be used to perform a variety of operations like
-
-*)
-
-node.Ping() // ping the node, returning the number of milliseconds taken
-
-(** or *)
-
-node.IsLocal
+worker.HeartbeatTime // indicate when the worker last recorded its existence
 
 (**
-
-which is a property indicating whether the node is part of an existing MBrace cluster.
 
 Every MBrace daemon writes to a log of its own. 
 MBrace node logs can accessed remotely from the client either in the form of a dump
 
 *)
 
-node.ShowSystemLogs()
-
-(**
-
-or in a structured format that can be used to perform local queries:
-
-*)
-
-node.GetSystemLogs()
-|> Seq.filter (fun entry -> DateTime.Now - entry.Date < TimeSpan.FromDays 1.)
-
-(**
-
-### MBraceRuntime
-
-An MBrace runtime can be booted once access to a collection of at least 3 nodes, 
-all running within the same subnet, has been established. This can be done like so:
-
-*)
-
-let nodes = [ node ; node' ; node'' ]
-
-let runtime = MBraceRuntime.Boot(nodes, store = azureStore)
-
-(**
-
-This will initialize an MBrace cluster that connects to a Windows Azure store endpoint. 
-Once boot is completed, a handle of type [`MBraceRuntime`](reference/nessos-mbrace-client-mbracenode.html) 
-will be returned. If no store is specified explicitly, the MBraceSettings.DefaultStore will be used. 
-To connect to an already booted MBrace runtime, one needs simply write
-
-*)
-
-let runtime = MBraceRuntime.Connect("mbrace://host:port/")
-
-(**
-
-wherein the supplied uri can point to any of the constituent worker nodes.
-
-The client stack provides a facility for instantaneously spawning local runtimes:
-
-*)
-
-let runtime = MBraceRuntime.InitLocal(totalNodes = 4, background = true)
-
-(**
-
-This will initiate a runtime of four local nodes that execute in the background. 
-The feature is particularly useful for quick deployments of distributed code under development.
-The MBraceRuntime object serves as the entry point for any kind of client interactions with the cluster. 
-For instance, the property
-
-*)
-
-runtime.Nodes
+runtime.ShowLogs()
 
 (**
 
@@ -276,28 +153,18 @@ returns the list of all nodes that constitute the cluster. In the MBrace shell, 
 
 *)
 
-runtime.ShowInfo()
+runtime.ShowProcesses()
 
 (**
 
 prints a detailed description of the cluster to the terminal.
 
-    [lang=ascii]
-    {m}brace runtime information (active)
-
-    Host           Port  Role
-    ----           ----  ----
-    grothendieck  38857  Master
-    grothendieck  38873  Alt Master  Local (Pid 3616)  mbrace://grothendieck:38873/
-    grothendieck  38865  Alt Master  Local (Pid 4952)  mbrace://grothendieck:38865/
 
 The state of the runtime can be reset or stopped at any point by calling the following methods:
 
 *)
 
-runtime.Shutdown() // stops the runtime
-runtime.Reboot() // resets the state of the runtime
-runtime.Kill() // violently kills all node processes in the runtime
+runtime.Reset() // resets the runtime
 
 (**
 
@@ -321,7 +188,7 @@ Given a runtime object, a cloud process can be initialized like so:
 
 *)
 
-let proc = runtime.CreateProcess <@ cloud { return 1 + 1 } @>
+let job2 = runtime.CreateProcess (cloud { return 1 + 1 })
 
 (**
 
@@ -333,11 +200,11 @@ of the cloud computation at any time. For instance,
 
 *)
 
-proc.Result // Pending, Value, user Exception or system Fault
-proc.ProcessId // the cloud process id
-proc.InitTime // returns a System.DateTime on execution start
-proc.ExecutionTime // returns a System.TimeSpan on execution time
-proc.GetLogs() // get user logs for cloud process
+job2.AwaitResult() // Pending, Value, user Exception or system Fault
+job2.Id // the cloud process id
+job2.InitializationTime // returns a System.DateTime on execution start
+job2.ExecutionTime // returns a System.TimeSpan on execution time
+job2.GetLogs() // get user logs for cloud process
 
 (**
 
@@ -345,7 +212,7 @@ If running in the MBrace shell, typing the command
 
 *)
 
-proc.ShowInfo()
+job2.ShowInfo()
 
 (** 
 
@@ -360,7 +227,7 @@ Similar to `CreateProcess` is the `Run` method:
 
 *)
 
-let result = runtime.Run <@ cloud { return 1 + 1 } @>
+let result = runtime.Run (cloud { return 1 + 1 })
 
 
 (**
@@ -369,16 +236,8 @@ This is a blocking version of `CreateProcess` that is equivalent to the statemen
 
 *)
 
-let proc = runtime.CreateProcess <@ cloud { return 1 + 1 } @> in
-proc.AwaitResult()
-
-(**
-
-A list of all executing cloud processes in a given runtime can be obtained as follows:
-
-*)
-
-let procs = runtime.GetAllProcesses()
+let job3 = runtime.CreateProcess (cloud { return 1 + 1 }) 
+job3.AwaitResult()
 
 (**
 
@@ -386,7 +245,8 @@ If running in the MBrace Shell, process information can be printed to the buffer
 
 *)
 
-runtime.ShowProcessInfo()
+runtime.ShowProcesses()
+
 
 (**
 
@@ -394,8 +254,7 @@ Given a cloud process id, one can receive the corresponding handle object like s
 
 *)
 
-let proc = runtime.GetProcess 1131 :?> Process<int>
-let proc' = runtime.GetProcess<(string * int) []> 119
+let job4 = runtime.GetProcess("1131")
 
 (**
 
@@ -403,11 +262,11 @@ Finally, an executing cloud process can be cancelled with the following method
 
 *)
 
-proc.Kill()
+job4.Kill()
 
 (**
 
-## The MBrace Daemon
+## The MBrace Daemon (for MBrace.SampleRuntime sample)
 
 As mentioned earlier, the MBrace daemon is the server-side application 
 that contains a machine-wide instance of the MBrace framework. 
@@ -420,7 +279,7 @@ For instance, the command
 
 will instantiate a background mbraced process that listens on the loopback interface at port 2675.
 
-### Configuring the MBrace Daemon
+### Configuring the MBrace Daemon (for MBrace.SampleRuntime sample)
 
 The MBrace daemon comes with a range of configuration options. 
 These parameters can either be read from the mbraced configuration file, 
@@ -476,7 +335,7 @@ We now give a brief description of the configuration parameters offered by the d
   * ProcessDomain Executable: the location of the worker process executable. 
     Relative paths evaluated with respect to the main `mbraced.exe` path.
 
-### Deploying the MBrace Daemon
+### Deploying the MBrace Daemon (for MBrace.SampleRuntime sample)
 
 Once the configuration file for `mbraced` has been set up as desired, 
 deploying an instance from the command line is as simple as typing
