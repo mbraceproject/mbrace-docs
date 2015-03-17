@@ -1,12 +1,12 @@
 NUGET
   remote: https://nuget.org/api/v2
   specs:
-    FAKE (3.20.0)
+    FAKE (3.23.0)
     FSharp.Compiler.Service (0.0.86)
     FSharp.Formatting (2.7.4)
       FSharp.Compiler.Service (>= 0.0.82)
       FSharpVSPowerTools.Core (>= 1.7.0)
     FSharpVSPowerTools.Core (1.7.0)
       FSharp.Compiler.Service (>= 0.0.81)
-    MBrace.Azure.Client (0.6.3-alpha)
-    MBrace.Core (0.9.4-alpha)
+    MBrace.Azure.Client (0.6.4-alpha)
+    MBrace.Core (0.9.5-alpha)
