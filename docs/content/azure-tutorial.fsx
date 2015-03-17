@@ -17,27 +17,46 @@ let config = Unchecked.defaultof<Configuration>
 
 In this tutorial you will learn how to setup MBrace on Windows Azure.
 
-## Using Brisk Engine to Provision
+## Provisioning Using Brisk Engine 
 
 The easiest path to provision an MBrace cluster on Azure using
-an Azure Cloud Service is to use Brisk Engine.
+an Azure Cloud Service is to use [Brisk Engine](http://briskengine.com).
 See the [Brisk Engine Tutorial](brisk-tutorial.html).
 
 ## Provisioning Explicitly
 
-In some cases you may decide to provision explicitly.  For example, you may want your cloud service
-to have access to endpoint funcitonality not yet available via the Brisk Engine provisioning
+In some cases you may decide to provision explicitly, if the options provided
+by Brisk Engine do not yet meet your needs.  For example you may want to:
+
+* adjust the size of VM used for worker instances in your cluster;
+
+* add endpoints to your cloud service (so your MBrace cluster can publish 
+  TCP and HTTP endpoints, either public or to your virtual network, 
+  for example, you want your MBrace cluster to publish a web server);
+
+* enable Remote Access to MBrace cluster worker instances;
+
+* specify the size of local storage available on MBrace cluster worker instances;
+
+* upload certificates as part of your provisioning process;
+
+* specify Azure-specific local caching options;
+
+* compile and deploy your own version of the MBrace cluster worker instance software.
+
+
+At the time of writing these options were not yet available via the Brisk Engine provisioning
 service.
 
-As a prerequisite you need to have a Windows Azure account, basic knowledge of the Azure computing and
+In order to provision explicitly, as a prerequisite you need 
+to have a Windows Azure account, basic knowledge of the Azure computing and
 optionally Microsoft Visual Studio (or any environment supporting F#).
-
 
 Typically you will host your MBrace runtime/cluster nodes in one of
 
-* explicit virtual machines (VMs); or
+* the VMs of an Azure cloud service (normal); or 
 
-* the VMs of an Azure cloud service; or 
+* explicit VMs; or
 
 * the execution environment of an Azure web job.
 
@@ -52,9 +71,9 @@ Typically the MBrace client will run in:
 In all cases, the client will need sufficient network access to be able to write to the
 Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.
 
-## Using a Cloud Service for the MBrace Runtime
+## Authoring a Cloud Service which uses the MBrace Runtime
 
-This is the normal option.
+This is the normal option when provisioning eplicitly.
 
 See [using an Azure cloud service for the MBrace runtime instances](https://github.com/mbraceproject/MBrace.Demos/blob/master/azure/AZURE.md).
 
@@ -69,12 +88,6 @@ use one of the virtual machines as a client or you can use
 the Windows Azure VPN service to join the virtual network created in Azure 
 and access the runtime from a remote client (your on-premises computer).
 
-At this point you should decide if you are going to use a remote client or one of
-the virtual machines as a client. If you choose the first 
-option you need to create a virtual network, create and upload certificates and finally configure your VPN client. 
+If you use a virtual network, create and upload certificates and finally configure your VPN client. 
 The process is described in [here](http://msdn.microsoft.com/en-us/library/azure/dn133792.aspx).
 
-You can skip this step if you want to use a client in one of your virtual machines, as a virtual network will be automatically created
-for you during the virtual machine creation.
-
-*)
