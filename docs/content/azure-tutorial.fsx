@@ -13,25 +13,61 @@ let config = Unchecked.defaultof<Configuration>
 
 (**
 
-# Using MBrace on Windows Azure IaaS
+# Using MBrace on Windows Azure 
 
-In this tutorial you will learn how to setup MBrace on Windows Azure IaaS "from scratch".
+In this tutorial you will learn how to setup MBrace on Windows Azure.
 
-> For details on setting up MBrace.Azure, see the getting started instructions on [the home page](http://m-brace.net).
+## Using Brisk Engine to Provision
 
-**This documentation is out-of-date and may refer to an earlier version of MBrace.**
+The easiest path to provision an MBrace cluster on Azure using
+an Azure Cloud Service is to use Brisk Engine. 
+See [the getting started instructions on the home page](http://m-brace.net).
 
-As a prerequisite you need to have a Windows Azure account, basic knowledge of the Azure computing/virtual machine services and
+## Provisioning Explicitly
+
+In some cases you may decide to provision explicitly.  For example, you may want your cloud service
+to have access to endpoint funcitonality not yet available via the Brisk Engine provisioning
+service.
+
+As a prerequisite you need to have a Windows Azure account, basic knowledge of the Azure computing and
 optionally Microsoft Visual Studio (or any environment supporting F#).
 
-Typically you need some virtual machines to run the MBrace daemons/nodes and a client
-that manages the runtime (usually the client runs on a F# interactive instance). Any nodes in a MBrace runtime
-as well as any clients, should be part of the same network in order to work properly. 
 
-Because of this restriction in this tutorial you have two choices: you can either use one of the virtual machines as a client or you can use
-the Windows Azure VPN service to join the virtual network created in Azure and access the runtime from a remote client (your on-premises computer).
+Typically you will host your MBrace runtime/cluster nodes in one of
 
-## Creating a virtual network
+* explicit virtual machines (VMs); or
+
+* the VMs of an Azure cloud service; or 
+
+* the execution environment of an Azure web job.
+
+Typically the MBrace client will run in:
+
+* an F# interactive instance in your Visual Studio session; or
+
+* as part of another Azure cloud service, website or web job; or
+
+* as a client desktop process.
+
+In all cases, the client will need sufficient network access to be able to write to the
+Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.
+
+## Using a Cloud Service for the MBrace Runtime
+
+This is the normal option.
+
+See [using an Azure cloud service for the MBrace runtime instances](https://github.com/mbraceproject/MBrace.Demos/blob/master/azure/AZURE.md).
+
+
+
+## Using a virtual network 
+
+Any nodes in a MBrace runtime as well as any clients, should be part of the 
+same network in order to work properly. 
+Because of this restriction in this tutorial you have two choices: you can either 
+use one of the virtual machines as a client or you can use
+the Windows Azure VPN service to join the virtual network created in Azure 
+and access the runtime from a remote client (your on-premises computer).
 
 At this point you should decide if you are going to use a remote client or one of
 the virtual machines as a client. If you choose the first 
@@ -41,7 +77,10 @@ The process is described in [here](http://msdn.microsoft.com/en-us/library/azure
 You can skip this step if you want to use a client in one of your virtual machines, as a virtual network will be automatically created
 for you during the virtual machine creation.
 
-## Creating a virtual machine
+## Using explicit virtual machines  (old documentation)
+
+**This documentation refers to an earlier version of MBrace.**
+
 
 Now you need to create your virtual machines. You can follow 
 [this](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-tutorial/) tutorial
@@ -79,7 +118,7 @@ might also want to change the `log file` setting to a path that is persistent in
 
 After changing the configuration file restart the Windows service.
 
-## Creating your cluster
+## Creating your cluster on explicit virtual machines (old documentation)
 
 After setting up the first virtual machine you need to replicate it in order to create a cluster of nodes.
 You can either create the new virtual machines just like the first one and then install the runtime in each of them,
@@ -89,7 +128,7 @@ virtual machine. This process is described [here](https://azure.microsoft.com/en
 for the sysprep part and [here](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-create-custom/) for the custom virtual machine creation.
 You just need to make sure that during the creation you choose the same _Cloud Service_ and _Virtual Network_ for all of your machines.
 
-## Booting the MBrace Runtime
+## Booting the MBrace Runtime on explicit virtual machines  (old documentation)
 
 At this point your virtual machines are running and the MBrace nodes are idle.
 At your client machine, if you use VPN make sure that you are connected.
@@ -147,7 +186,6 @@ runtime.Run <@ cloud { return 42 } @>
 (**
 
 ## Useful references
-* [Runtime Installation Guide](runtime-deployment.html)
 * [Configure a Point-to-Site VPN in the Management Portal](http://msdn.microsoft.com/en-us/library/azure/dn133792.aspx)
 * [Create a Virtual Machine Running Windows Server](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-tutorial/)
 * [How to Capture a Windows Virtual Machine to Use as a Template](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-capture-image-windows-server/)
