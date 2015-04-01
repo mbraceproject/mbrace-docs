@@ -21,7 +21,7 @@ In this tutorial you will learn how to setup MBrace on Windows Azure.
 
 The easiest path to provision an MBrace cluster on Azure using
 an Azure Cloud Service is to use [Brisk Engine](http://briskengine.com).
-See the [Brisk Engine Tutorial](brisk-tutorial.html).
+See [Getting Started with MBrace using Brisk Engine](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/brisk-tutorial.md#get-started-with-brisk).
 
 ## Provisioning an Azure Cloud Service Explicitly
 
