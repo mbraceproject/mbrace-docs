@@ -16,11 +16,15 @@ nuget package to projects. Alternatively, they can be consumed from F# interacti
 by installing [`MBrace.Azure.Client`](http://www.nuget.org/packages/MBrace.Azure.Client`) and loading
 *)
 
-#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
+#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
+#r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
+
 
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
+open MBrace.Flow
+
 
 let config =
     { Configuration.Default with
