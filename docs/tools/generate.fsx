@@ -4,7 +4,8 @@
 // --------------------------------------------------------------------------------------
 
 // Binaries that have XML documentation (in a corresponding generated XML file)
-let referenceBinaries = [ "MBrace.Core.dll" ; "MBrace.Runtime.Core.dll" ; "MBrace.Azure.Store.dll" ; "MBrace.Azure.Client.dll" ]
+let mbraceBinaries = [ "MBrace.Core.dll" ; "MBrace.Runtime.Core.dll" ; "MBrace.Azure.Store.dll" ; "MBrace.Azure.Client.dll" ]
+let mbraceFlowBinaries = [ "MBrace.Flow.dll"  ]
 // Web site location for the generated documentation
 //let website = "http://nessos.github.io/MBrace"
 let website = "http://www.m-brace.net"
@@ -23,16 +24,8 @@ let info =
 // For typical project, no changes are needed below
 // --------------------------------------------------------------------------------------
 
-#I "../../packages/FSharp.Formatting/lib/net40"
-#I "../../packages/FSharpVSPowerTools.Core/lib/net45"
-#I "../../packages/FSharp.Compiler.Service/lib/net40"
+#load @"../../packages/FSharp.Formatting/FSharp.Formatting.fsx"
 #r "../../packages/FAKE/tools/FakeLib.dll"
-#r "FSharpVSPowerTools.Core.dll"
-#r "FSharp.Markdown.dll"
-#r "FSharp.Literate.dll"
-#r "FSharp.CodeFormat.dll"
-#r "CSharpFormat.dll"
-#r "FSharp.MetadataFormat.dll"
 open Fake
 open System.IO
 open Fake.FileHelper
@@ -48,7 +41,8 @@ let root = "file://" + (__SOURCE_DIRECTORY__ @@ "../output")
 #endif
 
 // Paths with template/source/output locations
-let mbracePkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Azure.Client/tools"
+let mbracePkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Azure.Standalone/tools"
+let mbraceFlowPkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Flow/lib/net45"
 let content    = __SOURCE_DIRECTORY__ @@ "../content"
 let output     = __SOURCE_DIRECTORY__ @@ "../output"
 let files      = __SOURCE_DIRECTORY__ @@ "../files"
@@ -72,15 +66,16 @@ let copyFiles () =
 let buildReference () =
   CleanDir (output @@ "reference")
   let binaries =
-    referenceBinaries
-    |> List.map (fun lib-> mbracePkg @@ lib)
+    [ for lib in mbraceBinaries -> mbracePkg @@ lib
+      for lib in mbraceFlowBinaries -> mbraceFlowPkg @@ lib ]
     
   MetadataFormat.Generate
     ( binaries , output @@ "reference", layoutRoots, 
       parameters = ("root", root)::info,
       sourceRepo = githubLink @@ "tree/master",
       sourceFolder = __SOURCE_DIRECTORY__ @@ ".." @@ "..",
-      libDirs = [mbracePkg],
+      libDirs = [mbracePkg; mbraceFlowPkg; __SOURCE_DIRECTORY__ + "/../../packages/Streams/lib/net45"],
+      //assemblyReferences = [__SOURCE_DIRECTORY__ + "/../../packages/Streams/lib/net45/Streams.Core.dll"],
       publicOnly = true )
 
 // Build documentation from `fsx` and `md` files in `docs/content`

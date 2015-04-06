@@ -1,13 +1,13 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
+#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
+#r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
 open MBrace
-open MBrace.Workflows
 open MBrace.Azure
 open MBrace.Azure.Client
-open MBrace.Streams
+open MBrace.Flow
 
 let config = Unchecked.defaultof<Configuration>
 
@@ -149,22 +149,16 @@ The previous example could be altered so that downloading happens in parallel:
 let downloadCloud url = downloadAsync url |> Cloud.OfAsync
 
 cloud {
-    let! t1,t2 = downloadCloud "http://www.m-brace.net" <||> downloadCloud "http://www.nessos.gr/"
-    return t1.Length + t2.Length
+
+    let! results =
+        [ "http://www.m-brace.net/"
+          "http://www.nessos.gr/" ]
+        |> List.map downloadCloud
+        |> Cloud.Parallel
+
+    return results |> Array.sumBy(fun r -> r.Length)
 }
 
-(**
-
-The `<||>` operator defines the *binary parallel combinator*, which combines two workflows
-into one where both will executed in fork/join parallelism.
-It should be noted that parallelism in this case means that each of the workflows
-will be scheduled for execution in remote and potentially separete worker machines
-in the MBrace cluster.
-
-The `Cloud.Parallel` combinator is the variadic version of `<||>`,
-which can be used for running arbitrarily many cloud workflows in parallel:
-
-*) 
 
 cloud {
     let sqr x = cloud { return x * x }
@@ -205,12 +199,10 @@ an invalid url, creating an exception. In general, uncaught exceptions
 bubble up through `Cloud.Parallel` triggering cancellation of all
 outstanding child computations (just like `Async.Parallel`).
 
-The interesting bit here is that the exception handling clause
-will almost certainly be executed in a different machine than the one
-in which it was originally thrown. This is due to the interpreted
-nature of the monadic skeleton of cloud workflows, which allows
+The exception handling clause will almost certainly be executed in a different machine than the one
+in which it was originally thrown. This is due to the cloud workflow, which allows
 exceptions, environments, closures to be passed around worker machines
-in a seemingly transparent manner.
+in a largely transparent manner.
 
 ### Example: Defining a MapReduce workflow
 
@@ -225,7 +217,7 @@ module List =
 (** *)
 
 let mapReduce (map : 'T -> 'R) (reduce : 'R -> 'R -> 'R)
-                (identity : 'R) (inputs : 'T list) =
+              (identity : 'R) (inputs : 'T list) =
 
     let rec aux inputs = cloud {
         match inputs with
@@ -233,8 +225,8 @@ let mapReduce (map : 'T -> 'R) (reduce : 'R -> 'R -> 'R)
         | [t] -> return map t
         | _ ->
             let left,right = List.split inputs
-            let! r, r' = aux left <||> aux right
-            return reduce r r'
+            let! results = Cloud.Parallel [ aux left;  aux right ]
+            return reduce results.[0] results.[1]
     }
 
     aux inputs
@@ -243,7 +235,7 @@ let mapReduce (map : 'T -> 'R) (reduce : 'R -> 'R -> 'R)
 
 The workflow follows a divide-and-conquer approach, 
 recursively partitioning input data until trivial cases are met. 
-Recursive calls are passed through the `<||>` operator,
+Recursive calls are passed through `Cloud.Parallel`,
 thus achieving the effect of distributed parallelism.
 
 It should be noted that this is indeed a naive conception of mapReduce,
@@ -283,20 +275,25 @@ let tryFind (f : 'T -> bool) (ts : 'T list) = cloud {
 ## Distributed Data
 
 Cloud workflows offer a programming model for distributed computation. 
-But what happens when it comes to big data? While the distributable 
-execution environments of mbrace do offer a limited form of data distribution, 
-their scope is inherently local and almost certainly do not scale to the demands 
-of modern big data applications.  MBrace offers a plethora of mechanisms for managing
-data in a more global and massive scale. These provide an essential decoupling 
+But what happens when it comes to data? 
+
+Small-to-medium-scale data can be transported implicitly as part of a 
+cloud computation. This offers a limited (though extremely convenient) form of 
+data distribution. However, it will not scale to all needs, particularly computations
+involving gigabyts or petabytes of data.
+
+MBrace offers a range of mechanisms for managing
+large-scale data in a more global and massive scale. These provide an essential decoupling 
 between distributed computation and distributed data.
+
+See also this [summary of the MBrace abstractions for cloud data](https://github.com/mbraceproject/MBrace.Design/blob/master/DataAbstractions.md).
 
 ### Cloud Cells (Cloud Values)
 
 The mbrace programming model offers access to persistable and distributed data 
-entities known as cloud cells. Cloud cells very much resemble values found in 
-the ML family of languages but are "monadic" in nature. In other words, their 
-declaration entails a scheduling decision by the runtime. 
-The following workflow stores the downloaded content of a web page and returns a cloud cell to it:
+entities known as cloud cells. Cloud cells very much resemble immutable data values found in 
+F# but are stored in persisted cloud storage. The following workflow stores the downloaded 
+content of a web page and returns a cloud cell to it:
 
 *)
 

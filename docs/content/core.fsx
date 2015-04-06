@@ -1,15 +1,15 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../packages/MBrace.Azure.Client/tools"
+#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
+#r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
-#r "MBrace.Core.dll"
-#r "MBrace.Azure.Runtime.dll"
-#r "MBrace.Azure.Client.dll"
 
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
+open MBrace.Flow
+
 
 let config = Unchecked.defaultof<Configuration>
 
@@ -39,7 +39,7 @@ manifested through computation expressions in F#.
 
 ## Example
 
-AnWhen using MBrace.Azure, an MBrace session can be initialized from F# interactive as follows:
+When using MBrace.Azure, an MBrace session can be initialized from F# interactive as follows:
 
 *)
 

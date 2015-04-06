@@ -1,13 +1,14 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
+#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
+#r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
 
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
-open MBrace.Azure.Runtime
+open MBrace.Flow
 
 let config = Unchecked.defaultof<Configuration>
 
@@ -97,5 +98,9 @@ and access the runtime from a remote client (your on-premises computer).
 
 If you use a virtual network, create and upload certificates and finally configure your VPN client. 
 The process is described in [here](http://msdn.microsoft.com/en-us/library/azure/dn133792.aspx).
+
+*)
+
+(**
 
 *)
