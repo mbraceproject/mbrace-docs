@@ -87,18 +87,6 @@ Typically the MBrace client will run in:
 In all cases, the client will need sufficient network access to be able to write to the
 Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.
 
-## Using a virtual network 
-
-Any nodes in a MBrace runtime as well as any clients, should be part of the 
-same network in order to work properly. 
-Because of this restriction in this tutorial you have two choices: you can either 
-use one of the virtual machines as a client or you can use
-the Windows Azure VPN service to join the virtual network created in Azure 
-and access the runtime from a remote client (your on-premises computer).
-
-If you use a virtual network, create and upload certificates and finally configure your VPN client. 
-The process is described in [here](http://msdn.microsoft.com/en-us/library/azure/dn133792.aspx).
-
 *)
 
 (**
