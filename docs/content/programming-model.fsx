@@ -239,7 +239,7 @@ Recursive calls are passed through `Cloud.Parallel`,
 thus achieving the effect of distributed parallelism.
 
 It should be noted that this is indeed a naive conception of mapReduce,
-as it does enable data parallelism nor does it take into account cluster granularity. 
+as it does not enable data parallelism nor does it take into account cluster granularity. 
 For a more in-depth exposition of mapReduce, please refer to the MBrace [manual](mbrace-manual.pdf).
 
 ## Non-deterministic parallelism
