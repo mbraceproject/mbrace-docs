@@ -3,7 +3,8 @@ source https://nuget.org/api/v2
 nuget FAKE
 nuget FSharp.Formatting 2.8.0
 nuget FSharpVSPowerTools.Core 1.7.0
-nuget MBrace.Azure 0.6.8-alpha
-nuget MBrace.Azure.Standalone 0.6.8-alpha
+nuget MBrace.Azure 0.6.10-alpha
+nuget MBrace.Azure.Standalone 0.6.10-alpha
 nuget MBrace.Core prerelease
 nuget MBrace.Flow prerelease
+nuget FsPickler.Json 1.2.7
