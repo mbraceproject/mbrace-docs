@@ -29,17 +29,19 @@ What follows is a general overview. See also the following MBrace.Azure samples 
 different aspects of the core programming model:
 
 * [Hello World with MBrace](azure/HandsOnTutorial/1-hello-world.html)
-* [Introduction to cloud parallel combinators](azure/HandsOnTutorial/2-cloud-parallel.html)
+* [Introduction to cloud combinators](azure/HandsOnTutorial/2-cloud-parallel.html)
 * [Introduction to CPU parallelism](azure/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
-* [Introduction to cloud flows](azure/HandsOnTutorial/4-cloud-parallel-data-flow.html)
+* [Introduction to Cloud Flows](azure/HandsOnTutorial/4-cloud-parallel-data-flow.html)
 * [Using C# DLLs, NuGET packages and native DLLs](azure/HandsOnTutorial/5-using-nuget-packages.html)
 * [Using Cloud Data](azure/HandsOnTutorial/6-using-cloud-data-blobs.html)
 * [Using Cloud Files](azure/HandsOnTutorial/7-using-cloud-data-files.html)
-* [Starting a WebServer to Control Your Cluster](azure/HandsOnTutorial/200-starting-a-web-server.html)
+* [Example: Parallel Web Download](azure/HandsOnTutorial/8-cloud-parallel-web-download.html)
+* [Example: Extracting Statistics for a Spelling Corrector](azure/HandsOnTutorial/9-norvig's-spelling-corrector.html)
+* [Example: Starting a WebServer to Control Your Cluster](azure/HandsOnTutorial/200-starting-a-web-server.html)
 
 ## Cloud workflows
 
-In MBrace, the unit of computation is a *cloud workflow:*
+In MBrace, the unit of computation is a *cloud workflow*:
 *)
 
 let myFirstCloudWorkflow = cloud { return 42 }
@@ -213,7 +215,7 @@ cloud {
 
 (**
 
-Clearly, one of the child computations will fail on account of
+In this case, one of the child computations will fail on account of
 an invalid url, creating an exception. In general, uncaught exceptions
 bubble up through `Cloud.Parallel` triggering cancellation of all
 outstanding child computations (just like `Async.Parallel`).
@@ -275,13 +277,13 @@ See also this [summary of the MBrace abstractions for cloud data](https://github
 ### Cloud Values
 
 The mbrace programming model offers access to persistable and distributed data 
-entities known as cloud cells. Cloud cells very much resemble immutable data values found in 
+entities known as cloud values. Cloud values very much resemble immutable data values found in 
 F# but are stored in persisted cloud storage. The following workflow stores the downloaded 
 content of a web page and returns a cloud cell to it:
 
 *)
 
-let getTextCell () = cloud {
+let textCell = cloud {
     // download a piece of data
     let! text = downloadCloud "http://www.m-brace.net/"
     // store data to a new CloudValue
@@ -302,7 +304,7 @@ let dereference (data : CloudValue<byte []>) = cloud {
 }
 
 (** 
-Cloud cells are stored in named locations and can be resurrected (parsed) from
+Cloud values are stored in named locations and can be resurrected (parsed) from
 this locations using `CloudValue.Parse`, supplying a type.
 
 *)
@@ -344,57 +346,6 @@ thus achieving the effect of distributed parallelism.
 
 This is a naive conception of mapReduce, as it does not enable data parallelism nor does it take into account cluster granularity. 
 For a more in-depth exposition of mapReduce, please refer to the MBrace [manual](mbrace-manual.pdf).
-
-*)
-
-(**
-
-### Example: Distributed Binary Trees
-
-Cloud values can be used to define distributed data structures. 
-For example, one could define a distributed binary tree like so:
-
-*)
-
-type CloudTree<'T> = 
-    | Empty
-    | Leaf of 'T
-    | Branch of TreeRef<'T> * TreeRef<'T>
-
-and TreeRef<'T> = CloudValue<CloudTree<'T>>
-
-(**
-
-The cloud tree gives rise to a number of naturally distributable combinators. For example
-
-*)
-
-let rec map (f : 'T -> 'S) (ttree : TreeRef<'T>) = cloud { 
-    let! value = ttree.Value
-    match value with
-    | Empty -> return! CloudValue.New Empty
-    | Leaf t -> return! CloudValue.New <| Leaf (f t)
-    | Branch(l,r) ->
-        let! l',r' = map f l <||> map f r 
-        return! CloudValue.New <| Branch(l', r')
-}
-
-(** and *)
-
-let rec reduce (id : 'R) (reduceF : 'R -> 'R -> 'R) (rtree : TreeRef<'R>) = cloud { 
-    let! value = rtree.Value
-    match value with
-    | Empty -> return id
-    | Leaf r -> return r
-    | Branch(l,r) ->
-        let! r,r' = reduce id reduceF l <||> reduce id reduceF r 
-        return reduceF r r'
-}
-
-(**
-
-The above functions enable distributed workflows that are 
-driven by the structural properties of the cloud tree.
 
 *)
 
@@ -486,7 +437,7 @@ The `CloudAtom` primitive is, like `CloudValue`, a reference to data saved in th
 However,
 
   * CloudAtoms are mutable. The value of a cloud atom can be updated and, as a result,
-    its values are never cached. Mutable cloud cells can be updated transactionally using the 
+    its values are never cached. Mutable cloud values can be updated transactionally using the 
     `CloudAtom.Transact` methods or forcibly using the `CloudAtom.Force` method.
 
   * CloudAtoms can be deallocated manually. This can be done using the `CloudAtom.Free` method.
@@ -521,6 +472,57 @@ let increment (counter : ICloudAtom<int>) = cloud {
     let! ok = CloudAtom.Transact(counter, (fun v -> true, v + 1))
     return ok
 }
+
+(**
+
+### Example: Distributed Binary Trees
+
+Cloud values can be used to define distributed data structures. 
+For example, one could define a distributed binary tree like so:
+
+*)
+
+type CloudTree<'T> = 
+    | Empty
+    | Leaf of 'T
+    | Branch of TreeRef<'T> * TreeRef<'T>
+
+and TreeRef<'T> = CloudValue<CloudTree<'T>>
+
+(**
+
+The cloud tree gives rise to a number of naturally distributable combinators. For example
+
+*)
+
+let rec map (f : 'T -> 'S) (ttree : TreeRef<'T>) = cloud { 
+    let! value = ttree.Value
+    match value with
+    | Empty -> return! CloudValue.New Empty
+    | Leaf t -> return! CloudValue.New <| Leaf (f t)
+    | Branch(l,r) ->
+        let! l',r' = map f l <||> map f r 
+        return! CloudValue.New <| Branch(l', r')
+}
+
+(** and *)
+
+let rec reduce (id : 'R) (reduceF : 'R -> 'R -> 'R) (rtree : TreeRef<'R>) = cloud { 
+    let! value = rtree.Value
+    match value with
+    | Empty -> return id
+    | Leaf r -> return r
+    | Branch(l,r) ->
+        let! r,r' = reduce id reduceF l <||> reduce id reduceF r 
+        return reduceF r r'
+}
+
+(**
+
+The above functions enable distributed workflows that are 
+driven by the structural properties of the cloud tree.
+
+*)
 
 (**
 
