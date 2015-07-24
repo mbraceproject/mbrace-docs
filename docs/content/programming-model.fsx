@@ -25,6 +25,18 @@ a core library implementation that offers a concise and elegant asynchronous pro
 MBrace draws heavy inspiration from asynchronous workflows and extends it to the domain of
 distributed computation.
 
+What follows is a general overview. See also the following MBrace.Azure samples which demonstrate
+different aspects of the core programming model:
+
+* [Hello World with MBrace](azure/HandsOnTutorial/1-hello-world.html)
+* [Introduction to cloud parallel combinators](azure/HandsOnTutorial/2-cloud-parallel.html)
+* [Introduction to CPU parallelism](azure/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
+* [Introduction to cloud flows](azure/HandsOnTutorial/4-cloud-parallel-data-flow.html)
+* [Using C# DLLs, NuGET packages and native DLLs](azure/HandsOnTutorial/5-using-nuget-packages.html)
+* [Using Cloud Data](azure/HandsOnTutorial/6-using-cloud-data-blobs.html)
+* [Using Cloud Files](azure/HandsOnTutorial/7-using-cloud-data-files.html)
+* [Starting a WebServer to Control Your Cluster](azure/HandsOnTutorial/200-starting-a-web-server.html)
+
 ## Cloud workflows
 
 In MBrace, the unit of computation is a *cloud workflow:*
