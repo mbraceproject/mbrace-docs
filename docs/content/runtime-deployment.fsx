@@ -1,9 +1,10 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
+#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
 
-open MBrace
+open MBrace.Core
+open MBrace.Store
 open MBrace.Azure
 open MBrace.Azure.Client
 
