@@ -20,7 +20,7 @@ The easiest path to provision an MBrace cluster on Azure using
 an Azure Cloud Service is to use [Brisk Engine](http://briskengine.com).
 See [Getting Started with MBrace using Brisk Engine](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/brisk-tutorial.md#get-started-with-brisk).
 
-## Provisioning Your Cluster an Azure Cloud Service Explicitly
+## Provisioning Your Cluster using an Explicit Azure Cloud Service 
 
 In some cases you may decide to provision explicitly, if the options provided
 by Brisk Engine do not yet meet your needs.  

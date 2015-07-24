@@ -44,6 +44,7 @@ let root = "file://" + (__SOURCE_DIRECTORY__ @@ "../output")
 let mbracePkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Azure.Standalone/tools"
 let mbraceFlowPkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Flow/lib/net45"
 let content    = __SOURCE_DIRECTORY__ @@ "../content"
+let starterKit = __SOURCE_DIRECTORY__ @@ "../starterKit"
 let output     = __SOURCE_DIRECTORY__ @@ "../output"
 let files      = __SOURCE_DIRECTORY__ @@ "../files"
 let templates  = __SOURCE_DIRECTORY__ @@ "templates"
@@ -80,12 +81,22 @@ let buildReference () =
 
 // Build documentation from `fsx` and `md` files in `docs/content`
 let buildDocumentation () =
-  let subdirs = Directory.EnumerateDirectories(content, "*", SearchOption.AllDirectories)
-  for dir in Seq.append [content] subdirs do
-    let sub = if dir.Length > content.Length then dir.Substring(content.Length + 1) else "."
-    Literate.ProcessDirectory
-      ( dir, docTemplate, output @@ sub, replacements = ("root", root)::info,
-        layoutRoots = layoutRoots, generateAnchors = true )
+
+  Fake.FileHelper.CleanDir starterKit
+  Fake.Git.Repository.cloneSingleBranch __SOURCE_DIRECTORY__ "https://github.com/mbraceproject/MBrace.StarterKit" "master" starterKit
+
+  let processDir topdir = 
+      let subdirs = Directory.EnumerateDirectories(topdir, "*", SearchOption.AllDirectories)
+      for dir in Seq.append [topdir] subdirs do
+        let sub = 
+            if dir.Length > topdir.Length && dir.StartsWith(topdir) then dir.Substring(topdir.Length + 1) 
+            else "."
+        Literate.ProcessDirectory
+          ( dir, docTemplate, output @@ sub, replacements = ("root", root)::info,
+            layoutRoots = layoutRoots, generateAnchors = true )
+  processDir content
+  processDir starterKit
+
 
 // Generate
 CleanDir output
