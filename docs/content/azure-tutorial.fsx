@@ -30,7 +30,7 @@ See [Getting Started with MBrace using Brisk Engine](https://github.com/mbracepr
 > for FSharp.Core to [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/MBraceAzureRole/app.config)
 > as described further below.  
 
-### Provisioning Your Cluster using an Explicit Azure Cloud Service 
+### Provisioning Your Cluster using a Bespoke (aka "Artisan") Azure Cloud Service 
 
 
 
