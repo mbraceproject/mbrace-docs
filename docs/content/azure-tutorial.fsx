@@ -25,7 +25,7 @@ See [Getting Started with MBrace using Brisk Engine](https://github.com/mbracepr
 
 > *IMPORTANT NOTE*: MBrace.Azure is currently optimized for clients using F# 3.1 (Visual Studio 2013, FSharp.Core 4.3.1.0).
 >
-> If using F# 3.0 (Visual Studio 2012) or F# 4.0 (Visual Studio 2015), 
+> If using a client written in F# 3.0 (Visual Studio 2012, FSharp.Core 4.3.0.0) or F# 4.0 (Visual Studio 2015, FSharp.Core 4.4.0.0), 
 > you must provision a bespoke Azure cloud service and add a binding redirect 
 > for FSharp.Core to [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/MBraceAzureRole/app.config)
 > as described further below.  
