@@ -67,7 +67,7 @@ table.pre, pre.fssnip, pre {
   white-space:pre;
   font: 11pt 'Droid Sans Mono',consolas,monospace;
   width:90%;
-  margin:10px 20px 20px 20px;
+  margin:0 auto;
   background: none;
   background-color:#212d30;
   padding:10px;
