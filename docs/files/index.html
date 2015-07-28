@@ -44,6 +44,9 @@
     <!-- Morenizr -->
     <script type="text/javascript" src="assets/plugins/modernizr.min.js"></script>
 
+    <script type="text/javascript" src="assets/js/fssnip.js"></script>
+    <link href="assets/css/fssnip.css" rel="stylesheet" type="text/css" />
+
     <!--[if lte IE 8]>
     <script src="assets/plugins/respond.js"></script>
     <![endif]-->
@@ -132,7 +135,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="programming-model.html">Programming Model (Core)</a></li>
                                         <li class="divider"></li>
-										<li><a href="azure-tutorial.html">Getting Started (Azure)</a></li>
+                                        <li><a href="azure-tutorial.html">Getting Started (Azure)</a></li>
                                         <li class="divider"></li>
                                         <li><a href="reference/index.html">API Reference</a></li>
                                     </ul>
@@ -483,11 +486,71 @@
 
         <section>
             <div class="container">
+                <header class="text-center">
+                    <h2>Running LINQ-style queries in the cloud.</h2>
+                </header>
 
-                <div class="text-center">
-                    <img class="img-responsive animate_fade_in" src="assets/images/code/example-flow.png" alt="" />
-                </div>
+<!-- it is important to preserve indentation in this section
+     see also assets/js/fssnip.js and assets/css/fssnip.css  -->
+<div>
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">Core</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">Flow</span>
 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">numberOfDuplicates</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="f">OfCloudFilesByLine</span> [<span class="s">&quot;container/data0.csv&quot;</span> ; <span class="s">&quot;container/data1.csv&quot;</span>]
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="i">line</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="i">line</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="f">Split</span>(<span class="s">&#39;,&#39;</span>))
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="i">tokens</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="f">int</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="i">tokens</span><span class="o">.</span>[<span class="n">0</span>], <span onmouseout="hideTip(event, 'fs18', 25)" onmouseover="showTip(event, 'fs18', 25)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 26)" onmouseover="showTip(event, 'fs19', 26)" class="f">map</span> <span onmouseout="hideTip(event, 'fs17', 27)" onmouseover="showTip(event, 'fs17', 27)" class="f">int</span> <span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="i">tokens</span><span class="o">.</span>[<span class="n">1</span> <span class="o">..</span>])
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 29)" onmouseover="showTip(event, 'fs11', 29)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="f">groupBy</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs21', 31)" onmouseover="showTip(event, 'fs21', 31)" class="i">id</span>,_) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="i">id</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 33)" onmouseover="showTip(event, 'fs11', 33)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="f">filter</span> (<span class="k">fun</span> (_,<span onmouseout="hideTip(event, 'fs23', 35)" onmouseover="showTip(event, 'fs23', 35)" class="i">values</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs24', 36)" onmouseover="showTip(event, 'fs24', 36)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 37)" onmouseover="showTip(event, 'fs25', 37)" class="f">length</span> <span onmouseout="hideTip(event, 'fs23', 38)" onmouseover="showTip(event, 'fs23', 38)" class="i">values</span> <span class="o">&gt;</span> <span class="n">1</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 39)" onmouseover="showTip(event, 'fs11', 39)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 40)" onmouseover="showTip(event, 'fs26', 40)" class="f">length</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 41)" onmouseover="showTip(event, 'fs1', 41)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 42)" onmouseover="showTip(event, 'fs27', 42)" class="f">Run</span>
+</pre>
+</td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">val cluster : MBrace.Azure.Client.Runtime<br /><br />Full name: Snippets-index.cluster</div>
+<div class="tip" id="fs2">module Unchecked<br /><br />from Microsoft.FSharp.Core.Operators</div>
+<div class="tip" id="fs3">val defaultof&lt;&#39;T&gt; : &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.Unchecked.defaultof</div>
+<div class="tip" id="fs4">namespace MBrace</div>
+<div class="tip" id="fs5">namespace MBrace.Azure</div>
+<div class="tip" id="fs6">namespace MBrace.Azure.Client</div>
+<div class="tip" id="fs7">type Runtime =<br />&#160;&#160;private new : clientId:string * config:Configuration -&gt; Runtime<br />&#160;&#160;member AttachClientLogger : logger:ICloudLogger -&gt; unit<br />&#160;&#160;member AttachLocalWorker : ?workerCount:int * ?maxTasks:int -&gt; unit<br />&#160;&#160;member ClearAllProcesses : ?fullClear:bool * ?force:bool -&gt; unit<br />&#160;&#160;member ClearAllProcessesAsync : ?fullClear:bool * ?force:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;member ClearProcess : pid:string * ?fullClear:bool * ?force:bool -&gt; unit<br />&#160;&#160;member ClearProcessAsync : pid:string * ?fullClear:bool * ?force:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;member CreateCancellationTokenSource : unit -&gt; ICloudCancellationTokenSource<br />&#160;&#160;member CreateProcess : workflow:Cloud&lt;&#39;T&gt; * ?name:string * ?defaultDirectory:string * ?fileStore:ICloudFileStore * ?defaultAtomContainer:string * ?atomProvider:ICloudAtomProvider * ?defaultChannelContainer:string * ?channelProvider:ICloudChannelProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; Process&lt;&#39;T&gt;<br />&#160;&#160;member CreateProcessAsTask : workflow:Cloud&lt;&#39;T&gt; * ?name:string * ?defaultDirectory:string * ?fileStore:ICloudFileStore * ?defaultAtomContainer:string * ?atomProvider:ICloudAtomProvider * ?defaultChannelContainer:string * ?channelProvider:ICloudChannelProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; Task&lt;Process&lt;&#39;T&gt;&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Client.Runtime</div>
+<div class="tip" id="fs8">namespace MBrace.Core</div>
+<div class="tip" id="fs9">namespace MBrace.Flow</div>
+<div class="tip" id="fs10">val numberOfDuplicates : int64<br /><br />Full name: Snippets-index.numberOfDuplicates</div>
+<div class="tip" id="fs12">static member CloudFlow.OfCloudFilesByLine : paths:seq&lt;string&gt; * ?encoding:System.Text.Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;</div>
+<div class="tip" id="fs13">val map : f:(&#39;T -&gt; &#39;R) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.map</div>
+<div class="tip" id="fs14">val line : string</div>
+<div class="tip" id="fs15">System.String.Split(params separator: char []) : string []<br />System.String.Split(separator: string [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int) : string []<br />System.String.Split(separator: string [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int, options: System.StringSplitOptions) : string []</div>
+<div class="tip" id="fs16">val tokens : string []</div>
+<div class="tip" id="fs17">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs18">module Array<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs19">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
+<div class="tip" id="fs20">val groupBy : projection:(&#39;T -&gt; &#39;Key) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * seq&lt;&#39;T&gt;&gt; (requires equality)<br /><br />Full name: MBrace.Flow.CloudFlow.groupBy</div>
+<div class="tip" id="fs21">val id : int</div>
+<div class="tip" id="fs22">val filter : predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.filter</div>
+<div class="tip" id="fs23">val values : seq&lt;int * int []&gt;</div>
+<div class="tip" id="fs24">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs25">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><br />Full name: Microsoft.FSharp.Collections.Seq.length</div>
+<div class="tip" id="fs26">val length : flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;int64&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.length</div>
+<div class="tip" id="fs27">member MBrace.Azure.Client.Runtime.Run : workflow:Cloud&lt;&#39;T&gt; * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; &#39;T</div>
+</div>
             </div>
         </section>
 
