@@ -12,6 +12,8 @@ open MBrace.Flow
 
 let config = Unchecked.defaultof<Configuration>
 
+#nowarn "443"
+
 (**
 
 # Programming model

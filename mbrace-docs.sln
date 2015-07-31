@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{4C2F
 		docs\content\azure-tutorial.fsx = docs\content\azure-tutorial.fsx
 		docs\content\core.fsx = docs\content\core.fsx
 		docs\content\programming-model.fsx = docs\content\programming-model.fsx
+		docs\content\snippets-index.fsx = docs\content\snippets-index.fsx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{298103B8-C3A7-4EA6-A108-7F8B41F4FD1A}"
