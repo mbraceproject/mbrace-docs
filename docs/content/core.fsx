@@ -1,7 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
+#load "../../packages/MBrace.Azure/MBrace.Azure.fsx"
 #r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
 

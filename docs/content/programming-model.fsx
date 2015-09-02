@@ -1,13 +1,11 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#load "../../packages/MBrace.Azure.Standalone/MBrace.Azure.fsx"
+#load "../../packages/MBrace.Azure/MBrace.Azure.fsx"
 #r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
 open MBrace.Core
-open MBrace.Store
 open MBrace.Azure
-open MBrace.Azure.Client
 open MBrace.Flow
 
 let config = Unchecked.defaultof<Configuration>
@@ -93,7 +91,7 @@ Recursion and higher-order computations are possible:
 *)
 
 /// Sequentially fold along a set of jobs
-let rec foldLeftCloud f state ts = cloud {
+let rec foldLeftCloud (f : 'State -> 'T -> Cloud<'State>) state ts = cloud {
     match ts with
     | [] -> return state
     | t :: ts' ->
@@ -301,7 +299,7 @@ Dereferencing a cloud cell can be done by getting its `.Value` property:
 *)
 
 let dereference (data : CloudValue<byte []>) = cloud {
-    let! v = data.Value
+    let v = data.Value
     return v
 }
 
@@ -369,7 +367,7 @@ just like `CloudValue`.
 let storePagesInCloudSequence (url : string) =
     cloud {
         let! lines = downloadCloud url
-        let! cseq = CloudSequence.New lines
+        let! cseq = CloudValue.New lines
         return cseq
     }
 
@@ -382,18 +380,17 @@ let storePagesInCloudSequences (urls : string list) =
 
 (**
 
-A collection of cloud sequences can then be usesd as input into a cloud flow:
+A collection of cloud sequences can then be used as input into a cloud flow:
 
 *)
 
 cloud { 
-    let! sequences = storePagesInCloudSequences [ "http://google.com"; "http://bing.com" ]
-
-    return 
-        sequences 
-        |> CloudFlow.OfCloudSequences 
+    return!
+        CloudFlow.OfHttpFileByLine [ "http://google.com"; "http://bing.com" ]
         |> CloudFlow.map (fun x -> x)
+        |> CloudFlow.length
 }
+
 (**
 
 ### Cloud Files
@@ -426,7 +423,7 @@ cloud {
     let! results = files |> Array.map wordCount |> Cloud.Parallel
 
     // persist results to a new Cloud file in XML format
-    let serializer = FsPickler.CreateXml()
+    let serializer = FsPickler.CreateXmlSerializer()
     let! file = CloudFile.Create("path/file.xml",fun fs -> async { return serializer.Serialize(fs, results) })
     return file
 }
@@ -469,7 +466,7 @@ The following snippet implements an transactionally incrementing function acting
 
 *)
 
-let increment (counter : ICloudAtom<int>) = cloud {
+let increment (counter : CloudAtom<int>) = cloud {
     let! v = CloudAtom.Read counter
     let! ok = CloudAtom.Transact(counter, (fun v -> true, v + 1))
     return ok
@@ -498,7 +495,7 @@ The cloud tree gives rise to a number of naturally distributable combinators. Fo
 *)
 
 let rec map (f : 'T -> 'S) (ttree : TreeRef<'T>) = cloud { 
-    let! value = ttree.Value
+    let! value = ttree.GetValueAsync()
     match value with
     | Empty -> return! CloudValue.New Empty
     | Leaf t -> return! CloudValue.New <| Leaf (f t)
@@ -510,7 +507,7 @@ let rec map (f : 'T -> 'S) (ttree : TreeRef<'T>) = cloud {
 (** and *)
 
 let rec reduce (id : 'R) (reduceF : 'R -> 'R -> 'R) (rtree : TreeRef<'R>) = cloud { 
-    let! value = rtree.Value
+    let! value = rtree.GetValueAsync()
     match value with
     | Empty -> return id
     | Leaf r -> return r
