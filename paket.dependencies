@@ -2,7 +2,6 @@ source https://nuget.org/api/v2
 
 nuget FAKE
 nuget FSharp.Formatting
-nuget FSharpVSPowerTools.Core
 nuget MBrace.Core prerelease
 nuget MBrace.Flow prerelease
 nuget MBrace.Azure 0.10.0-alpha
