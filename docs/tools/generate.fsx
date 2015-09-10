@@ -41,15 +41,16 @@ let root = "file://" + (__SOURCE_DIRECTORY__ @@ "../output")
 #endif
 
 // Paths with template/source/output locations
-let mbracePkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Azure.Standalone/tools"
-let mbraceFlowPkg  = __SOURCE_DIRECTORY__ @@ "../../packages/MBrace.Flow/lib/net45"
-let content    = __SOURCE_DIRECTORY__ @@ "../content"
-let starterKit = __SOURCE_DIRECTORY__ @@ "../starterKit"
-let output     = __SOURCE_DIRECTORY__ @@ "../output"
-let files      = __SOURCE_DIRECTORY__ @@ "../files"
+let mbraceAzurePkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure" @@ "tools"
+let mbraceFlowPkgDir  = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Flow" @@ "lib" @@ "net45"
+let streamsPkgDir     = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "Streams" @@ "lib" @@ "net45"
+let content    = __SOURCE_DIRECTORY__ @@ ".." @@ "content"
+let starterKit = __SOURCE_DIRECTORY__ @@ ".." @@ "starterKit"
+let output     = __SOURCE_DIRECTORY__ @@ ".." @@ "output"
+let files      = __SOURCE_DIRECTORY__ @@ ".." @@ "files"
 let templates  = __SOURCE_DIRECTORY__ @@ "templates"
-let formatting = __SOURCE_DIRECTORY__ @@ "../../packages/FSharp.Formatting/"
-let docTemplate = formatting @@ "templates/docpage.cshtml"
+let formatting = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "FSharp.Formatting/"
+let docTemplate = formatting @@ "templates" @@ "docpage.cshtml"
 
 // Where to look for *.csproj templates (in this order)
 let layoutRoots =
@@ -67,15 +68,15 @@ let copyFiles () =
 let buildReference () =
   CleanDir (output @@ "reference")
   let binaries =
-    [ for lib in mbraceBinaries -> mbracePkg @@ lib
-      for lib in mbraceFlowBinaries -> mbraceFlowPkg @@ lib ]
+    [ for lib in mbraceBinaries -> mbraceAzurePkgDir @@ lib
+      for lib in mbraceFlowBinaries -> mbraceFlowPkgDir @@ lib ]
     
   MetadataFormat.Generate
     ( binaries , output @@ "reference", layoutRoots, 
       parameters = ("root", root)::info,
       sourceRepo = githubLink @@ "tree/master",
       sourceFolder = __SOURCE_DIRECTORY__ @@ ".." @@ "..",
-      libDirs = [mbracePkg; mbraceFlowPkg; __SOURCE_DIRECTORY__ + "/../../packages/Streams/lib/net45"],
+      libDirs = [mbraceAzurePkgDir; mbraceFlowPkgDir; streamsPkgDir ],
       //assemblyReferences = [__SOURCE_DIRECTORY__ + "/../../packages/Streams/lib/net45/Streams.Core.dll"],
       publicOnly = true )
 
@@ -84,18 +85,20 @@ let buildDocumentation () =
 
   Fake.FileHelper.CleanDir starterKit
   Fake.Git.Repository.cloneSingleBranch __SOURCE_DIRECTORY__ "https://github.com/mbraceproject/MBrace.StarterKit" "master" starterKit
+  if Fake.ProcessHelper.Shell.Exec(__SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ ".paket" @@ "paket.exe","install",__SOURCE_DIRECTORY__ @@ ".." @@ "starterKit") <> 0 then
+      failwith "paket restore failed"
 
-  let processDir topdir = 
-      let subdirs = Directory.EnumerateDirectories(topdir, "*", SearchOption.AllDirectories)
-      for dir in Seq.append [topdir] subdirs do
+  let processDir topInDir topOutDir = 
+      let subdirs = Directory.EnumerateDirectories(topInDir, "*", SearchOption.AllDirectories)
+      for dir in Seq.append [topInDir] subdirs do
         let sub = 
-            if dir.Length > topdir.Length && dir.StartsWith(topdir) then dir.Substring(topdir.Length + 1) 
+            if dir.Length > topInDir.Length && dir.StartsWith(topInDir) then dir.Substring(topInDir.Length + 1) 
             else "."
         Literate.ProcessDirectory
-          ( dir, docTemplate, output @@ sub, replacements = ("root", root)::info,
+          ( dir, docTemplate, topOutDir @@ sub, replacements = ("root", root)::info,
             layoutRoots = layoutRoots, generateAnchors = true )
-  processDir content
-  processDir starterKit
+  processDir content output
+  processDir (starterKit @@ "azure") (output @@ "azure")
 
 
 // Generate
