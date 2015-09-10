@@ -2,6 +2,7 @@ source https://nuget.org/api/v2
 
 nuget FAKE
 nuget FSharp.Formatting
+nuget FSharp.Compiler.Service < 1.4.0.0
 nuget MBrace.Core prerelease
 nuget MBrace.Flow prerelease
 nuget MBrace.Azure 0.10.0-alpha
