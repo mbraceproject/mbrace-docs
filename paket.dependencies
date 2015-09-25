@@ -4,5 +4,7 @@ nuget FAKE
 nuget FSharp.Formatting
 nuget FSharp.Compiler.Service < 1.4.0.0
 nuget MBrace.Core prerelease
-nuget MBrace.Flow prerelease
-nuget MBrace.Azure 0.10.3-alpha
+nuget MBrace.Flow
+nuget MBrace.Runtime
+nuget MBrace.Thespian
+nuget MBrace.Azure 0.10.6-alpha
