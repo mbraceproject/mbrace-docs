@@ -33,7 +33,7 @@ different aspects of the core programming model:
 * [Introduction to CPU parallelism](azure/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
 * [Introduction to Cloud Flows](azure/HandsOnTutorial/4-cloud-parallel-data-flow.html)
 * [Using C# DLLs, NuGET packages and native DLLs](azure/HandsOnTutorial/5-using-nuget-packages.html)
-* [Using Cloud Data](azure/HandsOnTutorial/6-using-cloud-data-blobs.html)
+* [Using Cloud Data](azure/HandsOnTutorial/6-using-cloud-values.html)
 * [Using Cloud Files](azure/HandsOnTutorial/7-using-cloud-data-files.html)
 * [Example: Parallel Web Download](azure/HandsOnTutorial/8-cloud-parallel-web-download.html)
 * [Example: Extracting Statistics for a Spelling Corrector](azure/HandsOnTutorial/9-norvig's-spelling-corrector.html)

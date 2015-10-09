@@ -27,8 +27,8 @@ See [Getting Started with MBrace using Brisk Engine](https://github.com/mbracepr
 >
 > If using a client written in F# 3.0 (Visual Studio 2012, FSharp.Core 4.3.0.0) or F# 4.0 (Visual Studio 2015, FSharp.Core 4.4.0.0), 
 > you must provision a bespoke Azure cloud service and add a binding redirect 
-> for FSharp.Core to [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/MBraceAzureRole/app.config)
-> as described further below.  
+> for FSharp.Core to [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/VS2013/MBraceAzureRole/app.config)
+> as described further below.
 
 ### Provisioning Your Cluster using a Bespoke (aka "Artisan") Azure Cloud Service 
 
@@ -37,7 +37,7 @@ See [Getting Started with MBrace using Brisk Engine](https://github.com/mbracepr
 In some cases you may decide to provision explicitly, if the options provided
 by Brisk Engine do not yet meet your needs.  
 
-If so, see [Creating a Custom Azure Cloud Service which includes MBrace runtime instances](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/AZURE.md).
+If so, see [Creating a Custom Azure Cloud Service which includes MBrace runtime instances](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/README.md).
 
 For example you may want to:
 

@@ -38,5 +38,5 @@ For more information see the [License file][license] in the GitHub repository.
 
   [gh]: https://github.com/mbraceproject/MBrace
   [issues]: https://github.com/mbraceproject/MBrace/issues
-  [license]: https://github.com/mbraceproject/MBrace/blob/master/LICENSE.md
+  [license]: https://github.com/mbraceproject/MBrace.Core/blob/master/License.md
 *)

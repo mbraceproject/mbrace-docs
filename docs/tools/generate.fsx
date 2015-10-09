@@ -101,7 +101,7 @@ let buildDocumentation () =
           ( dir, docTemplate, topOutDir @@ sub, replacements = ("root", root)::info,
             layoutRoots = layoutRoots, generateAnchors = true )
   processDir content output
-  processDir (starterKit @@ "azure") (output @@ "azure")
+  processDir starterKit (output @@ "azure")
 
 
 // Generate
