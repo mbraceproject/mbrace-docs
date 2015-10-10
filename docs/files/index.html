@@ -107,9 +107,14 @@
 
                             <ul id="topMain" class="nav nav-pills nav-main">
 
-                                <li>
-                                    <a href="#try">LEARN <span>get started</span></a>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">TRY <span>get started</span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#try-local">Try MBrace.Core (locally simulated)</a></li>
+                                        <li><a href="#try-azure">Try MBrace.Azure (Azure-hosted)</a></li>
+                                    </ul>
                                 </li>
+
                                 <li>
                                     <a href="#features">FEATURES <span>details</span></a>
                                 </li>
@@ -120,11 +125,11 @@
                                         <li class="divider"></li>
                                         <li><a href="https://github.com/mbraceproject/MBrace.Core/issues">Report an Issue (MBrace.Core)</a></li>
                                         <li><a href="https://github.com/mbraceproject/MBrace.Core/blob/master/ROADMAP.md">Roadmap (MBrace.Core)</a></li>
-                                        <li><a href="https://github.com/mbraceproject/MBrace.Core/blob/master/README.md">Dev Guide (MBrace.Core)</a></li>
+                                        <li><a href="https://github.com/mbraceproject/MBrace.Core">Contribute (MBrace.Core)</a></li>
                                         <li class="divider"></li>
                                         <li><a href="https://github.com/mbraceproject/MBrace.Azure/issues">Report an Issue (MBrace.Azure)</a></li>
                                         <li><a href="https://github.com/mbraceproject/MBrace.Azure/blob/master/ROADMAP.md">Roadmap (MBrace.Azure)</a></li>
-                                        <li><a href="https://github.com/mbraceproject/MBrace.Azure/blob/master/README.md">Dev Guide (MBrace.Azure)</a></li>
+                                        <li><a href="https://github.com/mbraceproject/MBrace.Azure">Contribute (MBrace.Azure)</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -133,10 +138,11 @@
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" href="#">DOCUMENTATION <span>tutorials, reference</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="programming-model.html">Programming Model (Core)</a></li>
+                                        <li><a href="programming-model.html">Programming Model</a></li>
                                         <li class="divider"></li>
+                                        <li><a href="thespian-tutorial.html">Getting Started (Local)</a></li>
                                         <li><a href="azure-tutorial.html">Getting Started (Azure)</a></li>
-                                        <li class="divider"></li>
+                                       <li class="divider"></li>
                                         <li><a href="reference/index.html">API Reference</a></li>
                                     </ul>
                                 </li>
@@ -186,7 +192,7 @@
 
                     <div class="col-md-9">
                         <!-- title + shortdesc -->
-                        <h3>Integrated Data Scripting for the Cloud - Get started with MBrace.Core and MBrace.Azure today.</h3>
+                        <h3>Integrated Data Scripting for the Cloud - Get started with MBrace.Core (local) or MBrace.Azure (Azure) today.</h3>
                     </div>
 
 
@@ -201,18 +207,19 @@
                 <header>
                     <h2>
                         Welcome to
-                        <span class="word-rotator" data-delay="2000">
+                        <span class="word-rotator" data-delay="4000">
                             <!-- word rotator - default delay: 2000. Change rotating delay: data-delay="5000" -->
                             <span class="items bold">
                                 <span><em>MBrace</em></span>
                                 <span><em>simple scripting of scalable compute and data jobs</em></span>
+                                <span><em>programming model independent of cloud vendor</em></span>
                                 <span><em>big data and big compute</em></span>
                             </span>
                         </span><!-- /word rotator -->
                     </h2>
                     <p class="lead">
                         MBrace.Core is a simple programming model for scalable cloud data scripting and programming with F# and C#.
-                        With MBrace.Azure, you can script Azure for large-scale compute and data processing, directly from Visual Studio.
+                        With MBrace.Azure, you can script Azure for large-scale compute and data processing, directly from your favourite editor.
                     </p>
                 </header>
 
@@ -253,10 +260,10 @@
                     </div>
 
                     <div class="col-md-4 col-sm-4">
-                        <h4><i class="fa fa-desktop"></i> Direct from Visual Studio</h4>
+                        <h4><i class="fa fa-desktop"></i> Direct from your editor</h4>
                         <p>
                             With MBrace.Azure, use your Azure storage and compute assets,
-                            at your fingertips in Visual Studio.
+                            at your fingertips in your favourite editor.
                         </p>
                     </div>
 
@@ -268,22 +275,35 @@
         <!-- /WELCOME -->
 
 
-        <section>
-            <div class="callout dark" id="try">
+        <section id="try">
+            <div class="callout dark" id="try-local">
                 <div class="container text-left">
 
-                    <h2>Getting Started with the MBrace.Azure preview in Visual Studio</h2>
+                    <h2>Getting Started with MBrace.Core (locally simulated cluster)</h2>
 
                     <ol>
-                        <li>If necessary, <a href="http://fsharp.org/about/learning.html" target="_blank">learn basic F# scripting in Visual Studio</a> </li>
-                        <li>Create a cluster.
+                        <li><a href="http://fsharp.org/about/learning.html" target="_blank">Learn basic F# scripting</a> in your favourite editor.</li>
+                        <li><a href="thespian-tutorial.html">Create and use a simulated cluster</a> on your local machine.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="callout dark" id="try-azure">
+                <div class="container text-left">
+
+                    <h2>Getting Started with MBrace.Azure (Azure-hosted cluster)</h2>
+
+                    <ol>
+                        <li><a href="http://fsharp.org/about/learning.html" target="_blank">Learn basic F# scripting in your editor</a>.</li>
+                        <li>
+                            Create a cluster in Azure:
                             <ul>
                                 <li>
                                     The easy way: if using F# 3.1 (Visual Studio 2013), follow the
                                     <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/brisk-tutorial.md#get-started-with-brisk" target="_blank">step-by-step guide to create your cluster in Azure</a> using
                                     <a href="https://www.briskengine.com" target="_blank">Brisk Engine</a>.
                                 </li>
-                                <li>If you have <a href="azure-tutorial.html#Provisioning-Your-Cluster-using-a-Bespoke-aka-Artisan-Azure-Cloud-Service">special needs</a>, or are using F# 3.0/VS2012 or F# 4.0/VS2015, then you can
+                                <li>
+                                    If you have <a href="azure-tutorial.html#Provisioning-Your-Cluster-using-a-Bespoke-aka-Artisan-Azure-Cloud-Service">special needs</a>, or are using F# 3.0/VS2012 or F# 4.0/VS2015, then you can
                                     <a href="azure-tutorial.html#Provisioning-Your-Cluster" target="_blank">provision a bespoke MBrace Azure cloud service</a>
                                 </li>
                             </ul>
@@ -314,38 +334,6 @@
                     </div>
                 </div>
 
-                <!--
-
-                                <div class="row text-center countTo">
-                                        <div class="col-md-3 col-sm-6">
-                                            <span class="boxed radius3">
-                                                <strong class="styleColor" data-to="13">13</strong>
-                                                <label>Years Experience</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-6">
-                                            <span class="boxed radius3">
-                                                <strong class="styleColor" data-to="12000">12000</strong>
-                                                <label>Hours of Development</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-6">
-                                            <span class="boxed radius3">
-                                                <strong class="styleColor" data-to="3890">3890</strong>
-                                                <label>Happy Customers</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-6">
-                                            <span class="boxed radius3">
-                                                <strong class="styleColor" data-to="11000">11000</strong>
-                                                <label>Cups of Coffee</label>
-                                            </span>
-                                        </div>
-                                    </div>
-                -->
             </div>
 
         </section>
@@ -435,7 +423,7 @@
                 <div class="row text-left hidden-xs">
                     <div class="col-md-4 col-sm-4">
                         <ul class="list-icon spaced check-circle">
-                            <li>Cloud Scripting from Visual Studio</li>
+                            <li>Cloud Scripting from Your Editor</li>
                             <li>Programmatic Data Upload</li>
                             <li>Automatic Code Transport</li>
                             <li>Extensible Data Serialization</li>
@@ -534,13 +522,11 @@
 </tr>
 </table>
 
-<div class="tip" id="fs1">val cluster : MBrace.Azure.Client.Runtime<br /><br />Full name: Snippets-index.cluster</div>
-<div class="tip" id="fs2">module Unchecked<br /><br />from Microsoft.FSharp.Core.Operators</div>
-<div class="tip" id="fs3">val defaultof&lt;&#39;T&gt; : &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.Unchecked.defaultof</div>
-<div class="tip" id="fs4">namespace MBrace</div>
-<div class="tip" id="fs5">namespace MBrace.Azure</div>
-<div class="tip" id="fs6">namespace MBrace.Azure.Client</div>
-<div class="tip" id="fs7">type Runtime =<br />&#160;&#160;private new : clientId:string * config:Configuration -&gt; Runtime<br />&#160;&#160;member AttachClientLogger : logger:ICloudLogger -&gt; unit<br />&#160;&#160;member AttachLocalWorker : ?workerCount:int * ?maxTasks:int -&gt; unit<br />&#160;&#160;member ClearAllProcesses : ?fullClear:bool * ?force:bool -&gt; unit<br />&#160;&#160;member ClearAllProcessesAsync : ?fullClear:bool * ?force:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;member ClearProcess : pid:string * ?fullClear:bool * ?force:bool -&gt; unit<br />&#160;&#160;member ClearProcessAsync : pid:string * ?fullClear:bool * ?force:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;member CreateCancellationTokenSource : unit -&gt; ICloudCancellationTokenSource<br />&#160;&#160;member CreateProcess : workflow:Cloud&lt;&#39;T&gt; * ?name:string * ?defaultDirectory:string * ?fileStore:ICloudFileStore * ?defaultAtomContainer:string * ?atomProvider:ICloudAtomProvider * ?defaultChannelContainer:string * ?channelProvider:ICloudChannelProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; Process&lt;&#39;T&gt;<br />&#160;&#160;member CreateProcessAsTask : workflow:Cloud&lt;&#39;T&gt; * ?name:string * ?defaultDirectory:string * ?fileStore:ICloudFileStore * ?defaultAtomContainer:string * ?atomProvider:ICloudAtomProvider * ?defaultChannelContainer:string * ?channelProvider:ICloudChannelProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; Task&lt;Process&lt;&#39;T&gt;&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Client.Runtime</div>
+<div class="tip" id="fs1">val cluster : MBrace.Azure.Runtime<br /><br />Full name: Snippets-index.cluster</div>
+<div class="tip" id="fs2">module Unchecked<br /><br />from FSharp.Core.Operators</div>
+<div class="tip" id="fs3">val defaultof&lt;&#39;T&gt; : &#39;T<br /><br />Full name: FSharp.Core.Operators.Unchecked.defaultof</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs7">type Runtime =<br />&#160;&#160;private new : clientId:string * config:Configuration -&gt; Runtime<br />&#160;&#160;member AttachClientLogger : logger:ICloudLogger -&gt; unit<br />&#160;&#160;member AttachLocalWorker : ?workerCount:int * ?maxTasks:int -&gt; unit<br />&#160;&#160;member ClearAllProcesses : ?fullClear:bool * ?force:bool -&gt; unit<br />&#160;&#160;member ClearAllProcessesAsync : ?fullClear:bool * ?force:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;member ClearProcess : pid:string * ?fullClear:bool * ?force:bool -&gt; unit<br />&#160;&#160;member ClearProcessAsync : pid:string * ?fullClear:bool * ?force:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;member CreateCancellationTokenSource : unit -&gt; ICloudCancellationTokenSource<br />&#160;&#160;member CreateProcess : workflow:Cloud&lt;&#39;T&gt; * ?name:string * ?defaultDirectory:string * ?fileStore:ICloudFileStore * ?defaultAtomContainer:string * ?atomProvider:ICloudAtomProvider * ?defaultChannelContainer:string * ?channelProvider:ICloudChannelProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; Process&lt;&#39;T&gt;<br />&#160;&#160;member CreateProcessAsTask : workflow:Cloud&lt;&#39;T&gt; * ?name:string * ?defaultDirectory:string * ?fileStore:ICloudFileStore * ?defaultAtomContainer:string * ?atomProvider:ICloudAtomProvider * ?defaultChannelContainer:string * ?channelProvider:ICloudChannelProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; Task&lt;Process&lt;&#39;T&gt;&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Runtime</div>
 <div class="tip" id="fs8">namespace MBrace.Core</div>
 <div class="tip" id="fs9">namespace MBrace.Flow</div>
 <div class="tip" id="fs10">val numberOfDuplicates : int64<br /><br />Full name: Snippets-index.numberOfDuplicates</div>
@@ -549,17 +535,16 @@
 <div class="tip" id="fs14">val line : string</div>
 <div class="tip" id="fs15">System.String.Split(params separator: char []) : string []<br />System.String.Split(separator: string [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int) : string []<br />System.String.Split(separator: string [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int, options: System.StringSplitOptions) : string []</div>
 <div class="tip" id="fs16">val tokens : string []</div>
-<div class="tip" id="fs17">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
-<div class="tip" id="fs18">module Array<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="tip" id="fs19">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
+<div class="tip" id="fs17">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs18">module Array<br /><br />from FSharp.Collections</div>
+<div class="tip" id="fs19">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: FSharp.Collections.Array.map</div>
 <div class="tip" id="fs20">val groupBy : projection:(&#39;T -&gt; &#39;Key) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * seq&lt;&#39;T&gt;&gt; (requires equality)<br /><br />Full name: MBrace.Flow.CloudFlow.groupBy</div>
 <div class="tip" id="fs21">val id : int</div>
 <div class="tip" id="fs22">val filter : predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.filter</div>
 <div class="tip" id="fs23">val values : seq&lt;int * int []&gt;</div>
-<div class="tip" id="fs24">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="tip" id="fs25">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><br />Full name: Microsoft.FSharp.Collections.Seq.length</div>
+<div class="tip" id="fs24">module Seq<br /><br />from FSharp.Collections</div>
+<div class="tip" id="fs25">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><br />Full name: FSharp.Collections.Seq.length</div>
 <div class="tip" id="fs26">val length : flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;int64&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.length</div>
-<div class="tip" id="fs27">member MBrace.Azure.Client.Runtime.Run : workflow:Cloud&lt;&#39;T&gt; * ?cancellationToken:ICloudCancellationToken * ?faultPolicy:FaultPolicy -&gt; &#39;T</div>
 </div>
             </div>
         </section>
@@ -700,81 +685,6 @@
                             </div>
                         </div>
                     </div>
-<!--
-                    <div class="col-sm-3 col-md-3 fadeInUpBig">
-                        <a href="https://skillsmatter.com/skillscasts/6215-mbrace-harnessing-the-cloud-with-net">
-                            <div class="box-content thumbnail text-center">
-                                <span class="item-image">
-                                    <img width="250" height="200" src="assets/images/people/npal.jpg" alt="">
-                                </span>
-                                <div class="caption text-left">
-
-                                    <div class="clearfix margin-bottom10">
-                                        <div class="pull-left">
-                                            <h4 class="nomargin">
-                                                MBrace: harnessing the cloud with .NET
-                                                <small class="block">Nick Palladinos</small>
-                                            </h4>
-                                        </div>
-
-                                    </div>
-
-                                    <p class="noborder nomargin nopadding">Skillsmatter, London</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-sm-3 col-md-3 fadeInUpBig">
-                        <div class="box-content thumbnail text-center">
-                            <span class="item-image">
-                                <img class="img-responsive" src="http://bluemountaincapital.github.io/Deedle/images/logo.png" alt="">
-                            </span>
-
-                            <div class="caption text-left">
-
-                                <div class="clearfix margin-bottom10">
-                                    <div class="pull-left">
-                                        <a href="https://github.com/tpetricek/Deedle.BigDemo#bigdeedle-large-time-series-azure-demo">
-                                            <h4 class="nomargin">
-                                                BigDeedle - MBrace and Deedle for very large time series and data frames.
-                                                <small class="block">Tomas Petricek</small>
-                                            </h4>
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                                <p class="noborder nomargin nopadding">GitHub</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-3 col-md-3 fadeInUpBig">
-                        <div class="box-content thumbnail text-center">
-                            <div>
-                                <iframe src="https://channel9.msdn.com/Events/NET-Fringe/NET-Fringe-2015/F-and-MBrace/player" width="250" height="201" webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"></iframe>
-                            </div>
-                            <div class="caption text-left">
-
-                                <div class="clearfix margin-bottom10">
-                                    <div class="pull-left">
-                                        <a href="https://channel9.msdn.com/Events/NET-Fringe/NET-Fringe-2015/F-and-MBrace">
-                                            <h4 class="nomargin">
-                                                F# and MBrace with Lena Dzenisenka
-                                                <small class="block">Channel 9</small>
-                                            </h4>
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                                <p class="noborder nomargin nopadding">.NET Fringe, Portland</p>
-                            </div>
-                        </div>
-                    </div>
--->
                 </div>
 
             </div>
@@ -786,11 +696,11 @@
 
 
                 <header class="text-center">
-                    <h2>MBrace.Azure brings Azure scalability directly into Visual Studio</h2>
+                    <h2>MBrace.Azure brings Azure scalability direct to your favourite editor</h2>
                     <blockquote class="noborder nopadding nomargin">
                         <i>
                             MBrace.Azure integrates Azure storage and compute VMs as a kind of co-processor to your F# Interactive scripting sessions or your F#/C# applications.
-                            It brings Azure scalability directly into Visual Studio using an intuitive and powerful data scripting model. Combining
+                            It brings Azure scalability directly into your favourite editor using an intuitive and powerful data scripting model. Combining
                             MBrace.Azure with F# gives a powerful and scalable cloud data scripting solution.
                         </i>
                         <cite class="block">Don Syme, F# Language Designer</cite>
@@ -810,7 +720,7 @@
                     <div class="col-md-4 col-sm-4">
                         <h3>Distributing Machine Learning Tasks</h3>
                         <div class="testimonial classic female animate_from_bottom">
-                            <p>I was amazed by the simplicity of MBrace and how quickly we could go from starting out for the first time to running compute tasks on a cluster of 150 instances, all from with Visual Studio! Machine learning tasks often require cleaning up the dataset before being able to run any training on them. These clean up tasks could take a lot of time. In our case it was finding and removing duplicate images irrespective of their scale, resolution or crop. By using MBrace's easy compute distribution we could quickly try out our ideas and get results</p>
+                            <p>I was amazed by the simplicity of MBrace and how quickly we could go from starting out for the first time to running compute tasks on a cluster of 150 instances, all from your favourite editor! Machine learning tasks often require cleaning up the dataset before being able to run any training on them. These clean up tasks could take a lot of time. In our case it was finding and removing duplicate images irrespective of their scale, resolution or crop. By using MBrace's easy compute distribution we could quickly try out our ideas and get results</p>
                             <cite><strong>Indeera</strong>, Machine Learning Software Developer</cite>
                         </div>
                     </div>
@@ -832,7 +742,7 @@
                         <h3>Scalable biological computation modelling</h3>
                         <div class="testimonial classic female animate_from_bottom">
                             <p>MBrace substantially reduces the effort of running our large-scale numeric and symbolic computations on flexible infrastructure. With the documented examples and only a few hours effort, I adapted one of our molecular computing tools from our 10+ year codebase (F#, C#, C++) to having a working sample on MBrace and Azure. MBrace has allowed us to easily move our command-line tools from fixed compute clusters to Azure allowing us to scale on demand. Even better, it lets us specify the experiments dynamically from F# interactive.</p>
-                            <cite><strong>Colin Gravill</strong>, Software Developer, <a href="http://research.microsoft.com/groups/biology/">Biological Computation</a>, Microsoft Research</cite>
+                            <cite><strong>Colin Gravill</strong>, Software Developer, <a href="http://research.com/groups/biology/">Biological Computation</a>, Microsoft Research</cite>
                         </div>
                     </div>					
                 </div>

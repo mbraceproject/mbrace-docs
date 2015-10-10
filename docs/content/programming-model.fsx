@@ -1,14 +1,14 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#load "../../packages/MBrace.Azure/MBrace.Azure.fsx"
+#load "../../packages/MBrace.Thespian/MBrace.Thespian.fsx"
 #r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
 open MBrace.Core
-open MBrace.Azure
+open MBrace.Thespian
 open MBrace.Flow
 
-let config = Unchecked.defaultof<Configuration>
+let config = Unchecked.defaultof<MBrace.Thespian.ThespianCluster>
 
 #nowarn "443"
 
@@ -16,30 +16,27 @@ let config = Unchecked.defaultof<Configuration>
 
 # Programming model
 
-The MBrace programming model is based on F# 
-[computation expressions](http://msdn.microsoft.com/en-us/library/dd233182.aspx),
-a feature that allows user-defined, language-integrated DSLs.
-A notable application of computation expressions in F# is
-[asynchronous workflows](http://msdn.microsoft.com/en-us/library/dd233250.aspx),
-a core library implementation that offers a concise and elegant asynchronous programming model.
-MBrace draws heavy inspiration from asynchronous workflows and extends it to the domain of
-distributed computation.
+The MBrace programming model is a language-integrated cloud programming DSL for use from F#.
+It offers a concise and elegant programming model which extends F# asynchronous workflows 
+to the domain of distributed cloud computation.
 
-What follows is a general overview. See also the following MBrace.Azure samples which demonstrate
+See the following samples which demonstrate
 different aspects of the core programming model:
 
-* [Hello World with MBrace](azure/HandsOnTutorial/1-hello-world.html)
-* [Introduction to cloud combinators](azure/HandsOnTutorial/2-cloud-parallel.html)
-* [Introduction to CPU parallelism](azure/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
-* [Introduction to Cloud Flows](azure/HandsOnTutorial/4-cloud-parallel-data-flow.html)
-* [Using C# DLLs, NuGET packages and native DLLs](azure/HandsOnTutorial/5-using-nuget-packages.html)
-* [Using Cloud Data](azure/HandsOnTutorial/6-using-cloud-values.html)
-* [Using Cloud Files](azure/HandsOnTutorial/7-using-cloud-data-files.html)
-* [Example: Parallel Web Download](azure/HandsOnTutorial/8-cloud-parallel-web-download.html)
-* [Example: Extracting Statistics for a Spelling Corrector](azure/HandsOnTutorial/9-norvig's-spelling-corrector.html)
-* [Example: Starting a WebServer to Control Your Cluster](azure/HandsOnTutorial/200-starting-a-web-server.html)
+* [Hello World with MBrace](starterkit/HandsOnTutorial/1-hello-world.html)
+* [Introduction to cloud combinators](starterkit/HandsOnTutorial/2-cloud-parallel.html)
+* [Introduction to CPU parallelism](starterkit/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
+* [Introduction to Cloud Flows](starterkit/HandsOnTutorial/4-cloud-parallel-data-flow.html)
+* [Using C# DLLs, NuGET packages and native DLLs](starterkit/HandsOnTutorial/5-using-nuget-packages.html)
+* [Using Cloud Data](starterkit/HandsOnTutorial/6-using-cloud-values.html)
+* [Using Cloud Files](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
+* [Example: Parallel Web Download](starterkit/HandsOnTutorial/8-cloud-parallel-web-download.html)
+* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/9-norvig's-spelling-corrector.html)
+* [Example: Starting a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/200-starting-a-web-server.html)
 
-## Cloud workflows
+What follows is a general overview. 
+
+## Cloud Workflows
 
 In MBrace, the unit of computation is a *cloud workflow*:
 *)
@@ -86,22 +83,7 @@ to be consumed by the continuations of the main computation.
 Once executed, this will sequentually perform the computations in `first`
 and `second`, resuming once the latter has completed.
 
-Recursion and higher-order computations are possible:
-
-*)
-
-/// Sequentially fold along a set of jobs
-let rec foldLeftCloud (f : 'State -> 'T -> Cloud<'State>) state ts = cloud {
-    match ts with
-    | [] -> return state
-    | t :: ts' ->
-        let! s' = f state t
-        return! foldLeftCloud f s' ts'
-}
-
-(**
-
-and so are for loops and while loops.
+For loops and while loops are possible:
 
 *)
 
@@ -258,6 +240,23 @@ let tryFind (f : 'T -> bool) (ts : 'T list) = cloud {
 
 (**
 
+## Functional composition of cloud tasks
+
+Recursive and higher-order composition of cloud tasks is possible:
+
+*)
+
+/// Sequentially fold along a set of jobs
+let rec foldLeftCloud (f : 'State -> 'T -> Cloud<'State>) state ts = cloud {
+    match ts with
+    | [] -> return state
+    | t :: ts' ->
+        let! s' = f state t
+        return! foldLeftCloud f s' ts'
+}
+
+(**
+
 ## Distributed Data
 
 Cloud workflows offer a programming model for distributed computation. 
@@ -408,7 +407,7 @@ cloud {
     let! files = CloudFile.Enumerate "path/to/container"
 
     // read a cloud file and return its word count
-    let wordCount (f : CloudFile) = cloud {
+    let wordCount (f : CloudFileInfo) = cloud {
         let! text = CloudFile.ReadAllText f.Path
         let count =
             text.Split(' ')
@@ -422,10 +421,7 @@ cloud {
     // perform computation in parallel
     let! results = files |> Array.map wordCount |> Cloud.Parallel
 
-    // persist results to a new Cloud file in XML format
-    let serializer = FsPickler.CreateXmlSerializer()
-    let! file = CloudFile.Create("path/file.xml",fun fs -> async { return serializer.Serialize(fs, results) })
-    return file
+    return results
 }
 
 (**

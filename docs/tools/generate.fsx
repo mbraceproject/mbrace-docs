@@ -47,7 +47,7 @@ let mbraceFlowPkgDir  = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "M
 let mbraceAzurePkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure" @@ "tools"
 let streamsPkgDir     = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "Streams" @@ "lib" @@ "net45"
 let content    = __SOURCE_DIRECTORY__ @@ ".." @@ "content"
-let starterKit = __SOURCE_DIRECTORY__ @@ ".." @@ "starterKit"
+let starterKit = __SOURCE_DIRECTORY__ @@ ".." @@ "starterkit"
 let output     = __SOURCE_DIRECTORY__ @@ ".." @@ "output"
 let files      = __SOURCE_DIRECTORY__ @@ ".." @@ "files"
 let templates  = __SOURCE_DIRECTORY__ @@ "templates"
@@ -88,7 +88,7 @@ let buildDocumentation () =
 
   Fake.FileHelper.CleanDir starterKit
   Fake.Git.Repository.cloneSingleBranch __SOURCE_DIRECTORY__ "https://github.com/mbraceproject/MBrace.StarterKit" "master" starterKit
-  if Fake.ProcessHelper.Shell.Exec(__SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ ".paket" @@ "paket.exe","install",__SOURCE_DIRECTORY__ @@ ".." @@ "starterKit") <> 0 then
+  if Fake.ProcessHelper.Shell.Exec(__SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ ".paket" @@ "paket.exe","install",starterKit) <> 0 then
       failwith "paket restore failed"
 
   let processDir topInDir topOutDir = 
@@ -101,7 +101,7 @@ let buildDocumentation () =
           ( dir, docTemplate, topOutDir @@ sub, replacements = ("root", root)::info,
             layoutRoots = layoutRoots, generateAnchors = true )
   processDir content output
-  processDir starterKit (output @@ "azure")
+  processDir starterKit (output @@ "starterkit")
 
 
 // Generate
