@@ -6,20 +6,22 @@
 
 (**
 
-# Using MBrace with a 'Thespian' Locally Simulated Cluster
+# Using MBrace with a Locally Simulated Cluster
 
-You can use the MBrace with a locally simulated cloud fabric
-called "MBrace.Thespian".  This utilizes the multi-core capabillities of your
+
+To use a locally simulated cluster, 
+
+1. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
+2. Build the solution to get the required packages.
+3. Open the first tutorial script and to use MBrace programming with your simulated cluster.
+
+The scripts follow the tutorials in the [Core Programming Model](programming-model.html).
+
+The locally simulated cloud fabric is called "MBrace.Thespian".  This utilizes the multi-core capabillities of your
 machine and is independent of any particular cloud provider, but supports the
 same programming model as MBrace.Azure and other MBrace implementations.  This lets
 you learn the MBrace cloud programming model in a provider-independent way.
 
-## Provisioning and Using Your 'Thespian' Locally Simulated Cluster 
-
-To provision your cluster, the easiest way is to [download or clone the starter pack for MBrace.Thespian](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
-Build the solution to get the required NuGet packages.  
-
-Then follow the tutorials in the [Core Programming Model](programming-model.html) to learn MBrace programming with your cluster.
 
 ## Initializing Thespian Manually
 
