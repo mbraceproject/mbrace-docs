@@ -4,22 +4,29 @@
 // --------------------------------------------------------------------------------------
 
 // Binaries that have XML documentation (in a corresponding generated XML file)
-let mbraceThespianBinaries = [ "MBrace.Core.dll" ; "MBrace.Runtime.dll" ; "MBrace.Thespian.dll" ]
+let mbraceCoreBinaries = [ "MBrace.Core.dll" ]
+let mbraceRuntimeBinaries = [ "MBrace.Runtime.dll" ]
+let mbraceThespianBinaries = [ "MBrace.Thespian.dll" ]
 let mbraceFlowBinaries = [ "MBrace.Flow.dll"  ]
 let mbraceAzureBinaries = [ "MBrace.Azure.dll" ]
 // Web site location for the generated documentation
 //let website = "http://nessos.github.io/MBrace"
 let website = "http://www.m-brace.net"
 
-let githubLink = "http://github.com/mbraceproject/MBrace.Core"
+let mbraceCoreGithubLink = "http://github.com/mbraceproject/MBrace.Core"
+let mbraceAzureGithubLink = "http://github.com/mbraceproject/MBrace.Azure"
+let mbraceFlowGithubLink = "http://github.com/mbraceproject/MBrace.Flow"
+let mbraceThespianGithubLink = "http://github.com/mbraceproject/MBrace.Thespian"
 
 // Specify more information about your project
 let info =
-  [ "project-name", "MBrace.Core and MBrace.Azure"
-    "project-author", "Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"
+  [ "project-author", "Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"
     "project-summary", "An open source framework for large-scale distributed computation and data processing written in F#."
-    "project-github", githubLink
+    "project-github", mbraceCoreGithubLink
     "project-nuget", "http://www.nuget.org/packages/MBrace.Core" ]
+
+let samplesInfo =  [ "project-name", "MBrace.Core and MBrace.Azure" ] @ info
+    
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below
@@ -43,6 +50,8 @@ let root = "file://" + (__SOURCE_DIRECTORY__ @@ "../output")
 
 // Paths with template/source/output locations
 let mbraceThespianPkgDir  = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Thespian" @@ "tools"
+let mbraceRuntimePkgDir  = mbraceThespianPkgDir
+let mbraceCorePkgDir  = mbraceThespianPkgDir
 let mbraceFlowPkgDir  = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Flow" @@ "lib" @@ "net45"
 let mbraceAzurePkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure" @@ "tools"
 let streamsPkgDir     = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "Streams" @@ "lib" @@ "net45"
@@ -69,19 +78,28 @@ let copyFiles () =
 // Build API reference from XML comments
 let buildReference () =
   CleanDir (output @@ "reference")
-  let binaries =
-    [ for lib in mbraceThespianBinaries -> mbraceThespianPkgDir @@ lib
-      for lib in mbraceFlowBinaries -> mbraceFlowPkgDir @@ lib
-      for lib in mbraceAzureBinaries -> mbraceAzurePkgDir @@ lib ]
+  let coreBinaries = [ for lib in mbraceCoreBinaries -> mbraceCorePkgDir @@ lib ]
+  let thespianBinaries = [ for lib in mbraceThespianBinaries -> mbraceThespianPkgDir @@ lib ]
+  let runtimeBinaries = [ for lib in mbraceRuntimeBinaries -> mbraceThespianPkgDir @@ lib ]
+  let flowBinaries = [ for lib in mbraceFlowBinaries -> mbraceFlowPkgDir @@ lib ]
+  let azureBinaries = [ for lib in mbraceAzureBinaries -> mbraceAzurePkgDir @@ lib ]
+  let libDirs = [mbraceThespianPkgDir; mbraceFlowPkgDir; mbraceAzurePkgDir; streamsPkgDir ]
     
-  MetadataFormat.Generate
-    ( binaries , output @@ "reference", layoutRoots, 
-      parameters = ("root", root)::info,
-      sourceRepo = githubLink @@ "tree/master",
-      sourceFolder = __SOURCE_DIRECTORY__ @@ ".." @@ "..",
-      libDirs = [mbraceThespianPkgDir; mbraceFlowPkgDir; mbraceAzurePkgDir; streamsPkgDir ],
-      //assemblyReferences = [__SOURCE_DIRECTORY__ + "/../../packages/Streams/lib/net45/Streams.Core.dll"],
-      publicOnly = true )
+  for (proj, binaries, outdir, githubLink) in 
+      [("MBrace.Core", coreBinaries, output @@ "reference" @@ "core", mbraceCoreGithubLink)
+       ("MBrace.Flow", flowBinaries, output @@ "reference" @@ "flow", mbraceFlowGithubLink)
+       ("MBrace.Runtime", runtimeBinaries, output @@ "reference" @@ "runtime", mbraceCoreGithubLink)
+       ("MBrace.Azure", azureBinaries, output @@ "reference" @@ "azure", mbraceAzureGithubLink)
+       ("MBrace local cluster simulator", thespianBinaries, output @@ "reference" @@ "thespian", mbraceThespianGithubLink)] do
+      CleanDir outdir
+      MetadataFormat.Generate
+        ( binaries, outdir, layoutRoots, 
+          parameters = ("project-name", proj)::("root", root)::info,
+          sourceRepo = githubLink  @@ "tree/master",
+          sourceFolder = __SOURCE_DIRECTORY__ @@ ".." @@ "..",
+          libDirs = libDirs,
+          publicOnly = true )
+
 
 // Build documentation from `fsx` and `md` files in `docs/content`
 let buildDocumentation () =
@@ -98,7 +116,7 @@ let buildDocumentation () =
             if dir.Length > topInDir.Length && dir.StartsWith(topInDir) then dir.Substring(topInDir.Length + 1) 
             else "."
         Literate.ProcessDirectory
-          ( dir, docTemplate, topOutDir @@ sub, replacements = ("root", root)::info,
+          ( dir, docTemplate, topOutDir @@ sub, replacements = ("root", root)::samplesInfo,
             layoutRoots = layoutRoots, generateAnchors = true )
   processDir content output
   processDir starterKit (output @@ "starterkit")
@@ -108,5 +126,5 @@ let buildDocumentation () =
 CleanDir output
 CreateDir output
 copyFiles()
-buildDocumentation()
 buildReference()
+buildDocumentation()
