@@ -27,6 +27,7 @@ different aspects of the core programming model:
 * [Introduction to cloud combinators](starterkit/HandsOnTutorial/2-cloud-parallel.html)
 * [Introduction to CPU parallelism](starterkit/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
 * [Introduction to Cloud Flows](starterkit/HandsOnTutorial/4-cloud-parallel-data-flow.html)
+* [Running MBrace in the Thread Pool](starterkit/HandsOnTutorial/0-thread-pool.html)
 * [Using C# and native components](starterkit/HandsOnTutorial/5-using-csharp-and-native-dlls.html)
 * [Using cloud value storage](starterkit/HandsOnTutorial/6-using-cloud-values.html)
 * [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
@@ -54,17 +55,12 @@ and can freely intertwine with native code.
 
 *)
 
-let mySecondCloudWorkflow = cloud {
+let getDataCenterTime() = cloud {
     let now = System.DateTime.Now
-    printfn "Current time: %O" now
-    return ()
+    return now
 }
 
 (**
-
-Note that the specific example introduces a side-effect to the computation.
-Due to the distributed nature of cloud workflows, it is unclear where this might
-take place once executed.
 
 Simple cloud computations can be composed into larger ones using the `let!` keyword:
 
@@ -92,7 +88,7 @@ For loops and while loops are possible:
 
 /// Sequentially iterate and loop 
 cloud {
-    for i in [| 1 .. 100 |] do
+    for i in [ 1 .. 100 ] do
         do! Cloud.Logf "Logging entry %d of 100" i
 
     while true do
@@ -243,9 +239,9 @@ let tryFind (f : 'T -> bool) (ts : 'T list) = cloud {
 
 (**
 
-## Functional composition of cloud tasks
+## Composing distributed workflows
 
-Recursive and higher-order composition of cloud tasks is possible:
+Recursive and higher-order composition of cloud workflows is possible:
 
 *)
 
@@ -268,7 +264,7 @@ But what happens when it comes to data?
 Small-to-medium-scale data can be transported implicitly as part of a 
 cloud computation. This offers a limited (though extremely convenient) form of 
 data distribution. However, it will not scale to all needs, particularly computations
-involving gigabyts or petabytes of data.
+involving gigabytes of data.
 
 MBrace offers a range of mechanisms for managing
 large-scale data in a more global and massive scale. These provide an essential decoupling 
@@ -278,10 +274,10 @@ See also this [summary of the MBrace abstractions for cloud data](https://github
 
 ### Cloud Values
 
-The mbrace programming model offers access to persistable and distributed data 
+The mbrace programming model offers access to persistable and cacheable distributed data 
 entities known as cloud values. Cloud values very much resemble immutable data values found in 
 F# but are stored in persisted cloud storage. The following workflow stores the downloaded 
-content of a web page and returns a cloud cell to it:
+content of a web page and returns a cloud value to it:
 
 *)
 
@@ -296,18 +292,31 @@ let textCell = cloud {
 
 (**
 
-Dereferencing a cloud cell can be done by getting its `.Value` property:
+Dereferencing a cloud value can be done by getting its `.Value` property:
 
 *)
 
 let dereference (data : CloudValue<byte []>) = cloud {
     let v = data.Value
-    return v
+    return v.Length
 }
 
-(** 
-Cloud values are stored in named locations and can be resurrected (parsed) from
-this locations using `CloudValue.Parse`, supplying a type.
+(**
+
+It is possible to define explicitly specify the StorageLevel used for the specific CloudValue instance:
+
+*)
+
+cloud {
+    let! text = downloadCloud "http://www.m-mbrace.net/largeFile.txt"
+    let! cref = CloudValue.New(text, storageLevel = StorageLevel.MemoryAndDisk)
+    return cref
+}
+
+(**
+
+This indicates the cloud value should be persisted using both disk storage and in-memory
+for dereferencing worker instances.
 
 *)
 
@@ -346,54 +355,7 @@ recursively partitioning input data until trivial cases are met.
 Recursive calls are passed through `Cloud.Parallel`,
 thus achieving the effect of distributed parallelism.
 
-This is a naive conception of mapReduce, as it does not enable data parallelism nor does it take into account cluster granularity. 
-For a more in-depth exposition of mapReduce, please refer to the MBrace [manual](mbrace-manual.pdf).
-
-*)
-
-(**
-### Cloud Sequences and Cloud Vectors
-
-While cloud values are useful for storing relatively small chunks of data, 
-they might not scale well when it comes to large collections of objects.
-Evaluating a cloud cell that points to a big array may place unnecessary 
-memory strain on the runtime. For that reason, mbrace offers the `CloudSequence` 
-primitive, a construct similar to the CloudValue that offers access to a collection 
-of values with on-demand fetching semantics. The CloudSequence type
-is immutable and by default may be cached on local worker nodes, 
-just like `CloudValue`.
-
-*)
-
-/// Download the page and store it as a new cloud sequence of lines
-let storePagesInCloudSequence (url : string) =
-    cloud {
-        let! lines = downloadCloud url
-        let! cseq = CloudValue.New lines
-        return cseq
-    }
-
-
-/// Download the pages and store them in cloud sequences.
-let storePagesInCloudSequences (urls : string list) =
-    urls 
-    |> List.map storePagesInCloudSequence 
-    |> Cloud.Parallel
-
-(**
-
-A collection of cloud sequences can then be used as input into a cloud flow:
-
-*)
-
-cloud { 
-    return!
-        CloudFlow.OfHttpFileByLine [ "http://google.com"; "http://bing.com" ]
-        |> CloudFlow.map (fun x -> x)
-        |> CloudFlow.length
-}
-
-(**
+This is a naive conception of mapReduce, as it does not enable data parallelism nor does it take into account cluster granularity.
 
 ### Cloud Files
 
@@ -402,8 +364,6 @@ that a references a file saved in the global store.
 In other words, it is an interface for storing or accessing binary blobs in the runtime.
 
 *)
-
-open Nessos.FsPickler
 
 cloud {
     // enumerate all files from underlying storage container
@@ -431,14 +391,10 @@ cloud {
 
 ### Mutable cloud values (CloudAtom)
 
-The `CloudAtom` primitive is, like `CloudValue`, a reference to data saved in the underlying storage provider. 
-However,
-
-  * CloudAtoms are mutable. The value of a cloud atom can be updated and, as a result,
-    its values are never cached. Mutable cloud values can be updated transactionally using the 
-    `CloudAtom.Transact` methods or forcibly using the `CloudAtom.Force` method.
-
-  * CloudAtoms can be deallocated manually. This can be done using the `CloudAtom.Free` method.
+The `CloudAtom` primitive is, like `CloudValue`, a reference to data stored in the underlying cloud service.
+However, CloudAtoms are mutable. The value of a cloud atom can be updated and, as a result,
+its values are never cached. Mutable cloud values can be updated transactionally using the 
+`CloudAtom.Transact` methods or forcibly using the `CloudAtom.Force` method.
  
 The CloudAtom is a powerful primitive that can be used to create runtime-wide synchronization 
 mechanisms like locks, semaphores, etc.
@@ -448,13 +404,13 @@ The following demonstrates simple use of the cloud atom:
 *)
 
 let race () = cloud {
-    let! mr = CloudAtom.New(0)
+    let! ca = CloudAtom.New(0)
     let! _ =
-        CloudAtom.Force(mr,1)
+        cloud { ca.Force 2 }
             <||>
-        CloudAtom.Force(mr,2)
+        cloud { ca.Force 1 }
 
-    return! CloudAtom.Read(mr)
+    return ca.Value
 }
 
 (**
@@ -466,74 +422,12 @@ The following snippet implements an transactionally incrementing function acting
 *)
 
 let increment (counter : CloudAtom<int>) = cloud {
-    let! v = CloudAtom.Read counter
-    let! ok = CloudAtom.Transact(counter, (fun v -> true, v + 1))
-    return ok
+    do! Cloud.OfAsync <| counter.UpdateAsync(fun c -> c + 1)
 }
-
-(**
-
-### Example: Distributed Binary Trees
-
-Cloud values can be used to define distributed data structures. 
-For example, one could define a distributed binary tree like so:
-
-*)
-
-type CloudTree<'T> = 
-    | Empty
-    | Leaf of 'T
-    | Branch of TreeRef<'T> * TreeRef<'T>
-
-and TreeRef<'T> = CloudValue<CloudTree<'T>>
-
-(**
-
-The cloud tree gives rise to a number of naturally distributable combinators. For example
-
-*)
-
-let rec map (f : 'T -> 'S) (ttree : TreeRef<'T>) = cloud { 
-    let! value = ttree.GetValueAsync()
-    match value with
-    | Empty -> return! CloudValue.New Empty
-    | Leaf t -> return! CloudValue.New <| Leaf (f t)
-    | Branch(l,r) ->
-        let! l',r' = map f l <||> map f r 
-        return! CloudValue.New <| Branch(l', r')
-}
-
-(** and *)
-
-let rec reduce (id : 'R) (reduceF : 'R -> 'R -> 'R) (rtree : TreeRef<'R>) = cloud { 
-    let! value = rtree.GetValueAsync()
-    match value with
-    | Empty -> return id
-    | Leaf r -> return r
-    | Branch(l,r) ->
-        let! r,r' = reduce id reduceF l <||> reduce id reduceF r 
-        return reduceF r r'
-}
-
-(**
-
-The above functions enable distributed workflows that are 
-driven by the structural properties of the cloud tree.
-
-*)
 
 (**
 
 ## Other Primitives
-
-Some other primitives offered by MBrace are:
-
-  * `Cloud.GetWorkerCount` : Returns the current number of cluster nodes as reported by the runtime.
-
-  * `Cloud.GetProcessId` : Gets the runtime-assigned cloud process id for the currently executing workflow.
-
-  * `Cloud.Log` : appends an entry to the cloud process log; this operation introduces runtime communication.
-
 
 For more information and examples on the programming model, please refer to the 
 [API Reference](reference/index.html).
