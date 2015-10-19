@@ -6,4 +6,4 @@ nuget MBrace.Core prerelease
 nuget MBrace.Flow prerelease
 nuget MBrace.Runtime prerelease
 nuget MBrace.Thespian prerelease
-nuget MBrace.Azure 0.13.1-beta
+nuget MBrace.Azure 0.14.0-beta
