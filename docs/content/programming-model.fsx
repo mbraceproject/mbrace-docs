@@ -35,6 +35,10 @@ different aspects of the core programming model:
 * [Using cloud key/value storage](starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html)
 * [Example: Distributed Image Processing](starterkit/HandsOnTutorial/200-image-processing-example.html)
 * [Example: Parallel Web Download](starterkit/HandsOnTutorial/200-cloud-parallel-web-download.html)
+* [Example: Word Count](starterkit/HandsOnTutorial/200-wordcount.html)
+* [Example: Using CloudFlow with FSharp.Data](starterkit/HandsOnTutorial/200-house-data-analysis.html)
+* [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial/200-monte-carlo-pi-approximation.html)
+* [Example: k-Means clustering](starterkit/HandsOnTutorial/200-kmeans-clustering.html)
 * [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/200-norvigs-spelling-corrector.html)
 * [Example: Starting a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/200-starting-a-web-server.html)
 
