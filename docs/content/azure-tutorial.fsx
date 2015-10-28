@@ -9,60 +9,20 @@ let config = Unchecked.defaultof<MBrace.Azure.Configuration>
 
 (**
 
-# Using MBrace on Azure Cloud Services
+# Using MBrace on Azure 
 
-In this tutorial you will learn how to setup MBrace on Azure and how to use the MBrace Azure Client API.
+In this tutorial you will learn how to setup MBrace on Azure.
 
-First, [create a Custom Azure Cloud Service which includes MBrace runtime instances](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/README.md).
+First, [create a Custom Azure Cloud Service which includes MBrace runtime instances](starterkit/azure/README.html).
 
-_Customization_: During configuration (and prior to deployment) you may want to:
-
-* adjust the size of VM used for worker instances in your cluster; or
-
-* add endpoints to your cloud service (so your MBrace cluster can publish 
-  TCP and HTTP endpoints, either public or to your virtual network, 
-  for example, you want your MBrace cluster to publish a web server); or
-
-* enable Remote Access to MBrace cluster worker instances; or
-
-* specify the size of local storage available on MBrace cluster worker instances; or
-
-* upload certificates as part of your provisioning process; or
-
-* specify Azure-specific local caching options; or
-
-* include additional web and worker roles in your cloud service; or
-
-* compile and deploy your own version of the MBrace cluster worker instance software. 
-
-In order to provision explicitly, as a prerequisite you need 
-to have an Azure account, basic knowledge of the Azure computing and
-an editing environment supporting F#.
+Next, [download the appropriate starter kit and walk through the hands-on tutorial scripts](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
 
 
-
-### Using MBrace.Azure with F# 3.0 (Visual Studio 2012, FSharp.Core 4.3.0.0) Clients
-
-If your client is using F# 3.0 (Visual Studio 2012, FSharp.Core 4.3.0.0), you must use 
-a [Custom Azure Cloud Service](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/AZURE.md), and 
-adjust the binding redirect for `FSharp.Core` in [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/MBraceAzureRole/app.config):
-
-    [lang=xml]
-    <configuration>
-      <runtime>
-        <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-          <dependentAssembly>
-            <assemblyIdentity name="FSharp.Core" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
-            <bindingRedirect oldVersion="0.0.0.0-4.3.1.0" newVersion="4.3.0.0" />
-          </dependentAssembly>
-        </assemblyBinding>
-      </runtime>
-    </configuration>
 
 
 ### How your MBrace client code runs
 
-Typically the MBrace client will run in:
+Typically your MBrace client will run in:
 
 * an F# interactive instance in your editor; or
 

@@ -45,6 +45,7 @@ Examples:
 * [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
 
 More Techniques:
+
 * [Launching Python and Other Executables](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
 * [Writing a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
 * [Running MBrace in the Local Machine Thread Pool](starterkit/HandsOnTutorial/going-further/400-advanced-core-thread-pool.html)
