@@ -9,39 +9,13 @@ let config = Unchecked.defaultof<MBrace.Azure.Configuration>
 
 (**
 
-# Using MBrace on Windows Azure 
+# Using MBrace on Azure Cloud Services
 
-In this tutorial you will learn how to setup MBrace on Windows Azure and
-how to use the MBrace Azure Client API.
+In this tutorial you will learn how to setup MBrace on Azure and how to use the MBrace Azure Client API.
 
+First, [create a Custom Azure Cloud Service which includes MBrace runtime instances](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/README.md).
 
-## Provisioning Your Cluster 
-
-### Provisioning Your Cluster Using Brisk Engine 
-
-The easiest path to provision an MBrace cluster on Azure using
-an Azure Cloud Service is to use [Brisk Engine](http://briskengine.com).
-See [Getting Started with MBrace using Brisk Engine](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/brisk-tutorial.md#get-started-with-brisk).
-
-> *IMPORTANT NOTE*: MBrace.Azure is currently optimized for clients using F# 3.1 (Visual Studio 2013, FSharp.Core 4.3.1.0).
->
-> If using a client written in F# 3.0 (Visual Studio 2012, FSharp.Core 4.3.0.0) or F# 4.0 (Visual Studio 2015, FSharp.Core 4.4.0.0), 
-> you must provision a bespoke Azure cloud service and add a binding redirect 
-> for FSharp.Core to [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/VS2013/MBraceAzureRole/app.config)
-> as described further below.
-
-### Provisioning Your Cluster using a Bespoke (aka "Artisan") Azure Cloud Service 
-
-
-
-In some cases you may decide to provision explicitly, if the options provided
-by Brisk Engine do not yet meet your needs.  
-
-If so, see [Creating a Custom Azure Cloud Service which includes MBrace runtime instances](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/README.md).
-
-For example you may want to:
-
-* use Visual Studio 2012 (F# 3.0, FSharp.Core 4.3.0.0) or Visual Studio 2015 (F# 4.0, FSharp.Core 4.4.0.0) as your client (see below); or
+_Customization_: During configuration (and prior to deployment) you may want to:
 
 * adjust the size of VM used for worker instances in your cluster; or
 
@@ -61,12 +35,9 @@ For example you may want to:
 
 * compile and deploy your own version of the MBrace cluster worker instance software. 
 
-At the time of writing these options were not yet via the Brisk Engine provisioning
-service. In this case, you must create and deploy your own Azure cloud service.
-
 In order to provision explicitly, as a prerequisite you need 
-to have a Windows Azure account, basic knowledge of the Azure computing and
-optionally Microsoft Visual Studio (or any environment supporting F#).
+to have an Azure account, basic knowledge of the Azure computing and
+an editing environment supporting F#.
 
 
 
@@ -88,30 +59,12 @@ adjust the binding redirect for `FSharp.Core` in [app.config](https://github.com
       </runtime>
     </configuration>
 
-### Using MBrace.Azure with F# 4.0 (Visual Studio 2015, FSharp.Core 4.4.0.0) Clients
-
-If your client is using F# 4.0 (Visual Studio 2015, FSharp.Core 4.4.0.0), you must also use 
-a [Custom Azure Cloud Service](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/AZURE.md), and 
-adjust the binding redirect for `FSharp.Core` in [app.config](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/azure/CustomCloudService/MBraceAzureRole/app.config):
-
-    [lang=xml]
-    <configuration>
-      <runtime>
-        <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-          <dependentAssembly>
-            <assemblyIdentity name="FSharp.Core" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
-            <bindingRedirect oldVersion="0.0.0.0-4.4.0.0" newVersion="4.4.0.0" />
-          </dependentAssembly>
-        </assemblyBinding>
-      </runtime>
-    </configuration>
-
 
 ### How your MBrace client code runs
 
 Typically the MBrace client will run in:
 
-* an F# interactive instance in your Visual Studio session; or
+* an F# interactive instance in your editor; or
 
 * as part of another cloud service, website or web job; or
 
