@@ -24,29 +24,30 @@ The following tutorials demonstrate different aspects of the core programming mo
 
 * [Hello World with MBrace](starterkit/HandsOnTutorial/1-hello-world.html)
 * [Introduction to cloud combinators](starterkit/HandsOnTutorial/2-cloud-parallel.html)
-* [Introduction to CPU parallelism](starterkit/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
-* [Introduction to Cloud Flows](starterkit/HandsOnTutorial/4-cloud-parallel-data-flow.html)
-* [Running MBrace in the Thread Pool](starterkit/HandsOnTutorial/0-thread-pool.html)
+* [Introduction to CPU-intensive cloud parallelism](starterkit/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
+* [Introduction to data parallel cloud flows](starterkit/HandsOnTutorial/4-cloud-parallel-data-flow.html)
 * [Using C# and native components](starterkit/HandsOnTutorial/5-using-csharp-and-native-dlls.html)
 * [Using cloud value storage](starterkit/HandsOnTutorial/6-using-cloud-values.html)
 * [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
 * [Using cloud queue storage](starterkit/HandsOnTutorial/8-using-cloud-queues.html)
 * [Using cloud key/value storage](starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html)
+* [Using data parallel cloud flows with FSharp.Data](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
 
 Examples:
 
 * [Example: Distributed Image Processing](starterkit/HandsOnTutorial/examples/200-image-processing-example.html)
 * [Example: Parallel Web Download](starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html)
 * [Example: Word Count](starterkit/HandsOnTutorial/examples/200-wordcount-example.html)
-* [Example: Using CloudFlow with FSharp.Data](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
 * [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial/examples/200-monte-carlo-pi-approximation-example.html)
 * [Example: k-Means clustering](starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html)
 * [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
-* [Example: Writing a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
 * [Example: KNN Digit Recognizer](starterkit/HandsOnTutorial/examples/200-knn-digit-recognizer-example.html)
-* [Example: Launching Python](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
 * [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
 
+More Techniques:
+* [Launching Python and Other Executables](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
+* [Writing a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
+* [Running MBrace in the Local Machine Thread Pool](starterkit/HandsOnTutorial/going-further/400-advanced-core-thread-pool.html)
 
 What follows is a general overview. 
 
