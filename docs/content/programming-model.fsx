@@ -20,8 +20,7 @@ The MBrace programming model is a language-integrated cloud programming DSL for 
 It offers a concise and elegant programming model which extends F# asynchronous workflows 
 to the domain of distributed cloud computation.
 
-See the following samples which demonstrate
-different aspects of the core programming model:
+The following tutorials demonstrate different aspects of the core programming model:
 
 * [Hello World with MBrace](starterkit/HandsOnTutorial/1-hello-world.html)
 * [Introduction to cloud combinators](starterkit/HandsOnTutorial/2-cloud-parallel.html)
@@ -33,14 +32,21 @@ different aspects of the core programming model:
 * [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
 * [Using cloud queue storage](starterkit/HandsOnTutorial/8-using-cloud-queues.html)
 * [Using cloud key/value storage](starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html)
-* [Example: Distributed Image Processing](starterkit/HandsOnTutorial/200-image-processing-example.html)
-* [Example: Parallel Web Download](starterkit/HandsOnTutorial/200-cloud-parallel-web-download.html)
-* [Example: Word Count](starterkit/HandsOnTutorial/200-wordcount.html)
-* [Example: Using CloudFlow with FSharp.Data](starterkit/HandsOnTutorial/200-house-data-analysis.html)
-* [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial/200-monte-carlo-pi-approximation.html)
-* [Example: k-Means clustering](starterkit/HandsOnTutorial/200-kmeans-clustering.html)
-* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/200-norvigs-spelling-corrector.html)
-* [Example: Starting a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/200-starting-a-web-server.html)
+
+Examples:
+
+* [Example: Distributed Image Processing](starterkit/HandsOnTutorial/examples/200-image-processing-example.html)
+* [Example: Parallel Web Download](starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html)
+* [Example: Word Count](starterkit/HandsOnTutorial/examples/200-wordcount-example.html)
+* [Example: Using CloudFlow with FSharp.Data](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
+* [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial/examples/200-monte-carlo-pi-approximation-example.html)
+* [Example: k-Means clustering](starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html)
+* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
+* [Example: Writing a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
+* [Example: KNN Digit Recognizer](starterkit/HandsOnTutorial/examples/200-knn-digit-recognizer-example.html)
+* [Example: Launching Python](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
+* [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
+
 
 What follows is a general overview. 
 
