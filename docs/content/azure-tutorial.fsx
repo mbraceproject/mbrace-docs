@@ -13,11 +13,22 @@ let config = Unchecked.defaultof<MBrace.Azure.Configuration>
 
 In this tutorial you will learn how to setup MBrace on Azure.
 
-First, [create a Custom Azure Cloud Service which includes MBrace runtime instances](starterkit/azure/README.html).
+1. Create an Azure account using the [Azure management portal](https://manage.windowsazure.com/).
+2. [Provision a Custom Azure Cloud Service which includes MBrace runtime instances](starterkit/azure/README.html).
+3. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
+   Enter your connection strings in ``AzureCluster.fsx`` and adjust each tutorial script to load this script.
 
-Next, [download the appropriate starter kit and walk through the hands-on tutorial scripts](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
+The scripts follow the tutorials in the [Core Programming Model](programming-model.html).
 
+### Using your Azure cluster from compiled code
 
+Reference the ``MBrace.Azure`` package and add the following code, after insertng your connection strings
+or acquiring them by other means:
+
+    let myStorageConnectionString = "..."
+    let myServiceBusConnectionString = "..."
+    let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)
+    let cluster = AzureCluster.Connect(config, logger = ConsoleLogger(true), logLevel = LogLevel.Info)
 
 
 ### How your MBrace client code runs
