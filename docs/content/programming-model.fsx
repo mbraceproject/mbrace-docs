@@ -31,10 +31,10 @@ The following tutorials demonstrate different aspects of the core programming mo
 * [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
 * [Using cloud queue storage](starterkit/HandsOnTutorial/8-using-cloud-queues.html)
 * [Using cloud key/value storage](starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html)
-* [Using data parallel cloud flows with FSharp.Data](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
 
 Examples:
 
+* [Example: Using data parallel cloud flows and F# type providers for house prices](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
 * [Example: Distributed Image Processing](starterkit/HandsOnTutorial/examples/200-image-processing-example.html)
 * [Example: Parallel Web Download](starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html)
 * [Example: Word Count](starterkit/HandsOnTutorial/examples/200-wordcount-example.html)
@@ -47,7 +47,7 @@ Examples:
 More Techniques:
 
 * [Launching Python and Other Executables](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
-* [Writing a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
+* [Prototyping a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
 * [Running MBrace in the Local Machine Thread Pool](starterkit/HandsOnTutorial/going-further/400-advanced-core-thread-pool.html)
 
 What follows is a general overview. 
