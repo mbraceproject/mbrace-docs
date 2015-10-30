@@ -5,35 +5,49 @@
 #r "../../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll"
 
 
-let config = Unchecked.defaultof<MBrace.Azure.Configuration>
+//let config = Unchecked.defaultof<MBrace.Azure.Configuration>
+
+open MBrace.Azure
 
 (**
 
 # Using MBrace on Azure 
 
-### Creating a Cluster
-
-In this tutorial you will learn how to setup MBrace on Azure.
-
-1. Create an Azure account using the [Azure management portal](https://manage.windowsazure.com/).
+1. [Create an Azure account])(https://azure.microsoft.com) and [download your publication settings file ](https://manage.windowsazure.com/publishsettings).
 
 2. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
 
-3. [Create a cluster](starterkit/azure/README.html).
+3. Build the solution to get the required packages.
 
-4. Open ``HandsOnTutorials\1-hello-world.fsx`` and follow the instrucctions. Adjust the connection strings in ``HandsOnTutorial/AzureCluster.fsx``. 
-   The HandsOnTutorials scripts follow the tutorials in the [Core Programming Model](programming-model.html).
+4. Open the ``azure/create-cluster.fsx`` script. Edit the region as necessary.
+  
+   Then run the script - either from the command line or using send-to-interactive in your editor:
+
+       cd azure
+       fsi create-cluster.fsx 
+ 
+   When created your cluster will now appear as a cloud service in the [Azure management portal](https://manage.windowsazure.com).
+
+5. Note your connection strings from ``config`` and enter them in ``HandsOnTutorial/AzureCluster.fsx``.  You can also
+   find these connection strings in the Configure panel of your cloud service in the [Azure management portal](https://manage.windowsazure.com).
+
+6. Open the first tutorial script in the starter pack hands-on tutorial. The scripts follow the tutorials in the
+   [Core Programming Model](http://www.m-brace.net/programming-model.html).
+
 
 ### Using your Azure cluster from compiled code
 
-Reference the ``MBrace.Azure`` package and add the following code, after insertng your connection strings
+Reference the ``MBrace.Azure`` package and add the following code, after inserting your connection strings
 or acquiring them by other means:
 
-    let myStorageConnectionString = "..."
-    let myServiceBusConnectionString = "..."
-    let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)
-    let cluster = AzureCluster.Connect(config, logger = ConsoleLogger(true), logLevel = LogLevel.Info)
+*)
 
+let myStorageConnectionString = "..."
+let myServiceBusConnectionString = "..."
+let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)
+let cluster = AzureCluster.Connect(config, logger = ConsoleLogger(true), logLevel = LogLevel.Info)
+
+(**
 
 ### How your MBrace code runs on Azure
 
