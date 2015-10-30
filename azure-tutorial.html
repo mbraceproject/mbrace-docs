@@ -41,20 +41,34 @@
 <h1><a name="Using-MBrace-on-Azure" class="anchor" href="#Using-MBrace-on-Azure">Using MBrace on Azure</a></h1>
 
 <ol>
-<li><p>[Create an Azure account])(<a href="https://azure.microsoft.com)">https://azure.microsoft.com)</a> and <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p></li>
+<li><p><a href="https://azure.microsoft.com">Create an Azure account</a> and <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p></li>
 <li><p><a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md">Download or clone the starter pack</a>.</p></li>
 <li><p>Build the solution to get the required packages.</p></li>
-<li><p>Open the <code>azure/create-cluster.fsx</code> script. Edit the region as necessary.</p>
+<li><p>Open the <code>azure/create-cluster.fsx</code> script. Edit the region as necessary and insert the path to your publication settings file.
+After editing your provisioning script will loko something like this:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;../packages/MBrace.Azure/MBrace.Azure.fsx&quot;</span>
+<span class="k">open</span> <span class="i">MBrace</span><span class="o">.</span><span class="i">Azure</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">pubSettingsFile</span> <span class="o">=</span> <span class="s">@&quot;... path to your downloaded publication settings file ... &quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">config</span> <span class="o">=</span> <span class="i">Management</span><span class="o">.</span><span class="i">CreateCluster</span>(<span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">pubSettingsFile</span>, <span class="i">Regions</span><span class="o">.</span><span class="i">North_Europe</span>, <span class="i">VMSize</span><span class="o">=</span><span class="i">VMSizes</span><span class="o">.</span><span class="i">Large</span>) 
+</code></pre></td>
+</tr>
+</table>
 <p>Then run the script - either from the command line or using send-to-interactive in your editor:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cd</span> <span class="i">azure</span>
-<span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">fsi</span> <span class="i">create</span><span class="o">-</span><span class="i">cluster</span><span class="o">.</span><span class="i">fsx</span> 
+<span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">fsi</span> <span class="i">create</span><span class="o">-</span><span class="i">cluster</span><span class="o">.</span><span class="i">fsx</span> 
 </code></pre></td>
 </tr>
 </table>
-<p>When created your cluster will now appear as a cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.</p></li>
+<p>Diagnostics will be shown.  When created your cluster will now appear as a cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.
+If you have any trouble, <a href="https://github.com/mbraceproject/MBrace.Azure/issues">report an issue on github</a>.</p></li>
 <li><p>Note your connection strings from <code>config</code> and enter them in <code>HandsOnTutorial/AzureCluster.fsx</code>.  You can also
 find these connection strings in the Configure panel of your cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.</p></li>
 <li>Open the first tutorial script in the starter pack hands-on tutorial. The scripts follow the tutorials in the
@@ -71,10 +85,10 @@ or acquiring them by other means:</p>
 <span class="l">3: </span>
 <span class="l">4: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">myStorageConnectionString</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">myServiceBusConnectionString</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">config</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="t">Configuration</span>(<span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">myStorageConnectionString</span>, <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">myServiceBusConnectionString</span>)
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="t">AzureCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="f">Connect</span>(<span onmouseout="hideTip(event, 'fs6', 13)" onmouseover="showTip(event, 'fs6', 13)" class="i">config</span>, <span class="i">logger</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="t">ConsoleLogger</span>(<span class="k">true</span>), <span class="i">logLevel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="t">LogLevel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">Info</span>)
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">myStorageConnectionString</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">myServiceBusConnectionString</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">config</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="t">Configuration</span>(<span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="i">myStorageConnectionString</span>, <span onmouseout="hideTip(event, 'fs7', 12)" onmouseover="showTip(event, 'fs7', 12)" class="i">myServiceBusConnectionString</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="t">AzureCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="f">Connect</span>(<span onmouseout="hideTip(event, 'fs8', 16)" onmouseover="showTip(event, 'fs8', 16)" class="i">config</span>, <span class="i">logger</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="t">ConsoleLogger</span>(<span class="k">true</span>), <span class="i">logLevel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="t">LogLevel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="i">Info</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -103,17 +117,19 @@ there. MBrace looks after the transport of code and data using Vagabond.</p>
 
 <div class="tip" id="fs1">namespace MBrace</div>
 <div class="tip" id="fs2">namespace MBrace.Azure</div>
-<div class="tip" id="fs3">val fsi : Compiler.Interactive.InteractiveSession<br /><br />Full name: Microsoft.FSharp.Compiler.Interactive.Settings.fsi</div>
-<div class="tip" id="fs4">val myStorageConnectionString : string<br /><br />Full name: Azure-tutorial.myStorageConnectionString</div>
-<div class="tip" id="fs5">val myServiceBusConnectionString : string<br /><br />Full name: Azure-tutorial.myServiceBusConnectionString</div>
-<div class="tip" id="fs6">val config : Configuration<br /><br />Full name: Azure-tutorial.config</div>
-<div class="tip" id="fs7">Multiple items<br />type Configuration =<br />&#160;&#160;new : storageConnectionString:string * serviceBusConnectionString:string -&gt; Configuration<br />&#160;&#160;member AssemblyContainer : string<br />&#160;&#160;member CloudValueContainer : string<br />&#160;&#160;member OptimizeClosureSerialization : bool<br />&#160;&#160;member RuntimeContainer : string<br />&#160;&#160;member RuntimeLogsTable : string<br />&#160;&#160;member RuntimeTable : string<br />&#160;&#160;member ServiceBusAccount : string<br />&#160;&#160;member ServiceBusConnectionString : string<br />&#160;&#160;member StorageAccount : string<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Configuration<br /><br />--------------------<br />new : storageConnectionString:string * serviceBusConnectionString:string -&gt; Configuration</div>
-<div class="tip" id="fs8">val cluster : AzureCluster<br /><br />Full name: Azure-tutorial.cluster</div>
-<div class="tip" id="fs9">type AzureCluster =<br />&#160;&#160;inherit MBraceClient<br />&#160;&#160;private new : manager:ClusterManager * faultPolicy:FaultPolicy option -&gt; AzureCluster<br />&#160;&#160;member AttachLocalWorker : ?workerId:string * ?workingDirectory:string * ?maxWorkItems:int * ?logFile:string * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member AttachLocalWorkers : workerCount:int * ?maxWorkItems:int * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkers : heartbeatThreshold:TimeSpan -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkersAsync : heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />&#160;&#160;member KillAllLocalWorkers : unit -&gt; unit<br />&#160;&#160;member KillLocalWorker : worker:IWorkerRef -&gt; bool<br />&#160;&#160;member Reset : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; unit<br />&#160;&#160;member ResetAsync : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.AzureCluster</div>
-<div class="tip" id="fs10">static member AzureCluster.Connect : config:Configuration * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : storageConnectionString:string * serviceBusConnectionString:string * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster</div>
-<div class="tip" id="fs11">type ConsoleLogger = MBrace.Runtime.ConsoleLogger<br /><br />Full name: MBrace.Azure.ConsoleLogger</div>
-<div class="tip" id="fs12">type LogLevel = MBrace.Runtime.LogLevel<br /><br />Full name: MBrace.Azure.LogLevel</div>
-<div class="tip" id="fs13">MBrace.Runtime.LogLevel.Info: MBrace.Runtime.LogLevel = 4</div>
+<div class="tip" id="fs3">val pubSettingsFile : string<br /><br />Full name: azuretutorial.pubSettingsFile</div>
+<div class="tip" id="fs4">val config : obj<br /><br />Full name: azuretutorial.config</div>
+<div class="tip" id="fs5">val fsi : Compiler.Interactive.InteractiveSession<br /><br />Full name: Microsoft.FSharp.Compiler.Interactive.Settings.fsi</div>
+<div class="tip" id="fs6">val myStorageConnectionString : string<br /><br />Full name: Azure-tutorial.myStorageConnectionString</div>
+<div class="tip" id="fs7">val myServiceBusConnectionString : string<br /><br />Full name: Azure-tutorial.myServiceBusConnectionString</div>
+<div class="tip" id="fs8">val config : Configuration<br /><br />Full name: Azure-tutorial.config</div>
+<div class="tip" id="fs9">Multiple items<br />type Configuration =<br />&#160;&#160;new : storageConnectionString:string * serviceBusConnectionString:string -&gt; Configuration<br />&#160;&#160;member AssemblyContainer : string<br />&#160;&#160;member CloudValueContainer : string<br />&#160;&#160;member OptimizeClosureSerialization : bool<br />&#160;&#160;member RuntimeContainer : string<br />&#160;&#160;member RuntimeLogsTable : string<br />&#160;&#160;member RuntimeTable : string<br />&#160;&#160;member ServiceBusAccount : string<br />&#160;&#160;member ServiceBusConnectionString : string<br />&#160;&#160;member StorageAccount : string<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Configuration<br /><br />--------------------<br />new : storageConnectionString:string * serviceBusConnectionString:string -&gt; Configuration</div>
+<div class="tip" id="fs10">val cluster : AzureCluster<br /><br />Full name: Azure-tutorial.cluster</div>
+<div class="tip" id="fs11">type AzureCluster =<br />&#160;&#160;inherit MBraceClient<br />&#160;&#160;private new : manager:ClusterManager * faultPolicy:FaultPolicy option -&gt; AzureCluster<br />&#160;&#160;member AttachLocalWorker : ?workerId:string * ?workingDirectory:string * ?maxWorkItems:int * ?logFile:string * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member AttachLocalWorkers : workerCount:int * ?maxWorkItems:int * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkers : heartbeatThreshold:TimeSpan -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkersAsync : heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />&#160;&#160;member KillAllLocalWorkers : unit -&gt; unit<br />&#160;&#160;member KillLocalWorker : worker:IWorkerRef -&gt; bool<br />&#160;&#160;member Reset : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; unit<br />&#160;&#160;member ResetAsync : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.AzureCluster</div>
+<div class="tip" id="fs12">static member AzureCluster.Connect : config:Configuration * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : storageConnectionString:string * serviceBusConnectionString:string * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster</div>
+<div class="tip" id="fs13">type ConsoleLogger = MBrace.Runtime.ConsoleLogger<br /><br />Full name: MBrace.Azure.ConsoleLogger</div>
+<div class="tip" id="fs14">type LogLevel = MBrace.Runtime.LogLevel<br /><br />Full name: MBrace.Azure.LogLevel</div>
+<div class="tip" id="fs15">MBrace.Runtime.LogLevel.Info: MBrace.Runtime.LogLevel = 4</div>
 
         </div>
         <div class="span3">
