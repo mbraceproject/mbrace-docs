@@ -24,8 +24,11 @@ open MBrace.Azure
 
        #load "../packages/MBrace.Azure/MBrace.Azure.fsx"
        open MBrace.Azure
-       let pubSettingsFile = @"... path to your downloaded publication settings file ... "
-       let config = Management.CreateCluster(pubSettingsFile, Regions.North_Europe, VMSize=VMSizes.Large) 
+       let pubSettingsFile = @"... path to your publication settings file ... "
+       let config = 
+           Management.CreateCluster(pubSettingsFile, 
+                                    Regions.North_Europe, 
+                                    VMSize = VMSizes.Large) 
   
    Then run the script - either from the command line or using send-to-interactive in your editor:
 
