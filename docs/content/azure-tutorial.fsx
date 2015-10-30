@@ -13,7 +13,7 @@ open MBrace.Azure
 
 # Using MBrace on Azure 
 
-1. [Create an Azure account])(https://azure.microsoft.com) and [download your publication settings file ](https://manage.windowsazure.com/publishsettings).
+1. [Create an Azure account](https://azure.microsoft.com) and [download your publication settings file ](https://manage.windowsazure.com/publishsettings).
 
 2. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
 
