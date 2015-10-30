@@ -56,7 +56,9 @@ or acquiring them by other means:
 let myStorageConnectionString = "..."
 let myServiceBusConnectionString = "..."
 let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)
-let cluster = AzureCluster.Connect(config, logger = ConsoleLogger(true), logLevel = LogLevel.Info)
+let cluster = AzureCluster.Connect(config, 
+                                   logger = ConsoleLogger(true), 
+                                   logLevel = LogLevel.Info)
 
 (**
 
