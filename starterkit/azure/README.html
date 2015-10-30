@@ -40,50 +40,12 @@
           
 <h1><a name="MBrace-on-Azure" class="anchor" href="#MBrace-on-Azure">MBrace on Azure</a></h1>
 
-<h2><a name="Provisioning-Your-MBrace-Cluster-in-Azure" class="anchor" href="#Provisioning-Your-MBrace-Cluster-in-Azure">Provisioning Your MBrace Cluster in Azure</a></h2>
-
-<h3><a name="Creating-a-Cluster-The-Easy-Way" class="anchor" href="#Creating-a-Cluster-The-Easy-Way">Creating a Cluster - The Easy Way</a></h3>
-
-<ol>
-<li><p>[Create an Azure account])(<a href="https://azure.microsoft.com)">https://azure.microsoft.com)</a> and <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p></li>
-<li><p>Build this repository to get the <code>MBrace.Azure</code> package</p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-</pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cd</span> <span class="i">MBrace</span><span class="o">.</span><span class="i">StarterKit</span>
-
-<span class="i">msbuild</span>   (<span class="k">or</span> <span class="i">build</span> <span class="i">Mbrace</span><span class="o">.</span><span class="i">StarterKit</span><span class="o">.</span><span class="i">sln</span> <span class="k">in</span> <span class="i">your</span> <span class="i">editor</span>)
-</code></pre></td>
-</tr>
-</table></li>
-<li><p>Edit the <code>create-cluster.fsx</code> script in F# Interactive. Adjust the region as necessary, e.g. <code>Regions.West_US</code></p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-</pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">notepad</span> <span class="i">azure</span><span class="o">/</span><span class="i">create</span><span class="o">-</span><span class="i">cluster</span><span class="o">.</span><span class="i">fsx</span>  
-</code></pre></td>
-</tr>
-</table>
-<p>Then run the script - either from the command line or using send-to-interactive in your editor:</p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-</pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cd</span> <span class="i">azure</span>
-<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">fsi</span> <span class="i">create</span><span class="o">-</span><span class="i">cluster</span><span class="o">.</span><span class="i">fsx</span> 
-</code></pre></td>
-</tr>
-</table>
-<p>Your cluster will now eventually appear as a cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.</p></li>
-</ol>
-
-<p>Now go through the <a href="http://www.m-brace.net/programming-model.html">Programming Model Tutorials</a>, the code is in <code>HandsOnTutorial</code>
-If using the starter kit, note your connection strings from <code>config</code> and enter them in <code>HandsOnTutorial/AzureCluster.fsx</code>.  You can also
-find these connection strings in the Configure panel of your cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.</p>
+<p>See <a href="http://m-brace.net/#try-azure">Getting started with MBrace on Azure</a>.</p>
 
 <h3><a name="Manually-Creating-a-Custom-Package-to-Deploy" class="anchor" href="#Manually-Creating-a-Custom-Package-to-Deploy">Manually Creating a Custom Package to Deploy</a></h3>
 
 <p>An MBrace cluster is provisioned on Azure by deploying an Azure Cloud Service with MBrace Worker Roles.
-The provisioning process above creates storage, service bus and virtual machine assets in Azure using
+The basic provisioning process creates storage, service bus and virtual machine assets in Azure using
 <a href="https://github.com/mbraceproject/MBrace.Azure/releases">default packages created as part of MBrace.Azure releases</a>.</p>
 
 <p>You can build your own artisan packages that contain pre-installed software, adjusted settings or installation scripts.
@@ -280,9 +242,9 @@ For example, you have a machine learning algorithm written in Python and you wan
 <span class="i">echo</span> <span class="s">&quot;Downloading JDK.&quot;</span>
 <span class="o">$</span><span class="i">source</span> <span class="o">=</span> <span class="s">&quot;http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-windows-x64.exe&quot;</span>
 <span class="o">$</span><span class="i">destination</span> <span class="o">=</span> <span class="s">&quot;c:\jdk.exe&quot;</span>
-<span class="o">$</span><span class="i">client</span> <span class="o">=</span> <span class="k">new</span><span class="o">-</span><span class="i">object</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">WebClient</span> 
+<span class="o">$</span><span class="i">client</span> <span class="o">=</span> <span class="k">new</span><span class="o">-</span><span class="i">object</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">WebClient</span> 
 <span class="o">$</span><span class="i">cookie</span> <span class="o">=</span> <span class="s">&quot;oraclelicense=accept-securebackup-cookie&quot;</span>
-<span class="o">$</span><span class="i">client</span><span class="o">.</span><span class="i">Headers</span><span class="o">.</span><span class="i">Add</span>([<span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 6)" onmouseover="showTip(event, 'fs3', 6)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">HttpRequestHeader</span>]<span class="o">::</span><span class="i">Cookie</span>, <span class="o">$</span><span class="i">cookie</span>) 
+<span class="o">$</span><span class="i">client</span><span class="o">.</span><span class="i">Headers</span><span class="o">.</span><span class="i">Add</span>([<span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">HttpRequestHeader</span>]<span class="o">::</span><span class="i">Cookie</span>, <span class="o">$</span><span class="i">cookie</span>) 
 <span class="o">$</span><span class="i">client</span><span class="o">.</span><span class="i">downloadFile</span>(<span class="o">$</span><span class="i">source</span>, <span class="o">$</span><span class="i">destination</span>)
 
 #<span class="i">Install</span> <span class="i">JDK</span><span class="o">.</span>
@@ -292,7 +254,7 @@ For example, you have a machine learning algorithm written in Python and you wan
 #<span class="i">This</span> <span class="i">is</span> <span class="i">needed</span> <span class="i">because</span> <span class="i">the</span> <span class="i">non</span><span class="o">-</span><span class="i">interactive</span> <span class="i">installation</span> <span class="i">terminates</span> <span class="i">immediately</span> <span class="k">while</span> <span class="i">the</span> <span class="i">installation</span> <span class="i">is</span> <span class="i">working</span> <span class="k">in</span> <span class="i">background</span><span class="o">.</span>
 <span class="i">sleep</span> <span class="n">60</span>
 
-#<span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="i">Set</span> <span class="i">JDK</span> <span class="i">folder</span> <span class="k">in</span> <span class="i">PATH</span>
+#<span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">Set</span> <span class="i">JDK</span> <span class="i">folder</span> <span class="k">in</span> <span class="i">PATH</span>
 <span class="o">$</span><span class="i">newPath</span> <span class="o">=</span> <span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">Path</span> <span class="o">+</span> <span class="s">&quot;;&quot;</span> <span class="o">+</span> <span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">programfiles</span> <span class="o">+</span> <span class="s">&quot;\Java\jdk1.8.0_60\bin&quot;</span>
 [<span class="i">Environment</span>]<span class="o">::</span><span class="i">SetEnvironmentVariable</span>(<span class="s">&quot;Path&quot;</span>, <span class="o">$</span><span class="i">newPath</span>, <span class="s">&quot;Machine&quot;</span>)
 
@@ -301,12 +263,11 @@ For example, you have a machine learning algorithm written in Python and you wan
 </tr>
 </table>
 
-<div class="tip" id="fs1">val fsi : Compiler.Interactive.InteractiveSession<br /><br />Full name: Microsoft.FSharp.Compiler.Interactive.Settings.fsi</div>
-<div class="tip" id="fs2">namespace System</div>
-<div class="tip" id="fs3">namespace System.Net</div>
-<div class="tip" id="fs4">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />System.Net.WebClient() : unit</div>
-<div class="tip" id="fs5">type HttpRequestHeader =<br />&#160;&#160;| CacheControl = 0<br />&#160;&#160;| Connection = 1<br />&#160;&#160;| Date = 2<br />&#160;&#160;| KeepAlive = 3<br />&#160;&#160;| Pragma = 4<br />&#160;&#160;| Trailer = 5<br />&#160;&#160;| TransferEncoding = 6<br />&#160;&#160;| Upgrade = 7<br />&#160;&#160;| Via = 8<br />&#160;&#160;| Warning = 9<br />&#160;&#160;...<br /><br />Full name: System.Net.HttpRequestHeader</div>
-<div class="tip" id="fs6">Multiple items<br />module Set<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Set&lt;&#39;T (requires comparison)&gt; =<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;interface ICollection&lt;&#39;T&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Add : value:&#39;T -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Contains : value:&#39;T -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member IsProperSubsetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;member IsProperSupersetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Set&lt;_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;</div>
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.Net</div>
+<div class="tip" id="fs3">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />System.Net.WebClient() : unit</div>
+<div class="tip" id="fs4">type HttpRequestHeader =<br />&#160;&#160;| CacheControl = 0<br />&#160;&#160;| Connection = 1<br />&#160;&#160;| Date = 2<br />&#160;&#160;| KeepAlive = 3<br />&#160;&#160;| Pragma = 4<br />&#160;&#160;| Trailer = 5<br />&#160;&#160;| TransferEncoding = 6<br />&#160;&#160;| Upgrade = 7<br />&#160;&#160;| Via = 8<br />&#160;&#160;| Warning = 9<br />&#160;&#160;...<br /><br />Full name: System.Net.HttpRequestHeader</div>
+<div class="tip" id="fs5">Multiple items<br />module Set<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Set&lt;&#39;T (requires comparison)&gt; =<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;interface ICollection&lt;&#39;T&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Add : value:&#39;T -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Contains : value:&#39;T -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member IsProperSubsetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;member IsProperSupersetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Set&lt;_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;</div>
 
         </div>
         <div class="span3">
