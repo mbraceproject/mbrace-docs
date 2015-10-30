@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ProcessConfiguration - MBrace.Azure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>ProcessConfiguration</h1>
+<p>
+  <span>Namespace: MBrace.Azure.Runtime</span><br />
+</p>
+<div class="xmldoc">
+<p>Configuration registry for current process.</p>
+
+
+</div>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1752', 1752)" onmouseover="showTip(event, '1752', 1752)">
+            BinarySerializer
+          </code>
+          <div class="tip" id="1752">
+            <strong>Signature:</strong> BinarySerializer<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Default FsPicklerSerializer instance.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1753', 1753)" onmouseover="showTip(event, '1753', 1753)">
+            EnsureInitialized()
+          </code>
+          <div class="tip" id="1753">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Ensure that global configuration object has been initialized</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1754', 1754)" onmouseover="showTip(event, '1754', 1754)">
+            FileStore
+          </code>
+          <div class="tip" id="1754">
+            <strong>Signature:</strong> FileSystemStore<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Local file system store</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1755', 1755)" onmouseover="showTip(event, '1755', 1755)">
+            InitAsClient()
+          </code>
+          <div class="tip" id="1755">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Initializes process state for use as client.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1756', 1756)" onmouseover="showTip(event, '1756', 1756)">
+            InitAsWorker(workingDirectory)
+          </code>
+          <div class="tip" id="1756">
+            <strong>Signature:</strong> (workingDirectory:string option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Initializes process state for use as parent AppDomain in a worker.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1757', 1757)" onmouseover="showTip(event, '1757', 1757)">
+            InitAsWorkerSlaveDomain(...)
+          </code>
+          <div class="tip" id="1757">
+            <strong>Signature:</strong> workingDirectory:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Initializes process state for use as a slave AppDomain in a worker.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1758', 1758)" onmouseover="showTip(event, '1758', 1758)">
+            IsInitialized
+          </code>
+          <div class="tip" id="1758">
+            <strong>Signature:</strong> bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks whether process configuration is initialized</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1759', 1759)" onmouseover="showTip(event, '1759', 1759)">
+            JsonSerializer
+          </code>
+          <div class="tip" id="1759">
+            <strong>Signature:</strong> JsonSerializer<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Default FsPicklerJsonSerializer instance.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1760', 1760)" onmouseover="showTip(event, '1760', 1760)">
+            ObjectCache
+          </code>
+          <div class="tip" id="1760">
+            <strong>Signature:</strong> InMemoryCache<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>In-Memory cache</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1761', 1761)" onmouseover="showTip(event, '1761', 1761)">
+            Version
+          </code>
+          <div class="tip" id="1761">
+            <strong>Signature:</strong> Version<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>MBrace.Azure compiled version</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1762', 1762)" onmouseover="showTip(event, '1762', 1762)">
+            WorkingDirectory
+          </code>
+          <div class="tip" id="1762">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Working Directory used by current global state.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

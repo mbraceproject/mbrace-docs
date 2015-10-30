@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Utils - MBrace.Runtime</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Runtime</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Utils</h1>
+<p>
+  <span>Namespace: MBrace.Runtime.Utils</span><br />
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-appdomainid.html">AppDomainId</a>
+          </td>
+          <td class="xmldoc"><p>Serializable AppDomain identifier object</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-existential.html">Existential</a>
+          </td>
+          <td class="xmldoc"><p>Type existential container</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-existential-1.html">Existential<'T></a>
+          </td>
+          <td class="xmldoc"><p>Existential container of type 'T</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-exn-1.html">Exn<'T></a>
+          </td>
+          <td class="xmldoc"><p>Value or exception</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-iasyncfunc-1.html">IAsyncFunc<'R></a>
+          </td>
+          <td class="xmldoc"><p>Generic asynchronous function</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-ifunc-1.html">IFunc<'R></a>
+          </td>
+          <td class="xmldoc"><p>Generic function</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-machineid.html">MachineId</a>
+          </td>
+          <td class="xmldoc"><p>Serializable machine identifier object</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-marshaledaction-1.html">MarshaledAction<'T></a>
+          </td>
+          <td class="xmldoc"><p>Action that can be marshalled across AppDomains</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-marshaledaction.html">MarshaledAction</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-processid.html">ProcessId</a>
+          </td>
+          <td class="xmldoc"><p>Serializable process identifier object</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-referenceequalitycomparer-1.html">ReferenceEqualityComparer<'T></a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-replychannel-1.html">ReplyChannel<'T></a>
+          </td>
+          <td class="xmldoc"><p>MailboxProcessor ReplyChannel with exception support</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-serializablefactory-1.html">SerializableFactory<'T></a>
+          </td>
+          <td class="xmldoc"><p>A Serializable value container that only serializes its factory
+rather than the actual value.</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-serializablefactory.html">SerializableFactory</a>
+          </td>
+          <td class="xmldoc"><p>A Serializable value container that only serializes its factory
+rather than the actual value.</p>
+
+
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="mbrace-runtime-utils-utils-workingdirectory.html">WorkingDirectory</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+    </tbody>
+  </table>
+  <table class="table table-bordered module-list">
+    <thead>
+      <tr><td>Module</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="module-name">
+            <a href="mbrace-runtime-utils-utils-array.html">Array</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+        <tr>
+          <td class="module-name">
+            <a href="mbrace-runtime-utils-utils-disposable.html">Disposable</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+        <tr>
+          <td class="module-name">
+            <a href="mbrace-runtime-utils-utils-exn.html">Exn</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+        <tr>
+          <td class="module-name">
+            <a href="mbrace-runtime-utils-utils-option.html">Option</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '883', 883)" onmouseover="showTip(event, '883', 883)">
+            areReflectiveEqual x y
+          </code>
+          <div class="tip" id="883">
+            <strong>Signature:</strong> x:&#39;T -&gt; y:&#39;T -&gt; bool<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>reflection-based equality check
+checks if args are of identical underlying type before checking equality
+used to protect against incomplete equality implementations in interfaces
+that demand equality</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '884', 884)" onmouseover="showTip(event, '884', 884)">
+            compare2 t1 s1 t2 s2
+          </code>
+          <div class="tip" id="884">
+            <strong>Signature:</strong> t1:&#39;T -&gt; s1:&#39;S -&gt; t2:&#39;T -&gt; s2:&#39;S -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>lexicographic comparison without tuple allocation</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '885', 885)" onmouseover="showTip(event, '885', 885)">
+            compare3 t1 s1 u1 t2 s2 u2
+          </code>
+          <div class="tip" id="885">
+            <strong>Signature:</strong> t1:&#39;T -&gt; s1:&#39;S -&gt; u1:&#39;U -&gt; t2:&#39;T -&gt; s2:&#39;S -&gt; u2:&#39;U -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T, 'S, 'U          </div>
+        </td>
+        <td class="xmldoc">
+          <p>lexicographic comparison without tuple allocation</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '886', 886)" onmouseover="showTip(event, '886', 886)">
+            compare4 t1 s1 u1 v1 t2 s2 u2 v2
+          </code>
+          <div class="tip" id="886">
+            <strong>Signature:</strong> t1:&#39;T -&gt; s1:&#39;S -&gt; u1:&#39;U -&gt; v1:&#39;V -&gt; t2:&#39;T -&gt; s2:&#39;S -&gt; u2:&#39;U -&gt; v2:&#39;V -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T, 'S, 'U, 'V          </div>
+        </td>
+        <td class="xmldoc">
+          <p>lexicographic comparison without tuple allocation</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '887', 887)" onmouseover="showTip(event, '887', 887)">
+            concurrentMemoize f
+          </code>
+          <div class="tip" id="887">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;S) -&gt; &#39;T -&gt; &#39;S<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Thread-safe memoization combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '888', 888)" onmouseover="showTip(event, '888', 888)">
+            getHumanReadableByteSize size
+          </code>
+          <div class="tip" id="888">
+            <strong>Signature:</strong> size:int64 -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>generates a human readable string for byte sizes
+including a KiB, MiB, GiB or TiB suffix depending on size</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '889', 889)" onmouseover="showTip(event, '889', 889)">
+            getReflectedType o
+          </code>
+          <div class="tip" id="889">
+            <strong>Signature:</strong> o:obj -&gt; Type<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the actual System.Type of the underlying object</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '890', 890)" onmouseover="showTip(event, '890', 890)">
+            hash2 t s
+          </code>
+          <div class="tip" id="890">
+            <strong>Signature:</strong> t:&#39;T -&gt; s:&#39;S -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>pair hashcode generation without tuple allocation</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '891', 891)" onmouseover="showTip(event, '891', 891)">
+            hash3 t s u
+          </code>
+          <div class="tip" id="891">
+            <strong>Signature:</strong> t:&#39;T -&gt; s:&#39;S -&gt; u:&#39;U -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T, 'S, 'U          </div>
+        </td>
+        <td class="xmldoc">
+          <p>triple hashcode generation without tuple allocation</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '892', 892)" onmouseover="showTip(event, '892', 892)">
+            hash4 t s u v
+          </code>
+          <div class="tip" id="892">
+            <strong>Signature:</strong> t:&#39;T -&gt; s:&#39;S -&gt; u:&#39;U -&gt; v:&#39;V -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T, 'S, 'U, 'V          </div>
+        </td>
+        <td class="xmldoc">
+          <p>quadruple hashcode generation without tuple allocation</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '893', 893)" onmouseover="showTip(event, '893', 893)">
+            hset xs
+          </code>
+          <div class="tip" id="893">
+            <strong>Signature:</strong> xs:seq&lt;&#39;T&gt; -&gt; HashSet&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '894', 894)" onmouseover="showTip(event, '894', 894)">
+            runsOnMono 
+          </code>
+          <div class="tip" id="894">
+            <strong>Signature:</strong> bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Type extensions</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Type extension</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '895', 895)" onmouseover="showTip(event, '895', 895)">
+            Diverge(?cancellationToken)
+          </code>
+          <div class="tip" id="895">
+            <strong>Signature:</strong> (cancellationToken:CancellationToken option) -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Computation that diverges on the current thread.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '896', 896)" onmouseover="showTip(event, '896', 896)">
+            Logf(fmt)
+          </code>
+          <div class="tip" id="896">
+            <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?39654,unit&gt; -&gt; &#39;?39654<br />
+                          <strong>Type parameters:</strong> '?39654          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '897', 897)" onmouseover="showTip(event, '897', 897)">
+            Pickle(value)
+          </code>
+          <div class="tip" id="897">
+            <strong>Signature:</strong> value:&#39;T -&gt; byte []<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '898', 898)" onmouseover="showTip(event, '898', 898)">
+            PostAndAsyncReply(msgB)
+          </code>
+          <div class="tip" id="898">
+            <strong>Signature:</strong> (msgB:(ReplyChannel&lt;&#39;R&gt; -&gt; &#39;Msg)) -&gt; Async&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'R          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '899', 899)" onmouseover="showTip(event, '899', 899)">
+            PostAndReply(msgB)
+          </code>
+          <div class="tip" id="899">
+            <strong>Signature:</strong> (msgB:(ReplyChannel&lt;&#39;R&gt; -&gt; &#39;Msg)) -&gt; &#39;R<br />
+                          <strong>Type parameters:</strong> 'R          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '900', 900)" onmouseover="showTip(event, '900', 900)">
+            TriggerAsTask(t)
+          </code>
+          <div class="tip" id="900">
+            <strong>Signature:</strong> t:&#39;T -&gt; Task<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '901', 901)" onmouseover="showTip(event, '901', 901)">
+            TryAdd(key, value, ?forceUpdate)
+          </code>
+          <div class="tip" id="901">
+            <strong>Signature:</strong> (key:&#39;TKey * value:&#39;TValue * forceUpdate:bool option) -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '902', 902)" onmouseover="showTip(event, '902', 902)">
+            TryFind(k)
+          </code>
+          <div class="tip" id="902">
+            <strong>Signature:</strong> k:&#39;TKey -&gt; &#39;TValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '903', 903)" onmouseover="showTip(event, '903', 903)">
+            UnPickle(pickle)
+          </code>
+          <div class="tip" id="903">
+            <strong>Signature:</strong> (pickle:byte []) -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Runtime</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

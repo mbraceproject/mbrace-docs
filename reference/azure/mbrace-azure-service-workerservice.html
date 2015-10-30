@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>WorkerService - MBrace.Azure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>WorkerService</h1>
+<p>
+  <span>Namespace: MBrace.Azure.Service</span><br />
+</p>
+<div class="xmldoc">
+<p>MBrace.Azure worker service manager</p>
+
+
+</div>
+  <h3>Constructors</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Constructor</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1930', 1930)" onmouseover="showTip(event, '1930', 1930)">
+            new(config)
+          </code>
+          <div class="tip" id="1930">
+            <strong>Signature:</strong> config:Configuration -&gt; WorkerService<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>MBrace Runtime Service.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1931', 1931)" onmouseover="showTip(event, '1931', 1931)">
+            new(config, workerId)
+          </code>
+          <div class="tip" id="1931">
+            <strong>Signature:</strong> (config:Configuration * workerId:string) -&gt; WorkerService<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1932', 1932)" onmouseover="showTip(event, '1932', 1932)">
+            AttachLogger(logger)
+          </code>
+          <div class="tip" id="1932">
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; IDisposable<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Attach logger to worker. Return an unsubscribe token.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1933', 1933)" onmouseover="showTip(event, '1933', 1933)">
+            Configuration()
+          </code>
+          <div class="tip" id="1933">
+            <strong>Signature:</strong> unit -&gt; Configuration<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set service configuration.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1934', 1934)" onmouseover="showTip(event, '1934', 1934)">
+            Configuration()
+          </code>
+          <div class="tip" id="1934">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set service configuration.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1935', 1935)" onmouseover="showTip(event, '1935', 1935)">
+            HeartbeatInterval()
+          </code>
+          <div class="tip" id="1935">
+            <strong>Signature:</strong> unit -&gt; TimeSpan<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1936', 1936)" onmouseover="showTip(event, '1936', 1936)">
+            HeartbeatInterval()
+          </code>
+          <div class="tip" id="1936">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1937', 1937)" onmouseover="showTip(event, '1937', 1937)">
+            HeartbeatThreshold()
+          </code>
+          <div class="tip" id="1937">
+            <strong>Signature:</strong> unit -&gt; TimeSpan<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1938', 1938)" onmouseover="showTip(event, '1938', 1938)">
+            HeartbeatThreshold()
+          </code>
+          <div class="tip" id="1938">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1939', 1939)" onmouseover="showTip(event, '1939', 1939)">
+            Id
+          </code>
+          <div class="tip" id="1939">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get service unique identifier.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1940', 1940)" onmouseover="showTip(event, '1940', 1940)">
+            LogFile()
+          </code>
+          <div class="tip" id="1940">
+            <strong>Signature:</strong> unit -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the logfile used by the service.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1941', 1941)" onmouseover="showTip(event, '1941', 1941)">
+            LogFile()
+          </code>
+          <div class="tip" id="1941">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the logfile used by the service.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1942', 1942)" onmouseover="showTip(event, '1942', 1942)">
+            LogLevel()
+          </code>
+          <div class="tip" id="1942">
+            <strong>Signature:</strong> unit -&gt; LogLevel<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the logger verbosity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1943', 1943)" onmouseover="showTip(event, '1943', 1943)">
+            LogLevel()
+          </code>
+          <div class="tip" id="1943">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the logger verbosity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1944', 1944)" onmouseover="showTip(event, '1944', 1944)">
+            MaxConcurrentWorkItems()
+          </code>
+          <div class="tip" id="1944">
+            <strong>Signature:</strong> unit -&gt; int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the maximum number of jobs that this worker may execute concurrently.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1945', 1945)" onmouseover="showTip(event, '1945', 1945)">
+            MaxConcurrentWorkItems()
+          </code>
+          <div class="tip" id="1945">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the maximum number of jobs that this worker may execute concurrently.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1946', 1946)" onmouseover="showTip(event, '1946', 1946)">
+            RegisterAtomProvider(atom)
+          </code>
+          <div class="tip" id="1946">
+            <strong>Signature:</strong> atom:ICloudAtomProvider -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register a CloudAtomConfiguration instance. Defaults to table store implementation with configuration's storage connection string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1947', 1947)" onmouseover="showTip(event, '1947', 1947)">
+            RegisterDictionaryProvider(dictionary)
+          </code>
+          <div class="tip" id="1947">
+            <strong>Signature:</strong> dictionary:ICloudDictionaryProvider -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register an ICloudChannelProvider instance. Defaults to Service Bus queue implementation with configuration's Service Bus connection string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1948', 1948)" onmouseover="showTip(event, '1948', 1948)">
+            RegisterQueueProvider(channel)
+          </code>
+          <div class="tip" id="1948">
+            <strong>Signature:</strong> channel:ICloudQueueProvider -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register a CloudQueueConfiguration instance. Defaults to Service Bus queue implementation with configuration's Service Bus connection string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1949', 1949)" onmouseover="showTip(event, '1949', 1949)">
+            RegisterResource(resource)
+          </code>
+          <div class="tip" id="1949">
+            <strong>Signature:</strong> resource:&#39;TResource -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'TResource          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Add a custom resource in workers ResourceRegistry.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1950', 1950)" onmouseover="showTip(event, '1950', 1950)">
+            RegisterStoreConfiguration(store)
+          </code>
+          <div class="tip" id="1950">
+            <strong>Signature:</strong> store:ICloudFileStore -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register a CloudFileStoreConfiguration instance. Defaults to BlobStore with configuration's storage connection string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1951', 1951)" onmouseover="showTip(event, '1951', 1951)">
+            Run()
+          </code>
+          <div class="tip" id="1951">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously starts the worker service with specified configuration and blocks the calling thread until stopped.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1952', 1952)" onmouseover="showTip(event, '1952', 1952)">
+            Start()
+          </code>
+          <div class="tip" id="1952">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously starts the worker service with specified configuration</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1953', 1953)" onmouseover="showTip(event, '1953', 1953)">
+            StartAsTask()
+          </code>
+          <div class="tip" id="1953">
+            <strong>Signature:</strong> unit -&gt; Task&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously starts the service with specified configuration</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1954', 1954)" onmouseover="showTip(event, '1954', 1954)">
+            StartAsync()
+          </code>
+          <div class="tip" id="1954">
+            <strong>Signature:</strong> unit -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously starts the service with specified configuration</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1955', 1955)" onmouseover="showTip(event, '1955', 1955)">
+            Status
+          </code>
+          <div class="tip" id="1955">
+            <strong>Signature:</strong> ServiceStatus<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the current service status</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1956', 1956)" onmouseover="showTip(event, '1956', 1956)">
+            Stop()
+          </code>
+          <div class="tip" id="1956">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously stops the worker service</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1957', 1957)" onmouseover="showTip(event, '1957', 1957)">
+            StopAsTask()
+          </code>
+          <div class="tip" id="1957">
+            <strong>Signature:</strong> unit -&gt; Task&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously stops the worker service</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1958', 1958)" onmouseover="showTip(event, '1958', 1958)">
+            StopAsync()
+          </code>
+          <div class="tip" id="1958">
+            <strong>Signature:</strong> unit -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously stops the worker service</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1959', 1959)" onmouseover="showTip(event, '1959', 1959)">
+            UseAppDomainIsolation()
+          </code>
+          <div class="tip" id="1959">
+            <strong>Signature:</strong> unit -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set off AppDomain isolation will be used.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1960', 1960)" onmouseover="showTip(event, '1960', 1960)">
+            UseAppDomainIsolation()
+          </code>
+          <div class="tip" id="1960">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set off AppDomain isolation will be used.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1961', 1961)" onmouseover="showTip(event, '1961', 1961)">
+            WorkingDirectory()
+          </code>
+          <div class="tip" id="1961">
+            <strong>Signature:</strong> unit -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the working directory for the worker process</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1962', 1962)" onmouseover="showTip(event, '1962', 1962)">
+            WorkingDirectory()
+          </code>
+          <div class="tip" id="1962">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the working directory for the worker process</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

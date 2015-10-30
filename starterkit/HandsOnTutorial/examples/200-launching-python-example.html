@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Example: Using custom provision of an MBrace cluster and running Python on the cluster
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Example-Using-custom-provision-of-an-MBrace-cluster-and-running-Python-on-the-cluster" class="anchor" href="#Example-Using-custom-provision-of-an-MBrace-cluster-and-running-Python-on-the-cluster">Example: Using custom provision of an MBrace cluster and running Python on the cluster</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<p>In this tutorial, you use the custom provision MBrace cluster to run a task that replies on Python code.</p>
+
+<p>This tutorial preforms the following scenerio:</p>
+
+<ol>
+<li>Use F# code to download a web page.</li>
+<li>Pass the content of the web page to a Python script via standard input. The Python script extracts and returns all the hyperlinks from the web page.</li>
+<li>Return all the extracted hyperlinks.</li>
+</ol>
+
+<p>To run this tutorial, you first need to provision a MBrace cluster which contains the Python interepreter. You can use the
+ProvisionWithPython solution in the StarterKit to do that.</p>
+
+<p>First connect to the cluster.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="f">GetCluster</span>() 
+
+<span class="c">// You can connect to the cluster and get details of the workers in the pool:</span>
+<span onmouseout="hideTip(event, 'fs10', 17)" onmouseover="showTip(event, 'fs10', 17)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="f">ShowWorkers</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, create the Python code to extract hyperlinks from a web page.
+The Python code uses the package beautifulsoup4, which will be installed by the custom provision of MBrace cluster.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">pythonCode</span> <span class="o">=</span> <span class="s">@&quot;</span>
+<span class="s">from bs4 import BeautifulSoup</span>
+<span class="s">import sys</span>
+<span class="s">import json</span>
+
+<span class="s"># The web page data is read from standard input.</span>
+<span class="s">lines = [line for line in sys.stdin]</span>
+<span class="s">text = &#39;\n&#39;.join(lines)</span>
+<span class="s">html = BeautifulSoup(text)</span>
+<span class="s">links = html.select(&#39;a&#39;)</span>
+<span class="s">hrefs = [link[&#39;href&#39;] for link in links]</span>
+
+<span class="s"># Output extracted links as a JSON list.</span>
+<span class="s">print(json.dumps(hrefs))</span>
+<span class="s">&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Then, define the Mbrace task to download web page and launch the Python interpreter using the Process class.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="f">job</span> (<span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="i">url</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">string</span>, <span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="i">pythonCode</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs17', 24)" onmouseover="showTip(event, 'fs17', 24)" class="t">string</span>) <span class="o">=</span> 
+    <span class="i">cloud</span> {
+        <span class="c">// Download the web page.</span>
+        <span class="k">let</span> <span class="i">content</span> <span class="o">=</span> (<span class="k">new</span> <span onmouseout="hideTip(event, 'fs19', 25)" onmouseover="showTip(event, 'fs19', 25)" class="i">WebClient</span>())<span class="o">.</span><span class="i">DownloadString</span>(<span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="i">url</span>)
+        
+        <span class="c">// Create a local temp file on the client for the Python code.</span>
+        <span class="k">let</span> <span class="i">pythonFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 27)" onmouseover="showTip(event, 'fs20', 27)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 28)" onmouseover="showTip(event, 'fs21', 28)" class="i">GetTempFileName</span>()
+        <span onmouseout="hideTip(event, 'fs22', 29)" onmouseover="showTip(event, 'fs22', 29)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 30)" onmouseover="showTip(event, 'fs23', 30)" class="i">WriteAllText</span>(<span class="i">pythonFile</span>, <span onmouseout="hideTip(event, 'fs18', 31)" onmouseover="showTip(event, 'fs18', 31)" class="i">pythonCode</span>)
+
+        <span class="c">// Launch the Python interpreter to extract hyperlinks.</span>
+        <span class="k">let</span> <span class="i">prcInfo</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 32)" onmouseover="showTip(event, 'fs24', 32)" class="i">ProcessStartInfo</span>(<span class="s">&quot;c:</span><span class="e">\\</span><span class="s">Python27</span><span class="e">\\</span><span class="s">python.exe&quot;</span>, <span class="i">pythonFile</span>, <span class="i">UseShellExecute</span><span class="o">=</span><span class="k">false</span>, 
+                                       <span class="i">RedirectStandardInput</span><span class="o">=</span><span class="k">true</span>, <span class="i">RedirectStandardOutput</span><span class="o">=</span><span class="k">true</span>)
+
+        <span class="k">let</span> <span class="i">prc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs25', 33)" onmouseover="showTip(event, 'fs25', 33)" class="i">Process</span>(<span class="i">StartInfo</span><span class="o">=</span><span class="i">prcInfo</span>)
+        <span class="i">prc</span><span class="o">.</span><span class="i">Start</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 34)" onmouseover="showTip(event, 'fs26', 34)" class="i">ignore</span>
+        <span class="i">prc</span><span class="o">.</span><span class="i">StandardInput</span><span class="o">.</span><span class="i">Write</span>(<span class="i">content</span>)
+        <span class="i">prc</span><span class="o">.</span><span class="i">StandardInput</span><span class="o">.</span><span class="i">Close</span>()
+        <span class="k">let</span> <span class="i">output</span> <span class="o">=</span> <span class="i">prc</span><span class="o">.</span><span class="i">StandardOutput</span><span class="o">.</span><span class="i">ReadToEnd</span>()
+        <span class="i">prc</span><span class="o">.</span><span class="i">WaitForExit</span>()
+        <span class="k">let</span> <span class="i">hrefs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 35)" onmouseover="showTip(event, 'fs27', 35)" class="i">JsonConvert</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 36)" onmouseover="showTip(event, 'fs28', 36)" class="i">DeserializeObject</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs29', 37)" onmouseover="showTip(event, 'fs29', 37)" class="i">List</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs17', 38)" onmouseover="showTip(event, 'fs17', 38)" class="i">string</span><span class="o">&gt;</span><span class="o">&gt;</span>(<span class="i">output</span>);    
+            
+        <span class="c">// Delele the temp Python file.</span>
+        <span onmouseout="hideTip(event, 'fs22', 39)" onmouseover="showTip(event, 'fs22', 39)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 40)" onmouseover="showTip(event, 'fs30', 40)" class="i">Delete</span>(<span class="i">pythonFile</span>)        
+        <span class="k">return</span> <span class="i">hrefs</span>
+    }
+</code></pre></td>
+</tr>
+</table>
+
+<p>Finally, run the MBrace task and get the results.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 41)" onmouseover="showTip(event, 'fs31', 41)" class="i">result</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 42)" onmouseover="showTip(event, 'fs15', 42)" class="f">job</span>(<span class="s">&quot;http://www.m-brace.net/&quot;</span>, <span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="i">pythonCode</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 44)" onmouseover="showTip(event, 'fs10', 44)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 45)" onmouseover="showTip(event, 'fs32', 45)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>In this tutorial, you've learned how to launch an external process withing a cloud expression.</p>
+
+<p>Continue with further samples to learn more about the
+MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace System.Net</div>
+<div class="tip" id="fs4">namespace System.Diagnostics</div>
+<div class="tip" id="fs5">namespace MBrace</div>
+<div class="tip" id="fs6">namespace MBrace.Core</div>
+<div class="tip" id="fs7">namespace MBrace.Flow</div>
+<div class="tip" id="fs8">namespace Newtonsoft</div>
+<div class="tip" id="fs9">namespace Newtonsoft.Json</div>
+<div class="tip" id="fs10">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-launching-python-example.cluster</div>
+<div class="tip" id="fs11">module Config</div>
+<div class="tip" id="fs12">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs13">member MBrace.Runtime.MBraceClient.ShowWorkers : unit -&gt; unit</div>
+<div class="tip" id="fs14">val pythonCode : string<br /><br />Full name: 200-launching-python-example.pythonCode</div>
+<div class="tip" id="fs15">val job : url:string * pythonCode:string -&gt; &#39;a<br /><br />Full name: 200-launching-python-example.job</div>
+<div class="tip" id="fs16">val url : string</div>
+<div class="tip" id="fs17">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs18">val pythonCode : string</div>
+<div class="tip" id="fs19">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />WebClient() : unit</div>
+<div class="tip" id="fs20">type Path =<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member GetDirectoryName : path:string -&gt; string<br />&#160;&#160;static member GetExtension : path:string -&gt; string<br />&#160;&#160;static member GetFileName : path:string -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Path</div>
+<div class="tip" id="fs21">Path.GetTempFileName() : string</div>
+<div class="tip" id="fs22">type File =<br />&#160;&#160;static member AppendAllLines : path:string * contents:IEnumerable&lt;string&gt; -&gt; unit + 1 overload<br />&#160;&#160;static member AppendAllText : path:string * contents:string -&gt; unit + 1 overload<br />&#160;&#160;static member AppendText : path:string -&gt; StreamWriter<br />&#160;&#160;static member Copy : sourceFileName:string * destFileName:string -&gt; unit + 1 overload<br />&#160;&#160;static member Create : path:string -&gt; FileStream + 3 overloads<br />&#160;&#160;static member CreateText : path:string -&gt; StreamWriter<br />&#160;&#160;static member Decrypt : path:string -&gt; unit<br />&#160;&#160;static member Delete : path:string -&gt; unit<br />&#160;&#160;static member Encrypt : path:string -&gt; unit<br />&#160;&#160;static member Exists : path:string -&gt; bool<br />&#160;&#160;...<br /><br />Full name: System.IO.File</div>
+<div class="tip" id="fs23">File.WriteAllText(path: string, contents: string) : unit<br />File.WriteAllText(path: string, contents: string, encoding: Text.Encoding) : unit</div>
+<div class="tip" id="fs24">Multiple items<br />type ProcessStartInfo =<br />&#160;&#160;new : unit -&gt; ProcessStartInfo + 2 overloads<br />&#160;&#160;member Arguments : string with get, set<br />&#160;&#160;member CreateNoWindow : bool with get, set<br />&#160;&#160;member Domain : string with get, set<br />&#160;&#160;member EnvironmentVariables : StringDictionary<br />&#160;&#160;member ErrorDialog : bool with get, set<br />&#160;&#160;member ErrorDialogParentHandle : nativeint with get, set<br />&#160;&#160;member FileName : string with get, set<br />&#160;&#160;member LoadUserProfile : bool with get, set<br />&#160;&#160;member Password : SecureString with get, set<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.ProcessStartInfo<br /><br />--------------------<br />ProcessStartInfo() : unit<br />ProcessStartInfo(fileName: string) : unit<br />ProcessStartInfo(fileName: string, arguments: string) : unit</div>
+<div class="tip" id="fs25">Multiple items<br />type Process =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; Process<br />&#160;&#160;member BasePriority : int<br />&#160;&#160;member BeginErrorReadLine : unit -&gt; unit<br />&#160;&#160;member BeginOutputReadLine : unit -&gt; unit<br />&#160;&#160;member CancelErrorRead : unit -&gt; unit<br />&#160;&#160;member CancelOutputRead : unit -&gt; unit<br />&#160;&#160;member Close : unit -&gt; unit<br />&#160;&#160;member CloseMainWindow : unit -&gt; bool<br />&#160;&#160;member EnableRaisingEvents : bool with get, set<br />&#160;&#160;member ExitCode : int<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.Process<br /><br />--------------------<br />Process() : unit</div>
+<div class="tip" id="fs26">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+<div class="tip" id="fs27">type JsonConvert =<br />&#160;&#160;static val True : string<br />&#160;&#160;static val False : string<br />&#160;&#160;static val Null : string<br />&#160;&#160;static val Undefined : string<br />&#160;&#160;static val PositiveInfinity : string<br />&#160;&#160;static val NegativeInfinity : string<br />&#160;&#160;static val NaN : string<br />&#160;&#160;static member DefaultSettings : Func&lt;JsonSerializerSettings&gt; with get, set<br />&#160;&#160;static member DeserializeAnonymousType&lt;&#39;T&gt; : value:string * anonymousTypeObject:&#39;T -&gt; &#39;T + 1 overload<br />&#160;&#160;static member DeserializeObject : value:string -&gt; obj + 7 overloads<br />&#160;&#160;...<br /><br />Full name: Newtonsoft.Json.JsonConvert</div>
+<div class="tip" id="fs28">JsonConvert.DeserializeObject&lt;&#39;T&gt;(value: string) : &#39;T<br />JsonConvert.DeserializeObject(value: string) : obj<br />JsonConvert.DeserializeObject&lt;&#39;T&gt;(value: string, settings: JsonSerializerSettings) : &#39;T<br />JsonConvert.DeserializeObject&lt;&#39;T&gt;(value: string, [&lt;ParamArray&gt;] converters: JsonConverter []) : &#39;T<br />JsonConvert.DeserializeObject(value: string, type: Type) : obj<br />JsonConvert.DeserializeObject(value: string, settings: JsonSerializerSettings) : obj<br />JsonConvert.DeserializeObject(value: string, type: Type, settings: JsonSerializerSettings) : obj<br />JsonConvert.DeserializeObject(value: string, type: Type, [&lt;ParamArray&gt;] converters: JsonConverter []) : obj</div>
+<div class="tip" id="fs29">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
+<div class="tip" id="fs30">File.Delete(path: string) : unit</div>
+<div class="tip" id="fs31">val result : obj<br /><br />Full name: 200-launching-python-example.result</div>
+<div class="tip" id="fs32">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

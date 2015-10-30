@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Sequential - MBrace.Core</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Sequential</h1>
+<p>
+  <span>Namespace: MBrace.Library</span><br />
+  <span>Parent Module: <a href="mbrace-library-cloud.html">Cloud</a></span>
+</p>
+<div class="xmldoc">
+<p>Collection combinators that operate sequentially on the inputs.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '77', 77)" onmouseover="showTip(event, '77', 77)">
+            choose(chooser source)
+          </code>
+          <div class="tip" id="77">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;?7532) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7532, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential choose combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '78', 78)" onmouseover="showTip(event, '78', 78)">
+            collect(collector source)
+          </code>
+          <div class="tip" id="78">
+            <strong>Signature:</strong> collector:(&#39;T -&gt; &#39;?7540) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7540, '?7541, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential eager collect combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '79', 79)" onmouseover="showTip(event, '79', 79)">
+            filter(predicate source)
+          </code>
+          <div class="tip" id="79">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; &#39;?7529) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7529          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential filter combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '80', 80)" onmouseover="showTip(event, '80', 80)">
+            fold(folder state source)
+          </code>
+          <div class="tip" id="80">
+            <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; &#39;?7537) -&gt; state:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'State, 'T, '?7537          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential fold combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
+            iter(body source)
+          </code>
+          <div class="tip" id="81">
+            <strong>Signature:</strong> body:(&#39;T -&gt; &#39;?7552) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7552          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential iter combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '82', 82)" onmouseover="showTip(event, '82', 82)">
+            map(mapper source)
+          </code>
+          <div class="tip" id="82">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;?7525) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7525, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential map combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '83', 83)" onmouseover="showTip(event, '83', 83)">
+            tryFind(predicate source)
+          </code>
+          <div class="tip" id="83">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; &#39;?7545) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7545          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential tryFind combinator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '84', 84)" onmouseover="showTip(event, '84', 84)">
+            tryPick(chooser source)
+          </code>
+          <div class="tip" id="84">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;?7548) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7548, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential tryPick combinator.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

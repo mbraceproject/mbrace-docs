@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Creating and Using Cloud Values
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Creating-and-Using-Cloud-Values" class="anchor" href="#Creating-and-Using-Cloud-Values">Creating and Using Cloud Values</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<p>You now learn how to upload data to cloud storage using CloudValue and
+then process it using MBrace cloud tasks.</p>
+
+<p>When using MBrace, data is implicitly uploaded if it is
+part of the closure of a cloud workflow - for example, if a value is
+referenced in a cloud { ... } block.  That data is a transient part of the 
+process specification.  This is often the most convenient way to get 
+small amounts (KB-MB) of data to the cloud: just use the data as part
+of a cloud workflow and run that work in the cloud.</p>
+
+<p>If you wish to persist data in the cloud - for example, if it is too big
+to upload multiple times - then you can use one or more of the
+cloud data constructs that MBrace provides.</p>
+
+<p>Note you can alternatively use any existing cloud storage 
+APIs or SDKs you already have access to.</p>
+
+<p>If using Azure, you can copy larger data to Azure using the AzCopy.exe command line tool, see
+<a href="https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/.
+You">https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/.
+You</a> can manage storage using the "azure" command line tool, see
+<a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/
+Also,">https://azure.microsoft.com/en-us/documentation/articles/xplat-cli/
+Also,</a> if you wish you  can read/write using the .NET Azure storage SDKs directly rather than 
+using MBrace primitives.</p>
+
+<p>Here's some data (~1.0MB)</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="f">mkData</span> () <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="t">String</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="f">replicate</span> <span class="n">10000</span> <span class="s">&quot;The quick brown fox jumped over the lazy dog</span><span class="e">\r</span><span class="s"></span><span class="e">\n</span><span class="s">&quot;</span> 
+</code></pre></td>
+</tr>
+</table>
+
+<p>Generate the data, upload to blob storage and return a handle to the stored data</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="i">persistedCloudData</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { 
+            <span class="k">let</span> <span class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">mkData</span>()
+            <span class="k">let!</span> <span class="i">cell</span> <span class="o">=</span> <span class="i">CloudValue</span><span class="o">.</span><span class="i">New</span> <span class="i">data</span> 
+            <span class="k">return</span> <span class="i">cell</span> }
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 16)" onmouseover="showTip(event, 'fs6', 16)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Run a cloud job which reads the blob and processes the data</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="i">lengthOfData</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { <span class="k">let</span> <span class="i">readData</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="i">persistedCloudData</span><span class="o">.</span><span class="i">Value</span>
+            <span class="k">return</span> <span class="i">readData</span><span class="o">.</span><span class="i">Length</span> }
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 20)" onmouseover="showTip(event, 'fs6', 20)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned how to store values in cloud storage.
+Continue with further samples to learn more about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 6-using-cloud-values.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">val mkData : unit -&gt; string<br /><br />Full name: 6-using-cloud-values.mkData</div>
+<div class="tip" id="fs10">Multiple items<br />type String =<br />&#160;&#160;new : value:char -&gt; string + 7 overloads<br />&#160;&#160;member Chars : int -&gt; char<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;member Contains : value:string -&gt; bool<br />&#160;&#160;member CopyTo : sourceIndex:int * destination:char[] * destinationIndex:int * count:int -&gt; unit<br />&#160;&#160;member EndsWith : value:string -&gt; bool + 2 overloads<br />&#160;&#160;member Equals : obj:obj -&gt; bool + 2 overloads<br />&#160;&#160;member GetEnumerator : unit -&gt; CharEnumerator<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;...<br /><br />Full name: System.String<br /><br />--------------------<br />String(value: nativeptr&lt;char&gt;) : unit<br />String(value: nativeptr&lt;sbyte&gt;) : unit<br />String(value: char []) : unit<br />String(c: char, count: int) : unit<br />String(value: nativeptr&lt;char&gt;, startIndex: int, length: int) : unit<br />String(value: nativeptr&lt;sbyte&gt;, startIndex: int, length: int) : unit<br />String(value: char [], startIndex: int, length: int) : unit<br />String(value: nativeptr&lt;sbyte&gt;, startIndex: int, length: int, enc: Text.Encoding) : unit</div>
+<div class="tip" id="fs11">val replicate : count:int -&gt; str:string -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.String.replicate</div>
+<div class="tip" id="fs12">val persistedCloudData : obj<br /><br />Full name: 6-using-cloud-values.persistedCloudData</div>
+<div class="tip" id="fs13">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs14">val lengthOfData : obj<br /><br />Full name: 6-using-cloud-values.lengthOfData</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

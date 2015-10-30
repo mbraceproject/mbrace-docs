@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ClusterState - MBrace local cluster simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace local cluster simulator</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>ClusterState</h1>
+<p>
+  <span>Namespace: MBrace.Thespian.Runtime</span><br />
+</p>
+<div class="xmldoc">
+<p>Serializable MBrace.Thespian cluster state client object.
+Used for all interactions with the cluster</p>
+
+
+</div>
+  <h3>Record Fields</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Record Field</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2061', 2061)" onmouseover="showTip(event, '2061', 2061)">
+            Id
+          </code>
+          <div class="tip" id="2061">
+            <strong>Signature:</strong> RuntimeId<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Unique cluster identifier object</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2062', 2062)" onmouseover="showTip(event, '2062', 2062)">
+            IsWorkerHosted
+          </code>
+          <div class="tip" id="2062">
+            <strong>Signature:</strong> bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Indicates that the runtime is hosted by an MBrace worker instance.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2063', 2063)" onmouseover="showTip(event, '2063', 2063)">
+            LocalStateFactory
+          </code>
+          <div class="tip" id="2063">
+            <strong>Signature:</strong> LocalStateFactory<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Local node state factory instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2064', 2064)" onmouseover="showTip(event, '2064', 2064)">
+            ProcessManager
+          </code>
+          <div class="tip" id="2064">
+            <strong>Signature:</strong> CloudProcessManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cloud process instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2065', 2065)" onmouseover="showTip(event, '2065', 2065)">
+            ResourceFactory
+          </code>
+          <div class="tip" id="2065">
+            <strong>Signature:</strong> ResourceFactory<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Resource factory instace used for instantiating resources
+in the cluster state hosting process</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2066', 2066)" onmouseover="showTip(event, '2066', 2066)">
+            Resources
+          </code>
+          <div class="tip" id="2066">
+            <strong>Signature:</strong> ResourceRegistry<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Misc resources appended to runtime state</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2067', 2067)" onmouseover="showTip(event, '2067', 2067)">
+            Serializer
+          </code>
+          <div class="tip" id="2067">
+            <strong>Signature:</strong> ISerializer<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Default serializer instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2068', 2068)" onmouseover="showTip(event, '2068', 2068)">
+            StoreCloudValueProvider
+          </code>
+          <div class="tip" id="2068">
+            <strong>Signature:</strong> StoreCloudValueProvider<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>CloudValue provider instance used by runtime</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2069', 2069)" onmouseover="showTip(event, '2069', 2069)">
+            Uri
+          </code>
+          <div class="tip" id="2069">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Thespian address of the runtime state hosting process</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2070', 2070)" onmouseover="showTip(event, '2070', 2070)">
+            WorkerManager
+          </code>
+          <div class="tip" id="2070">
+            <strong>Signature:</strong> WorkerManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cluster worker monitor</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2071', 2071)" onmouseover="showTip(event, '2071', 2071)">
+            WorkItemQueue
+          </code>
+          <div class="tip" id="2071">
+            <strong>Signature:</strong> WorkItemQueue<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cloud work item queue instance</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2072', 2072)" onmouseover="showTip(event, '2072', 2072)">
+            GetLocalRuntimeManager()
+          </code>
+          <div class="tip" id="2072">
+            <strong>Signature:</strong> unit -&gt; IRuntimeManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a IRuntimeManager instance using provided state
+and given local logger instance.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2073', 2073)" onmouseover="showTip(event, '2073', 2073)">
+            Create(...)
+          </code>
+          <div class="tip" id="2073">
+            <strong>Signature:</strong> (fileStore:ICloudFileStore * isWorkerHosted:bool * userDataDirectory:string option * workItemsDirectory:string option * assemblyDirectory:string option * cacheDirectory:string option * miscResources:ResourceRegistry option) -&gt; ClusterState<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a cluster state object that is hosted in the local process</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace local cluster simulator</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

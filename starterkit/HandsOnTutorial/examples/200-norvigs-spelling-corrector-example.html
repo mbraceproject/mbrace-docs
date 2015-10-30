@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Example: Training in the Cloud
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Example-Training-in-the-Cloud" class="anchor" href="#Example-Training-in-the-Cloud">Example: Training in the Cloud</a></h1>
+
+<p>This example demonstrates Norvig's Spelling Corrector (<a href="http://norvig.com/spell-correct.html).
+It">http://norvig.com/spell-correct.html).
+It</a> is a prototypical workflow for training and learning in the cloud. You use the cloud to extract statistical
+information from a body of text. The statistical summary is used locally in your client application.</p>
+
+<blockquote>
+  <p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<h2><a name="Part-1-Extract-Statistics-in-the-Cloud" class="anchor" href="#Part-1-Extract-Statistics-in-the-Cloud">Part 1 - Extract Statistics in the Cloud</a></h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;../lib/utils.fsx&quot;</span>
+
+<span class="c">// Initialize client object to an MBrace cluster</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="f">GetCluster</span>() 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="i">fs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">Store</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">CloudFileSystem</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Step 1: download text file from source, 
+saving it to blob storage chunked into smaller files of 10000 lines each.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="f">download</span> (<span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="i">uri</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">string</span>) <span class="o">=</span> 
+    <span class="i">cloud</span> {
+        <span class="k">let</span> <span class="i">webClient</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="i">WebClient</span>()
+        <span class="k">do!</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Log</span> <span class="s">&quot;Begin file download&quot;</span> 
+        <span class="k">let</span> <span class="i">text</span> <span class="o">=</span> <span class="i">webClient</span><span class="o">.</span><span class="i">DownloadString</span>(<span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="i">uri</span>) 
+        <span class="k">do!</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Log</span> <span class="s">&quot;file downloaded&quot;</span> 
+        <span class="c">// Partition the big text into smaller files </span>
+        <span class="k">let!</span> <span class="i">files</span> <span class="o">=</span> 
+            <span class="i">text</span><span class="o">.</span><span class="i">Split</span>(<span class="s">&#39;\n&#39;</span>)
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs19', 25)" onmouseover="showTip(event, 'fs19', 25)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 26)" onmouseover="showTip(event, 'fs20', 26)" class="i">chunkBySize</span> <span class="n">10000</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 28)" onmouseover="showTip(event, 'fs21', 28)" class="i">mapi</span> (<span class="k">fun</span> <span class="i">index</span> <span class="i">lines</span> <span class="k">-&gt;</span> 
+                 <span class="i">local</span> { 
+                    <span onmouseout="hideTip(event, 'fs12', 29)" onmouseover="showTip(event, 'fs12', 29)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 30)" onmouseover="showTip(event, 'fs22', 30)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 31)" onmouseover="showTip(event, 'fs23', 31)" class="i">Delete</span>(<span onmouseout="hideTip(event, 'fs24', 32)" onmouseover="showTip(event, 'fs24', 32)" class="i">sprintf</span> <span class="s">&quot;text/%d.txt&quot;</span> <span class="i">index</span>) 
+                    <span class="k">let</span> <span class="i">file</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 35)" onmouseover="showTip(event, 'fs25', 35)" class="i">WriteAllLines</span>(<span class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 36)" onmouseover="showTip(event, 'fs24', 36)" class="i">sprintf</span> <span class="s">&quot;text/%d.txt&quot;</span> <span class="i">index</span>, <span class="i">lines</span> <span class="o">=</span> <span class="i">lines</span>) 
+                    <span class="k">return</span> <span class="i">file</span> })
+            <span class="o">|&gt;</span> <span class="i">Local</span><span class="o">.</span><span class="i">Parallel</span>
+        <span class="k">return</span> <span class="i">files</span>
+    }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 37)" onmouseover="showTip(event, 'fs26', 37)" class="i">downloadTask</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 38)" onmouseover="showTip(event, 'fs15', 38)" class="f">download</span> <span class="s">&quot;http://norvig.com/big.txt&quot;</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 39)" onmouseover="showTip(event, 'fs9', 39)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 40)" onmouseover="showTip(event, 'fs27', 40)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs26', 41)" onmouseover="showTip(event, 'fs26', 41)" class="i">downloadTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 42)" onmouseover="showTip(event, 'fs28', 42)" class="f">ShowInfo</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 43)" onmouseover="showTip(event, 'fs29', 43)" class="i">files</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 44)" onmouseover="showTip(event, 'fs26', 44)" class="i">downloadTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 45)" onmouseover="showTip(event, 'fs30', 45)" class="i">Result</span>
+
+<span class="c">(** Now, take a look at the sizes of the files. *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 46)" onmouseover="showTip(event, 'fs31', 46)" class="i">fileSizesJob</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs29', 47)" onmouseover="showTip(event, 'fs29', 47)" class="i">files</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs19', 48)" onmouseover="showTip(event, 'fs19', 48)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 49)" onmouseover="showTip(event, 'fs32', 49)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs33', 50)" onmouseover="showTip(event, 'fs33', 50)" class="i">f</span> <span class="k">-&gt;</span> <span class="i">CloudFile</span><span class="o">.</span><span class="i">GetSize</span> <span onmouseout="hideTip(event, 'fs33', 51)" onmouseover="showTip(event, 'fs33', 51)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 52)" onmouseover="showTip(event, 'fs34', 52)" class="i">Path</span>)
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 53)" onmouseover="showTip(event, 'fs9', 53)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 54)" onmouseover="showTip(event, 'fs27', 54)" class="f">CreateProcess</span> 
+
+<span onmouseout="hideTip(event, 'fs31', 55)" onmouseover="showTip(event, 'fs31', 55)" class="i">fileSizesJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 56)" onmouseover="showTip(event, 'fs35', 56)" class="i">Status</span>
+<span onmouseout="hideTip(event, 'fs31', 57)" onmouseover="showTip(event, 'fs31', 57)" class="i">fileSizesJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 58)" onmouseover="showTip(event, 'fs28', 58)" class="f">ShowInfo</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 59)" onmouseover="showTip(event, 'fs36', 59)" class="i">fileSizes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 60)" onmouseover="showTip(event, 'fs31', 60)" class="i">fileSizesJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 61)" onmouseover="showTip(event, 'fs37', 61)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>In the second step, use cloud data flow to perform a parallel word 
+frequency count on the stored text.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 62)" onmouseover="showTip(event, 'fs38', 62)" class="i">regex</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs39', 63)" onmouseover="showTip(event, 'fs39', 63)" class="t">Regex</span>(<span class="s">&quot;[a-zA-Z]+&quot;</span>, <span onmouseout="hideTip(event, 'fs40', 64)" onmouseover="showTip(event, 'fs40', 64)" class="t">RegexOptions</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 65)" onmouseover="showTip(event, 'fs41', 65)" class="i">Compiled</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 66)" onmouseover="showTip(event, 'fs42', 66)" class="i">wordCountJob</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs29', 67)" onmouseover="showTip(event, 'fs29', 67)" class="i">files</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs19', 68)" onmouseover="showTip(event, 'fs19', 68)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 69)" onmouseover="showTip(event, 'fs32', 69)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs33', 70)" onmouseover="showTip(event, 'fs33', 70)" class="i">f</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs33', 71)" onmouseover="showTip(event, 'fs33', 71)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 72)" onmouseover="showTip(event, 'fs34', 72)" class="i">Path</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 73)" onmouseover="showTip(event, 'fs43', 73)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 74)" onmouseover="showTip(event, 'fs44', 74)" class="f">OfCloudFileByLine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 75)" onmouseover="showTip(event, 'fs43', 75)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 76)" onmouseover="showTip(event, 'fs45', 76)" class="f">collect</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs46', 77)" onmouseover="showTip(event, 'fs46', 77)" class="i">text</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs38', 78)" onmouseover="showTip(event, 'fs38', 78)" class="i">regex</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs47', 79)" onmouseover="showTip(event, 'fs47', 79)" class="f">Matches</span>(<span onmouseout="hideTip(event, 'fs46', 80)" onmouseover="showTip(event, 'fs46', 80)" class="i">text</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs48', 81)" onmouseover="showTip(event, 'fs48', 81)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 82)" onmouseover="showTip(event, 'fs49', 82)" class="f">cast</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 83)" onmouseover="showTip(event, 'fs43', 83)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 84)" onmouseover="showTip(event, 'fs50', 84)" class="f">map</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs51', 85)" onmouseover="showTip(event, 'fs51', 85)" class="i">m</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs52', 86)" onmouseover="showTip(event, 'fs52', 86)" class="t">Match</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs51', 87)" onmouseover="showTip(event, 'fs51', 87)" class="i">m</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 88)" onmouseover="showTip(event, 'fs53', 88)" class="i">Value</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 89)" onmouseover="showTip(event, 'fs54', 89)" class="f">ToLower</span>()) 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 90)" onmouseover="showTip(event, 'fs43', 90)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 91)" onmouseover="showTip(event, 'fs55', 91)" class="f">countBy</span> <span onmouseout="hideTip(event, 'fs56', 92)" onmouseover="showTip(event, 'fs56', 92)" class="f">id</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs43', 93)" onmouseover="showTip(event, 'fs43', 93)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 94)" onmouseover="showTip(event, 'fs57', 94)" class="f">toArray</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 95)" onmouseover="showTip(event, 'fs9', 95)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 96)" onmouseover="showTip(event, 'fs27', 96)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs42', 97)" onmouseover="showTip(event, 'fs42', 97)" class="i">wordCountJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 98)" onmouseover="showTip(event, 'fs28', 98)" class="f">ShowInfo</span>()
+
+<span onmouseout="hideTip(event, 'fs9', 99)" onmouseover="showTip(event, 'fs9', 99)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs58', 100)" onmouseover="showTip(event, 'fs58', 100)" class="f">ShowProcesses</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 101)" onmouseover="showTip(event, 'fs59', 101)" class="i">NWORDS</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 102)" onmouseover="showTip(event, 'fs42', 102)" class="i">wordCountJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs60', 103)" onmouseover="showTip(event, 'fs60', 103)" class="i">Result</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 104)" onmouseover="showTip(event, 'fs61', 104)" class="t">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 105)" onmouseover="showTip(event, 'fs62', 105)" class="f">ofArray</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Part-2-Use-the-Frequency-Counts-in-our-Application" class="anchor" href="#Part-2-Use-the-Frequency-Counts-in-our-Application">Part 2 - Use the Frequency Counts in our Application</a></h2>
+
+<p>In the final step, use the calculated frequency counts to compute suggested spelling corrections in your client.
+At this point, you've finished using the cluster and no longer need it.<br />
+We have the computed the frequency table, all the rest of this example is run locally.</p>
+
+<p>The statistics could be saved to disk for use in an application. We will use
+them directly in the client.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+<span class="l">39: </span>
+<span class="l">40: </span>
+<span class="l">41: </span>
+<span class="l">42: </span>
+<span class="l">43: </span>
+<span class="l">44: </span>
+<span class="l">45: </span>
+<span class="l">46: </span>
+<span class="l">47: </span>
+<span class="l">48: </span>
+<span class="l">49: </span>
+<span class="l">50: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs63', 106)" onmouseover="showTip(event, 'fs63', 106)" class="f">isKnown</span> <span onmouseout="hideTip(event, 'fs64', 107)" onmouseover="showTip(event, 'fs64', 107)" class="i">word</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs59', 108)" onmouseover="showTip(event, 'fs59', 108)" class="i">NWORDS</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs65', 109)" onmouseover="showTip(event, 'fs65', 109)" class="f">ContainsKey</span> <span onmouseout="hideTip(event, 'fs64', 110)" onmouseover="showTip(event, 'fs64', 110)" class="i">word</span> 
+
+<span class="c">(** Compute the 1-character edits of the word: *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs66', 111)" onmouseover="showTip(event, 'fs66', 111)" class="f">edits1</span> (<span onmouseout="hideTip(event, 'fs64', 112)" onmouseover="showTip(event, 'fs64', 112)" class="i">word</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs17', 113)" onmouseover="showTip(event, 'fs17', 113)" class="t">string</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs67', 114)" onmouseover="showTip(event, 'fs67', 114)" class="i">splits</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs68', 115)" onmouseover="showTip(event, 'fs68', 115)" class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span onmouseout="hideTip(event, 'fs64', 116)" onmouseover="showTip(event, 'fs64', 116)" class="i">word</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs69', 117)" onmouseover="showTip(event, 'fs69', 117)" class="i">Length</span> <span class="k">do</span> <span class="k">yield</span> (<span onmouseout="hideTip(event, 'fs64', 118)" onmouseover="showTip(event, 'fs64', 118)" class="i">word</span><span class="o">.</span>[<span class="n">0..</span><span onmouseout="hideTip(event, 'fs68', 119)" onmouseover="showTip(event, 'fs68', 119)" class="i">i</span><span class="o">-</span><span class="n">1</span>], <span onmouseout="hideTip(event, 'fs64', 120)" onmouseover="showTip(event, 'fs64', 120)" class="i">word</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs68', 121)" onmouseover="showTip(event, 'fs68', 121)" class="i">i</span><span class="o">..</span>])]
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs70', 122)" onmouseover="showTip(event, 'fs70', 122)" class="i">deletes</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs71', 123)" onmouseover="showTip(event, 'fs71', 123)" class="i">a</span>, <span onmouseout="hideTip(event, 'fs72', 124)" onmouseover="showTip(event, 'fs72', 124)" class="i">b</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs67', 125)" onmouseover="showTip(event, 'fs67', 125)" class="i">splits</span> <span class="k">do</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs72', 126)" onmouseover="showTip(event, 'fs72', 126)" class="i">b</span> <span class="o">&lt;&gt;</span> <span class="s">&quot;&quot;</span> <span class="k">then</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs71', 127)" onmouseover="showTip(event, 'fs71', 127)" class="i">a</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs72', 128)" onmouseover="showTip(event, 'fs72', 128)" class="i">b</span><span class="o">.</span>[<span class="n">1..</span>]]
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs73', 129)" onmouseover="showTip(event, 'fs73', 129)" class="i">transposes</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs71', 130)" onmouseover="showTip(event, 'fs71', 130)" class="i">a</span>, <span onmouseout="hideTip(event, 'fs72', 131)" onmouseover="showTip(event, 'fs72', 131)" class="i">b</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs67', 132)" onmouseover="showTip(event, 'fs67', 132)" class="i">splits</span> <span class="k">do</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs72', 133)" onmouseover="showTip(event, 'fs72', 133)" class="i">b</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs69', 134)" onmouseover="showTip(event, 'fs69', 134)" class="i">Length</span> <span class="o">&gt;</span> <span class="n">1</span> <span class="k">then</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs71', 135)" onmouseover="showTip(event, 'fs71', 135)" class="i">a</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs17', 136)" onmouseover="showTip(event, 'fs17', 136)" class="f">string</span> <span onmouseout="hideTip(event, 'fs72', 137)" onmouseover="showTip(event, 'fs72', 137)" class="i">b</span><span class="o">.</span>[<span class="n">1</span>] <span class="o">+</span> <span onmouseout="hideTip(event, 'fs17', 138)" onmouseover="showTip(event, 'fs17', 138)" class="f">string</span> <span onmouseout="hideTip(event, 'fs72', 139)" onmouseover="showTip(event, 'fs72', 139)" class="i">b</span><span class="o">.</span>[<span class="n">0</span>] <span class="o">+</span> <span onmouseout="hideTip(event, 'fs72', 140)" onmouseover="showTip(event, 'fs72', 140)" class="i">b</span><span class="o">.</span>[<span class="n">2..</span>]]
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs74', 141)" onmouseover="showTip(event, 'fs74', 141)" class="i">replaces</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs71', 142)" onmouseover="showTip(event, 'fs71', 142)" class="i">a</span>, <span onmouseout="hideTip(event, 'fs72', 143)" onmouseover="showTip(event, 'fs72', 143)" class="i">b</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs67', 144)" onmouseover="showTip(event, 'fs67', 144)" class="i">splits</span> <span class="k">do</span> <span class="k">for</span> <span onmouseout="hideTip(event, 'fs75', 145)" onmouseover="showTip(event, 'fs75', 145)" class="i">c</span> <span class="k">in</span> <span class="s">&#39;a&#39;</span><span class="o">..</span><span class="s">&#39;z&#39;</span> <span class="k">do</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs72', 146)" onmouseover="showTip(event, 'fs72', 146)" class="i">b</span> <span class="o">&lt;&gt;</span> <span class="s">&quot;&quot;</span> <span class="k">then</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs71', 147)" onmouseover="showTip(event, 'fs71', 147)" class="i">a</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs17', 148)" onmouseover="showTip(event, 'fs17', 148)" class="f">string</span> <span onmouseout="hideTip(event, 'fs75', 149)" onmouseover="showTip(event, 'fs75', 149)" class="i">c</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs72', 150)" onmouseover="showTip(event, 'fs72', 150)" class="i">b</span><span class="o">.</span>[<span class="n">1..</span>]]
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs76', 151)" onmouseover="showTip(event, 'fs76', 151)" class="i">inserts</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs71', 152)" onmouseover="showTip(event, 'fs71', 152)" class="i">a</span>, <span onmouseout="hideTip(event, 'fs72', 153)" onmouseover="showTip(event, 'fs72', 153)" class="i">b</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs67', 154)" onmouseover="showTip(event, 'fs67', 154)" class="i">splits</span> <span class="k">do</span> <span class="k">for</span> <span onmouseout="hideTip(event, 'fs75', 155)" onmouseover="showTip(event, 'fs75', 155)" class="i">c</span> <span class="k">in</span> <span class="s">&#39;a&#39;</span><span class="o">..</span><span class="s">&#39;z&#39;</span> <span class="k">do</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs71', 156)" onmouseover="showTip(event, 'fs71', 156)" class="i">a</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs17', 157)" onmouseover="showTip(event, 'fs17', 157)" class="f">string</span> <span onmouseout="hideTip(event, 'fs75', 158)" onmouseover="showTip(event, 'fs75', 158)" class="i">c</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs72', 159)" onmouseover="showTip(event, 'fs72', 159)" class="i">b</span>]
+    <span onmouseout="hideTip(event, 'fs70', 160)" onmouseover="showTip(event, 'fs70', 160)" class="i">deletes</span> <span class="o">@</span> <span onmouseout="hideTip(event, 'fs73', 161)" onmouseover="showTip(event, 'fs73', 161)" class="i">transposes</span> <span class="o">@</span> <span onmouseout="hideTip(event, 'fs74', 162)" onmouseover="showTip(event, 'fs74', 162)" class="i">replaces</span> <span class="o">@</span> <span onmouseout="hideTip(event, 'fs76', 163)" onmouseover="showTip(event, 'fs76', 163)" class="i">inserts</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 164)" onmouseover="showTip(event, 'fs77', 164)" class="t">Set</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 165)" onmouseover="showTip(event, 'fs78', 165)" class="f">ofList</span>
+
+<span onmouseout="hideTip(event, 'fs66', 166)" onmouseover="showTip(event, 'fs66', 166)" class="f">edits1</span> <span class="s">&quot;speling&quot;</span>
+<span onmouseout="hideTip(event, 'fs66', 167)" onmouseover="showTip(event, 'fs66', 167)" class="f">edits1</span> <span class="s">&quot;pgantom&quot;</span>
+
+<span class="c">(** Compute the 1-character edits of the word which are actually words *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs79', 168)" onmouseover="showTip(event, 'fs79', 168)" class="f">knownEdits1</span> <span onmouseout="hideTip(event, 'fs64', 169)" onmouseover="showTip(event, 'fs64', 169)" class="i">word</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs80', 170)" onmouseover="showTip(event, 'fs80', 170)" class="i">result</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs81', 171)" onmouseover="showTip(event, 'fs81', 171)" class="i">w</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs66', 172)" onmouseover="showTip(event, 'fs66', 172)" class="f">edits1</span> <span onmouseout="hideTip(event, 'fs64', 173)" onmouseover="showTip(event, 'fs64', 173)" class="i">word</span> <span class="k">do</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs61', 174)" onmouseover="showTip(event, 'fs61', 174)" class="t">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs82', 175)" onmouseover="showTip(event, 'fs82', 175)" class="f">containsKey</span> <span onmouseout="hideTip(event, 'fs81', 176)" onmouseover="showTip(event, 'fs81', 176)" class="i">w</span> <span onmouseout="hideTip(event, 'fs59', 177)" onmouseover="showTip(event, 'fs59', 177)" class="i">NWORDS</span> <span class="k">then</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs81', 178)" onmouseover="showTip(event, 'fs81', 178)" class="i">w</span>] <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 179)" onmouseover="showTip(event, 'fs77', 179)" class="t">Set</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 180)" onmouseover="showTip(event, 'fs78', 180)" class="f">ofList</span>
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs80', 181)" onmouseover="showTip(event, 'fs80', 181)" class="i">result</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs83', 182)" onmouseover="showTip(event, 'fs83', 182)" class="i">IsEmpty</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs84', 183)" onmouseover="showTip(event, 'fs84', 183)" class="p">None</span> <span class="k">else</span> <span onmouseout="hideTip(event, 'fs85', 184)" onmouseover="showTip(event, 'fs85', 184)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs80', 185)" onmouseover="showTip(event, 'fs80', 185)" class="i">result</span> 
+
+<span onmouseout="hideTip(event, 'fs79', 186)" onmouseover="showTip(event, 'fs79', 186)" class="f">knownEdits1</span> <span class="s">&quot;fantom&quot;</span>
+<span onmouseout="hideTip(event, 'fs79', 187)" onmouseover="showTip(event, 'fs79', 187)" class="f">knownEdits1</span> <span class="s">&quot;pgantom&quot;</span>
+
+<span class="c">(** Compute the 2-character edits of the word which are actually words *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs86', 188)" onmouseover="showTip(event, 'fs86', 188)" class="f">knownEdits2</span> <span onmouseout="hideTip(event, 'fs64', 189)" onmouseover="showTip(event, 'fs64', 189)" class="i">word</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs80', 190)" onmouseover="showTip(event, 'fs80', 190)" class="i">result</span> <span class="o">=</span> [<span class="k">for</span> <span onmouseout="hideTip(event, 'fs87', 191)" onmouseover="showTip(event, 'fs87', 191)" class="i">e1</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs66', 192)" onmouseover="showTip(event, 'fs66', 192)" class="f">edits1</span> <span onmouseout="hideTip(event, 'fs64', 193)" onmouseover="showTip(event, 'fs64', 193)" class="i">word</span> <span class="k">do</span> <span class="k">for</span> <span onmouseout="hideTip(event, 'fs88', 194)" onmouseover="showTip(event, 'fs88', 194)" class="i">e2</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs66', 195)" onmouseover="showTip(event, 'fs66', 195)" class="f">edits1</span> <span onmouseout="hideTip(event, 'fs87', 196)" onmouseover="showTip(event, 'fs87', 196)" class="i">e1</span> <span class="k">do</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs61', 197)" onmouseover="showTip(event, 'fs61', 197)" class="t">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs82', 198)" onmouseover="showTip(event, 'fs82', 198)" class="f">containsKey</span> <span onmouseout="hideTip(event, 'fs88', 199)" onmouseover="showTip(event, 'fs88', 199)" class="i">e2</span> <span onmouseout="hideTip(event, 'fs59', 200)" onmouseover="showTip(event, 'fs59', 200)" class="i">NWORDS</span> <span class="k">then</span> <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs88', 201)" onmouseover="showTip(event, 'fs88', 201)" class="i">e2</span>] <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 202)" onmouseover="showTip(event, 'fs77', 202)" class="t">Set</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 203)" onmouseover="showTip(event, 'fs78', 203)" class="f">ofList</span>
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs80', 204)" onmouseover="showTip(event, 'fs80', 204)" class="i">result</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs83', 205)" onmouseover="showTip(event, 'fs83', 205)" class="i">IsEmpty</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs84', 206)" onmouseover="showTip(event, 'fs84', 206)" class="p">None</span> <span class="k">else</span> <span onmouseout="hideTip(event, 'fs85', 207)" onmouseover="showTip(event, 'fs85', 207)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs80', 208)" onmouseover="showTip(event, 'fs80', 208)" class="i">result</span> 
+
+<span onmouseout="hideTip(event, 'fs86', 209)" onmouseover="showTip(event, 'fs86', 209)" class="f">knownEdits2</span> <span class="s">&quot;pgantom&quot;</span>
+<span onmouseout="hideTip(event, 'fs86', 210)" onmouseover="showTip(event, 'fs86', 210)" class="f">knownEdits2</span> <span class="s">&quot;quyck&quot;</span>
+
+
+<span class="c">(** Find the best correction for a word, preferring 0-edit, over 1-edit, over 2-edit, and sorting by frequency. *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs89', 211)" onmouseover="showTip(event, 'fs89', 211)" class="f">findBestCorrection</span> (<span onmouseout="hideTip(event, 'fs64', 212)" onmouseover="showTip(event, 'fs64', 212)" class="i">word</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs17', 213)" onmouseover="showTip(event, 'fs17', 213)" class="t">string</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs90', 214)" onmouseover="showTip(event, 'fs90', 214)" class="i">words</span> <span class="o">=</span> 
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs63', 215)" onmouseover="showTip(event, 'fs63', 215)" class="f">isKnown</span> <span onmouseout="hideTip(event, 'fs64', 216)" onmouseover="showTip(event, 'fs64', 216)" class="i">word</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs77', 217)" onmouseover="showTip(event, 'fs77', 217)" class="t">Set</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 218)" onmouseover="showTip(event, 'fs78', 218)" class="f">ofList</span> [<span onmouseout="hideTip(event, 'fs64', 219)" onmouseover="showTip(event, 'fs64', 219)" class="i">word</span>] 
+        <span class="k">else</span> 
+            <span class="k">match</span> <span onmouseout="hideTip(event, 'fs79', 220)" onmouseover="showTip(event, 'fs79', 220)" class="f">knownEdits1</span> <span onmouseout="hideTip(event, 'fs64', 221)" onmouseover="showTip(event, 'fs64', 221)" class="i">word</span> <span class="k">with</span>
+            | <span onmouseout="hideTip(event, 'fs85', 222)" onmouseover="showTip(event, 'fs85', 222)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs90', 223)" onmouseover="showTip(event, 'fs90', 223)" class="i">words</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs90', 224)" onmouseover="showTip(event, 'fs90', 224)" class="i">words</span>
+            | <span onmouseout="hideTip(event, 'fs84', 225)" onmouseover="showTip(event, 'fs84', 225)" class="p">None</span> <span class="k">-&gt;</span>
+            <span class="k">match</span> <span onmouseout="hideTip(event, 'fs86', 226)" onmouseover="showTip(event, 'fs86', 226)" class="f">knownEdits2</span> <span onmouseout="hideTip(event, 'fs64', 227)" onmouseover="showTip(event, 'fs64', 227)" class="i">word</span> <span class="k">with</span>
+            | <span onmouseout="hideTip(event, 'fs85', 228)" onmouseover="showTip(event, 'fs85', 228)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs90', 229)" onmouseover="showTip(event, 'fs90', 229)" class="i">words</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs90', 230)" onmouseover="showTip(event, 'fs90', 230)" class="i">words</span>
+            | <span onmouseout="hideTip(event, 'fs84', 231)" onmouseover="showTip(event, 'fs84', 231)" class="p">None</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs77', 232)" onmouseover="showTip(event, 'fs77', 232)" class="t">Set</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 233)" onmouseover="showTip(event, 'fs78', 233)" class="f">ofList</span> [<span onmouseout="hideTip(event, 'fs64', 234)" onmouseover="showTip(event, 'fs64', 234)" class="i">word</span>]
+
+    <span onmouseout="hideTip(event, 'fs90', 235)" onmouseover="showTip(event, 'fs90', 235)" class="i">words</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs48', 236)" onmouseover="showTip(event, 'fs48', 236)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs91', 237)" onmouseover="showTip(event, 'fs91', 237)" class="f">sortBy</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs81', 238)" onmouseover="showTip(event, 'fs81', 238)" class="i">w</span> <span class="k">-&gt;</span> <span class="o">-</span><span onmouseout="hideTip(event, 'fs59', 239)" onmouseover="showTip(event, 'fs59', 239)" class="i">NWORDS</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs81', 240)" onmouseover="showTip(event, 'fs81', 240)" class="i">w</span>]) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs48', 241)" onmouseover="showTip(event, 'fs48', 241)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs92', 242)" onmouseover="showTip(event, 'fs92', 242)" class="f">head</span>
+
+<span class="c">// Examples</span>
+<span onmouseout="hideTip(event, 'fs89', 243)" onmouseover="showTip(event, 'fs89', 243)" class="f">findBestCorrection</span> <span class="s">&quot;speling&quot;</span>
+<span onmouseout="hideTip(event, 'fs89', 244)" onmouseover="showTip(event, 'fs89', 244)" class="f">findBestCorrection</span> <span class="s">&quot;korrecter&quot;</span>
+<span onmouseout="hideTip(event, 'fs89', 245)" onmouseover="showTip(event, 'fs89', 245)" class="f">findBestCorrection</span> <span class="s">&quot;fantom&quot;</span>
+<span onmouseout="hideTip(event, 'fs89', 246)" onmouseover="showTip(event, 'fs89', 246)" class="f">findBestCorrection</span> <span class="s">&quot;pgantom&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>In this example, you've seen how cloud tasks can be used to extract statistical information returned to the client.
+Continue with further samples to learn more about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace System.Net</div>
+<div class="tip" id="fs4">namespace System.Text</div>
+<div class="tip" id="fs5">namespace System.Text.RegularExpressions</div>
+<div class="tip" id="fs6">namespace MBrace</div>
+<div class="tip" id="fs7">namespace MBrace.Core</div>
+<div class="tip" id="fs8">namespace MBrace.Flow</div>
+<div class="tip" id="fs9">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-norvigs-spelling-corrector-example.cluster</div>
+<div class="tip" id="fs10">module Config</div>
+<div class="tip" id="fs11">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs12">val fs : MBrace.Core.Internals.CloudFileSystem<br /><br />Full name: 200-norvigs-spelling-corrector-example.fs</div>
+<div class="tip" id="fs13">property MBrace.Runtime.MBraceClient.Store: MBrace.Core.Internals.CloudStoreClient</div>
+<div class="tip" id="fs14">property MBrace.Core.Internals.CloudStoreClient.CloudFileSystem: MBrace.Core.Internals.CloudFileSystem</div>
+<div class="tip" id="fs15">val download : uri:string -&gt; &#39;a<br /><br />Full name: 200-norvigs-spelling-corrector-example.download</div>
+<div class="tip" id="fs16">val uri : string</div>
+<div class="tip" id="fs17">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs18">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />WebClient() : unit</div>
+<div class="tip" id="fs19">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs20">Multiple items<br />val chunkBySize : n:int -&gt; numbers:&#39;T [] -&gt; &#39;T [] []<br /><br />Full name: Utils.Array.chunkBySize<br /><br />--------------------<br />val chunkBySize : chunkSize:int -&gt; array:&#39;T [] -&gt; &#39;T [] []<br /><br />Full name: Microsoft.FSharp.Collections.Array.chunkBySize</div>
+<div class="tip" id="fs21">val mapi : mapping:(int -&gt; &#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.mapi</div>
+<div class="tip" id="fs22">property MBrace.Core.Internals.CloudFileSystem.File: MBrace.Core.Internals.CloudFileClient</div>
+<div class="tip" id="fs23">member MBrace.Core.Internals.CloudFileClient.Delete : path:string -&gt; unit</div>
+<div class="tip" id="fs24">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs25">member MBrace.Core.Internals.CloudFileClient.WriteAllLines : path:string * lines:seq&lt;string&gt; * ?encoding:Text.Encoding -&gt; MBrace.Core.CloudFileInfo</div>
+<div class="tip" id="fs26">val downloadTask : MBrace.Runtime.CloudProcess&lt;obj []&gt;<br /><br />Full name: 200-norvigs-spelling-corrector-example.downloadTask</div>
+<div class="tip" id="fs27">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs28">member MBrace.Runtime.CloudProcess.ShowInfo : unit -&gt; unit</div>
+<div class="tip" id="fs29">val files : obj []<br /><br />Full name: 200-norvigs-spelling-corrector-example.files</div>
+<div class="tip" id="fs30">property MBrace.Runtime.CloudProcess.Result: obj []</div>
+<div class="tip" id="fs31">val fileSizesJob : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 200-norvigs-spelling-corrector-example.fileSizesJob</div>
+<div class="tip" id="fs32">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
+<div class="tip" id="fs33">val f : obj</div>
+<div class="tip" id="fs34">type Path =<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member GetDirectoryName : path:string -&gt; string<br />&#160;&#160;static member GetExtension : path:string -&gt; string<br />&#160;&#160;static member GetFileName : path:string -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Path</div>
+<div class="tip" id="fs35">property MBrace.Runtime.CloudProcess.Status: MBrace.Core.CloudProcessStatus</div>
+<div class="tip" id="fs36">val fileSizes : obj<br /><br />Full name: 200-norvigs-spelling-corrector-example.fileSizes</div>
+<div class="tip" id="fs37">property MBrace.Runtime.CloudProcess.Result: obj</div>
+<div class="tip" id="fs38">val regex : Regex<br /><br />Full name: 200-norvigs-spelling-corrector-example.regex</div>
+<div class="tip" id="fs39">Multiple items<br />type Regex =<br />&#160;&#160;new : pattern:string -&gt; Regex + 1 overload<br />&#160;&#160;member GetGroupNames : unit -&gt; string[]<br />&#160;&#160;member GetGroupNumbers : unit -&gt; int[]<br />&#160;&#160;member GroupNameFromNumber : i:int -&gt; string<br />&#160;&#160;member GroupNumberFromName : name:string -&gt; int<br />&#160;&#160;member IsMatch : input:string -&gt; bool + 1 overload<br />&#160;&#160;member Match : input:string -&gt; Match + 2 overloads<br />&#160;&#160;member Matches : input:string -&gt; MatchCollection + 1 overload<br />&#160;&#160;member Options : RegexOptions<br />&#160;&#160;member Replace : input:string * replacement:string -&gt; string + 5 overloads<br />&#160;&#160;...<br /><br />Full name: System.Text.RegularExpressions.Regex<br /><br />--------------------<br />Regex(pattern: string) : unit<br />Regex(pattern: string, options: RegexOptions) : unit</div>
+<div class="tip" id="fs40">type RegexOptions =<br />&#160;&#160;| None = 0<br />&#160;&#160;| IgnoreCase = 1<br />&#160;&#160;| Multiline = 2<br />&#160;&#160;| ExplicitCapture = 4<br />&#160;&#160;| Compiled = 8<br />&#160;&#160;| Singleline = 16<br />&#160;&#160;| IgnorePatternWhitespace = 32<br />&#160;&#160;| RightToLeft = 64<br />&#160;&#160;| ECMAScript = 256<br />&#160;&#160;| CultureInvariant = 512<br /><br />Full name: System.Text.RegularExpressions.RegexOptions</div>
+<div class="tip" id="fs41">field RegexOptions.Compiled = 8</div>
+<div class="tip" id="fs42">val wordCountJob : MBrace.Runtime.CloudProcess&lt;(string * int64) []&gt;<br /><br />Full name: 200-norvigs-spelling-corrector-example.wordCountJob</div>
+<div class="tip" id="fs43">Multiple items<br />module CloudFlow<br /><br />from MBrace.Flow<br /><br />--------------------<br />module CloudFlow<br /><br />from Utils<br /><br />--------------------<br />type CloudFlow =<br />&#160;&#160;static member OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudArrays : cloudArrays:seq&lt;#CloudArray&lt;&#39;T&gt;&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />&#160;&#160;static member OfCloudCollection : collection:ICloudCollection&lt;&#39;T&gt; * ?sizeThresholdPerWorker:(unit -&gt; int64) -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * ?deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectoryByLine : dirPath:string * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : path:string * ?encoding:Encoding -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFiles : paths:seq&lt;string&gt; * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Flow.CloudFlow<br /><br />--------------------<br />type CloudFlow&lt;&#39;T&gt; =<br />&#160;&#160;interface<br />&#160;&#160;&#160;&#160;abstract member WithEvaluators : collectorFactory:LocalCloud&lt;Collector&lt;&#39;T,&#39;S&gt;&gt; -&gt; projection:(&#39;S -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; combiner:(&#39;R [] -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; Cloud&lt;&#39;R&gt;<br />&#160;&#160;&#160;&#160;abstract member DegreeOfParallelism : int option<br />&#160;&#160;end<br /><br />Full name: MBrace.Flow.CloudFlow&lt;_&gt;</div>
+<div class="tip" id="fs44">static member CloudFlow.OfCloudFileByLine : path:string * ?encoding:Text.Encoding -&gt; CloudFlow&lt;string&gt;<br />static member CloudFlow.OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Text.Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;</div>
+<div class="tip" id="fs45">val collect : f:(&#39;T -&gt; #seq&lt;&#39;R&gt;) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.collect</div>
+<div class="tip" id="fs46">val text : string</div>
+<div class="tip" id="fs47">Regex.Matches(input: string) : MatchCollection<br />Regex.Matches(input: string, startat: int) : MatchCollection</div>
+<div class="tip" id="fs48">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs49">val cast : source:Collections.IEnumerable -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.cast</div>
+<div class="tip" id="fs50">val map : f:(&#39;T -&gt; &#39;R) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.map</div>
+<div class="tip" id="fs51">val m : Match</div>
+<div class="tip" id="fs52">type Match =<br />&#160;&#160;inherit Group<br />&#160;&#160;member Groups : GroupCollection<br />&#160;&#160;member NextMatch : unit -&gt; Match<br />&#160;&#160;member Result : replacement:string -&gt; string<br />&#160;&#160;static member Empty : Match<br />&#160;&#160;static member Synchronized : inner:Match -&gt; Match<br /><br />Full name: System.Text.RegularExpressions.Match</div>
+<div class="tip" id="fs53">property Capture.Value: string</div>
+<div class="tip" id="fs54">String.ToLower() : string<br />String.ToLower(culture: Globalization.CultureInfo) : string</div>
+<div class="tip" id="fs55">val countBy : projection:(&#39;T -&gt; &#39;Key) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * int64&gt; (requires equality)<br /><br />Full name: MBrace.Flow.CloudFlow.countBy</div>
+<div class="tip" id="fs56">val id : x:&#39;T -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.id</div>
+<div class="tip" id="fs57">val toArray : flow:CloudFlow&lt;&#39;T&gt; -&gt; MBrace.Core.Cloud&lt;&#39;T []&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.toArray</div>
+<div class="tip" id="fs58">member MBrace.Runtime.MBraceClient.ShowProcesses : unit -&gt; unit</div>
+<div class="tip" id="fs59">val NWORDS : Map&lt;string,int64&gt;<br /><br />Full name: 200-norvigs-spelling-corrector-example.NWORDS</div>
+<div class="tip" id="fs60">property MBrace.Runtime.CloudProcess.Result: (string * int64) []</div>
+<div class="tip" id="fs61">Multiple items<br />module Map<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member ContainsKey : key:&#39;Key -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member Remove : key:&#39;Key -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Map&lt;_,_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
+<div class="tip" id="fs62">val ofArray : elements:(&#39;Key * &#39;T) [] -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.ofArray</div>
+<div class="tip" id="fs63">val isKnown : word:string -&gt; bool<br /><br />Full name: 200-norvigs-spelling-corrector-example.isKnown</div>
+<div class="tip" id="fs64">val word : string</div>
+<div class="tip" id="fs65">member Map.ContainsKey : key:&#39;Key -&gt; bool</div>
+<div class="tip" id="fs66">val edits1 : word:string -&gt; Set&lt;string&gt;<br /><br />Full name: 200-norvigs-spelling-corrector-example.edits1</div>
+<div class="tip" id="fs67">val splits : (string * string) list</div>
+<div class="tip" id="fs68">val i : int</div>
+<div class="tip" id="fs69">property String.Length: int</div>
+<div class="tip" id="fs70">val deletes : string list</div>
+<div class="tip" id="fs71">val a : string</div>
+<div class="tip" id="fs72">val b : string</div>
+<div class="tip" id="fs73">val transposes : string list</div>
+<div class="tip" id="fs74">val replaces : string list</div>
+<div class="tip" id="fs75">val c : char</div>
+<div class="tip" id="fs76">val inserts : string list</div>
+<div class="tip" id="fs77">Multiple items<br />module Set<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Set&lt;&#39;T (requires comparison)&gt; =<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;interface ICollection&lt;&#39;T&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Add : value:&#39;T -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Contains : value:&#39;T -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member IsProperSubsetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;member IsProperSupersetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Set&lt;_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;</div>
+<div class="tip" id="fs78">val ofList : elements:&#39;T list -&gt; Set&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Set.ofList</div>
+<div class="tip" id="fs79">val knownEdits1 : word:string -&gt; Set&lt;string&gt; option<br /><br />Full name: 200-norvigs-spelling-corrector-example.knownEdits1</div>
+<div class="tip" id="fs80">val result : Set&lt;string&gt;</div>
+<div class="tip" id="fs81">val w : string</div>
+<div class="tip" id="fs82">val containsKey : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; bool (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.containsKey</div>
+<div class="tip" id="fs83">property Set.IsEmpty: bool</div>
+<div class="tip" id="fs84">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs85">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs86">val knownEdits2 : word:string -&gt; Set&lt;string&gt; option<br /><br />Full name: 200-norvigs-spelling-corrector-example.knownEdits2</div>
+<div class="tip" id="fs87">val e1 : string</div>
+<div class="tip" id="fs88">val e2 : string</div>
+<div class="tip" id="fs89">val findBestCorrection : word:string -&gt; string<br /><br />Full name: 200-norvigs-spelling-corrector-example.findBestCorrection</div>
+<div class="tip" id="fs90">val words : Set&lt;string&gt;</div>
+<div class="tip" id="fs91">val sortBy : projection:(&#39;T -&gt; &#39;Key) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Seq.sortBy</div>
+<div class="tip" id="fs92">val head : source:seq&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Collections.Seq.head</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

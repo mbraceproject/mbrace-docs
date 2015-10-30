@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>CloudFileClient - MBrace.Core</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>CloudFileClient</h1>
+<p>
+  <span>Namespace: MBrace.Core.Internals</span><br />
+</p>
+<div class="xmldoc">
+<p>Collection of file store operations</p>
+
+
+</div>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '434', 434)" onmouseover="showTip(event, '434', 434)">
+            BeginRead(path)
+          </code>
+          <div class="tip" id="434">
+            <strong>Signature:</strong> path:string -&gt; Stream<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a reader function for given path in cloud store, if it exists.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '435', 435)" onmouseover="showTip(event, '435', 435)">
+            BeginReadAsync(path)
+          </code>
+          <div class="tip" id="435">
+            <strong>Signature:</strong> path:string -&gt; Async&lt;Stream&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously returns a reader function for given path in cloud store, if it exists.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '436', 436)" onmouseover="showTip(event, '436', 436)">
+            BeginWrite(path)
+          </code>
+          <div class="tip" id="436">
+            <strong>Signature:</strong> path:string -&gt; Stream<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new file in store and returns a local writer stream.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '437', 437)" onmouseover="showTip(event, '437', 437)">
+            BeginWriteAsync(path)
+          </code>
+          <div class="tip" id="437">
+            <strong>Signature:</strong> path:string -&gt; Async&lt;Stream&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously creates a new file in store and returns a local writer stream.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '438', 438)" onmouseover="showTip(event, '438', 438)">
+            Delete(path)
+          </code>
+          <div class="tip" id="438">
+            <strong>Signature:</strong> path:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes file in given path.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '439', 439)" onmouseover="showTip(event, '439', 439)">
+            DeleteAsync(path)
+          </code>
+          <div class="tip" id="439">
+            <strong>Signature:</strong> path:string -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes file in given path.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '440', 440)" onmouseover="showTip(event, '440', 440)">
+            Download(...)
+          </code>
+          <div class="tip" id="440">
+            <strong>Signature:</strong> (sourcePaths:seq&lt;string&gt; * targetDirectory:string * overwrite:bool option * decompress:bool option) -&gt; string []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Downloads a collection of cloud files to local disk.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '441', 441)" onmouseover="showTip(event, '441', 441)">
+            Download(...)
+          </code>
+          <div class="tip" id="441">
+            <strong>Signature:</strong> (sourcePath:string * targetPath:string * overwrite:bool option * decompress:bool option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Downloads a file from store to local disk.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '442', 442)" onmouseover="showTip(event, '442', 442)">
+            DownloadAsync(...)
+          </code>
+          <div class="tip" id="442">
+            <strong>Signature:</strong> (sourcePaths:seq&lt;string&gt; * targetDirectory:string * overwrite:bool option * decompress:bool option) -&gt; Async&lt;string []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously downloads a collection of cloud files to local disk.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '443', 443)" onmouseover="showTip(event, '443', 443)">
+            DownloadAsync(...)
+          </code>
+          <div class="tip" id="443">
+            <strong>Signature:</strong> (sourcePath:string * targetPath:string * overwrite:bool option * decompress:bool option) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously downloads a file from store to local disk.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '444', 444)" onmouseover="showTip(event, '444', 444)">
+            DownloadToStream(path, stream)
+          </code>
+          <div class="tip" id="444">
+            <strong>Signature:</strong> (path:string * stream:Stream) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously write the contents of a CloudFile directly to a Stream.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '445', 445)" onmouseover="showTip(event, '445', 445)">
+            DownloadToStreamAsync(path, stream)
+          </code>
+          <div class="tip" id="445">
+            <strong>Signature:</strong> (path:string * stream:Stream) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously write the contents of a CloudFile directly to a Stream.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '446', 446)" onmouseover="showTip(event, '446', 446)">
+            Enumerate(dirPath)
+          </code>
+          <div class="tip" id="446">
+            <strong>Signature:</strong> dirPath:string -&gt; CloudFileInfo []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets all files that exist in given container.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '447', 447)" onmouseover="showTip(event, '447', 447)">
+            EnumerateAsync(dirPath)
+          </code>
+          <div class="tip" id="447">
+            <strong>Signature:</strong> dirPath:string -&gt; Async&lt;CloudFileInfo []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets all files that exist in given container.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '448', 448)" onmouseover="showTip(event, '448', 448)">
+            Exists(path)
+          </code>
+          <div class="tip" id="448">
+            <strong>Signature:</strong> path:string -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if file exists in store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '449', 449)" onmouseover="showTip(event, '449', 449)">
+            ExistsAsync(path)
+          </code>
+          <div class="tip" id="449">
+            <strong>Signature:</strong> path:string -&gt; Async&lt;bool&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if file exists in store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '450', 450)" onmouseover="showTip(event, '450', 450)">
+            GetSize(path)
+          </code>
+          <div class="tip" id="450">
+            <strong>Signature:</strong> path:string -&gt; int64<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the size of provided file, in bytes.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '451', 451)" onmouseover="showTip(event, '451', 451)">
+            GetSizeAsync(path)
+          </code>
+          <div class="tip" id="451">
+            <strong>Signature:</strong> path:string -&gt; Async&lt;int64&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the size of provided file, in bytes.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '452', 452)" onmouseover="showTip(event, '452', 452)">
+            Persist(...)
+          </code>
+          <div class="tip" id="452">
+            <strong>Signature:</strong> (value:&#39;T * path:string option * serializer:ISerializer option * compress:bool option) -&gt; PersistedValue&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Persists a value to the cloud store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '453', 453)" onmouseover="showTip(event, '453', 453)">
+            PersistAsync(...)
+          </code>
+          <div class="tip" id="453">
+            <strong>Signature:</strong> (value:&#39;T * path:string option * serializer:ISerializer option * compress:bool option) -&gt; Async&lt;PersistedValue&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously persists a value to the cloud store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '454', 454)" onmouseover="showTip(event, '454', 454)">
+            PersistSequence(...)
+          </code>
+          <div class="tip" id="454">
+            <strong>Signature:</strong> (values:seq&lt;&#39;T&gt; * path:string option * serializer:ISerializer option * compress:bool option) -&gt; PersistedSequence&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new persisted sequence by writing provided sequence to a cloud file in the underlying store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '455', 455)" onmouseover="showTip(event, '455', 455)">
+            PersistSequenceAsync(...)
+          </code>
+          <div class="tip" id="455">
+            <strong>Signature:</strong> (values:seq&lt;&#39;T&gt; * path:string option * serializer:ISerializer option * compress:bool option) -&gt; Async&lt;PersistedSequence&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously creates a new persisted sequence by writing provided sequence to a cloud file in the underlying store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '456', 456)" onmouseover="showTip(event, '456', 456)">
+            ReadAllBytes(path)
+          </code>
+          <div class="tip" id="456">
+            <strong>Signature:</strong> path:string -&gt; byte []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Store all contents of given file to a new byte array.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '457', 457)" onmouseover="showTip(event, '457', 457)">
+            ReadAllBytesAsync(path)
+          </code>
+          <div class="tip" id="457">
+            <strong>Signature:</strong> path:string -&gt; Async&lt;byte []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Store all contents of given file to a new byte array.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '458', 458)" onmouseover="showTip(event, '458', 458)">
+            ReadAllLines(path, encoding)
+          </code>
+          <div class="tip" id="458">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; string []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Reads a file as an array of lines.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '459', 459)" onmouseover="showTip(event, '459', 459)">
+            ReadAllLinesAsync(path, encoding)
+          </code>
+          <div class="tip" id="459">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; Async&lt;string []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Reads a file as an array of lines.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '460', 460)" onmouseover="showTip(event, '460', 460)">
+            ReadAllText(path, encoding)
+          </code>
+          <div class="tip" id="460">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Dump all file contents to a single string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '461', 461)" onmouseover="showTip(event, '461', 461)">
+            ReadAllTextAsync(path, encoding)
+          </code>
+          <div class="tip" id="461">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; Async&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Dump all file contents to a single string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '462', 462)" onmouseover="showTip(event, '462', 462)">
+            ReadLines(path, encoding)
+          </code>
+          <div class="tip" id="462">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; seq&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Reads a file as a sequence of lines.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '463', 463)" onmouseover="showTip(event, '463', 463)">
+            ReadLinesAsync(path, encoding)
+          </code>
+          <div class="tip" id="463">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; Async&lt;seq&lt;string&gt;&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Reads a file as a sequence of lines.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '464', 464)" onmouseover="showTip(event, '464', 464)">
+            Upload(...)
+          </code>
+          <div class="tip" id="464">
+            <strong>Signature:</strong> (sourcePaths:seq&lt;string&gt; * targetDirectory:string * overwrite:bool option * compress:bool option) -&gt; CloudFileInfo []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Uploads a collection local files to store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '465', 465)" onmouseover="showTip(event, '465', 465)">
+            Upload(...)
+          </code>
+          <div class="tip" id="465">
+            <strong>Signature:</strong> (sourcePath:string * targetPath:string * overwrite:bool option * compress:bool option) -&gt; CloudFileInfo<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Uploads a local file to store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '466', 466)" onmouseover="showTip(event, '466', 466)">
+            UploadAsync(...)
+          </code>
+          <div class="tip" id="466">
+            <strong>Signature:</strong> (sourcePaths:seq&lt;string&gt; * targetDirectory:string * overwrite:bool option * compress:bool option) -&gt; Async&lt;CloudFileInfo []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Uploads a collection local files to store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '467', 467)" onmouseover="showTip(event, '467', 467)">
+            UploadAsync(...)
+          </code>
+          <div class="tip" id="467">
+            <strong>Signature:</strong> (sourcePath:string * targetPath:string * overwrite:bool option * compress:bool option) -&gt; Async&lt;CloudFileInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Uploads a local file to store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '468', 468)" onmouseover="showTip(event, '468', 468)">
+            UploadFromStream(...)
+          </code>
+          <div class="tip" id="468">
+            <strong>Signature:</strong> (path:string * stream:Stream * overwrite:bool option) -&gt; CloudFileInfo<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Write the contents of a stream directly to a CloudFile.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '469', 469)" onmouseover="showTip(event, '469', 469)">
+            UploadFromStreamAsync(...)
+          </code>
+          <div class="tip" id="469">
+            <strong>Signature:</strong> (path:string * stream:Stream * overwrite:bool option) -&gt; Async&lt;CloudFileInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously Write the contents of a stream directly to a CloudFile.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '470', 470)" onmouseover="showTip(event, '470', 470)">
+            WriteAllBytes(path, buffer)
+          </code>
+          <div class="tip" id="470">
+            <strong>Signature:</strong> (path:string * buffer:byte []) -&gt; CloudFileInfo<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Write buffer contents to CloudFile.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '471', 471)" onmouseover="showTip(event, '471', 471)">
+            WriteAllBytesAsync(path, buffer)
+          </code>
+          <div class="tip" id="471">
+            <strong>Signature:</strong> (path:string * buffer:byte []) -&gt; Async&lt;CloudFileInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Write buffer contents to CloudFile.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '472', 472)" onmouseover="showTip(event, '472', 472)">
+            WriteAllLines(path, lines, encoding)
+          </code>
+          <div class="tip" id="472">
+            <strong>Signature:</strong> (path:string * lines:seq&lt;string&gt; * encoding:Encoding option) -&gt; CloudFileInfo<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Writes a sequence of lines to a given CloudFile path.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '473', 473)" onmouseover="showTip(event, '473', 473)">
+            WriteAllLinesAsync(...)
+          </code>
+          <div class="tip" id="473">
+            <strong>Signature:</strong> (path:string * lines:seq&lt;string&gt; * encoding:Encoding option) -&gt; Async&lt;CloudFileInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Writes a sequence of lines to a given CloudFile path.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '474', 474)" onmouseover="showTip(event, '474', 474)">
+            WriteAllText(path, text, encoding)
+          </code>
+          <div class="tip" id="474">
+            <strong>Signature:</strong> (path:string * text:string * encoding:Encoding option) -&gt; CloudFileInfo<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Writes string contents to given CloudFile.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '475', 475)" onmouseover="showTip(event, '475', 475)">
+            WriteAllTextAsync(path, text, encoding)
+          </code>
+          <div class="tip" id="475">
+            <strong>Signature:</strong> (path:string * text:string * encoding:Encoding option) -&gt; Async&lt;CloudFileInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Writes string contents to given CloudFile.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>CloudFlow - MBrace.Flow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Flow</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>CloudFlow</h1>
+<p>
+  <span>Namespace: MBrace.Flow</span><br />
+</p>
+<div class="xmldoc">
+<p>Provides CloudFlow producers.</p>
+
+
+</div>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '769', 769)" onmouseover="showTip(event, '769', 769)">
+            OfArray(source)
+          </code>
+          <div class="tip" id="769">
+            <strong>Signature:</strong> (source:&#39;T []) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Wraps array as a CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '770', 770)" onmouseover="showTip(event, '770', 770)">
+            OfCloudArrays(cloudArrays)
+          </code>
+          <div class="tip" id="770">
+            <strong>Signature:</strong> cloudArrays:seq&lt;&#39;?23707&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> '?23707, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudFlow from a collection of provided cloud sequences.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '771', 771)" onmouseover="showTip(event, '771', 771)">
+            OfCloudCollection(...)
+          </code>
+          <div class="tip" id="771">
+            <strong>Signature:</strong> (collection:ICloudCollection&lt;&#39;T&gt; * sizeThresholdPerWorker:(unit -&gt; int64) option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudFlow according to partitions of provided cloud collection.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '772', 772)" onmouseover="showTip(event, '772', 772)">
+            OfCloudDirectory(...)
+          </code>
+          <div class="tip" id="772">
+            <strong>Signature:</strong> (dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow from all files in provided directory using the given reader.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '773', 773)" onmouseover="showTip(event, '773', 773)">
+            OfCloudDirectory(...)
+          </code>
+          <div class="tip" id="773">
+            <strong>Signature:</strong> (dirPath:string * serializer:ISerializer * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of all files in provided cloud directory using the given serializer implementation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '774', 774)" onmouseover="showTip(event, '774', 774)">
+            OfCloudDirectory(...)
+          </code>
+          <div class="tip" id="774">
+            <strong>Signature:</strong> (dirPath:string * deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of all files in provided cloud directory using the given deserializer.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '775', 775)" onmouseover="showTip(event, '775', 775)">
+            OfCloudDirectoryByLine(...)
+          </code>
+          <div class="tip" id="775">
+            <strong>Signature:</strong> (dirPath:string * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a text CloudFlow by line from all files in supplied CloudDirectory.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '776', 776)" onmouseover="showTip(event, '776', 776)">
+            OfCloudFileByLine(path, encoding)
+          </code>
+          <div class="tip" id="776">
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of lines from a single large text file.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '777', 777)" onmouseover="showTip(event, '777', 777)">
+            OfCloudFileByLine(...)
+          </code>
+          <div class="tip" id="777">
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of lines from a collection of text files.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '778', 778)" onmouseover="showTip(event, '778', 778)">
+            OfCloudFiles(...)
+          </code>
+          <div class="tip" id="778">
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow from a collection of text files using the given reader.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '779', 779)" onmouseover="showTip(event, '779', 779)">
+            OfCloudFiles(...)
+          </code>
+          <div class="tip" id="779">
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * serializer:ISerializer * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow from a collection of CloudFiles using the given serializer implementation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '780', 780)" onmouseover="showTip(event, '780', 780)">
+            OfCloudFiles(...)
+          </code>
+          <div class="tip" id="780">
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow from a collection of CloudFiles using the given deserializer.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '781', 781)" onmouseover="showTip(event, '781', 781)">
+            OfCloudQueue(...)
+          </code>
+          <div class="tip" id="781">
+            <strong>Signature:</strong> (channel:CloudQueue&lt;&#39;T&gt; * degreeOfParallelism:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudFlow from the ReceivePort of a CloudQueue</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '782', 782)" onmouseover="showTip(event, '782', 782)">
+            OfHttpFileByLine(urls, encoding)
+          </code>
+          <div class="tip" id="782">
+            <strong>Signature:</strong> (urls:seq&lt;string&gt; * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of lines from a collection of HTTP text files.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '783', 783)" onmouseover="showTip(event, '783', 783)">
+            OfHttpFileByLine(url, encoding)
+          </code>
+          <div class="tip" id="783">
+            <strong>Signature:</strong> (url:string * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of lines from a single HTTP text file.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '784', 784)" onmouseover="showTip(event, '784', 784)">
+            OfSeqs(enumerations)
+          </code>
+          <div class="tip" id="784">
+            <strong>Signature:</strong> enumerations:seq&lt;&#39;?23710&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> '?23710, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudFlow instance from a finite collection of serializable enumerations.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Flow</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

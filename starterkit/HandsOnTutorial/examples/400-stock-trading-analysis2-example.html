@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>400-stock-trading-analysis2-example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="tip" id="fs7">Multiple items<br />namespace FSharp.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
+<div class="tip" id="fs8">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 400-stock-trading-analysis2-example.cluster</div>
+<div class="tip" id="fs9">module Config</div>
+<div class="tip" id="fs10">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs11">type StockInfo =<br />&#160;&#160;{Symbol: string;<br />&#160;&#160;&#160;Price: double;<br />&#160;&#160;&#160;Volume: double;}<br /><br />Full name: 400-stock-trading-analysis2-example.StockInfo</div>
+<div class="tip" id="fs12">StockInfo.Symbol: string</div>
+<div class="tip" id="fs13">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs14">StockInfo.Price: double</div>
+<div class="tip" id="fs15">Multiple items<br />val double : value:&#39;T -&gt; double (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.double<br /><br />--------------------<br />type double = Double<br /><br />Full name: Microsoft.FSharp.Core.double</div>
+<div class="tip" id="fs16">StockInfo.Volume: double</div>
+<div class="tip" id="fs17">Multiple items<br />type LiteralAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; LiteralAttribute<br /><br />Full name: Microsoft.FSharp.Core.LiteralAttribute<br /><br />--------------------<br />new : unit -&gt; LiteralAttribute</div>
+<div class="tip" id="fs18">val stockDataPath : string<br /><br />Full name: 400-stock-trading-analysis2-example.stockDataPath</div>
+<div class="tip" id="fs19">type Stocks = CsvProvider&lt;...&gt;<br /><br />Full name: 400-stock-trading-analysis2-example.Stocks</div>
+<div class="tip" id="fs20">type CsvProvider<br /><br />Full name: FSharp.Data.CsvProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a CSV file.&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a CSV sample file or a string containing a sample CSV document.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Separators&#39;&gt;Column delimiter(s). Defaults to `,`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;InferRows&#39;&gt;Number of rows to use for inference. Defaults to `1000`. If this is zero, all rows are used.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Schema&#39;&gt;Optional column types, in a comma separated list. Valid types are `int`, `int64`, `bool`, `float`, `decimal`, `date`, `guid`, `string`, `int?`, `int64?`, `bool?`, `float?`, `decimal?`, `date?`, `guid?`, `int option`, `int64 option`, `bool option`, `float option`, `decimal option`, `date option`, `guid option` and `string option`.<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;You can also specify a unit and the name of the column like this: `Name (type&amp;lt;unit&amp;gt;)`, or you can override only the name. If you don&#39;t want to specify all the columns, you can reference the columns by name like this: `ColumnName=type`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;HasHeaders&#39;&gt;Whether the sample contains the names of the columns as its first line.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;IgnoreErrors&#39;&gt;Whether to ignore rows that have the wrong number of columns or which can&#39;t be parsed using the inferred or specified schema. Otherwise an exception is thrown when these rows are encountered.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SkipRows&#39;&gt;SKips the first n rows of the CSV file.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;AssumeMissingValues&#39;&gt;When set to true, the type provider will assume all columns can have missing values, even if in the provided sample all values are present. Defaults to false.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;PreferOptionals&#39;&gt;When set to true, inference will prefer to use the option type instead of nullable types, `double.NaN` or `&quot;&quot;` for missing values. Defaults to false.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Quote&#39;&gt;The quotation mark (for surrounding values containing the delimiter). Defaults to `&quot;`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;MissingValues&#39;&gt;The set of strings recogized as missing values. Defaults to `NaN,NA,N/A,#N/A,:,-,TBA,TBD`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;CacheRows&#39;&gt;Whether the rows should be caches so they can be iterated multiple times. Defaults to true. Disable for large datasets.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates. Defaults to the invariant culture.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Encoding&#39;&gt;The encoding used to read the sample. You can specify either the character set name or the codepage number. Defaults to UTF8 for files, and to ISO-8859-1 the for HTTP requests, unless `charset` is specified in the `Content-Type` response header.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution).&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;EmbeddedResource&#39;&gt;When specified, the type provider first attempts to load the sample from the specified resource <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(e.g. &#39;MyCompany.MyAssembly, resource_name.csv&#39;). This is useful when exposing types generated by the type provider.&lt;/param&gt;</em></div>
+<div class="tip" id="fs21">val data : CsvProvider&lt;...&gt;<br /><br />Full name: 400-stock-trading-analysis2-example.data</div>
+<div class="tip" id="fs22">CsvProvider&lt;...&gt;.Load(uri: string) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified uri</em><br />CsvProvider&lt;...&gt;.Load(reader: TextReader) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified reader</em><br />CsvProvider&lt;...&gt;.Load(stream: Stream) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified stream</em></div>
+<div class="tip" id="fs23">val stockInfo : StockInfo []<br /><br />Full name: 400-stock-trading-analysis2-example.stockInfo</div>
+<div class="tip" id="fs24">val row : CsvProvider&lt;...&gt;.Row</div>
+<div class="tip" id="fs25">property Runtime.CsvFile.Rows: seq&lt;CsvProvider&lt;...&gt;.Row&gt;</div>
+<div class="tip" id="fs26">property CsvProvider&lt;...&gt;.Row.Symbol: string</div>
+<div class="tip" id="fs27">property CsvProvider&lt;...&gt;.Row.Price: decimal</div>
+<div class="tip" id="fs28">property CsvProvider&lt;...&gt;.Row.Volume: int</div>
+<div class="tip" id="fs29">type MarketDataPackage =<br />&#160;&#160;{Symbol: string;<br />&#160;&#160;&#160;Price: double;<br />&#160;&#160;&#160;Volume: double;<br />&#160;&#160;&#160;Asks: double [];<br />&#160;&#160;&#160;Bids: double [];}<br /><br />Full name: 400-stock-trading-analysis2-example.MarketDataPackage</div>
+<div class="tip" id="fs30">MarketDataPackage.Symbol: string</div>
+<div class="tip" id="fs31">MarketDataPackage.Price: double</div>
+<div class="tip" id="fs32">MarketDataPackage.Volume: double</div>
+<div class="tip" id="fs33">MarketDataPackage.Asks: double []</div>
+<div class="tip" id="fs34">MarketDataPackage.Bids: double []</div>
+<div class="tip" id="fs35">type MarketDataGroup =<br />&#160;&#160;{Items: obj;}<br /><br />Full name: 400-stock-trading-analysis2-example.MarketDataGroup</div>
+<div class="tip" id="fs36">MarketDataGroup.Items: obj</div>
+<div class="tip" id="fs37">val SimulateMarketSlice : stockInfo:seq&lt;StockInfo&gt; -&gt; MarketDataPackage []<br /><br />Full name: 400-stock-trading-analysis2-example.SimulateMarketSlice</div>
+<div class="tip" id="fs38">val stockInfo : seq&lt;StockInfo&gt;</div>
+<div class="tip" id="fs39">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq<br /><br />--------------------<br />type seq&lt;&#39;T&gt; = Collections.Generic.IEnumerable&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.seq&lt;_&gt;</div>
+<div class="tip" id="fs40">val r : Random</div>
+<div class="tip" id="fs41">Multiple items<br />type Random =<br />&#160;&#160;new : unit -&gt; Random + 1 overload<br />&#160;&#160;member Next : unit -&gt; int + 2 overloads<br />&#160;&#160;member NextBytes : buffer:byte[] -&gt; unit<br />&#160;&#160;member NextDouble : unit -&gt; float<br /><br />Full name: System.Random<br /><br />--------------------<br />Random() : unit<br />Random(Seed: int) : unit</div>
+<div class="tip" id="fs42">val s : StockInfo</div>
+<div class="tip" id="fs43">val symbol : string</div>
+<div class="tip" id="fs44">val newPrice : double</div>
+<div class="tip" id="fs45">Random.NextDouble() : float</div>
+<div class="tip" id="fs46">val newVolume : double</div>
+<div class="tip" id="fs47">val asks : float []</div>
+<div class="tip" id="fs48">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs49">Random.Next() : int<br />Random.Next(maxValue: int) : int<br />Random.Next(minValue: int, maxValue: int) : int</div>
+<div class="tip" id="fs50">val bids : float []</div>
+<div class="tip" id="fs51">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs52">val toArray : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><br />Full name: Microsoft.FSharp.Collections.Seq.toArray</div>
+<div class="tip" id="fs53">val tradingDataQueue : obj<br /><br />Full name: 400-stock-trading-analysis2-example.tradingDataQueue</div>
+<div class="tip" id="fs54">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs55">val resultQueue : obj<br /><br />Full name: 400-stock-trading-analysis2-example.resultQueue</div>
+<div class="tip" id="fs56">val SimulateMarket : stockInfo:&#39;a -&gt; &#39;b<br /><br />Full name: 400-stock-trading-analysis2-example.SimulateMarket</div>
+<div class="tip" id="fs57">val stockInfo : &#39;a</div>
+<div class="tip" id="fs58">val simulationTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 400-stock-trading-analysis2-example.simulationTask</div>
+<div class="tip" id="fs59">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs60">type MeanAskOrBidVolume =<br />&#160;&#160;{Count: double;<br />&#160;&#160;&#160;Mean: double;}<br /><br />Full name: 400-stock-trading-analysis2-example.MeanAskOrBidVolume</div>
+<div class="tip" id="fs61">MeanAskOrBidVolume.Count: double</div>
+<div class="tip" id="fs62">MeanAskOrBidVolume.Mean: double</div>
+<div class="tip" id="fs63">val dict : obj<br /><br />Full name: 400-stock-trading-analysis2-example.dict</div>
+<div class="tip" id="fs64">val AnalyzeMarketData : MBrace.Core.Cloud&lt;obj&gt;<br /><br />Full name: 400-stock-trading-analysis2-example.AnalyzeMarketData</div>
+<div class="tip" id="fs65">Multiple items<br />module CloudFlow<br /><br />from MBrace.Flow<br /><br />--------------------<br />type CloudFlow =<br />&#160;&#160;static member OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudArrays : cloudArrays:seq&lt;#CloudArray&lt;&#39;T&gt;&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />&#160;&#160;static member OfCloudCollection : collection:ICloudCollection&lt;&#39;T&gt; * ?sizeThresholdPerWorker:(unit -&gt; int64) -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * ?deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectoryByLine : dirPath:string * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : path:string * ?encoding:Encoding -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFiles : paths:seq&lt;string&gt; * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Flow.CloudFlow<br /><br />--------------------<br />type CloudFlow&lt;&#39;T&gt; =<br />&#160;&#160;interface<br />&#160;&#160;&#160;&#160;abstract member WithEvaluators : collectorFactory:LocalCloud&lt;Collector&lt;&#39;T,&#39;S&gt;&gt; -&gt; projection:(&#39;S -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; combiner:(&#39;R [] -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; Cloud&lt;&#39;R&gt;<br />&#160;&#160;&#160;&#160;abstract member DegreeOfParallelism : int option<br />&#160;&#160;end<br /><br />Full name: MBrace.Flow.CloudFlow&lt;_&gt;</div>
+<div class="tip" id="fs66">static member CloudFlow.OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;</div>
+<div class="tip" id="fs67">val collect : f:(&#39;T -&gt; #seq&lt;&#39;R&gt;) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.collect</div>
+<div class="tip" id="fs68">val filter : predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.filter</div>
+<div class="tip" id="fs69">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs70">val concat : arrays:seq&lt;&#39;T []&gt; -&gt; &#39;T []<br /><br />Full name: Microsoft.FSharp.Collections.Array.concat</div>
+<div class="tip" id="fs71">val sum : array:&#39;T [] -&gt; &#39;T (requires member ( + ) and member get_Zero)<br /><br />Full name: Microsoft.FSharp.Collections.Array.sum</div>
+<div class="tip" id="fs72">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs73">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs74">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+<div class="tip" id="fs75">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []<br /><br />Full name: Microsoft.FSharp.Collections.Array.filter</div>
+<div class="tip" id="fs76">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><br />Full name: Microsoft.FSharp.Collections.Seq.length</div>
+<div class="tip" id="fs77">val toArray : flow:CloudFlow&lt;&#39;T&gt; -&gt; MBrace.Core.Cloud&lt;&#39;T []&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.toArray</div>
+<div class="tip" id="fs78">val analysisTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 400-stock-trading-analysis2-example.analysisTask</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

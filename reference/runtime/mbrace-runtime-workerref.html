@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>WorkerRef - MBrace.Runtime</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Runtime</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>WorkerRef</h1>
+<p>
+  <span>Namespace: MBrace.Runtime</span><br />
+</p>
+<div class="xmldoc">
+<p>A Serializable object used to identify a specific worker in a cluster.
+Can be used to point computations for execution at specific machines.</p>
+
+
+</div>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1176', 1176)" onmouseover="showTip(event, '1176', 1176)">
+            ActiveWorkItems
+          </code>
+          <div class="tip" id="1176">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the number of cloud work items that are active in the current worker</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1177', 1177)" onmouseover="showTip(event, '1177', 1177)">
+            add_SystemLogs(arg1)
+          </code>
+          <div class="tip" id="1177">
+            <strong>Signature:</strong> Handler&lt;SystemLogEntry&gt; -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Event for subscribing to worker-specific system logs</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1178', 1178)" onmouseover="showTip(event, '1178', 1178)">
+            ClearSystemLogs()
+          </code>
+          <div class="tip" id="1178">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Clears system logs for current worker from store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1179', 1179)" onmouseover="showTip(event, '1179', 1179)">
+            ClearSystemLogsAsync()
+          </code>
+          <div class="tip" id="1179">
+            <strong>Signature:</strong> unit -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously clears system logs for current worker from store.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1180', 1180)" onmouseover="showTip(event, '1180', 1180)">
+            CpuUsage
+          </code>
+          <div class="tip" id="1180">
+            <strong>Signature:</strong> Nullable&lt;double&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the total cpu usage percentage of the worker host</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1181', 1181)" onmouseover="showTip(event, '1181', 1181)">
+            GetInfo()
+          </code>
+          <div class="tip" id="1181">
+            <strong>Signature:</strong> unit -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets a printed report on worker status</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1182', 1182)" onmouseover="showTip(event, '1182', 1182)">
+            GetSystemLogs(logLevel, filter)
+          </code>
+          <div class="tip" id="1182">
+            <strong>Signature:</strong> (logLevel:LogLevel option * filter:(SystemLogEntry -&gt; bool) option) -&gt; SystemLogEntry []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Fetches all system logs generated by worker instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1183', 1183)" onmouseover="showTip(event, '1183', 1183)">
+            GetSystemLogsAsync(logLevel, filter)
+          </code>
+          <div class="tip" id="1183">
+            <strong>Signature:</strong> (logLevel:LogLevel option * filter:(SystemLogEntry -&gt; bool) option) -&gt; Async&lt;SystemLogEntry []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously fetches all system logs generated by worker instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1184', 1184)" onmouseover="showTip(event, '1184', 1184)">
+            Hostname
+          </code>
+          <div class="tip" id="1184">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the worker hostname</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1185', 1185)" onmouseover="showTip(event, '1185', 1185)">
+            Id
+          </code>
+          <div class="tip" id="1185">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Worker identifier</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1186', 1186)" onmouseover="showTip(event, '1186', 1186)">
+            InitializationTime
+          </code>
+          <div class="tip" id="1186">
+            <strong>Signature:</strong> DateTimeOffset<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the initialization/subscription time of the worker process</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1187', 1187)" onmouseover="showTip(event, '1187', 1187)">
+            LastHeartbeat
+          </code>
+          <div class="tip" id="1187">
+            <strong>Signature:</strong> DateTimeOffset<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the latest time that a worker heartbeat was received</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1188', 1188)" onmouseover="showTip(event, '1188', 1188)">
+            MaxCpuClock
+          </code>
+          <div class="tip" id="1188">
+            <strong>Signature:</strong> Nullable&lt;double&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the Max Cpu clock speed in MHz</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1189', 1189)" onmouseover="showTip(event, '1189', 1189)">
+            MaxWorkItemCount
+          </code>
+          <div class="tip" id="1189">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the maximum work item count permitted as set by worker configuration</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1190', 1190)" onmouseover="showTip(event, '1190', 1190)">
+            MemoryUsage
+          </code>
+          <div class="tip" id="1190">
+            <strong>Signature:</strong> Nullable&lt;double&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the total memory usage of the worker host in MB</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1191', 1191)" onmouseover="showTip(event, '1191', 1191)">
+            NetworkUsageDown
+          </code>
+          <div class="tip" id="1191">
+            <strong>Signature:</strong> Nullable&lt;double&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the network download usage in KB/s</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1192', 1192)" onmouseover="showTip(event, '1192', 1192)">
+            NetworkUsageUp
+          </code>
+          <div class="tip" id="1192">
+            <strong>Signature:</strong> Nullable&lt;double&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the network upload usage in KB/s</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1193', 1193)" onmouseover="showTip(event, '1193', 1193)">
+            ProcessId
+          </code>
+          <div class="tip" id="1193">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the OS identifier of the worker process</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1194', 1194)" onmouseover="showTip(event, '1194', 1194)">
+            ProcessorCount
+          </code>
+          <div class="tip" id="1194">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the total processor count of the worker host</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1195', 1195)" onmouseover="showTip(event, '1195', 1195)">
+            remove_SystemLogs(arg1)
+          </code>
+          <div class="tip" id="1195">
+            <strong>Signature:</strong> Handler&lt;SystemLogEntry&gt; -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Event for subscribing to worker-specific system logs</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1196', 1196)" onmouseover="showTip(event, '1196', 1196)">
+            RuntimeId
+          </code>
+          <div class="tip" id="1196">
+            <strong>Signature:</strong> IRuntimeId<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Runtime identifier</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1197', 1197)" onmouseover="showTip(event, '1197', 1197)">
+            ShowInfo()
+          </code>
+          <div class="tip" id="1197">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Prints a report on worker to stdout</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1198', 1198)" onmouseover="showTip(event, '1198', 1198)">
+            ShowSystemLogs(logLevel, filter)
+          </code>
+          <div class="tip" id="1198">
+            <strong>Signature:</strong> (logLevel:LogLevel option * filter:(SystemLogEntry -&gt; bool) option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Prints all system logs generated by worker instance to stdout.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1199', 1199)" onmouseover="showTip(event, '1199', 1199)">
+            Status
+          </code>
+          <div class="tip" id="1199">
+            <strong>Signature:</strong> WorkerExecutionStatus<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the worker execution status</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1200', 1200)" onmouseover="showTip(event, '1200', 1200)">
+            SystemLogs
+          </code>
+          <div class="tip" id="1200">
+            <strong>Signature:</strong> IEvent&lt;SystemLogEntry&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Event for subscribing to worker-specific system logs</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1201', 1201)" onmouseover="showTip(event, '1201', 1201)">
+            TotalMemory
+          </code>
+          <div class="tip" id="1201">
+            <strong>Signature:</strong> Nullable&lt;double&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the total memory capacity of the worker host in MB</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1202', 1202)" onmouseover="showTip(event, '1202', 1202)">
+            WorkerId
+          </code>
+          <div class="tip" id="1202">
+            <strong>Signature:</strong> IWorkerId<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Worker identifier</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1203', 1203)" onmouseover="showTip(event, '1203', 1203)">
+            Create(runtime, workerId)
+          </code>
+          <div class="tip" id="1203">
+            <strong>Signature:</strong> (runtime:IRuntimeManager * workerId:IWorkerId) -&gt; WorkerRef<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new WorkerRef instance for given runtime and worker id.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1204', 1204)" onmouseover="showTip(event, '1204', 1204)">
+            CurrentHostname
+          </code>
+          <div class="tip" id="1204">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the hostname of the current process</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Runtime</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

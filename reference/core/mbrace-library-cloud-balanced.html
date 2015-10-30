@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Balanced - MBrace.Core</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Balanced</h1>
+<p>
+  <span>Namespace: MBrace.Library</span><br />
+  <span>Parent Module: <a href="mbrace-library-cloud.html">Cloud</a></span>
+</p>
+<div class="xmldoc">
+<p>Set of parallel collection combinators that balance 
+input data across the cluster according to worker processing capacities. 
+Designed to minimize runtime overhead by bundling inputs in single work items per worker,
+they also utilize the multicore capacity of every worker machine.
+It is assumed here that all inputs are homogeneous in terms of computation workloads.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
+            choose(chooser source)
+          </code>
+          <div class="tip" id="50">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;S option) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed choose combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+            chooseLocal(chooser source)
+          </code>
+          <div class="tip" id="51">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed choose combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '52', 52)" onmouseover="showTip(event, '52', 52)">
+            collect(collector source)
+          </code>
+          <div class="tip" id="52">
+            <strong>Signature:</strong> collector:(&#39;T -&gt; &#39;?7582) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7582, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distrbuted collect combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '53', 53)" onmouseover="showTip(event, '53', 53)">
+            collectLocal(collector source)
+          </code>
+          <div class="tip" id="53">
+            <strong>Signature:</strong> collector:(&#39;T -&gt; LocalCloud&lt;&#39;?7578&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7578, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distrbuted collect combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '54', 54)" onmouseover="showTip(event, '54', 54)">
+            exists(predicate source)
+          </code>
+          <div class="tip" id="54">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed exists combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
+            existsLocal(predicate source)
+          </code>
+          <div class="tip" id="55">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed exists combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
+            filter(predicate source)
+          </code>
+          <div class="tip" id="56">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed filter combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
+            filterLocal(predicate source)
+          </code>
+          <div class="tip" id="57">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed filter combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
+            fold(folder reducer init source)
+          </code>
+          <div class="tip" id="58">
+            <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; init:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'State, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed fold combinator. Partitions inputs, folding distrbutively
+and then combines the intermediate results. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '59', 59)" onmouseover="showTip(event, '59', 59)">
+            foldBy(...)
+          </code>
+          <div class="tip" id="59">
+            <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; init:(&#39;Key -&gt; &#39;State) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;(&#39;Key * &#39;State) []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key, 'State          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed fold by key combinator. Partitions inputs, folding distrbutively
+and then combines the intermediate results. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '60', 60)" onmouseover="showTip(event, '60', 60)">
+            foldByLocal(...)
+          </code>
+          <div class="tip" id="60">
+            <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; folder:(&#39;State -&gt; &#39;T -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; init:(&#39;Key -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;(&#39;Key * &#39;State) []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key, 'State          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed fold by key combinator. Partitions inputs, folding distrbutively
+and then combines the intermediate results. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '61', 61)" onmouseover="showTip(event, '61', 61)">
+            foldLocal(folder reducer init source)
+          </code>
+          <div class="tip" id="61">
+            <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; init:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'State, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed fold combinator. Partitions inputs, folding distrbutively
+and then combines the intermediate results. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '62', 62)" onmouseover="showTip(event, '62', 62)">
+            forall(predicate source)
+          </code>
+          <div class="tip" id="62">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed forall combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '63', 63)" onmouseover="showTip(event, '63', 63)">
+            forallLocal(predicate source)
+          </code>
+          <div class="tip" id="63">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed forall combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '64', 64)" onmouseover="showTip(event, '64', 64)">
+            groupBy(projection source)
+          </code>
+          <div class="tip" id="64">
+            <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;(&#39;Key * &#39;T []) []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed groupBy combinator. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '65', 65)" onmouseover="showTip(event, '65', 65)">
+            iterLocal(body source)
+          </code>
+          <div class="tip" id="65">
+            <strong>Signature:</strong> body:(&#39;T -&gt; LocalCloud&lt;unit&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed iter combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '66', 66)" onmouseover="showTip(event, '66', 66)">
+            map(mapper source)
+          </code>
+          <div class="tip" id="66">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;S) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed map combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '67', 67)" onmouseover="showTip(event, '67', 67)">
+            mapLocal(mapper source)
+          </code>
+          <div class="tip" id="67">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; LocalCloud&lt;&#39;S&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed map combinator. Computation is balanced across the
+cluster according to multicore capacity.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '68', 68)" onmouseover="showTip(event, '68', 68)">
+            mapReduce(mapper reducer init source)
+          </code>
+          <div class="tip" id="68">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;R) -&gt; reducer:(&#39;R -&gt; &#39;R -&gt; &#39;R) -&gt; init:&#39;R -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed Map/Reduce workflow with cluster balancing. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '69', 69)" onmouseover="showTip(event, '69', 69)">
+            mapReduceLocal(...)
+          </code>
+          <div class="tip" id="69">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; reducer:(&#39;R -&gt; &#39;R -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; init:&#39;R -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed Map/Reduce workflow with cluster balancing. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '70', 70)" onmouseover="showTip(event, '70', 70)">
+            reduceCombine(reducer combiner source)
+          </code>
+          <div class="tip" id="70">
+            <strong>Signature:</strong> reducer:(&#39;T [] -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; combiner:(&#39;State [] -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'State          </div>
+        </td>
+        <td class="xmldoc">
+          <p>General-purpose distributed reduce/combine combinator. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '71', 71)" onmouseover="showTip(event, '71', 71)">
+            search(chooser source)
+          </code>
+          <div class="tip" id="71">
+            <strong>Signature:</strong> chooser:(&#39;T [] -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>General-purpose distributed search combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '72', 72)" onmouseover="showTip(event, '72', 72)">
+            sumBy(projection sources)
+          </code>
+          <div class="tip" id="72">
+            <strong>Signature:</strong> projection:(&#39;T -&gt; ^S) -&gt; sources:seq&lt;&#39;T&gt; -&gt; Cloud&lt;^S&gt;<br />
+                          <strong>Type parameters:</strong> 'T, ^S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed sumBy combinator. Inputs are balanced across the
+cluster according to multicore capacity then intermediate results are succesively combined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
+            tryFind(predicate source)
+          </code>
+          <div class="tip" id="73">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryFind combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
+            tryFindLocal(predicate source)
+          </code>
+          <div class="tip" id="74">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryFind combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
+            tryPick(chooser source)
+          </code>
+          <div class="tip" id="75">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;S option) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryPick combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '76', 76)" onmouseover="showTip(event, '76', 76)">
+            tryPickLocal(chooser source)
+          </code>
+          <div class="tip" id="76">
+            <strong>Signature:</strong> chooser:(&#39;T -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Distributed tryPick combinator. Balances inputs across
+clusters returning immediate result once a positive result is found,
+while actively cancelling all pending computation.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

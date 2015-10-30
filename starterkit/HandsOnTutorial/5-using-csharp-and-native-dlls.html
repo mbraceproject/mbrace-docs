@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Using C# DLLs and Native Components
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Using-C-DLLs-and-Native-Components" class="anchor" href="#Using-C-DLLs-and-Native-Components">Using C# DLLs and Native Components</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<p>It is very simple to use C# DLLs, native DLLs and any nuget packages in your cloud computations.
+For C# DLLs you just download and reference the packages as normal
+in your F# scripting or other client application. The DLLs for the packages are automatically uploaded to 
+the cloud workers as needed.  In a sense, you don't need to do anything special.</p>
+
+<p>In this tutorial, you first reference some C# DLLs from the Math.NET NuGet package.
+You also use native binaries from the Intel MKL library.</p>
+
+<h2><a name="Using-C-DLLs-Locally" class="anchor" href="#Using-C-DLLs-Locally">Using C# DLLs Locally</a></h2>
+
+<p>First, you reference and use the packages on the local machine:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">@&quot;../packages/MathNet.Numerics.FSharp/MathNet.Numerics.fsx&quot;</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">MathNet</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">Numerics</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">MathNet</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">Numerics</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">LinearAlgebra</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="i">matrix1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="t">Matrix</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="t">double</span><span class="o">&gt;</span><span class="o">.</span><span class="i">Build</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="f">Random</span>(<span class="n">10</span>,<span class="n">10</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">vector1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 21)" onmouseover="showTip(event, 'fs17', 21)" class="t">Vector</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="t">double</span><span class="o">&gt;</span><span class="o">.</span><span class="i">Build</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="f">Random</span>(<span class="n">10</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="i">product</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">vector1</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="i">matrix1</span> 
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="i">check</span> <span class="o">=</span> (<span onmouseout="hideTip(event, 'fs12', 28)" onmouseover="showTip(event, 'fs12', 28)" class="i">matrix1</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs12', 29)" onmouseover="showTip(event, 'fs12', 29)" class="i">matrix1</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="f">Inverse</span>())<span class="o">.</span><span class="f">Determinant</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Using-C-DLLs-on-the-cluster" class="anchor" href="#Using-C-DLLs-on-the-cluster">Using C# DLLs on the cluster</a></h2>
+
+<p>Next, run the code on MBrace. Note that the DLLs from the packages are uploaded automatically.</p>
+
+<p>The following inverts 100 150x150 matrices using C# code on the cluster.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 31)" onmouseover="showTip(event, 'fs21', 31)" class="i">csharpMathJob</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs22', 32)" onmouseover="showTip(event, 'fs22', 32)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> <span class="k">-&gt;</span> 
+         <span class="i">cloud</span> { 
+            <span class="k">let</span> <span class="i">m</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 33)" onmouseover="showTip(event, 'fs13', 33)" class="i">Matrix</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs14', 34)" onmouseover="showTip(event, 'fs14', 34)" class="i">double</span><span class="o">&gt;</span><span class="o">.</span><span class="i">Build</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 35)" onmouseover="showTip(event, 'fs15', 35)" class="i">Random</span>(<span class="n">250</span>,<span class="n">250</span>) 
+            <span class="k">return</span> (<span class="i">m</span> <span class="o">*</span> <span class="i">m</span><span class="o">.</span><span class="i">Inverse</span>())<span class="o">.</span><span class="i">Determinant</span>()
+         } ]
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 36)" onmouseover="showTip(event, 'fs6', 36)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="f">CreateProcess</span>
+
+<span class="c">// Show the progress</span>
+<span onmouseout="hideTip(event, 'fs21', 38)" onmouseover="showTip(event, 'fs21', 38)" class="i">csharpMathJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 39)" onmouseover="showTip(event, 'fs24', 39)" class="f">ShowInfo</span>()
+
+
+<span class="c">// Await the result, we expect an array of numbers very close to 1.0</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 40)" onmouseover="showTip(event, 'fs25', 40)" class="i">csharpMathResults</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 41)" onmouseover="showTip(event, 'fs21', 41)" class="i">csharpMathJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 42)" onmouseover="showTip(event, 'fs26', 42)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Running-Native-Code-on-the-Cluster" class="anchor" href="#Running-Native-Code-on-the-Cluster">Running Native Code on the Cluster</a></h2>
+
+<p>Next, you run the same work using the Interl MKL native DLLs.</p>
+
+<blockquote>
+  <p>To upload native DLLs, register their paths as native dependencies. These will be included with all uploaded dependencies of the session.</p>
+</blockquote>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 43)" onmouseover="showTip(event, 'fs27', 43)" class="i">contentDir</span> <span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span> <span class="o">+</span> <span class="s">&quot;/../packages/MathNet.Numerics.MKL.Win-x64/content/&quot;</span>
+<span onmouseout="hideTip(event, 'fs6', 44)" onmouseover="showTip(event, 'fs6', 44)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 45)" onmouseover="showTip(event, 'fs28', 45)" class="f">RegisterNativeDependency</span> (<span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="i">contentDir</span> <span class="o">+</span> <span class="s">&quot;libiomp5md.dll&quot;</span>)
+<span onmouseout="hideTip(event, 'fs6', 47)" onmouseover="showTip(event, 'fs6', 47)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 48)" onmouseover="showTip(event, 'fs28', 48)" class="f">RegisterNativeDependency</span> (<span onmouseout="hideTip(event, 'fs27', 49)" onmouseover="showTip(event, 'fs27', 49)" class="i">contentDir</span> <span class="o">+</span> <span class="s">&quot;MathNet.Numerics.MKL.dll&quot;</span>)
+
+<span class="c">(** The first MKL job can take a while first time you run it, because &#39;MathNet.Numerics.MKL.dll&#39; needs to be uploaded: *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 50)" onmouseover="showTip(event, 'fs29', 50)" class="i">firstNativeJob</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { 
+        <span onmouseout="hideTip(event, 'fs30', 51)" onmouseover="showTip(event, 'fs30', 51)" class="i">Control</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 52)" onmouseover="showTip(event, 'fs31', 52)" class="i">UseNativeMKL</span>()
+        <span class="k">let</span> <span class="i">m</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 53)" onmouseover="showTip(event, 'fs13', 53)" class="i">Matrix</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs14', 54)" onmouseover="showTip(event, 'fs14', 54)" class="i">double</span><span class="o">&gt;</span><span class="o">.</span><span class="i">Build</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 55)" onmouseover="showTip(event, 'fs15', 55)" class="i">Random</span>(<span class="n">250</span>,<span class="n">250</span>) 
+        <span class="k">return</span> (<span class="i">m</span> <span class="o">*</span> <span class="i">m</span><span class="o">.</span><span class="i">Inverse</span>())<span class="o">.</span><span class="i">Determinant</span>()
+    }
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 56)" onmouseover="showTip(event, 'fs6', 56)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 57)" onmouseover="showTip(event, 'fs23', 57)" class="f">CreateProcess</span>
+
+<span class="c">// Check progress</span>
+<span onmouseout="hideTip(event, 'fs29', 58)" onmouseover="showTip(event, 'fs29', 58)" class="i">firstNativeJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 59)" onmouseover="showTip(event, 'fs24', 59)" class="f">ShowInfo</span>()
+
+<span class="c">// Wait for the result</span>
+<span onmouseout="hideTip(event, 'fs29', 60)" onmouseover="showTip(event, 'fs29', 60)" class="i">firstNativeJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 61)" onmouseover="showTip(event, 'fs26', 61)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Now run a much larger job: 1000 250x250 matrices, inverted using Intel MKL:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 62)" onmouseover="showTip(event, 'fs32', 62)" class="i">nativeMathJob</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs22', 63)" onmouseover="showTip(event, 'fs22', 63)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">1000</span> <span class="k">-&gt;</span> 
+         <span class="i">cloud</span> { 
+            <span onmouseout="hideTip(event, 'fs30', 64)" onmouseover="showTip(event, 'fs30', 64)" class="i">Control</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 65)" onmouseover="showTip(event, 'fs31', 65)" class="i">UseNativeMKL</span>()
+            <span class="k">let</span> <span class="i">m</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 66)" onmouseover="showTip(event, 'fs13', 66)" class="i">Matrix</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs14', 67)" onmouseover="showTip(event, 'fs14', 67)" class="i">double</span><span class="o">&gt;</span><span class="o">.</span><span class="i">Build</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 68)" onmouseover="showTip(event, 'fs15', 68)" class="i">Random</span>(<span class="n">250</span>,<span class="n">250</span>) 
+            <span class="k">return</span> (<span class="i">m</span> <span class="o">*</span> <span class="i">m</span><span class="o">.</span><span class="i">Inverse</span>())<span class="o">.</span><span class="i">Determinant</span>() 
+         } ]
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 69)" onmouseover="showTip(event, 'fs6', 69)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 70)" onmouseover="showTip(event, 'fs23', 70)" class="f">CreateProcess</span>
+
+<span class="c">// Check progress</span>
+<span onmouseout="hideTip(event, 'fs32', 71)" onmouseover="showTip(event, 'fs32', 71)" class="i">nativeMathJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 72)" onmouseover="showTip(event, 'fs24', 72)" class="f">ShowInfo</span>()
+
+<span class="c">// Wait for the result</span>
+<span onmouseout="hideTip(event, 'fs32', 73)" onmouseover="showTip(event, 'fs32', 73)" class="i">nativeMathJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 74)" onmouseover="showTip(event, 'fs26', 74)" class="i">Result</span>
+
+<span class="c">(** Once complete, you can compare the execution times of the jobs to see if using native code has improved performance: *)</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 75)" onmouseover="showTip(event, 'fs33', 75)" class="i">timeNative</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 76)" onmouseover="showTip(event, 'fs32', 76)" class="i">nativeMathJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 77)" onmouseover="showTip(event, 'fs34', 77)" class="i">ExecutionTime</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 78)" onmouseover="showTip(event, 'fs35', 78)" class="i">Value</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 79)" onmouseover="showTip(event, 'fs36', 79)" class="i">TotalSeconds</span> <span class="o">/</span> <span class="n">1000.0</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 80)" onmouseover="showTip(event, 'fs37', 80)" class="i">timeCSharp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 81)" onmouseover="showTip(event, 'fs21', 81)" class="i">csharpMathJob</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 82)" onmouseover="showTip(event, 'fs34', 82)" class="i">ExecutionTime</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 83)" onmouseover="showTip(event, 'fs35', 83)" class="i">Value</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 84)" onmouseover="showTip(event, 'fs36', 84)" class="i">TotalSeconds</span> <span class="o">/</span> <span class="n">100.0</span>  
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 85)" onmouseover="showTip(event, 'fs38', 85)" class="i">perfRatio</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs37', 86)" onmouseover="showTip(event, 'fs37', 86)" class="i">timeCSharp</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs33', 87)" onmouseover="showTip(event, 'fs33', 87)" class="i">timeNative</span> 
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned how to use C# DLLs, NuGet packages and 
+native DLLs in your MBrace computations. You've also compared performance between native code and 
+C# code running on your cluster for one particular example.<br />
+Continue with further samples to learn more about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 5-using-csharp-and-native-dlls.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">namespace MathNet</div>
+<div class="tip" id="fs10">namespace MathNet.Numerics</div>
+<div class="tip" id="fs11">namespace MathNet.Numerics.LinearAlgebra</div>
+<div class="tip" id="fs12">val matrix1 : Matrix&lt;double&gt;<br /><br />Full name: 5-using-csharp-and-native-dlls.matrix1</div>
+<div class="tip" id="fs13">type Matrix&lt;&#39;T (requires default constructor and value type and &#39;T :&gt; IEquatable&lt;&#39;T&gt; and &#39;T :&gt; IFormattable and &#39;T :&gt; ValueType)&gt; =<br />&#160;&#160;member Add : scalar:&#39;T -&gt; Matrix&lt;&#39;T&gt; + 3 overloads<br />&#160;&#160;member Append : right:Matrix&lt;&#39;T&gt; -&gt; Matrix&lt;&#39;T&gt; + 1 overload<br />&#160;&#160;member At : row:int * column:int -&gt; &#39;T + 1 overload<br />&#160;&#160;member Cholesky : unit -&gt; Cholesky&lt;&#39;T&gt;<br />&#160;&#160;member Clear : unit -&gt; unit<br />&#160;&#160;member ClearColumn : columnIndex:int -&gt; unit<br />&#160;&#160;member ClearColumns : [&lt;ParamArray&gt;] columnIndices:int[] -&gt; unit<br />&#160;&#160;member ClearRow : rowIndex:int -&gt; unit<br />&#160;&#160;member ClearRows : [&lt;ParamArray&gt;] rowIndices:int[] -&gt; unit<br />&#160;&#160;member ClearSubMatrix : rowIndex:int * rowCount:int * columnIndex:int * columnCount:int -&gt; unit<br />&#160;&#160;...<br /><br />Full name: MathNet.Numerics.LinearAlgebra.Matrix&lt;_&gt;</div>
+<div class="tip" id="fs14">Multiple items<br />val double : value:&#39;T -&gt; double (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.double<br /><br />--------------------<br />type double = Double<br /><br />Full name: Microsoft.FSharp.Core.double</div>
+<div class="tip" id="fs15">Multiple items<br />type Random =<br />&#160;&#160;new : unit -&gt; Random + 1 overload<br />&#160;&#160;member Next : unit -&gt; int + 2 overloads<br />&#160;&#160;member NextBytes : buffer:byte[] -&gt; unit<br />&#160;&#160;member NextDouble : unit -&gt; float<br /><br />Full name: System.Random<br /><br />--------------------<br />Random() : unit<br />Random(Seed: int) : unit</div>
+<div class="tip" id="fs16">val vector1 : Vector&lt;double&gt;<br /><br />Full name: 5-using-csharp-and-native-dlls.vector1</div>
+<div class="tip" id="fs17">type Vector&lt;&#39;T (requires default constructor and value type and &#39;T :&gt; IEquatable&lt;&#39;T&gt; and &#39;T :&gt; IFormattable and &#39;T :&gt; ValueType)&gt; =<br />&#160;&#160;member AbsoluteMaximum : unit -&gt; &#39;T<br />&#160;&#160;member AbsoluteMaximumIndex : unit -&gt; int<br />&#160;&#160;member AbsoluteMinimum : unit -&gt; &#39;T<br />&#160;&#160;member AbsoluteMinimumIndex : unit -&gt; int<br />&#160;&#160;member Add : scalar:&#39;T -&gt; Vector&lt;&#39;T&gt; + 3 overloads<br />&#160;&#160;member At : index:int -&gt; &#39;T + 1 overload<br />&#160;&#160;member Clear : unit -&gt; unit<br />&#160;&#160;member ClearSubVector : index:int * count:int -&gt; unit<br />&#160;&#160;member Clone : unit -&gt; Vector&lt;&#39;T&gt;<br />&#160;&#160;member CoerceZero : threshold:float -&gt; unit + 1 overload<br />&#160;&#160;...<br /><br />Full name: MathNet.Numerics.LinearAlgebra.Vector&lt;_&gt;</div>
+<div class="tip" id="fs18">val product : Vector&lt;double&gt;<br /><br />Full name: 5-using-csharp-and-native-dlls.product</div>
+<div class="tip" id="fs19">val check : double<br /><br />Full name: 5-using-csharp-and-native-dlls.check</div>
+<div class="tip" id="fs20">Matrix.Inverse() : Matrix&lt;double&gt;</div>
+<div class="tip" id="fs21">val csharpMathJob : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 5-using-csharp-and-native-dlls.csharpMathJob</div>
+<div class="tip" id="fs22">val i : int</div>
+<div class="tip" id="fs23">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs24">member MBrace.Runtime.CloudProcess.ShowInfo : unit -&gt; unit</div>
+<div class="tip" id="fs25">val csharpMathResults : obj<br /><br />Full name: 5-using-csharp-and-native-dlls.csharpMathResults</div>
+<div class="tip" id="fs26">property MBrace.Runtime.CloudProcess.Result: obj</div>
+<div class="tip" id="fs27">val contentDir : string<br /><br />Full name: 5-using-csharp-and-native-dlls.contentDir</div>
+<div class="tip" id="fs28">member MBrace.Runtime.MBraceClient.RegisterNativeDependency : assemblyPath:string -&gt; unit</div>
+<div class="tip" id="fs29">val firstNativeJob : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 5-using-csharp-and-native-dlls.firstNativeJob</div>
+<div class="tip" id="fs30">type Control =<br />&#160;&#160;static member BlockSize : int with get, set<br />&#160;&#160;static member CheckDistributionParameters : bool with get, set<br />&#160;&#160;static member ConfigureAuto : unit -&gt; unit<br />&#160;&#160;static member LinearAlgebraProvider : ILinearAlgebraProvider with get, set<br />&#160;&#160;static member MaxDegreeOfParallelism : int with get, set<br />&#160;&#160;static member NativeProviderPath : string with get, set<br />&#160;&#160;static member TaskScheduler : TaskScheduler with get, set<br />&#160;&#160;static member ThreadSafeRandomNumberGenerators : bool with get, set<br />&#160;&#160;static member UseManaged : unit -&gt; unit<br />&#160;&#160;static member UseMultiThreading : unit -&gt; unit<br />&#160;&#160;...<br /><br />Full name: MathNet.Numerics.Control</div>
+<div class="tip" id="fs31">Control.UseNativeMKL() : unit<br />Control.UseNativeMKL(?consistency: Providers.LinearAlgebra.Mkl.MklConsistency, ?precision: Providers.LinearAlgebra.Mkl.MklPrecision, ?accuracy: Providers.LinearAlgebra.Mkl.MklAccuracy) : unit</div>
+<div class="tip" id="fs32">val nativeMathJob : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 5-using-csharp-and-native-dlls.nativeMathJob</div>
+<div class="tip" id="fs33">val timeNative : float<br /><br />Full name: 5-using-csharp-and-native-dlls.timeNative</div>
+<div class="tip" id="fs34">property MBrace.Runtime.CloudProcess.ExecutionTime: TimeSpan option</div>
+<div class="tip" id="fs35">property Option.Value: TimeSpan</div>
+<div class="tip" id="fs36">property TimeSpan.TotalSeconds: float</div>
+<div class="tip" id="fs37">val timeCSharp : float<br /><br />Full name: 5-using-csharp-and-native-dlls.timeCSharp</div>
+<div class="tip" id="fs38">val perfRatio : float<br /><br />Full name: 5-using-csharp-and-native-dlls.perfRatio</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

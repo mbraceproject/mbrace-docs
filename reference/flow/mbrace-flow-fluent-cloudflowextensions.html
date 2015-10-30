@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>CloudFlowExtensions - MBrace.Flow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Flow</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>CloudFlowExtensions</h1>
+<p>
+  <span>Namespace: MBrace.Flow.Fluent</span><br />
+</p>
+<div class="xmldoc">
+</div>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '800', 800)" onmouseover="showTip(event, '800', 800)">
+            average(source)
+          </code>
+          <div class="tip" id="800">
+            <strong>Signature:</strong> source:CloudFlow&lt;^T&gt; -&gt; Cloud&lt;^T&gt;<br />
+                          <strong>Type parameters:</strong> ^T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Computes the average of the elements in the input flow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '801', 801)" onmouseover="showTip(event, '801', 801)">
+            averageBy(this, projection)
+          </code>
+          <div class="tip" id="801">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; ^U)) -&gt; Cloud&lt;^U&gt;<br />
+                          <strong>Type parameters:</strong> 'T, ^U          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Computes the average of the projections given by the supplied function on the input flow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '802', 802)" onmouseover="showTip(event, '802', 802)">
+            cache(this)
+          </code>
+          <div class="tip" id="802">
+            <strong>Signature:</strong> this:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a PersistedCloudFlow from the given CloudFlow, with its partitions cached locally</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '803', 803)" onmouseover="showTip(event, '803', 803)">
+            collect(this, f)
+          </code>
+          <div class="tip" id="803">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * f:(&#39;T -&gt; &#39;?24013)) -&gt; CloudFlow&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?24013, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Transforms each element of the input CloudFlow to a new sequence and flattens its elements.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '804', 804)" onmouseover="showTip(event, '804', 804)">
+            countBy(this, projection)
+          </code>
+          <div class="tip" id="804">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key)) -&gt; CloudFlow&lt;&#39;Key * int64&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of a CloudFlow and return a CloudFlow yielding unique keys and their number of occurrences in the original sequence.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '805', 805)" onmouseover="showTip(event, '805', 805)">
+            distinct(source)
+          </code>
+          <div class="tip" id="805">
+            <strong>Signature:</strong> source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a flow that contains no duplicate elements according to their generic hash and equality comparisons. If an element occurs multiple times in the flow then only one is retained.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '806', 806)" onmouseover="showTip(event, '806', 806)">
+            distinctBy(source, projection)
+          </code>
+          <div class="tip" id="806">
+            <strong>Signature:</strong> (source:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key)) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a flow that contains no duplicate entries according to the generic hash and equality comparisons on the keys returned by the given key-generating function. If an element occurs multiple times in the flow then only one is retained.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '807', 807)" onmouseover="showTip(event, '807', 807)">
+            exists(this, predicate)
+          </code>
+          <div class="tip" id="807">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * predicate:(&#39;T -&gt; bool)) -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Tests if any element of the flow satisfies the given predicate.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '808', 808)" onmouseover="showTip(event, '808', 808)">
+            filter(this, predicate)
+          </code>
+          <div class="tip" id="808">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * predicate:(&#39;T -&gt; bool)) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Filters the elements of the input CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '809', 809)" onmouseover="showTip(event, '809', 809)">
+            find(this, predicate)
+          </code>
+          <div class="tip" id="809">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * predicate:(&#39;T -&gt; bool)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the first element for which the given function returns true. Raises KeyNotFoundException if no such element exists.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '810', 810)" onmouseover="showTip(event, '810', 810)">
+            fold(this, folder, combiner, state)
+          </code>
+          <div class="tip" id="810">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) * combiner:(&#39;State -&gt; &#39;State -&gt; &#39;State) * state:(unit -&gt; &#39;State)) -&gt; Cloud&lt;&#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'State          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a function to each element of the CloudFlow, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN, then this function computes f (... (f s i0)...) iN.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '811', 811)" onmouseover="showTip(event, '811', 811)">
+            foldBy(...)
+          </code>
+          <div class="tip" id="811">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key) * folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) * combiner:(&#39;State -&gt; &#39;State -&gt; &#39;State) * state:(unit -&gt; &#39;State)) -&gt; CloudFlow&lt;&#39;Key * &#39;State&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key, 'State          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of a CloudFlow and return a CloudFlow yielding unique keys and the result of the threading an accumulator.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '812', 812)" onmouseover="showTip(event, '812', 812)">
+            forall(this, predicate)
+          </code>
+          <div class="tip" id="812">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * predicate:(&#39;T -&gt; bool)) -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Tests if all elements of the parallel flow satisfy the given predicate.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '813', 813)" onmouseover="showTip(event, '813', 813)">
+            groupBy(source, projection)
+          </code>
+          <div class="tip" id="813">
+            <strong>Signature:</strong> (source:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key)) -&gt; CloudFlow&lt;&#39;Key * seq&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of the input flow and yields a flow of unique keys and a sequence of all elements that have each key.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '814', 814)" onmouseover="showTip(event, '814', 814)">
+            isEmpty(this)
+          </code>
+          <div class="tip" id="814">
+            <strong>Signature:</strong> this:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returs true if the flow is empty and false otherwise.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '815', 815)" onmouseover="showTip(event, '815', 815)">
+            iter(this, action)
+          </code>
+          <div class="tip" id="815">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * action:(&#39;T -&gt; unit)) -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Runs the action on each element. The actions are not necessarily performed in order.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '816', 816)" onmouseover="showTip(event, '816', 816)">
+            length(this)
+          </code>
+          <div class="tip" id="816">
+            <strong>Signature:</strong> this:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;int64&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the total number of elements of the CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '817', 817)" onmouseover="showTip(event, '817', 817)">
+            map(this, f)
+          </code>
+          <div class="tip" id="817">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * f:(&#39;T -&gt; &#39;R)) -&gt; CloudFlow&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Transforms each element of the input CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '818', 818)" onmouseover="showTip(event, '818', 818)">
+            maxBy(this, projection)
+          </code>
+          <div class="tip" id="818">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Locates the maximum element of the flow by given key.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '819', 819)" onmouseover="showTip(event, '819', 819)">
+            minBy(this, projection)
+          </code>
+          <div class="tip" id="819">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Locates the minimum element of the flow by given key.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '820', 820)" onmouseover="showTip(event, '820', 820)">
+            peek(this, f)
+          </code>
+          <div class="tip" id="820">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * f:(&#39;T -&gt; LocalCloud&lt;unit&gt;)) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Enables the insertion of a monadic side-effect in a distributed flow. Output remains the same.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '821', 821)" onmouseover="showTip(event, '821', 821)">
+            persist(this, storageLevel)
+          </code>
+          <div class="tip" id="821">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * storageLevel:StorageLevel) -&gt; Cloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a PersistedCloudFlow from the given CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '822', 822)" onmouseover="showTip(event, '822', 822)">
+            pick(this, chooser)
+          </code>
+          <div class="tip" id="822">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * chooser:(&#39;T -&gt; &#39;R option)) -&gt; Cloud&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies the given function to successive elements, returning the first result where the function returns a Some value.
+ Raises KeyNotFoundException when every item of the cloud flow evaluates to None when the given function is applied.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '823', 823)" onmouseover="showTip(event, '823', 823)">
+            reduce(this, reducer)
+          </code>
+          <div class="tip" id="823">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * reducer:(&#39;T -&gt; &#39;T -&gt; &#39;T)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Reduces the elements of the input flow to a single value via the given reducer function.
+The reducer function is first applied to the first two elements of the flow.
+Then, the reducer is applied on the result of the first reduction and the third element.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '824', 824)" onmouseover="showTip(event, '824', 824)">
+            reduceBy(source, projection, reducer)
+          </code>
+          <div class="tip" id="824">
+            <strong>Signature:</strong> (source:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key) * reducer:(&#39;T -&gt; &#39;T -&gt; &#39;T)) -&gt; CloudFlow&lt;&#39;Key * &#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Groups the elements of the input flow according to given key generating function
+and reduces the elements of each group to a single value via the given reducer function.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '825', 825)" onmouseover="showTip(event, '825', 825)">
+            sortBy(this, projection, takeCount)
+          </code>
+          <div class="tip" id="825">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key) * takeCount:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of the input CloudFlow and yields the CloudFlow of the given length, ordered by keys.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '826', 826)" onmouseover="showTip(event, '826', 826)">
+            sortByDescending(...)
+          </code>
+          <div class="tip" id="826">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key) * takeCount:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of the input CloudFlow and yields the CloudFlow of the given length, ordered descending by keys.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '827', 827)" onmouseover="showTip(event, '827', 827)">
+            sortByUsing(...)
+          </code>
+          <div class="tip" id="827">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * projection:(&#39;T -&gt; &#39;Key) * comparer:IComparer&lt;&#39;Key&gt; * takeCount:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of the input CloudFlow and yields the CloudFlow of the given length, ordered using the given comparer for the keys.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '828', 828)" onmouseover="showTip(event, '828', 828)">
+            sum(flow)
+          </code>
+          <div class="tip" id="828">
+            <strong>Signature:</strong> flow:CloudFlow&lt;^T&gt; -&gt; Cloud&lt;^T&gt;<br />
+                          <strong>Type parameters:</strong> ^T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the sum of the elements.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '829', 829)" onmouseover="showTip(event, '829', 829)">
+            sumBy(this, f)
+          </code>
+          <div class="tip" id="829">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * f:(&#39;T -&gt; ^S)) -&gt; Cloud&lt;^S&gt;<br />
+                          <strong>Type parameters:</strong> 'T, ^S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of a CloudFlow and return the sum of the keys.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '830', 830)" onmouseover="showTip(event, '830', 830)">
+            take(this, n)
+          </code>
+          <div class="tip" id="830">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * n:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the elements of a CloudFlow up to a specified count.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '831', 831)" onmouseover="showTip(event, '831', 831)">
+            toArray(this)
+          </code>
+          <div class="tip" id="831">
+            <strong>Signature:</strong> this:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates an array from the given CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '832', 832)" onmouseover="showTip(event, '832', 832)">
+            toCloudFlow(this)
+          </code>
+          <div class="tip" id="832">
+            <strong>Signature:</strong> (this:&#39;T []) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Wraps array as a CloudFlow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '833', 833)" onmouseover="showTip(event, '833', 833)">
+            toCloudQueue(this, channel)
+          </code>
+          <div class="tip" id="833">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * channel:CloudQueue&lt;&#39;T&gt;) -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sends the values of CloudFlow to the SendPort of a CloudQueue</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '834', 834)" onmouseover="showTip(event, '834', 834)">
+            tryFind(this, predicate)
+          </code>
+          <div class="tip" id="834">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * predicate:(&#39;T -&gt; bool)) -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the first element for which the given function returns true. Returns None if no such element exists.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '835', 835)" onmouseover="showTip(event, '835', 835)">
+            tryPick(this, chooser)
+          </code>
+          <div class="tip" id="835">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * chooser:(&#39;T -&gt; &#39;R option)) -&gt; Cloud&lt;&#39;R option&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'R          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies the given function to successive elements, returning the first result where the function returns a Some value.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '836', 836)" onmouseover="showTip(event, '836', 836)">
+            withDegreeOfParallelism(...)
+          </code>
+          <div class="tip" id="836">
+            <strong>Signature:</strong> (this:CloudFlow&lt;&#39;T&gt; * degreeOfParallelism:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns a cloud flow with a new degree of parallelism.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Flow</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

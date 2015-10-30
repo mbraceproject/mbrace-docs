@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Cloud - MBrace.Core</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Cloud</h1>
+<p>
+  <span>Namespace: MBrace.Core.Internals</span><br />
+</p>
+<div class="xmldoc">
+<p>Internal cloud workflow combinators</p>
+
+
+</div>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '386', 386)" onmouseover="showTip(event, '386', 386)">
+            FromContinuations(body)
+          </code>
+          <div class="tip" id="386">
+            <strong>Signature:</strong> (body:(ExecutionContext -&gt; Continuation&lt;&#39;T&gt; -&gt; unit)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a cloud workflow that captures the current execution context.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '387', 387)" onmouseover="showTip(event, '387', 387)">
+            GetExecutionContext()
+          </code>
+          <div class="tip" id="387">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ExecutionContext&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the execution context of current computation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '388', 388)" onmouseover="showTip(event, '388', 388)">
+            GetResource()
+          </code>
+          <div class="tip" id="388">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;&#39;TResource&gt;<br />
+                          <strong>Type parameters:</strong> 'TResource          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets resource from current execution context.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '389', 389)" onmouseover="showTip(event, '389', 389)">
+            GetResourceRegistry()
+          </code>
+          <div class="tip" id="389">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ResourceRegistry&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the resource registry for current execution context.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '390', 390)" onmouseover="showTip(event, '390', 390)">
+            RunSynchronously(...)
+          </code>
+          <div class="tip" id="390">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously await a locally executing workflow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '391', 391)" onmouseover="showTip(event, '391', 391)">
+            Start(...)
+          </code>
+          <div class="tip" id="391">
+            <strong>Signature:</strong> (workflow:Cloud&lt;unit&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts provided cloud workflow in the thread pool.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '392', 392)" onmouseover="showTip(event, '392', 392)">
+            StartAsTask(...)
+          </code>
+          <div class="tip" id="392">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option * taskCreationOptions:TaskCreationOptions option) -&gt; Task&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts given workflow as a System.Threading.Task</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '393', 393)" onmouseover="showTip(event, '393', 393)">
+            StartImmediate(...)
+          </code>
+          <div class="tip" id="393">
+            <strong>Signature:</strong> (workflow:Cloud&lt;unit&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts provided cloud workflow in the current thread.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '394', 394)" onmouseover="showTip(event, '394', 394)">
+            StartImmediateWithContinuations(...)
+          </code>
+          <div class="tip" id="394">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts a cloud workflow with given execution context in the current thread.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '395', 395)" onmouseover="showTip(event, '395', 395)">
+            StartImmediateWithContinuations(...)
+          </code>
+          <div class="tip" id="395">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * context:ExecutionContext) -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts a cloud workflow with given execution context in the current thread.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '396', 396)" onmouseover="showTip(event, '396', 396)">
+            StartWithContinuations(...)
+          </code>
+          <div class="tip" id="396">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts a cloud workflow with given continuations and execution context in the thread pool.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '397', 397)" onmouseover="showTip(event, '397', 397)">
+            StartWithContinuations(...)
+          </code>
+          <div class="tip" id="397">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * context:ExecutionContext) -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts a cloud workflow with given continuations and execution context in the thread pool.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '398', 398)" onmouseover="showTip(event, '398', 398)">
+            SwitchToThreadPool()
+          </code>
+          <div class="tip" id="398">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Forces the workflow to schedule its current continuation to the thread pool,
+offloading the accumulated stack from the current thread.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '399', 399)" onmouseover="showTip(event, '399', 399)">
+            ToAsync(...)
+          </code>
+          <div class="tip" id="399">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; Async&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Wraps a cloud workflow into an asynchronous workflow.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '400', 400)" onmouseover="showTip(event, '400', 400)">
+            TryGetResource()
+          </code>
+          <div class="tip" id="400">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;&#39;TResource option&gt;<br />
+                          <strong>Type parameters:</strong> 'TResource          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Try Getting resource from current execution context.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '401', 401)" onmouseover="showTip(event, '401', 401)">
+            WithAppendedStackTrace(...)
+          </code>
+          <div class="tip" id="401">
+            <strong>Signature:</strong> functionName:string -&gt; workflow:&#39;?8319 -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> '?8319, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Appends a function information entry to the symbolic stacktrace in the exception continuation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '402', 402)" onmouseover="showTip(event, '402', 402)">
+            WithMappedContinuation(mapper workflow)
+          </code>
+          <div class="tip" id="402">
+            <strong>Signature:</strong> (mapper:(Continuation&lt;&#39;T&gt; -&gt; Continuation&lt;&#39;S&gt;)) -&gt; workflow:&#39;?8317 -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S, '?8317          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Wraps a workflow with a mapped continuation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '403', 403)" onmouseover="showTip(event, '403', 403)">
+            WithNestedContext(...)
+          </code>
+          <div class="tip" id="403">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * update:(ExecutionContext -&gt; ExecutionContext) * revert:(ExecutionContext -&gt; ExecutionContext)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Runs provided workflow in a nested execution context that is
+introduced using the update/revert functions.
+These must be serializable and exception safe.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '404', 404)" onmouseover="showTip(event, '404', 404)">
+            WithNestedResource(...)
+          </code>
+          <div class="tip" id="404">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * update:(&#39;TResource -&gt; &#39;TResource) * revert:(&#39;TResource -&gt; &#39;TResource)) -&gt; Cloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'TResource          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Runs provided workflow in a nested execution context that is
+introduced using the update/revert functions.
+These must be serializable and exception safe.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

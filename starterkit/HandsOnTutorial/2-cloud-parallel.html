@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Introduction to Cloud Combinators
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Introduction-to-Cloud-Combinators" class="anchor" href="#Introduction-to-Cloud-Combinators">Introduction to Cloud Combinators</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<p>You now perform a very simple parallel distributed job on your MBrace cluster.</p>
+
+<p>You now use Cloud.Parallel to run 50 cloud workflows in parallel using fork-join pattern.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">resultsTask</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">50</span> <span class="k">-&gt;</span> <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">sprintf</span> <span class="s">&quot;i&#39;m work item %d&quot;</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">i</span> } ]
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 15)" onmouseover="showTip(event, 'fs6', 15)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs6', 17)" onmouseover="showTip(event, 'fs6', 17)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="f">ShowProcesses</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Get the results</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">results</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 20)" onmouseover="showTip(event, 'fs9', 20)" class="i">resultsTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Again, in shorthand</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="i">quickResults</span> <span class="o">=</span>
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">50</span> <span class="k">-&gt;</span> <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="i">sprintf</span> <span class="s">&quot;i&#39;m work item %d&quot;</span> <span onmouseout="hideTip(event, 'fs10', 25)" onmouseover="showTip(event, 'fs10', 25)" class="i">i</span> } ]
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 26)" onmouseover="showTip(event, 'fs6', 26)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 27)" onmouseover="showTip(event, 'fs17', 27)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next you use Cloud.Choice: the first cloud workflow to return "Some" wins.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="i">searchTask</span> <span class="o">=</span>
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 29)" onmouseover="showTip(event, 'fs10', 29)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">50</span> <span class="k">-&gt;</span> <span class="i">cloud</span> { <span class="k">if</span> <span onmouseout="hideTip(event, 'fs10', 30)" onmouseover="showTip(event, 'fs10', 30)" class="i">i</span> <span class="o">%</span> <span class="n">10</span> <span class="o">=</span> <span class="n">0</span> <span class="k">then</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">Some</span> <span onmouseout="hideTip(event, 'fs10', 32)" onmouseover="showTip(event, 'fs10', 32)" class="i">i</span> <span class="k">else</span> <span class="k">return</span> <span onmouseout="hideTip(event, 'fs20', 33)" onmouseover="showTip(event, 'fs20', 33)" class="i">None</span> } ]
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 34)" onmouseover="showTip(event, 'fs21', 34)" class="i">Choice</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 35)" onmouseover="showTip(event, 'fs6', 35)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 36)" onmouseover="showTip(event, 'fs12', 36)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs18', 37)" onmouseover="showTip(event, 'fs18', 37)" class="i">searchTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="f">ShowInfo</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Await the result of the search:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="i">searchResult</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs18', 40)" onmouseover="showTip(event, 'fs18', 40)" class="i">searchTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 41)" onmouseover="showTip(event, 'fs15', 41)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned about <code>Cloud.Parallel</code> and <code>Cloud.Choice</code>
+as ways of composing cloud workflows Continue with further samples to learn more about the
+MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 2-cloud-parallel.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">val resultsTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 2-cloud-parallel.resultsTask</div>
+<div class="tip" id="fs10">val i : int</div>
+<div class="tip" id="fs11">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs12">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs13">member MBrace.Runtime.MBraceClient.ShowProcesses : unit -&gt; unit</div>
+<div class="tip" id="fs14">val results : obj<br /><br />Full name: 2-cloud-parallel.results</div>
+<div class="tip" id="fs15">property MBrace.Runtime.CloudProcess.Result: obj</div>
+<div class="tip" id="fs16">val quickResults : obj<br /><br />Full name: 2-cloud-parallel.quickResults</div>
+<div class="tip" id="fs17">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs18">val searchTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 2-cloud-parallel.searchTask</div>
+<div class="tip" id="fs19">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs20">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs21">Multiple items<br />type Choice&lt;&#39;T1,&#39;T2&gt; =<br />&#160;&#160;| Choice1Of2 of &#39;T1<br />&#160;&#160;| Choice2Of2 of &#39;T2<br /><br />Full name: Microsoft.FSharp.Core.Choice&lt;_,_&gt;<br /><br />--------------------<br />type Choice&lt;&#39;T1,&#39;T2,&#39;T3&gt; =<br />&#160;&#160;| Choice1Of3 of &#39;T1<br />&#160;&#160;| Choice2Of3 of &#39;T2<br />&#160;&#160;| Choice3Of3 of &#39;T3<br /><br />Full name: Microsoft.FSharp.Core.Choice&lt;_,_,_&gt;<br /><br />--------------------<br />type Choice&lt;&#39;T1,&#39;T2,&#39;T3,&#39;T4&gt; =<br />&#160;&#160;| Choice1Of4 of &#39;T1<br />&#160;&#160;| Choice2Of4 of &#39;T2<br />&#160;&#160;| Choice3Of4 of &#39;T3<br />&#160;&#160;| Choice4Of4 of &#39;T4<br /><br />Full name: Microsoft.FSharp.Core.Choice&lt;_,_,_,_&gt;<br /><br />--------------------<br />type Choice&lt;&#39;T1,&#39;T2,&#39;T3,&#39;T4,&#39;T5&gt; =<br />&#160;&#160;| Choice1Of5 of &#39;T1<br />&#160;&#160;| Choice2Of5 of &#39;T2<br />&#160;&#160;| Choice3Of5 of &#39;T3<br />&#160;&#160;| Choice4Of5 of &#39;T4<br />&#160;&#160;| Choice5Of5 of &#39;T5<br /><br />Full name: Microsoft.FSharp.Core.Choice&lt;_,_,_,_,_&gt;<br /><br />--------------------<br />type Choice&lt;&#39;T1,&#39;T2,&#39;T3,&#39;T4,&#39;T5,&#39;T6&gt; =<br />&#160;&#160;| Choice1Of6 of &#39;T1<br />&#160;&#160;| Choice2Of6 of &#39;T2<br />&#160;&#160;| Choice3Of6 of &#39;T3<br />&#160;&#160;| Choice4Of6 of &#39;T4<br />&#160;&#160;| Choice5Of6 of &#39;T5<br />&#160;&#160;| Choice6Of6 of &#39;T6<br /><br />Full name: Microsoft.FSharp.Core.Choice&lt;_,_,_,_,_,_&gt;<br /><br />--------------------<br />type Choice&lt;&#39;T1,&#39;T2,&#39;T3,&#39;T4,&#39;T5,&#39;T6,&#39;T7&gt; =<br />&#160;&#160;| Choice1Of7 of &#39;T1<br />&#160;&#160;| Choice2Of7 of &#39;T2<br />&#160;&#160;| Choice3Of7 of &#39;T3<br />&#160;&#160;| Choice4Of7 of &#39;T4<br />&#160;&#160;| Choice5Of7 of &#39;T5<br />&#160;&#160;| Choice6Of7 of &#39;T6<br />&#160;&#160;| Choice7Of7 of &#39;T7<br /><br />Full name: Microsoft.FSharp.Core.Choice&lt;_,_,_,_,_,_,_&gt;</div>
+<div class="tip" id="fs22">member MBrace.Runtime.CloudProcess.ShowInfo : unit -&gt; unit</div>
+<div class="tip" id="fs23">val searchResult : obj<br /><br />Full name: 2-cloud-parallel.searchResult</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

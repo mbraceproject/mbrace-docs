@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Using Cloud Queues
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Using-Cloud-Queues" class="anchor" href="#Using-Cloud-Queues">Using Cloud Queues</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<p>In this tutorial you learn how to create and use cloud queues, which allow you to send messages between
+cloud workflows.  The state of queues is kept in cloud storage.</p>
+
+<p>First, you create a cloud queue:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">queue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">string</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 13)" onmouseover="showTip(event, 'fs6', 13)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you send to the channel by scheduling a cloud process to do the send:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> { <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">queue</span><span class="o">.</span><span class="i">Enqueue</span> <span class="s">&quot;hello&quot;</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 16)" onmouseover="showTip(event, 'fs6', 16)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you receive from the channel by scheduling a cloud process to do the receive:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">msg</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs9', 19)" onmouseover="showTip(event, 'fs9', 19)" class="i">queue</span><span class="o">.</span><span class="i">Dequeue</span>() } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 20)" onmouseover="showTip(event, 'fs6', 20)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you start a cloud task to send 100 messages to the queue:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">sendTask</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> [ <span class="n">0</span> <span class="o">..</span> <span class="n">100</span> ] <span class="k">do</span> 
+                <span onmouseout="hideTip(event, 'fs9', 23)" onmouseover="showTip(event, 'fs9', 23)" class="i">queue</span><span class="o">.</span><span class="i">Enqueue</span> (<span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">sprintf</span> <span class="s">&quot;hello%d&quot;</span> <span class="i">i</span>) }
+     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 25)" onmouseover="showTip(event, 'fs6', 25)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs13', 27)" onmouseover="showTip(event, 'fs13', 27)" class="i">sendTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="f">ShowInfo</span>() 
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you start a cloud task to wait for the 100 messages:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="i">receiveTask</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { <span class="k">let</span> <span class="i">results</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="i">ResizeArray</span><span class="o">&lt;</span>_<span class="o">&gt;</span>()
+            <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> [ <span class="n">0</span> <span class="o">..</span> <span class="n">100</span> ] <span class="k">do</span> 
+               <span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 31)" onmouseover="showTip(event, 'fs12', 31)" class="i">msg</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 32)" onmouseover="showTip(event, 'fs9', 32)" class="i">queue</span><span class="o">.</span><span class="i">Dequeue</span>()
+               <span class="i">results</span><span class="o">.</span><span class="i">Add</span> <span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="i">msg</span>
+            <span class="k">return</span> <span class="i">results</span><span class="o">.</span><span class="i">ToArray</span>() }
+     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 34)" onmouseover="showTip(event, 'fs6', 34)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 35)" onmouseover="showTip(event, 'fs15', 35)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs17', 36)" onmouseover="showTip(event, 'fs17', 36)" class="i">receiveTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 37)" onmouseover="showTip(event, 'fs16', 37)" class="f">ShowInfo</span>() 
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you wait for the result of the receiving cloud task:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs17', 38)" onmouseover="showTip(event, 'fs17', 38)" class="i">receiveTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Using-queues-as-inputs-to-reactive-data-parallel-cloud-flows" class="anchor" href="#Using-queues-as-inputs-to-reactive-data-parallel-cloud-flows">Using queues as inputs to reactive data parallel cloud flows</a></h2>
+
+<p>You now learn how to use cloud queues as inputs to a data parallel cloud flow.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;lib/sieve.fsx&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>First, you create a request queue and an output queue:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 40)" onmouseover="showTip(event, 'fs20', 40)" class="i">requestQueue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs21', 41)" onmouseover="showTip(event, 'fs21', 41)" class="i">int</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 42)" onmouseover="showTip(event, 'fs6', 42)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 43)" onmouseover="showTip(event, 'fs11', 43)" class="f">Run</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 44)" onmouseover="showTip(event, 'fs22', 44)" class="i">outputQueue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="i">int64</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 46)" onmouseover="showTip(event, 'fs6', 46)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 47)" onmouseover="showTip(event, 'fs11', 47)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you create a data parallel cloud workflow with 4-way parallelism that reads from the request queue. The requests are integer messages indicating a number of prime nnumbers to compute. The outputs are the sum of the prime numbers.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 48)" onmouseover="showTip(event, 'fs24', 48)" class="i">processingFlow</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs25', 49)" onmouseover="showTip(event, 'fs25', 49)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 50)" onmouseover="showTip(event, 'fs26', 50)" class="f">OfCloudQueue</span>(<span onmouseout="hideTip(event, 'fs20', 51)" onmouseover="showTip(event, 'fs20', 51)" class="i">requestQueue</span>, <span class="n">4</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 52)" onmouseover="showTip(event, 'fs25', 52)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs28', 54)" onmouseover="showTip(event, 'fs28', 54)" class="i">msg</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs29', 55)" onmouseover="showTip(event, 'fs29', 55)" class="t">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 56)" onmouseover="showTip(event, 'fs30', 56)" class="f">getPrimes</span> <span onmouseout="hideTip(event, 'fs28', 57)" onmouseover="showTip(event, 'fs28', 57)" class="i">msg</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 58)" onmouseover="showTip(event, 'fs31', 58)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 59)" onmouseover="showTip(event, 'fs32', 59)" class="f">map</span> <span onmouseout="hideTip(event, 'fs23', 60)" onmouseover="showTip(event, 'fs23', 60)" class="f">int64</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 61)" onmouseover="showTip(event, 'fs31', 61)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 62)" onmouseover="showTip(event, 'fs33', 62)" class="f">sum</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 63)" onmouseover="showTip(event, 'fs25', 63)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 64)" onmouseover="showTip(event, 'fs34', 64)" class="f">toCloudQueue</span> <span onmouseout="hideTip(event, 'fs22', 65)" onmouseover="showTip(event, 'fs22', 65)" class="i">outputQueue</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 66)" onmouseover="showTip(event, 'fs6', 66)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 67)" onmouseover="showTip(event, 'fs15', 67)" class="f">CreateProcess</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>This task will continue running until it is explicitly cancelled or the queues are deleted. Check on the task using the following:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs24', 68)" onmouseover="showTip(event, 'fs24', 68)" class="i">processingFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 69)" onmouseover="showTip(event, 'fs16', 69)" class="f">ShowInfo</span>() 
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you start a cloud task to send 100 different requests to the queue:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 70)" onmouseover="showTip(event, 'fs35', 70)" class="i">requestTask</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> [ <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> ] <span class="k">do</span> 
+                <span class="k">do</span> <span onmouseout="hideTip(event, 'fs20', 71)" onmouseover="showTip(event, 'fs20', 71)" class="i">requestQueue</span><span class="o">.</span><span class="i">Enqueue</span> (<span class="i">i</span> <span class="o">*</span> <span class="n">100000</span> <span class="o">%</span> <span class="n">787853</span>) }
+     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 72)" onmouseover="showTip(event, 'fs6', 72)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 73)" onmouseover="showTip(event, 'fs15', 73)" class="f">CreateProcess</span>
+
+<span onmouseout="hideTip(event, 'fs35', 74)" onmouseover="showTip(event, 'fs35', 74)" class="i">requestTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 75)" onmouseover="showTip(event, 'fs16', 75)" class="f">ShowInfo</span>() 
+
+<span onmouseout="hideTip(event, 'fs6', 76)" onmouseover="showTip(event, 'fs6', 76)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 77)" onmouseover="showTip(event, 'fs36', 77)" class="f">ShowProcesses</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, you run a cloud task to collect up to 10 results from the output queue.  You can run this multiple times to collect all the results.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 78)" onmouseover="showTip(event, 'fs37', 78)" class="i">collectedResults</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs22', 79)" onmouseover="showTip(event, 'fs22', 79)" class="i">outputQueue</span><span class="o">.</span><span class="i">DequeueBatch</span> <span class="n">10</span> }
+     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 80)" onmouseover="showTip(event, 'fs6', 80)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 81)" onmouseover="showTip(event, 'fs11', 81)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned how to use queues in cloud storage and how to use them
+as inputs to data parallel cloud workflows. Continue with further samples to learn more 
+about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 8-using-cloud-queues.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">val queue : obj<br /><br />Full name: 8-using-cloud-queues.queue</div>
+<div class="tip" id="fs10">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs11">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs12">val msg : obj<br /><br />Full name: 8-using-cloud-queues.msg</div>
+<div class="tip" id="fs13">val sendTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 8-using-cloud-queues.sendTask</div>
+<div class="tip" id="fs14">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs15">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs16">member MBrace.Runtime.CloudProcess.ShowInfo : unit -&gt; unit</div>
+<div class="tip" id="fs17">val receiveTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 8-using-cloud-queues.receiveTask</div>
+<div class="tip" id="fs18">type ResizeArray&lt;&#39;T&gt; = Collections.Generic.List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.ResizeArray&lt;_&gt;</div>
+<div class="tip" id="fs19">property MBrace.Runtime.CloudProcess.Result: obj</div>
+<div class="tip" id="fs20">val requestQueue : MBrace.Core.CloudQueue&lt;int&gt;<br /><br />Full name: 8-using-cloud-queues.requestQueue</div>
+<div class="tip" id="fs21">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs22">val outputQueue : MBrace.Core.CloudQueue&lt;int64&gt;<br /><br />Full name: 8-using-cloud-queues.outputQueue</div>
+<div class="tip" id="fs23">Multiple items<br />val int64 : value:&#39;T -&gt; int64 (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int64<br /><br />--------------------<br />type int64 = Int64<br /><br />Full name: Microsoft.FSharp.Core.int64<br /><br />--------------------<br />type int64&lt;&#39;Measure&gt; = int64<br /><br />Full name: Microsoft.FSharp.Core.int64&lt;_&gt;</div>
+<div class="tip" id="fs24">val processingFlow : MBrace.Runtime.CloudProcess&lt;unit&gt;<br /><br />Full name: 8-using-cloud-queues.processingFlow</div>
+<div class="tip" id="fs25">Multiple items<br />module CloudFlow<br /><br />from MBrace.Flow<br /><br />--------------------<br />type CloudFlow =<br />&#160;&#160;static member OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudArrays : cloudArrays:seq&lt;#CloudArray&lt;&#39;T&gt;&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />&#160;&#160;static member OfCloudCollection : collection:ICloudCollection&lt;&#39;T&gt; * ?sizeThresholdPerWorker:(unit -&gt; int64) -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * ?deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectoryByLine : dirPath:string * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : path:string * ?encoding:Encoding -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFiles : paths:seq&lt;string&gt; * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Flow.CloudFlow<br /><br />--------------------<br />type CloudFlow&lt;&#39;T&gt; =<br />&#160;&#160;interface<br />&#160;&#160;&#160;&#160;abstract member WithEvaluators : collectorFactory:LocalCloud&lt;Collector&lt;&#39;T,&#39;S&gt;&gt; -&gt; projection:(&#39;S -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; combiner:(&#39;R [] -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; Cloud&lt;&#39;R&gt;<br />&#160;&#160;&#160;&#160;abstract member DegreeOfParallelism : int option<br />&#160;&#160;end<br /><br />Full name: MBrace.Flow.CloudFlow&lt;_&gt;</div>
+<div class="tip" id="fs26">static member CloudFlow.OfCloudQueue : channel:MBrace.Core.CloudQueue&lt;&#39;T&gt; * degreeOfParallelism:int -&gt; CloudFlow&lt;&#39;T&gt;</div>
+<div class="tip" id="fs27">val map : f:(&#39;T -&gt; &#39;R) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.map</div>
+<div class="tip" id="fs28">val msg : int</div>
+<div class="tip" id="fs29">module Sieve</div>
+<div class="tip" id="fs30">val getPrimes : nmax:int -&gt; int []<br /><br />Full name: Sieve.getPrimes</div>
+<div class="tip" id="fs31">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs32">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
+<div class="tip" id="fs33">val sum : array:&#39;T [] -&gt; &#39;T (requires member ( + ) and member get_Zero)<br /><br />Full name: Microsoft.FSharp.Collections.Array.sum</div>
+<div class="tip" id="fs34">val toCloudQueue : queue:MBrace.Core.CloudQueue&lt;&#39;T&gt; -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; MBrace.Core.Cloud&lt;unit&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.toCloudQueue</div>
+<div class="tip" id="fs35">val requestTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 8-using-cloud-queues.requestTask</div>
+<div class="tip" id="fs36">member MBrace.Runtime.MBraceClient.ShowProcesses : unit -&gt; unit</div>
+<div class="tip" id="fs37">val collectedResults : obj<br /><br />Full name: 8-using-cloud-queues.collectedResults</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

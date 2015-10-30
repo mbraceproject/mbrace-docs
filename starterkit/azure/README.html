@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>MBrace on Azure
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.m-brace.net/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.m-brace.net/content/style.css" />
+    <script type="text/javascript" src="http://www.m-brace.net/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.m-brace.net/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="MBrace-on-Azure" class="anchor" href="#MBrace-on-Azure">MBrace on Azure</a></h1>
+
+<h2><a name="Provisioning-Your-MBrace-Cluster-in-Azure" class="anchor" href="#Provisioning-Your-MBrace-Cluster-in-Azure">Provisioning Your MBrace Cluster in Azure</a></h2>
+
+<h3><a name="Creating-a-Cluster-The-Easy-Way" class="anchor" href="#Creating-a-Cluster-The-Easy-Way">Creating a Cluster - The Easy Way</a></h3>
+
+<ol>
+<li><p>[Create an Azure account])(<a href="https://azure.microsoft.com)">https://azure.microsoft.com)</a> and <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p></li>
+<li><p>Build this repository to get the <code>MBrace.Azure</code> package</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cd</span> <span class="i">MBrace</span><span class="o">.</span><span class="i">StarterKit</span>
+
+<span class="i">msbuild</span>   (<span class="k">or</span> <span class="i">build</span> <span class="i">Mbrace</span><span class="o">.</span><span class="i">StarterKit</span><span class="o">.</span><span class="i">sln</span> <span class="k">in</span> <span class="i">your</span> <span class="i">editor</span>)
+</code></pre></td>
+</tr>
+</table></li>
+<li><p>Edit the <code>create-cluster.fsx</code> script in F# Interactive. Adjust the region as necessary, e.g. <code>Regions.West_US</code></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">notepad</span> <span class="i">azure</span><span class="o">/</span><span class="i">create</span><span class="o">-</span><span class="i">cluster</span><span class="o">.</span><span class="i">fsx</span>  
+</code></pre></td>
+</tr>
+</table>
+<p>Then run the script - either from the command line or using send-to-interactive in your editor:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cd</span> <span class="i">azure</span>
+<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">fsi</span> <span class="i">create</span><span class="o">-</span><span class="i">cluster</span><span class="o">.</span><span class="i">fsx</span> 
+</code></pre></td>
+</tr>
+</table>
+<p>Your cluster will now eventually appear as a cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.</p></li>
+</ol>
+
+<p>Now go through the <a href="http://www.m-brace.net/programming-model.html">Programming Model Tutorials</a>, the code is in <code>HandsOnTutorial</code>
+If using the starter kit, note your connection strings from <code>config</code> and enter them in <code>HandsOnTutorial/AzureCluster.fsx</code>.  You can also
+find these connection strings in the Configure panel of your cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.</p>
+
+<h3><a name="Manually-Creating-a-Custom-Package-to-Deploy" class="anchor" href="#Manually-Creating-a-Custom-Package-to-Deploy">Manually Creating a Custom Package to Deploy</a></h3>
+
+<p>An MBrace cluster is provisioned on Azure by deploying an Azure Cloud Service with MBrace Worker Roles.
+The provisioning process above creates storage, service bus and virtual machine assets in Azure using
+<a href="https://github.com/mbraceproject/MBrace.Azure/releases">default packages created as part of MBrace.Azure releases</a>.</p>
+
+<p>You can build your own artisan packages that contain pre-installed software, adjusted settings or installation scripts.
+The directory contains template solutions for this.</p>
+
+<p>By building an artisan cloud service you can:</p>
+
+<ul>
+<li><p>adjust the endpoints to your cloud service from the defaults (so your MBrace cluster can publish 
+TCP and HTTP endpoints, either public or to your virtual network,
+for example, you want your MBrace cluster to publish a web server); or</p></li>
+<li><p>enable Remote Access to MBrace cluster worker instances; or</p></li>
+<li><p>specify the size of local storage available on MBrace cluster worker instances; or</p></li>
+<li><p>upload certificates as part of your provisioning process; or</p></li>
+<li><p>specify Azure-specific local caching options; or</p></li>
+<li><p>include additional web and worker roles in your cloud service; or</p></li>
+<li><p>compile and deploy your own version of the MBrace cluster worker instance software.</p></li>
+</ul>
+
+<p>In order to provision explicitly, as a prerequisite you need 
+to have an Azure account and basic knowledge of Azure computing.</p>
+
+<p>You will need the <a href="http://azure.microsoft.com/en-us/downloads/">Azure SDK 2.7</a>.</p>
+
+<ol>
+<li><p>Make a copy of the <code>CustomCloudService</code> directory.</p></li>
+<li><p>Using the Azure management portal:</p>
+<ul>
+<li><p>Create a storage account. Use any name (e.g. <code>mbrace10storage</code>).  Note the name and the primary access key.</p></li>
+<li><p>Create a service bus account. Use any name (e.g. <code>mbrace10bus</code>). Note the <code>RootManageSharedAccessKey</code> connection string in the connection information.</p></li>
+</ul></li>
+<li><p>Insert these names and keys into the <code>ServiceConfiguration.Cloud.cscfg</code> file.</p></li>
+<li><p>Right click and Package the <code>MBrace.Azure.CloudService</code> project.  The <code>MBrace.Azure.CloudService.cspkg</code> package will now be ready to use
+with the script-based deployment process above:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Management</span><span class="o">.</span><span class="i">CreateCluster</span>(<span class="i">pubSettingsFile</span>, <span class="i">Regions</span><span class="o">.</span><span class="i">North_Europe</span>, <span class="i">CloudServicePackage</span> <span class="o">=</span> <span class="o">..</span><span class="o">.</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>If you want to provision and deploy from Visual Studio, right click and Publish the <code>MBrace.Azure.CloudService</code> project.  During publication, choose a new name for your cloud service. 
+After your service is published it should appear as a cloud service in the <a href="https://manage.windowsazure.com/">Azure management portal</a>.</p>
+<p>If using the hands-on tutorials, insert the same connection trings in <a href="../HandsOnTutorial/AzureCluster.fsx#L24">MBraceCluster.fsx</a> and connect 
+to your runtime (see <a href="../HandsOnTutorial/1-hello-world.fsx">hello-world.fsx</a> for an example).</p></li>
+</ol>
+
+<h3><a name="Creating-a-Cluster-with-Python-pre-installed-on-workers" class="anchor" href="#Creating-a-Cluster-with-Python-pre-installed-on-workers">Creating a Cluster with Python pre-installed on workers</a></h3>
+
+<p>Sometimes, you want to customize the MBrace cluster with extra software installed on all workers. 
+For example, you have a machine learning algorithm written in Python and you want to use MBrace to launch it. So you  need to have the Python interpreter and all the dependant Python packages pre-installed in the MBrace cluster.</p>
+
+<p>This section describes how to create a MBrace cluster with third-party software installation, and use it from the Mbrace client. The task at hand is:</p>
+
+<p>The demo code to create a custom MBrace cluster is located at the <code>ProvisionWithPython</code> folder. It is adapted from the default custom provision solution at the <code>CustomCloudService</code> folder and has the following additional steps:</p>
+
+<ol>
+<li>The MBrace cluster is implemented as an Azure worker role. A worker role can be configured to launch a startup script when it is initialized.  I follow the steps <a href="http://blogs.msdn.com/b/cclayton/archive/2012/05/17/windows-azure-start-up-tasks-part-1.aspx">here</a> to enable the startup script:</li>
+</ol>
+
+<p>1.1. Add a <code>startup.md</code> script in the <code>MBraceAzureRole</code> project. In the Properties panel of this file, set <code>Build Action</code> to <code>Content</code> and and <code>Copy to Output Directory</code> to <code>Always Copy</code>.</p>
+
+<p>1.2. In the file <code>MBraceAzureService.ServiceDefinition.csdef</code>, add the following section after the <code>&lt;ConfigurationSettings&gt;</code> section:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="o">&lt;</span><span class="i">Startup</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="i">Task</span> <span class="i">commandLine</span><span class="o">=</span><span class="s">&quot;startup.cmd&quot;</span> <span class="i">executionContext</span><span class="o">=</span><span class="s">&quot;elevated&quot;</span> <span class="i">taskType</span><span class="o">=</span><span class="s">&quot;simple&quot;</span><span class="o">&gt;</span><span class="o">&lt;/</span><span class="i">Task</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="i">Startup</span><span class="o">&gt;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>This XML section registers the startup.md file in the worker role initialization process.</p>
+
+<p>1.3. Add the following line to <code>startup.md</code></p>
+
+<p>PowerShell -ExecutionPolicy Unrestricted .\startup.ps1</p>
+
+<p>This line launches a PowerShell script <code>startup.ps1</code> (to be added as well). This is needed because third-party software installation is much easier to do in PowerShell script but the format of startup.md is Windows batch. Some tips in using PowerShell in Azure worker role startup script are <a href="https://msdn.microsoft.com/en-us/library/azure/jj130675.aspx">here</a>.</p>
+
+<p>1.4 Add a new script <code>startup.ps1</code> in the <code>MBraceAzureRole</code>, and set <code>Build Action</code> to <code>Content</code> and and <code>Copy to Output Directory</code> to <code>Always Copy</code>.</p>
+
+<p>1.5 In the <code>startup.ps1</code> file, add the following PowerShell code to install Python and setup the beautifulsoup package:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">#<span class="i">Download</span> <span class="i">Python</span> <span class="i">installer</span>
+<span class="i">echo</span> <span class="s">&quot;Downloading python.&quot;</span>
+<span class="o">$</span><span class="i">url</span><span class="o">=</span><span class="s">&quot;https://www.python.org/ftp/python/2.7.9/python-2.7.9.msi&quot;</span>
+<span class="i">Invoke</span><span class="o">-</span><span class="i">WebRequest</span> <span class="o">$</span><span class="i">url</span> <span class="o">-</span><span class="i">OutFile</span> <span class="i">c</span><span class="o">:</span>
+
+#<span class="i">Install</span> <span class="i">Python</span>
+<span class="i">echo</span> <span class="s">&quot;Installing python.&quot;</span>
+<span class="i">msiexec</span> <span class="o">/</span><span class="i">a</span> <span class="i">c</span><span class="o">:</span>
+<span class="o">$</span><span class="i">newPath</span> <span class="o">=</span> <span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">Path</span> <span class="o">+</span> <span class="s">&quot;;c:\Python27;c:\Python27\Scripts&quot;</span>
+[<span class="i">Environment</span>]<span class="o">::</span><span class="i">SetEnvironmentVariable</span>(<span class="s">&quot;Path&quot;</span>, <span class="o">$</span><span class="i">newPath</span>, <span class="s">&quot;Machine&quot;</span>)
+
+#<span class="i">Sleep</span> <span class="k">for</span> <span class="i">a</span> <span class="i">few</span> <span class="i">seconds</span> <span class="i">so</span> <span class="i">the</span> <span class="i">settings</span> <span class="i">will</span> <span class="i">have</span> <span class="i">time</span> <span class="k">to</span> <span class="i">take</span> <span class="i">effect</span><span class="o">.</span>
+<span class="i">sleep</span> <span class="n">10</span>
+
+#<span class="i">Export</span> <span class="i">python</span> <span class="i">path</span><span class="o">.</span>
+<span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">Path</span> <span class="o">=</span> <span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">Path</span> <span class="o">+</span> <span class="s">&quot;;c:\Python27;c:\Python27\Scripts&quot;</span>
+
+#<span class="i">Install</span> <span class="i">pip</span>
+<span class="i">echo</span> <span class="s">&quot;Installing pip.&quot;</span>
+<span class="i">Invoke</span><span class="o">-</span><span class="i">WebRequest</span> <span class="i">https</span><span class="o">:</span><span class="c">//bootstrap.pypa.io/get-pip.py -OutFile c:\Python27\get-pip.py</span>
+<span class="i">python</span> <span class="i">c</span><span class="o">:</span>
+
+<span class="i">sleep</span> <span class="n">10</span>
+<span class="i">echo</span> <span class="s">&quot;Installing beautifulsoup4.&quot;</span>
+#<span class="i">Install</span> <span class="i">beautifulsoup4</span> <span class="k">to</span> <span class="i">parse</span> <span class="i">web</span> <span class="i">pages</span><span class="o">.</span>
+<span class="i">pip</span> <span class="i">install</span> <span class="i">beautifulsoup4</span>
+
+<span class="i">echo</span> <span class="s">&quot;Done.&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>1.6 Enable the permission to launch processes by adding the line with the Runtime tag in the worker role's csdef file, under the WorkerRole section:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="o">&lt;</span><span class="i">WorkerRole</span> <span class="i">name</span><span class="o">=</span><span class="s">&quot;MBrace.Azure.WorkerRole&quot;</span> <span class="i">vmsize</span><span class="o">=</span><span class="s">&quot;Large&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="i">Runtime</span> <span class="i">executionContext</span> <span class="o">=</span><span class="s">&quot;elevated&quot;</span> <span class="o">/&gt;</span>
+        <span class="o">..</span><span class="o">.</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Then, you can follow the usual worker role publishing steps to publish the MBrace cluster. If you enable remote desktop on the worker roles, after they are published, you can login to those machines to verify that Python has been installed.</p>
+
+<p>Now, you can now go to the 200-launching-python tutorial in the HandsOnTutorial, and see how to use the newly built custom provision.</p>
+
+<h3><a name="Creating-a-Cluster-with-Java-pre-installed-on-Workers" class="anchor" href="#Creating-a-Cluster-with-Java-pre-installed-on-Workers">Creating a Cluster with Java  pre-installed on Workers</a></h3>
+
+<p>As for Python, but instead use this:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">#<span class="i">Download</span> <span class="i">JDK</span><span class="o">.</span>
+#<span class="i">Instructions</span> <span class="i">are</span> <span class="i">taken</span> <span class="i">from</span> <span class="i">http</span><span class="o">:</span><span class="c">//stackoverflow.com/questions/24430141/downloading-jdk-using-powershell.</span>
+<span class="i">echo</span> <span class="s">&quot;Downloading JDK.&quot;</span>
+<span class="o">$</span><span class="i">source</span> <span class="o">=</span> <span class="s">&quot;http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-windows-x64.exe&quot;</span>
+<span class="o">$</span><span class="i">destination</span> <span class="o">=</span> <span class="s">&quot;c:\jdk.exe&quot;</span>
+<span class="o">$</span><span class="i">client</span> <span class="o">=</span> <span class="k">new</span><span class="o">-</span><span class="i">object</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">WebClient</span> 
+<span class="o">$</span><span class="i">cookie</span> <span class="o">=</span> <span class="s">&quot;oraclelicense=accept-securebackup-cookie&quot;</span>
+<span class="o">$</span><span class="i">client</span><span class="o">.</span><span class="i">Headers</span><span class="o">.</span><span class="i">Add</span>([<span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 6)" onmouseover="showTip(event, 'fs3', 6)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">HttpRequestHeader</span>]<span class="o">::</span><span class="i">Cookie</span>, <span class="o">$</span><span class="i">cookie</span>) 
+<span class="o">$</span><span class="i">client</span><span class="o">.</span><span class="i">downloadFile</span>(<span class="o">$</span><span class="i">source</span>, <span class="o">$</span><span class="i">destination</span>)
+
+#<span class="i">Install</span> <span class="i">JDK</span><span class="o">.</span>
+#<span class="i">Following</span> <span class="i">the</span> <span class="i">instruction</span> <span class="i">here</span><span class="o">:</span> <span class="i">http</span><span class="o">:</span><span class="c">//docs.oracle.com/javase/7/docs/webnotes/install/windows/jdk-installation-windows.html</span>
+<span class="i">c</span><span class="o">:</span>
+#<span class="i">Sleep</span> <span class="k">for</span> <span class="n">60</span> <span class="i">seconds</span>, <span class="i">waiting</span> <span class="k">for</span> <span class="i">the</span> <span class="i">JDK</span> <span class="i">installation</span> <span class="k">to</span> <span class="i">finish</span><span class="o">.</span>
+#<span class="i">This</span> <span class="i">is</span> <span class="i">needed</span> <span class="i">because</span> <span class="i">the</span> <span class="i">non</span><span class="o">-</span><span class="i">interactive</span> <span class="i">installation</span> <span class="i">terminates</span> <span class="i">immediately</span> <span class="k">while</span> <span class="i">the</span> <span class="i">installation</span> <span class="i">is</span> <span class="i">working</span> <span class="k">in</span> <span class="i">background</span><span class="o">.</span>
+<span class="i">sleep</span> <span class="n">60</span>
+
+#<span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="i">Set</span> <span class="i">JDK</span> <span class="i">folder</span> <span class="k">in</span> <span class="i">PATH</span>
+<span class="o">$</span><span class="i">newPath</span> <span class="o">=</span> <span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">Path</span> <span class="o">+</span> <span class="s">&quot;;&quot;</span> <span class="o">+</span> <span class="o">$</span><span class="i">env</span><span class="o">:</span><span class="i">programfiles</span> <span class="o">+</span> <span class="s">&quot;\Java\jdk1.8.0_60\bin&quot;</span>
+[<span class="i">Environment</span>]<span class="o">::</span><span class="i">SetEnvironmentVariable</span>(<span class="s">&quot;Path&quot;</span>, <span class="o">$</span><span class="i">newPath</span>, <span class="s">&quot;Machine&quot;</span>)
+
+<span class="i">echo</span> <span class="s">&quot;Done.&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">val fsi : Compiler.Interactive.InteractiveSession<br /><br />Full name: Microsoft.FSharp.Compiler.Interactive.Settings.fsi</div>
+<div class="tip" id="fs2">namespace System</div>
+<div class="tip" id="fs3">namespace System.Net</div>
+<div class="tip" id="fs4">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />System.Net.WebClient() : unit</div>
+<div class="tip" id="fs5">type HttpRequestHeader =<br />&#160;&#160;| CacheControl = 0<br />&#160;&#160;| Connection = 1<br />&#160;&#160;| Date = 2<br />&#160;&#160;| KeepAlive = 3<br />&#160;&#160;| Pragma = 4<br />&#160;&#160;| Trailer = 5<br />&#160;&#160;| TransferEncoding = 6<br />&#160;&#160;| Upgrade = 7<br />&#160;&#160;| Via = 8<br />&#160;&#160;| Warning = 9<br />&#160;&#160;...<br /><br />Full name: System.Net.HttpRequestHeader</div>
+<div class="tip" id="fs6">Multiple items<br />module Set<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Set&lt;&#39;T (requires comparison)&gt; =<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;interface ICollection&lt;&#39;T&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Add : value:&#39;T -&gt; Set&lt;&#39;T&gt;<br />&#160;&#160;member Contains : value:&#39;T -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member IsProperSubsetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;member IsProperSupersetOf : otherSet:Set&lt;&#39;T&gt; -&gt; bool<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Set&lt;_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt;</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.m-brace.net/index.html">
+            <img src="http://www.m-brace.net/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.m-brace.net/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.m-brace.net/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.m-brace.net/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.m-brace.net/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.m-brace.net/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.m-brace.net/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.m-brace.net/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.m-brace.net/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.m-brace.net/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.m-brace.net/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
