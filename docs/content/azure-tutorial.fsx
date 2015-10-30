@@ -20,20 +20,21 @@ open MBrace.Azure
 3. Build the solution to get the required packages.
 
 4. Open the ``azure/create-cluster.fsx`` script. Edit the region as necessary and insert the path to your publication settings file.
-   After editing your provisioning script will loko something like this:
+   After editing your provisioning script will look something like this:
 
        #load "../packages/MBrace.Azure/MBrace.Azure.fsx"
        open MBrace.Azure
-       let pubSettingsFile = @"... path to your publication settings file ... "
-       let config = 
-           Management.CreateCluster(pubSettingsFile, 
-                                    Regions.North_Europe, 
-                                    VMSize = VMSizes.Large) 
+
+       let pubFile = @"... path to publication settings file ... "
+
+       let config = Management.CreateCluster(pubFile, 
+                                             Regions.North_Europe, 
+                                             VMSize = VMSizes.Large) 
   
    Then run the script - either from the command line or using send-to-interactive in your editor:
 
-       cd azure
-       fsi create-cluster.fsx 
+       > cd azure
+       > fsi create-cluster.fsx 
  
    Diagnostics will be shown.  When created your cluster will now appear as a cloud service in the [Azure management portal](https://manage.windowsazure.com).
    If you have any trouble, [report an issue on github](https://github.com/mbraceproject/MBrace.Azure/issues).
