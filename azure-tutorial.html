@@ -45,16 +45,22 @@
 <li><p><a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md">Download or clone the starter pack</a>.</p></li>
 <li><p>Build the solution to get the required packages.</p></li>
 <li><p>Open the <code>azure/create-cluster.fsx</code> script. Edit the region as necessary and insert the path to your publication settings file.
-After editing your provisioning script will loko something like this:</p>
+After editing your provisioning script will look something like this:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;../packages/MBrace.Azure/MBrace.Azure.fsx&quot;</span>
 <span class="k">open</span> <span class="i">MBrace</span><span class="o">.</span><span class="i">Azure</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">pubSettingsFile</span> <span class="o">=</span> <span class="s">@&quot;... path to your downloaded publication settings file ... &quot;</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">config</span> <span class="o">=</span> <span class="i">Management</span><span class="o">.</span><span class="i">CreateCluster</span>(<span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">pubSettingsFile</span>, <span class="i">Regions</span><span class="o">.</span><span class="i">North_Europe</span>, <span class="i">VMSize</span><span class="o">=</span><span class="i">VMSizes</span><span class="o">.</span><span class="i">Large</span>) 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">pubSettingsFile</span> <span class="o">=</span> <span class="s">@&quot;... path to your publication settings file ... &quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">config</span> <span class="o">=</span> 
+    <span class="i">Management</span><span class="o">.</span><span class="i">CreateCluster</span>(<span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">pubSettingsFile</span>, 
+                             <span class="i">Regions</span><span class="o">.</span><span class="i">North_Europe</span>, 
+                             <span class="i">VMSize</span> <span class="o">=</span> <span class="i">VMSizes</span><span class="o">.</span><span class="i">Large</span>) 
 </code></pre></td>
 </tr>
 </table>
