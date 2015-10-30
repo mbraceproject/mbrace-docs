@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <title>MBrace - Scripting Compute and Data Jobs in the Cloud Made Simple</title>
-    <meta name="keywords" content="Azure,Cloud,MBrace,Data,Distributed,FSharp,CSharp" />
+    <meta name="keywords" content="Aws,Amazon,Azure,Cloud,MBrace,Data,Distributed,FSharp,CSharp" />
     <meta name="description" content="" />
 
     <!-- mobile settings -->
@@ -65,7 +65,7 @@
                     <div class="pull-right fsize13 margin-top10 hide_mobile">
 
                         <!-- mail , phone -->
-                        <a href="http://github.com/mbraceproject/MBrace.Core">MBrace.Core on github</a> &bull; <a href="http://github.com/mbraceproject/MBrace.Azure">MBrace.Azure on github</a>
+                        <a href="http://github.com/mbraceproject/MBrace.Core">MBrace.Core on github</a> &bull; <a href="http://github.com/mbraceproject/MBrace.Azure">MBrace.Azure on github</a> &bull; <a href="http://github.com/mbraceproject/MBrace.Aws">MBrace.Aws on github</a>
 
                         <div class="block text-right">
                             <!-- social -->
@@ -95,12 +95,6 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Search 
-                    <form class="search" method="get" action="page-search.html">
-                        <input type="text" class="form-control" name="s" value="" placeholder="Search">
-                        <button class="fa fa-search"></button>
-                    </form>
-                    -->
                     <!-- Top Nav -->
                     <div class="navbar-collapse nav-main-collapse collapse">
                         <nav class="nav-main">
@@ -112,6 +106,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="#try-local">Try MBrace.Core (locally simulated)</a></li>
                                         <li><a href="#try-azure">Try MBrace.Azure (Azure-hosted)</a></li>
+                                        <li><a href="#try-aws">Contribute to MBrace.Aws (Amazon-hosted)</a></li>
                                     </ul>
                                 </li>
 
@@ -130,6 +125,9 @@
                                         <li><a href="https://github.com/mbraceproject/MBrace.Azure/issues">Report an Issue (MBrace.Azure)</a></li>
                                         <li><a href="https://github.com/mbraceproject/MBrace.Azure/blob/master/ROADMAP.md">Roadmap (MBrace.Azure)</a></li>
                                         <li><a href="https://github.com/mbraceproject/MBrace.Azure">Contribute (MBrace.Azure)</a></li>
+										<li class="divider"></li>
+										<li><a href="https://github.com/mbraceproject/MBrace.Aws/issues">Report an Issue (MBrace.Aws)</a></li>
+										<li><a href="https://github.com/mbraceproject/MBrace.Aws">Contribute (MBrace.Aws)</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -220,7 +218,7 @@
                     </h2>
                     <p class="lead">
                         MBrace.Core is a simple programming model for scalable cloud data scripting and programming with F# and C#.
-                        With MBrace.Azure, you can script Azure for large-scale compute and data processing, directly from your favourite editor.
+						With MBrace.Azure, you can script Azure for large-scale compute and data processing, directly from your favourite editor.
                     </p>
                 </header>
 
@@ -241,7 +239,7 @@
 
                     <div class="col-md-4 col-sm-4">
                         <h4><i class="fa fa-check"></i> Simple Provisioning</h4>
-                        <p>Simple one-stop cluster provisioning for Azure.</p>
+                        <p>Simple cluster provisioning for Azure.</p>
                     </div>
 
                 </div>
@@ -295,12 +293,20 @@
 
                     <ol>
                         <li><a href="http://fsharp.org/about/learning.html" target="_blank">Learn basic F# scripting in your editor</a>.</li>
-                        <li><a href="azure-tutorial.html" target="_blank">Provision an MBrace Azure cloud service</a>.</li>
+                        <li><a href="azure-tutorial.html" target="_blank">Create an MBrace cluster in Azure</a>.</li>
                         <li><a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md" target="_blank">Download the hands-on tutorial</a> and learn MBrace</li>
                         <li><a href="https://github.com/mbraceproject/MBrace.StarterKit/issues/new" target="_blank">Give feedback</a> on github</li>
                     </ol>
                 </div>
             </div>
+			<div class="callout dark" id="try-aws">
+				<div class="container text-left">
+
+					<h2>Contribute to MBrace.Aws (Amazon-hosted cluster)</h2>
+
+					<p>Work is underway to map the MBrace.Core programming model to Amazon Web Services too!  <a href="https://github.com/mbraceproject/MBrace.Aws">Follow and contribute to this work on github</a>.</p>
+				</div>
+			</div>
         </section>
 
 

@@ -20,7 +20,8 @@ The MBrace programming model is a language-integrated cloud programming DSL for 
 It offers a concise and elegant programming model which extends F# asynchronous workflows 
 to the domain of distributed cloud computation.
 
-The following tutorials demonstrate different aspects of the core programming model:
+The following tutorials demonstrate different aspects of the core programming model.  All the tutorials and samples
+can be found in the [MBrace Starter Kit](https://github.com/mbraceproject/MBrace.StarterKit)
 
 * [Hello World with MBrace](starterkit/HandsOnTutorial/1-hello-world.html)
 * [Introduction to cloud combinators](starterkit/HandsOnTutorial/2-cloud-parallel.html)
@@ -34,15 +35,17 @@ The following tutorials demonstrate different aspects of the core programming mo
 
 Examples:
 
-* [Example: Using data parallel cloud flows and F# type providers for house prices](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
+* [Example: Using Data Parallel Cloud Flows and F# Type Providers for House Prices](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
 * [Example: Distributed Image Processing](starterkit/HandsOnTutorial/examples/200-image-processing-example.html)
+* [Example: KMeans Clustering with Incremental Notifications](starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html)
+* [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
+* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
+
 * [Example: Parallel Web Download](starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html)
 * [Example: Word Count](starterkit/HandsOnTutorial/examples/200-wordcount-example.html)
 * [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial/examples/200-monte-carlo-pi-approximation-example.html)
-* [Example: k-Means clustering](starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html)
 * [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
 * [Example: KNN Digit Recognizer](starterkit/HandsOnTutorial/examples/200-knn-digit-recognizer-example.html)
-* [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
 
 More Techniques:
 

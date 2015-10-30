@@ -11,14 +11,18 @@ let config = Unchecked.defaultof<MBrace.Azure.Configuration>
 
 # Using MBrace on Azure 
 
+### Creating a Cluster
+
 In this tutorial you will learn how to setup MBrace on Azure.
 
 1. Create an Azure account using the [Azure management portal](https://manage.windowsazure.com/).
-2. [Provision a Custom Azure Cloud Service which includes MBrace runtime instances](starterkit/azure/README.html).
-3. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
-   Enter your connection strings in ``AzureCluster.fsx`` and adjust each tutorial script to load this script.
 
-The scripts follow the tutorials in the [Core Programming Model](programming-model.html).
+2. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
+
+3. [Create a cluster](starterkit/azure/README.html).
+
+4. Open ``HandsOnTutorials\1-hello-world.fsx`` and follow the instrucctions. Adjust the connection strings in ``HandsOnTutorial/AzureCluster.fsx``. 
+   The HandsOnTutorials scripts follow the tutorials in the [Core Programming Model](programming-model.html).
 
 ### Using your Azure cluster from compiled code
 
@@ -31,7 +35,10 @@ or acquiring them by other means:
     let cluster = AzureCluster.Connect(config, logger = ConsoleLogger(true), logLevel = LogLevel.Info)
 
 
-### How your MBrace client code runs
+### How your MBrace code runs on Azure
+
+Your MBrace code has two parts: a client and a cluster. The cluster runs as an Azure Cloud Service with associated
+storage and queue assets. You can [manage your cluster on the Azure management portal](https://manage.windowsazure.com/).
 
 Typically your MBrace client will run in:
 
@@ -44,10 +51,11 @@ Typically your MBrace client will run in:
 In all cases, the client will need sufficient network access to be able to write to the
 Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.
 
-Parts of your client code will be transported to the MBrace.Azure service and executed
-there. You should be careful that the version dependencies between base
-architectures, operating systems and .NET versions are compatible and that
-both client and MBrace.Azure service use the same FSharp.Core.
+When your client submits jobs using ``cluster.CreateProcess`` or ``cluster.Run``, parts of 
+your client code will be transported to the cluster and executed
+there. MBrace looks after the transport of code and data using Vagabond.
+
+Take care that the base architectures on client and cluster are compatible, e.g. both are 64-bit.
 
 *)
 

@@ -121,7 +121,11 @@ let buildDocumentation () =
             layoutRoots = layoutRoots, generateAnchors = true )
   processDir content output
   processDir starterKit (output @@ "starterkit")
+<<<<<<< Updated upstream
   CopyRecursive starterKitImg (output @@ "starterkit" @@ "HandsOnTutorial" @@ "img") true |> Log "Copying StarterKit img files: "
+=======
+  CopyRecursive (starterKit @@ "HandsOnTutorial" @@ "img") (output @@ "starterkit" @@ "HandsOnTutorial" @@ "img") true |> Log "Copying file: "
+>>>>>>> Stashed changes
 
 
 // Generate
