@@ -140,7 +140,7 @@ let downloadAsync (url : string) = async {
 
 cloud {
     let! t1 = downloadAsync "http://www.nessos.gr/" |> Cloud.OfAsync
-    let! t2 = downloadAsync "http://www.m-brace.net/" |> Cloud.OfAsync
+    let! t2 = downloadAsync "http://www.mbrace.io/" |> Cloud.OfAsync
     return t1.Length + t2.Length
 }
 
@@ -162,7 +162,7 @@ let downloadCloud url = downloadAsync url |> Cloud.OfAsync
 cloud {
 
     let! results =
-        [ "http://www.m-brace.net/"
+        [ "http://www.mbrace.io/"
           "http://www.nessos.gr/" ]
         |> List.map downloadCloud
         |> Cloud.Parallel
@@ -195,7 +195,7 @@ cloud {
 
     try
         let! results =
-            [ "http://www.m-brace.net/"
+            [ "http://www.mbrace.io/"
               "http://www.nessos.gr/"
               "http://non.existent.domain/" ]
             |> List.map downloadCloud
@@ -298,7 +298,7 @@ content of a web page and returns a cloud value to it:
 
 let textCell = cloud {
     // download a piece of data
-    let! text = downloadCloud "http://www.m-brace.net/"
+    let! text = downloadCloud "http://www.mbrace.io/"
     // store data to a new CloudValue
     let! cref = CloudValue.New text
     // return the ref
