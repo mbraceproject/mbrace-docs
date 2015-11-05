@@ -11,7 +11,7 @@ let mbraceFlowBinaries = [ "MBrace.Flow.dll"  ]
 let mbraceAzureBinaries = [ "MBrace.Azure.dll" ]
 // Web site location for the generated documentation
 //let website = "http://nessos.github.io/MBrace"
-let website = "http://www.m-brace.net"
+let website = "http://www.mbrace.io"
 
 let mbraceCoreGithubLink = "http://github.com/mbraceproject/MBrace.Core"
 let mbraceAzureGithubLink = "http://github.com/mbraceproject/MBrace.Azure"

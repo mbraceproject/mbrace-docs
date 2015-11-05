@@ -43,7 +43,7 @@ open MBrace.Azure
    find these connection strings in the Configure panel of your cloud service in the [Azure management portal](https://manage.windowsazure.com).
 
 6. Open the first tutorial script in the starter pack hands-on tutorial. The scripts follow the tutorials in the
-   [Core Programming Model](http://www.m-brace.net/programming-model.html).
+   [Core Programming Model](http://www.mbrace.io/programming-model.html).
 
 
 ### Using your Azure cluster from compiled code

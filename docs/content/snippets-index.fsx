@@ -8,7 +8,7 @@ let cluster = Unchecked.defaultof<MBrace.Runtime.MBraceClient>
 
 (**
 
-This page generates F# snippets used for index.html in m-brace.net.
+This page generates F# snippets used for index.html in mbrace.io.
 Generated html must be copied manually before publishing.
 
 *)
