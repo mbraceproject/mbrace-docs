@@ -149,8 +149,8 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
             Choice(computations)
           </code>
           <div class="tip" id="135">
-            <strong>Signature:</strong> (computations:seq&lt;&#39;?7878 * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
-                          <strong>Type parameters:</strong> '?7878, 'T          </div>
+            <strong>Signature:</strong> (computations:seq&lt;&#39;a * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Returns a cloud computation that will execute the given computation on the corresponding worker,
@@ -171,8 +171,8 @@ This operator may create distribution.</p>
             Choice(computations)
           </code>
           <div class="tip" id="136">
-            <strong>Signature:</strong> computations:seq&lt;&#39;?7875&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
-                          <strong>Type parameters:</strong> '?7875, 'T          </div>
+            <strong>Signature:</strong> computations:seq&lt;&#39;a&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Returns a cloud computation that will execute given computations
@@ -283,7 +283,7 @@ This operator may create distribution.</p>
             CreateProcess(...)
           </code>
           <div class="tip" id="142">
-            <strong>Signature:</strong> (computation:Cloud&lt;&#39;T&gt; * faultPolicy:FaultPolicy option * target:IWorkerRef option * cancellationToken:ICloudCancellationToken option * procName:string option) -&gt; Cloud&lt;ICloudProcess&lt;&#39;T&gt;&gt;<br />
+            <strong>Signature:</strong> (computation:Cloud&lt;&#39;T&gt; * faultPolicy:FaultPolicy option * target:IWorkerRef option * cancellationToken:ICloudCancellationToken option * processName:string option) -&gt; Cloud&lt;ICloudProcess&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
@@ -419,8 +419,8 @@ This operator may create distribution.</p>
             Ignore(workflow)
           </code>
           <div class="tip" id="150">
-            <strong>Signature:</strong> workflow:&#39;?7853 -&gt; Cloud&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> '?7853, 'T          </div>
+            <strong>Signature:</strong> workflow:&#39;?7872 -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> '?7872, 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Performs a cloud computations, discarding its result</p>
@@ -488,8 +488,8 @@ Should be used with combinators that support worker targeting like Cloud.Paralle
             Logf(fmt)
           </code>
           <div class="tip" id="154">
-            <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?7861,LocalCloud&lt;unit&gt;&gt; -&gt; &#39;?7861<br />
-                          <strong>Type parameters:</strong> '?7861          </div>
+            <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?7880,LocalCloud&lt;unit&gt;&gt; -&gt; &#39;?7880<br />
+                          <strong>Type parameters:</strong> '?7880          </div>
         </td>
         <td class="xmldoc">
           <p>Writes an entry to a logging provider, if it exists.</p>
@@ -522,8 +522,8 @@ Should be used with combinators that support worker targeting like Cloud.Paralle
             Parallel(computations)
           </code>
           <div class="tip" id="156">
-            <strong>Signature:</strong> (computations:seq&lt;&#39;?7870 * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T []&gt;<br />
-                          <strong>Type parameters:</strong> '?7870, 'T          </div>
+            <strong>Signature:</strong> (computations:seq&lt;&#39;a * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a cloud computation that will execute given computations to targeted workers
@@ -562,8 +562,8 @@ Exceptions raised by children carry cancellation semantics.</p>
             Parallel(computations)
           </code>
           <div class="tip" id="158">
-            <strong>Signature:</strong> computations:seq&lt;&#39;?7864&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
-                          <strong>Type parameters:</strong> '?7864, 'T          </div>
+            <strong>Signature:</strong> computations:seq&lt;&#39;a&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a cloud computation that will execute the given computations
@@ -686,9 +686,60 @@ computation or 'None' if no fault has occurred.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '165', 165)" onmouseover="showTip(event, '165', 165)">
-            WithFaultPolicy(policy workflow)
+            WhenAll(processes)
           </code>
           <div class="tip" id="165">
+            <strong>Signature:</strong> (processes:ICloudProcess []) -&gt; LocalCloud&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously waits until all of the given processes complete.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
+            WhenAny(processes)
+          </code>
+          <div class="tip" id="166">
+            <strong>Signature:</strong> (processes:ICloudProcess&lt;&#39;T&gt; []) -&gt; LocalCloud&lt;ICloudProcess&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously waits until one of the given processes completes.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+            WhenAny(processes)
+          </code>
+          <div class="tip" id="167">
+            <strong>Signature:</strong> (processes:ICloudProcess []) -&gt; LocalCloud&lt;ICloudProcess&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously waits until one of the given processes completes.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
+            WithFaultPolicy(policy workflow)
+          </code>
+          <div class="tip" id="168">
             <strong>Signature:</strong> policy:FaultPolicy -&gt; workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>

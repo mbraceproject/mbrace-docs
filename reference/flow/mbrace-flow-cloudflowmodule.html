@@ -61,10 +61,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '704', 704)" onmouseover="showTip(event, '704', 704)">
+          <code onmouseout="hideTip(event, '750', 750)" onmouseover="showTip(event, '750', 750)">
             average(source)
           </code>
-          <div class="tip" id="704">
+          <div class="tip" id="750">
             <strong>Signature:</strong> source:CloudFlow&lt;^T&gt; -&gt; Cloud&lt;^T&gt;<br />
                           <strong>Type parameters:</strong> ^T          </div>
         </td>
@@ -78,10 +78,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '705', 705)" onmouseover="showTip(event, '705', 705)">
+          <code onmouseout="hideTip(event, '751', 751)" onmouseover="showTip(event, '751', 751)">
             averageBy(projection source)
           </code>
-          <div class="tip" id="705">
+          <div class="tip" id="751">
             <strong>Signature:</strong> projection:(&#39;T -&gt; ^U) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;^U&gt;<br />
                           <strong>Type parameters:</strong> 'T, ^U          </div>
         </td>
@@ -95,10 +95,27 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '706', 706)" onmouseover="showTip(event, '706', 706)">
+          <code onmouseout="hideTip(event, '752', 752)" onmouseover="showTip(event, '752', 752)">
+            averageByKey(...)
+          </code>
+          <div class="tip" id="752">
+            <strong>Signature:</strong> keyProjection:(&#39;T -&gt; &#39;Key) -&gt; valueProjection:(&#39;T -&gt; ^Value) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * ^Value&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key, ^Value          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of the input flow and computes the average of the projections in each group.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '753', 753)" onmouseover="showTip(event, '753', 753)">
             cache(flow)
           </code>
-          <div class="tip" id="706">
+          <div class="tip" id="753">
             <strong>Signature:</strong> flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -112,10 +129,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '707', 707)" onmouseover="showTip(event, '707', 707)">
+          <code onmouseout="hideTip(event, '754', 754)" onmouseover="showTip(event, '754', 754)">
             choose(chooser flow)
           </code>
-          <div class="tip" id="707">
+          <div class="tip" id="754">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;R option) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'R          </div>
         </td>
@@ -129,12 +146,12 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '708', 708)" onmouseover="showTip(event, '708', 708)">
+          <code onmouseout="hideTip(event, '755', 755)" onmouseover="showTip(event, '755', 755)">
             collect(f flow)
           </code>
-          <div class="tip" id="708">
-            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;?24190) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br />
-                          <strong>Type parameters:</strong> 'T, '?24190, 'R          </div>
+          <div class="tip" id="755">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;b) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'b, 'R          </div>
         </td>
         <td class="xmldoc">
           <p>Transforms each element of the input CloudFlow to a new sequence and flattens its elements.</p>
@@ -146,10 +163,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '709', 709)" onmouseover="showTip(event, '709', 709)">
+          <code onmouseout="hideTip(event, '756', 756)" onmouseover="showTip(event, '756', 756)">
             countBy(projection flow)
           </code>
-          <div class="tip" id="709">
+          <div class="tip" id="756">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * int64&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -163,10 +180,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '710', 710)" onmouseover="showTip(event, '710', 710)">
+          <code onmouseout="hideTip(event, '757', 757)" onmouseover="showTip(event, '757', 757)">
             distinct(source)
           </code>
-          <div class="tip" id="710">
+          <div class="tip" id="757">
             <strong>Signature:</strong> source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -180,10 +197,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '711', 711)" onmouseover="showTip(event, '711', 711)">
+          <code onmouseout="hideTip(event, '758', 758)" onmouseover="showTip(event, '758', 758)">
             distinctBy(projection source)
           </code>
-          <div class="tip" id="711">
+          <div class="tip" id="758">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -197,10 +214,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '712', 712)" onmouseover="showTip(event, '712', 712)">
+          <code onmouseout="hideTip(event, '759', 759)" onmouseover="showTip(event, '759', 759)">
             exists(predicate flow)
           </code>
-          <div class="tip" id="712">
+          <div class="tip" id="759">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -214,10 +231,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '713', 713)" onmouseover="showTip(event, '713', 713)">
+          <code onmouseout="hideTip(event, '760', 760)" onmouseover="showTip(event, '760', 760)">
             filter(predicate flow)
           </code>
-          <div class="tip" id="713">
+          <div class="tip" id="760">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -231,10 +248,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '714', 714)" onmouseover="showTip(event, '714', 714)">
+          <code onmouseout="hideTip(event, '761', 761)" onmouseover="showTip(event, '761', 761)">
             find(predicate flow)
           </code>
-          <div class="tip" id="714">
+          <div class="tip" id="761">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -248,10 +265,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '715', 715)" onmouseover="showTip(event, '715', 715)">
+          <code onmouseout="hideTip(event, '762', 762)" onmouseover="showTip(event, '762', 762)">
             fold(folder combiner state flow)
           </code>
-          <div class="tip" id="715">
+          <div class="tip" id="762">
             <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; combiner:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; state:(unit -&gt; &#39;State) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
                           <strong>Type parameters:</strong> 'State, 'T          </div>
         </td>
@@ -265,10 +282,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '716', 716)" onmouseover="showTip(event, '716', 716)">
+          <code onmouseout="hideTip(event, '763', 763)" onmouseover="showTip(event, '763', 763)">
             foldBy(...)
           </code>
-          <div class="tip" id="716">
+          <div class="tip" id="763">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; combiner:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; state:(unit -&gt; &#39;State) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * &#39;State&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'State          </div>
         </td>
@@ -282,10 +299,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '717', 717)" onmouseover="showTip(event, '717', 717)">
+          <code onmouseout="hideTip(event, '764', 764)" onmouseover="showTip(event, '764', 764)">
             forall(predicate flow)
           </code>
-          <div class="tip" id="717">
+          <div class="tip" id="764">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -299,10 +316,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '718', 718)" onmouseover="showTip(event, '718', 718)">
+          <code onmouseout="hideTip(event, '765', 765)" onmouseover="showTip(event, '765', 765)">
             fullOuterJoin(...)
           </code>
-          <div class="tip" id="718">
+          <div class="tip" id="765">
             <strong>Signature:</strong> leftProjection:(&#39;T -&gt; &#39;Key) -&gt; rightProjection:(&#39;R -&gt; &#39;Key) -&gt; rightSource:CloudFlow&lt;&#39;R&gt; -&gt; leftSource:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * &#39;T option * &#39;R option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'R          </div>
         </td>
@@ -316,15 +333,19 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '719', 719)" onmouseover="showTip(event, '719', 719)">
+          <code onmouseout="hideTip(event, '766', 766)" onmouseover="showTip(event, '766', 766)">
             groupBy(projection source)
           </code>
-          <div class="tip" id="719">
+          <div class="tip" id="766">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * seq&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
         <td class="xmldoc">
           <p>Applies a key-generating function to each element of the input flow and yields a flow of unique keys and a sequence of all elements that have each key.</p>
+
+<p>Note: This combinator may be very expensive; for example if the group sizes are expected to be large.
+If you intend to perform an aggregate operation, such as sum or average,
+you are advised to use CloudFlow.foldBy or CloudFlow.countBy, for much better performance.</p>
 
 
 
@@ -333,10 +354,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '720', 720)" onmouseover="showTip(event, '720', 720)">
+          <code onmouseout="hideTip(event, '767', 767)" onmouseover="showTip(event, '767', 767)">
             groupJoinBy(...)
           </code>
-          <div class="tip" id="720">
+          <div class="tip" id="767">
             <strong>Signature:</strong> firstProjection:(&#39;T -&gt; &#39;Key) -&gt; secondProjection:(&#39;R -&gt; &#39;Key) -&gt; secondSource:CloudFlow&lt;&#39;R&gt; -&gt; firstSource:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * seq&lt;&#39;T&gt; * seq&lt;&#39;R&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'R          </div>
         </td>
@@ -350,10 +371,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '721', 721)" onmouseover="showTip(event, '721', 721)">
+          <code onmouseout="hideTip(event, '768', 768)" onmouseover="showTip(event, '768', 768)">
             isEmpty(flow)
           </code>
-          <div class="tip" id="721">
+          <div class="tip" id="768">
             <strong>Signature:</strong> flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -367,10 +388,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '722', 722)" onmouseover="showTip(event, '722', 722)">
+          <code onmouseout="hideTip(event, '769', 769)" onmouseover="showTip(event, '769', 769)">
             iter(action flow)
           </code>
-          <div class="tip" id="722">
+          <div class="tip" id="769">
             <strong>Signature:</strong> action:(&#39;T -&gt; unit) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -384,10 +405,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '723', 723)" onmouseover="showTip(event, '723', 723)">
+          <code onmouseout="hideTip(event, '770', 770)" onmouseover="showTip(event, '770', 770)">
             join(...)
           </code>
-          <div class="tip" id="723">
+          <div class="tip" id="770">
             <strong>Signature:</strong> firstProjection:(&#39;T -&gt; &#39;Key) -&gt; secondProjection:(&#39;R -&gt; &#39;Key) -&gt; secondSource:CloudFlow&lt;&#39;R&gt; -&gt; firstSource:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * &#39;T * &#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'R          </div>
         </td>
@@ -401,10 +422,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '724', 724)" onmouseover="showTip(event, '724', 724)">
+          <code onmouseout="hideTip(event, '771', 771)" onmouseover="showTip(event, '771', 771)">
             leftOuterJoin(...)
           </code>
-          <div class="tip" id="724">
+          <div class="tip" id="771">
             <strong>Signature:</strong> leftProjection:(&#39;T -&gt; &#39;Key) -&gt; rightProjection:(&#39;R -&gt; &#39;Key) -&gt; rightSource:CloudFlow&lt;&#39;R&gt; -&gt; leftSource:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * &#39;T * &#39;R option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'R          </div>
         </td>
@@ -418,10 +439,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '725', 725)" onmouseover="showTip(event, '725', 725)">
+          <code onmouseout="hideTip(event, '772', 772)" onmouseover="showTip(event, '772', 772)">
             length(flow)
           </code>
-          <div class="tip" id="725">
+          <div class="tip" id="772">
             <strong>Signature:</strong> flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;int64&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -435,10 +456,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '726', 726)" onmouseover="showTip(event, '726', 726)">
+          <code onmouseout="hideTip(event, '773', 773)" onmouseover="showTip(event, '773', 773)">
             map(f flow)
           </code>
-          <div class="tip" id="726">
+          <div class="tip" id="773">
             <strong>Signature:</strong> f:(&#39;T -&gt; &#39;R) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'R          </div>
         </td>
@@ -452,10 +473,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '727', 727)" onmouseover="showTip(event, '727', 727)">
+          <code onmouseout="hideTip(event, '774', 774)" onmouseover="showTip(event, '774', 774)">
             maxBy(projection flow)
           </code>
-          <div class="tip" id="727">
+          <div class="tip" id="774">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -469,10 +490,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '728', 728)" onmouseover="showTip(event, '728', 728)">
+          <code onmouseout="hideTip(event, '775', 775)" onmouseover="showTip(event, '775', 775)">
             minBy(projection flow)
           </code>
-          <div class="tip" id="728">
+          <div class="tip" id="775">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -486,10 +507,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '729', 729)" onmouseover="showTip(event, '729', 729)">
+          <code onmouseout="hideTip(event, '776', 776)" onmouseover="showTip(event, '776', 776)">
             peek(f flow)
           </code>
-          <div class="tip" id="729">
+          <div class="tip" id="776">
             <strong>Signature:</strong> f:(&#39;T -&gt; LocalCloud&lt;unit&gt;) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -503,10 +524,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '730', 730)" onmouseover="showTip(event, '730', 730)">
+          <code onmouseout="hideTip(event, '777', 777)" onmouseover="showTip(event, '777', 777)">
             persist(storageLevel flow)
           </code>
-          <div class="tip" id="730">
+          <div class="tip" id="777">
             <strong>Signature:</strong> storageLevel:StorageLevel -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -520,10 +541,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '731', 731)" onmouseover="showTip(event, '731', 731)">
+          <code onmouseout="hideTip(event, '778', 778)" onmouseover="showTip(event, '778', 778)">
             pick(chooser flow)
           </code>
-          <div class="tip" id="731">
+          <div class="tip" id="778">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;R option) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'R          </div>
         </td>
@@ -538,10 +559,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '732', 732)" onmouseover="showTip(event, '732', 732)">
+          <code onmouseout="hideTip(event, '779', 779)" onmouseover="showTip(event, '779', 779)">
             reduce(reducer flow)
           </code>
-          <div class="tip" id="732">
+          <div class="tip" id="779">
             <strong>Signature:</strong> reducer:(&#39;T -&gt; &#39;T -&gt; &#39;T) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -557,10 +578,10 @@ Then, the reducer is applied on the result of the first reduction and the third 
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '733', 733)" onmouseover="showTip(event, '733', 733)">
+          <code onmouseout="hideTip(event, '780', 780)" onmouseover="showTip(event, '780', 780)">
             reduceBy(projection reducer source)
           </code>
-          <div class="tip" id="733">
+          <div class="tip" id="780">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; reducer:(&#39;T -&gt; &#39;T -&gt; &#39;T) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * &#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -575,10 +596,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '734', 734)" onmouseover="showTip(event, '734', 734)">
+          <code onmouseout="hideTip(event, '781', 781)" onmouseover="showTip(event, '781', 781)">
             rightOuterJoin(...)
           </code>
-          <div class="tip" id="734">
+          <div class="tip" id="781">
             <strong>Signature:</strong> leftProjection:(&#39;T -&gt; &#39;Key) -&gt; rightProjection:(&#39;R -&gt; &#39;Key) -&gt; rightSource:CloudFlow&lt;&#39;R&gt; -&gt; leftSource:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * &#39;T option * &#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'R          </div>
         </td>
@@ -592,10 +613,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '735', 735)" onmouseover="showTip(event, '735', 735)">
+          <code onmouseout="hideTip(event, '782', 782)" onmouseover="showTip(event, '782', 782)">
             sortBy(projection takeCount flow)
           </code>
-          <div class="tip" id="735">
+          <div class="tip" id="782">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; takeCount:int -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -609,10 +630,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '736', 736)" onmouseover="showTip(event, '736', 736)">
+          <code onmouseout="hideTip(event, '783', 783)" onmouseover="showTip(event, '783', 783)">
             sortByDescending(...)
           </code>
-          <div class="tip" id="736">
+          <div class="tip" id="783">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; takeCount:int -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -626,10 +647,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '737', 737)" onmouseover="showTip(event, '737', 737)">
+          <code onmouseout="hideTip(event, '784', 784)" onmouseover="showTip(event, '784', 784)">
             sortByUsing(...)
           </code>
-          <div class="tip" id="737">
+          <div class="tip" id="784">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; comparer:IComparer&lt;&#39;Key&gt; -&gt; takeCount:int -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -643,10 +664,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '738', 738)" onmouseover="showTip(event, '738', 738)">
+          <code onmouseout="hideTip(event, '785', 785)" onmouseover="showTip(event, '785', 785)">
             sum(flow)
           </code>
-          <div class="tip" id="738">
+          <div class="tip" id="785">
             <strong>Signature:</strong> flow:CloudFlow&lt;^T&gt; -&gt; Cloud&lt;^T&gt;<br />
                           <strong>Type parameters:</strong> ^T          </div>
         </td>
@@ -660,12 +681,12 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '739', 739)" onmouseover="showTip(event, '739', 739)">
+          <code onmouseout="hideTip(event, '786', 786)" onmouseover="showTip(event, '786', 786)">
             sumBy(projection flow)
           </code>
-          <div class="tip" id="739">
-            <strong>Signature:</strong> projection:(&#39;T -&gt; ^?24215) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;^S&gt;<br />
-                          <strong>Type parameters:</strong> 'T, ^?24215, ^S          </div>
+          <div class="tip" id="786">
+            <strong>Signature:</strong> projection:(&#39;T -&gt; ^b) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;^S&gt;<br />
+                          <strong>Type parameters:</strong> 'T, ^b, ^S          </div>
         </td>
         <td class="xmldoc">
           <p>Applies a key-generating function to each element of a CloudFlow and return the sum of the keys.</p>
@@ -677,10 +698,27 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '740', 740)" onmouseover="showTip(event, '740', 740)">
+          <code onmouseout="hideTip(event, '787', 787)" onmouseover="showTip(event, '787', 787)">
+            sumByKey(...)
+          </code>
+          <div class="tip" id="787">
+            <strong>Signature:</strong> keyProjection:(&#39;T -&gt; &#39;Key) -&gt; valueProjection:(&#39;T -&gt; ^Value) -&gt; source:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;Key * ^Value&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key, ^Value          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Applies a key-generating function to each element of the input flow and computes the sum of the projections in each group.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '788', 788)" onmouseover="showTip(event, '788', 788)">
             take(n flow)
           </code>
-          <div class="tip" id="740">
+          <div class="tip" id="788">
             <strong>Signature:</strong> n:int -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -694,10 +732,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '741', 741)" onmouseover="showTip(event, '741', 741)">
+          <code onmouseout="hideTip(event, '789', 789)" onmouseover="showTip(event, '789', 789)">
             toArray(flow)
           </code>
-          <div class="tip" id="741">
+          <div class="tip" id="789">
             <strong>Signature:</strong> flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -711,10 +749,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '742', 742)" onmouseover="showTip(event, '742', 742)">
+          <code onmouseout="hideTip(event, '790', 790)" onmouseover="showTip(event, '790', 790)">
             toCloudQueue(queue flow)
           </code>
-          <div class="tip" id="742">
+          <div class="tip" id="790">
             <strong>Signature:</strong> queue:CloudQueue&lt;&#39;T&gt; -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -728,10 +766,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '743', 743)" onmouseover="showTip(event, '743', 743)">
+          <code onmouseout="hideTip(event, '791', 791)" onmouseover="showTip(event, '791', 791)">
             toTextCloudFiles(dirPath flow)
           </code>
-          <div class="tip" id="743">
+          <div class="tip" id="791">
             <strong>Signature:</strong> dirPath:string -&gt; flow:CloudFlow&lt;string&gt; -&gt; Cloud&lt;CloudFileInfo []&gt;<br />
                       </div>
         </td>
@@ -745,10 +783,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '744', 744)" onmouseover="showTip(event, '744', 744)">
+          <code onmouseout="hideTip(event, '792', 792)" onmouseover="showTip(event, '792', 792)">
             tryFind(predicate flow)
           </code>
-          <div class="tip" id="744">
+          <div class="tip" id="792">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -762,10 +800,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '745', 745)" onmouseover="showTip(event, '745', 745)">
+          <code onmouseout="hideTip(event, '793', 793)" onmouseover="showTip(event, '793', 793)">
             tryPick(chooser flow)
           </code>
-          <div class="tip" id="745">
+          <div class="tip" id="793">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;R option) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'R          </div>
         </td>
@@ -779,10 +817,10 @@ and reduces the elements of each group to a single value via the given reducer f
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '746', 746)" onmouseover="showTip(event, '746', 746)">
+          <code onmouseout="hideTip(event, '794', 794)" onmouseover="showTip(event, '794', 794)">
             withDegreeOfParallelism(...)
           </code>
-          <div class="tip" id="746">
+          <div class="tip" id="794">
             <strong>Signature:</strong> degreeOfParallelism:int -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>

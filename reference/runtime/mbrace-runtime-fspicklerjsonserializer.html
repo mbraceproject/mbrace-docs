@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>VagabondFsPicklerBinarySerializer - MBrace.Runtime</title>
+    <title>FsPicklerJsonSerializer - MBrace.Runtime</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
@@ -40,13 +40,12 @@
 
 
 
-<h1>VagabondFsPicklerBinarySerializer</h1>
+<h1>FsPicklerJsonSerializer</h1>
 <p>
   <span>Namespace: MBrace.Runtime</span><br />
 </p>
 <div class="xmldoc">
-<p>Serializable binary FsPickler implementation of ISerializer that targets
-the underlying Vagabond registry</p>
+<p>FsPickler.Json implementation of ISerializer</p>
 
 
 </div>
@@ -59,11 +58,11 @@ the underlying Vagabond registry</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1152', 1152)" onmouseover="showTip(event, '1152', 1152)">
-            new()
+          <code onmouseout="hideTip(event, '1054', 1054)" onmouseover="showTip(event, '1054', 1054)">
+            new(omitHeader, indent, useVagabond)
           </code>
-          <div class="tip" id="1152">
-            <strong>Signature:</strong> unit -&gt; VagabondFsPicklerBinarySerializer<br />
+          <div class="tip" id="1054">
+            <strong>Signature:</strong> (omitHeader:bool option * indent:bool option * useVagabond:bool option) -&gt; FsPicklerJsonSerializer<br />
                       </div>
         </td>
         <td class="xmldoc">

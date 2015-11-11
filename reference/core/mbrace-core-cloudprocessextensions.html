@@ -55,10 +55,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '254', 254)" onmouseover="showTip(event, '254', 254)">
+          <code onmouseout="hideTip(event, '257', 257)" onmouseover="showTip(event, '257', 257)">
             AwaitResult(this, timeoutMilliseconds)
           </code>
-          <div class="tip" id="254">
+          <div class="tip" id="257">
             <strong>Signature:</strong> (this:ICloudProcess&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -72,10 +72,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '255', 255)" onmouseover="showTip(event, '255', 255)">
+          <code onmouseout="hideTip(event, '258', 258)" onmouseover="showTip(event, '258', 258)">
             AwaitResultBoxed(...)
           </code>
-          <div class="tip" id="255">
+          <div class="tip" id="258">
             <strong>Signature:</strong> (this:ICloudProcess * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;obj&gt;<br />
                       </div>
         </td>
@@ -89,10 +89,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '256', 256)" onmouseover="showTip(event, '256', 256)">
+          <code onmouseout="hideTip(event, '259', 259)" onmouseover="showTip(event, '259', 259)">
             TryGetResult(this)
           </code>
-          <div class="tip" id="256">
+          <div class="tip" id="259">
             <strong>Signature:</strong> this:ICloudProcess&lt;&#39;T&gt; -&gt; &#39;T option<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -106,15 +106,32 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '257', 257)" onmouseover="showTip(event, '257', 257)">
+          <code onmouseout="hideTip(event, '260', 260)" onmouseover="showTip(event, '260', 260)">
             TryGetResultBoxed(this)
           </code>
-          <div class="tip" id="257">
+          <div class="tip" id="260">
             <strong>Signature:</strong> this:ICloudProcess -&gt; obj option<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Returns the cloud process result if completed or None if still pending.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '261', 261)" onmouseover="showTip(event, '261', 261)">
+            Wait(this)
+          </code>
+          <div class="tip" id="261">
+            <strong>Signature:</strong> this:ICloudProcess -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Waits for the cloud process to complete.</p>
 
 
 

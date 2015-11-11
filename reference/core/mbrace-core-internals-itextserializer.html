@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>ThreadPoolFsPicklerXmlSerializer - MBrace.Runtime</title>
+    <title>ITextSerializer - MBrace.Core</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
@@ -31,7 +31,7 @@
         <ul class="nav nav-pills pull-right">
           <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
         </ul>
-        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Runtime</a></h3>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core</a></h3>
       </div>
       <hr />
       <div class="row">
@@ -40,33 +40,55 @@
 
 
 
-<h1>ThreadPoolFsPicklerXmlSerializer</h1>
+<h1>ITextSerializer</h1>
 <p>
-  <span>Namespace: MBrace.ThreadPool</span><br />
+  <span>Namespace: MBrace.Core.Internals</span><br />
 </p>
 <div class="xmldoc">
-<p>FsPickler Xml serializer for use by thread pool runtimes</p>
+<p>Text-based serialization abstraction</p>
 
 
 </div>
-  <h3>Constructors</h3>
+  <h3>Instance members</h3>
   <table class="table table-bordered member-list">
     <thead>
-      <tr><td>Constructor</td><td>Description</td></tr>
+      <tr><td>Instance member</td><td>Description</td></tr>
     </thead>
     <tbody>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1401', 1401)" onmouseover="showTip(event, '1401', 1401)">
-            new()
+          <code onmouseout="hideTip(event, '653', 653)" onmouseover="showTip(event, '653', 653)">
+            TextDeserialize(source, leaveOpen)
           </code>
-          <div class="tip" id="1401">
-            <strong>Signature:</strong> unit -&gt; ThreadPoolFsPicklerXmlSerializer<br />
-                      </div>
+          <div class="tip" id="653">
+            <strong>Signature:</strong> (source:TextReader * leaveOpen:bool) -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          
+          <p>Deserializes a value from text reader</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '654', 654)" onmouseover="showTip(event, '654', 654)">
+            TextSerialize(target, value, leaveOpen)
+          </code>
+          <div class="tip" id="654">
+            <strong>Signature:</strong> (target:TextWriter * value:&#39;T * leaveOpen:bool) -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Serializes a value to text writer</p>
+
+
+
         </td>
       </tr>
     </tbody>
@@ -78,7 +100,7 @@
             <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
           </a>
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
-            <li class="nav-header">MBrace.Runtime</li>
+            <li class="nav-header">MBrace.Core</li>
             <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
             <li class="divider"></li>
             <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>

@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>BinarySerializer - MBrace.Azure</title>
+    <title>MBrace.Azure.Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content=""/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
     <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
     
     <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
@@ -31,24 +31,58 @@
         <ul class="nav nav-pills pull-right">
           <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
         </ul>
-        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Azure</a></h3>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
       </div>
       <hr />
       <div class="row">
         <div class="span9" id="main">
           
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#I</span> <span class="k">__SOURCE_DIRECTORY__</span>
+<span class="prep">#I</span> <span class="s">@&quot;..\Hyak.Common\lib\net40\&quot;</span>
+<span class="prep">#I</span> <span class="s">@&quot;..\Microsoft.Azure.Common\lib\net40\&quot;</span>
+<span class="prep">#I</span> <span class="s">@&quot;..\Microsoft.WindowsAzure.Management\lib\net40\&quot;</span>
+<span class="prep">#I</span> <span class="s">@&quot;..\Microsoft.WindowsAzure.Management.Compute\lib\net40\&quot;</span>
+<span class="prep">#I</span> <span class="s">@&quot;..\Microsoft.WindowsAzure.Management.Storage\lib\net40\&quot;</span>
+<span class="prep">#I</span> <span class="s">@&quot;..\Microsoft.WindowsAzure.Management.ServiceBus\lib\net40\&quot;</span>
+<span class="prep">#I</span> <span class="s">@&quot;lib\net45\&quot;</span>
 
+<span class="prep">#r</span> <span class="s">&quot;Hyak.Common.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;Microsoft.Azure.Common.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;Microsoft.Azure.Common.NetFramework.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;Microsoft.WindowsAzure.Management.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;Microsoft.WindowsAzure.Management.Compute.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;Microsoft.WindowsAzure.Management.Storage.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;Microsoft.WindowsAzure.Management.ServiceBus.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;MBrace.Azure.Management.dll&quot;</span>
 
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Azure</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Management</span>
+</code></pre></td>
+</tr>
+</table>
 
-<h1>BinarySerializer</h1>
-<p>
-  <span>Namespace: MBrace.Azure</span><br />
-</p>
-<div class="xmldoc">
-<p>FsPickler Binary Serializer implementation</p>
-
-
-</div>
+<div class="tip" id="fs1"></div>
+<div class="tip" id="fs2">namespace MBrace.Azure</div>
+<div class="tip" id="fs3">namespace MBrace.Azure.Management</div>
 
         </div>
         <div class="span3">
@@ -56,7 +90,7 @@
             <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
           </a>
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
-            <li class="nav-header">MBrace.Azure</li>
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
             <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
             <li class="divider"></li>
             <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
