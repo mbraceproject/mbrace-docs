@@ -2,8 +2,8 @@ source https://nuget.org/api/v2
 
 nuget FAKE
 nuget FSharp.Formatting prerelease
-nuget MBrace.Core prerelease
-nuget MBrace.Flow prerelease
-nuget MBrace.Runtime prerelease
-nuget MBrace.Thespian prerelease
-nuget MBrace.Azure 0.15.2-beta
+nuget MBrace.Core
+nuget MBrace.Flow
+nuget MBrace.Runtime
+nuget MBrace.Thespian
+nuget MBrace.Azure 1.0.0
