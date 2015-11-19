@@ -32,6 +32,7 @@ can be found in the [MBrace Starter Kit](https://github.com/mbraceproject/MBrace
 * [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
 * [Using cloud queue storage](starterkit/HandsOnTutorial/8-using-cloud-queues.html)
 * [Using cloud key/value storage](starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html)
+* [Provisioning MBrace clusters on Azure](starterkit/HandsOnTutorial/0-provision-azure-cluster.html)
 
 Examples:
 

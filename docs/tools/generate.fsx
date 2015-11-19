@@ -9,6 +9,7 @@ let mbraceRuntimeBinaries = [ "MBrace.Runtime.dll" ]
 let mbraceThespianBinaries = [ "MBrace.Thespian.dll" ]
 let mbraceFlowBinaries = [ "MBrace.Flow.dll"  ]
 let mbraceAzureBinaries = [ "MBrace.Azure.dll" ]
+let mbraceAzureManagementBinaries = [ "MBrace.Azure.Management.dll" ]
 // Web site location for the generated documentation
 //let website = "http://nessos.github.io/MBrace"
 let website = "http://www.mbrace.io"
@@ -54,6 +55,7 @@ let mbraceRuntimePkgDir  = mbraceThespianPkgDir
 let mbraceCorePkgDir  = mbraceThespianPkgDir
 let mbraceFlowPkgDir  = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Flow" @@ "lib" @@ "net45"
 let mbraceAzurePkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure" @@ "tools"
+let mbraceAzureManagementPkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure.Management" @@ "lib" @@ "net45"
 let streamsPkgDir     = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "Streams" @@ "lib" @@ "net45"
 let content    = __SOURCE_DIRECTORY__ @@ ".." @@ "content"
 let starterKit = __SOURCE_DIRECTORY__ @@ ".." @@ "starterkit"
@@ -83,7 +85,12 @@ let buildReference () =
   let thespianBinaries = [ for lib in mbraceThespianBinaries -> mbraceThespianPkgDir @@ lib ]
   let runtimeBinaries = [ for lib in mbraceRuntimeBinaries -> mbraceThespianPkgDir @@ lib ]
   let flowBinaries = [ for lib in mbraceFlowBinaries -> mbraceFlowPkgDir @@ lib ]
-  let azureBinaries = [ for lib in mbraceAzureBinaries -> mbraceAzurePkgDir @@ lib ]
+  let azureBinaries = 
+    [ 
+        for lib in mbraceAzureBinaries -> mbraceAzurePkgDir @@ lib 
+        for lib in mbraceAzureManagementBinaries -> mbraceAzureManagementPkgDir @@ lib 
+    ]
+
   let libDirs = [mbraceThespianPkgDir; mbraceFlowPkgDir; mbraceAzurePkgDir; streamsPkgDir ]
     
   for (proj, binaries, outdir, githubLink) in 
