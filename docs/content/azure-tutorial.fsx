@@ -17,50 +17,33 @@ open MBrace.Azure
 
 2. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
 
-3. Build the solution to get the required packages.
+3. Build the solution or run the following to get the required packages 
 
-4. Open the ``azure/create-cluster.fsx`` script. Edit the region as necessary and insert the path to your publication settings file.
-   After editing your provisioning script will look something like this:
+       .paket\paket.bootstrapper.exe update
 
-       #load "../packages/MBrace.Azure/MBrace.Azure.fsx"
-       open MBrace.Azure
+4. Open ``HandsOnTutorial/0-provision-azure-cluster.fsx`` script. Edit the region as necessary and insert the path to your publication settings file.
+   After editing your provisioning script will contains lines like this:
 
-       let pubFile = @"... path to publication settings file ... "
-
-       let config = Management.CreateCluster(pubFile, 
-                                             Regions.North_Europe, 
-                                             VMSize = VMSizes.Large) 
+       let region = Region.North_Europe
+       let vmSize = VMSize.Large
+       let vmCount = 4
+    
+       let deployment = 
+           SubscriptionManager.Provision
+               (pubSettingsFile, region, vmSize=vmSize, vmCount=vmCount) 
   
    Then run the script - either from the command line or using send-to-interactive in your editor:
 
-       > cd azure
-       > fsi create-cluster.fsx 
+       > cd HandsOnTutorial
+       > fsi 0-provision-azure-cluster.fsx 
  
    Diagnostics will be shown.  When created your cluster will now appear as a cloud service in the [Azure management portal](https://manage.windowsazure.com).
    If you have any trouble, [report an issue on github](https://github.com/mbraceproject/MBrace.Azure/issues).
 
-5. Note your connection strings from ``config`` and enter them in ``HandsOnTutorial/AzureCluster.fsx``.  You can also
-   find these connection strings in the Configure panel of your cloud service in the [Azure management portal](https://manage.windowsazure.com).
-
-6. Open the first tutorial script in the starter pack hands-on tutorial. The scripts follow the tutorials in the
+5. Open the first tutorial script in the starter pack 
+   hands-on tutorial (or read [the online version](starterkit/HandsOnTutorial/1-hello-world.html)). The scripts follow the tutorials in the
    [Core Programming Model](http://www.mbrace.io/programming-model.html).
 
-
-### Using your Azure cluster from compiled code
-
-Reference the ``MBrace.Azure`` package and add the following code, after inserting your connection strings
-or acquiring them by other means:
-
-*)
-
-let myStorageConnectionString = "..."
-let myServiceBusConnectionString = "..."
-let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)
-let cluster = AzureCluster.Connect(config, 
-                                   logger = ConsoleLogger(true), 
-                                   logLevel = LogLevel.Info)
-
-(**
 
 ### How your MBrace code runs on Azure
 
@@ -84,5 +67,21 @@ there. MBrace looks after the transport of code and data using Vagabond.
 
 Take care that the base architectures on client and cluster are compatible, e.g. both are 64-bit.
 
+### Using your Azure cluster from compiled code
+
+To use your Azure cluster from compiled projects (rather than scripts),
+add a reference to the ``MBrace.Azure`` package and use the 
+following code. The configuration strings can be found by the
+Azure management console or the ``GetDeployment().Configuration`` in
+an MBrace data script.
+
 *)
+
+let myStorageConnectionString = "..."
+let myServiceBusConnectionString = "..."
+let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)
+let cluster = AzureCluster.Connect(config, 
+                                   logger = ConsoleLogger(true), 
+                                   logLevel = LogLevel.Info)
+
 
