@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>managing your MBrace.Azure clusters using F# interactive
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="managing-your-MBrace-Azure-clusters-using-F-interactive" class="anchor" href="#managing-your-MBrace-Azure-clusters-using-F-interactive">managing your MBrace.Azure clusters using F# interactive</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.
+If using a locally simulated cluster you can ignore this tutorial.</p>
+</blockquote>
+
+<p>In this tutorial you learn how you can use the <a href="https://www.nuget.org/packages/MBrace.Azure">MBrace.Azure.Management</a> library
+to provision, monitor and scale an MBrace cluster using Visual Studio and F# Interactive. In order to proceed, you will need
+to <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">sign up</a> for an Azure subscription. Once signed up, 
+<a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>, which contains 
+all authentication information necessary to manage your Azure subscription(s).</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// replace with your local .publishsettings path</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">pubSettingsFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">pubSettingsFile</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Next, read your publish settings file by calling</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">pubSettings</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="t">PublishSettings</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="f">Parse</span> <span onmouseout="hideTip(event, 'fs5', 14)" onmouseover="showTip(event, 'fs5', 14)" class="i">pubSettingsFile</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Yielding</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="i">pubSettings</span> <span class="o">:</span> <span class="i">PublishSettings</span> <span class="o">=</span>
+  [|<span class="s">&quot;Visual Studio Premium with MSDN&quot;</span>; <span class="s">&quot;Azure in Open&quot;</span>; <span class="s">&quot;Azure Free Trial&quot;</span>|]
+</code></pre></td>
+</tr>
+</table>
+
+<p>Now we can select our subscription of preference</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">subscription</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 16)" onmouseover="showTip(event, 'fs8', 16)" class="i">pubSettings</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="f">GetSubscriptionById</span> <span class="s">&quot;Azure Free Trial&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Select your prefered Azure region. This specifies the default Azure data center to be used for your deployments.
+Choosing a data center close to your location is recommended.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">myRegion</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="i">North_Europe</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Let's now instantiate our subscription manager instance</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="i">manager</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">SubscriptionManager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="f">Create</span>(<span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="i">subscription</span>, <span onmouseout="hideTip(event, 'fs13', 25)" onmouseover="showTip(event, 'fs13', 25)" class="i">myRegion</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>You now provision an MBrace cluster as follows:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 26)" onmouseover="showTip(event, 'fs19', 26)" class="i">deployment</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 28)" onmouseover="showTip(event, 'fs20', 28)" class="f">Provision</span>(<span class="i">serviceName</span> <span class="o">=</span> <span class="s">&quot;mbracetest&quot;</span>, <span class="i">vmCount</span> <span class="o">=</span> <span class="n">4</span>, <span class="i">vmSize</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 29)" onmouseover="showTip(event, 'fs21', 29)" class="t">VMSize</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 30)" onmouseover="showTip(event, 'fs22', 30)" class="i">A3</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>This will provision a 4-worker MBrace cluster of Large (A3) instances
+Provisioning can take some time (approximately 5 minutes).</p>
+
+<p>If you have already provisioned a cluster, reconnect to it using the following:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">clusterName</span> <span class="o">=</span> <span class="s">&quot;... cluster name ...&quot;</span>
+
+<span class="k">let</span> <span class="i">deployment</span> <span class="o">=</span> <span class="i">Deployment</span><span class="o">.</span><span class="i">GetDeployment</span>(<span class="i">pubSettings</span>, <span class="i">clusterName</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>To reconnect to a cluster when you don't have access to a pubsettings file, use:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">serviceBusConnection</span> <span class="o">=</span> <span class="s">&quot; ... enter ServiceBusConnectionString here ...&quot;</span>
+<span class="k">let</span> <span class="i">storageConnection</span> <span class="o">=</span> <span class="s">&quot;... enter StorageConnectionString here ... &quot;</span>
+<span class="k">let</span> <span class="i">config</span> <span class="o">=</span> <span class="i">Configuration</span>(<span class="i">storageConnection</span>, <span class="i">serviceBusConnection</span>)
+<span class="k">let</span> <span class="i">cluster</span> <span class="o">=</span> <span class="i">AzureCluster</span><span class="o">.</span><span class="i">Connect</span>(<span class="i">config</span>, <span class="i">logger</span> <span class="o">=</span> <span class="i">ConsoleLogger</span>(<span class="k">true</span>), <span class="i">logLevel</span> <span class="o">=</span> <span class="i">LogLevel</span><span class="o">.</span><span class="i">Info</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>You can track the status of the cluster as follows:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 32)" onmouseover="showTip(event, 'fs23', 32)" class="f">ShowInfo</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Which yields</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Cloud</span> <span class="i">Service</span> <span class="s">&quot;mbracetest&quot;</span>
+
+<span class="i">Name</span>        <span class="i">Region</span>        <span class="i">VM</span> <span class="i">size</span>  #<span class="i">Instances</span>  <span class="i">Service</span> <span class="i">Status</span>  <span class="i">Deployment</span> <span class="i">Status</span>   <span class="i">Last</span> <span class="i">Modified</span>
+<span class="o">----</span>        <span class="o">------</span>        <span class="o">-------</span>  <span class="o">----------</span>  <span class="o">--------------</span>  <span class="o">-----------------</span>   <span class="o">-------------</span>
+<span class="i">mbracetest</span>  <span class="i">North</span> <span class="i">Europe</span>  <span class="i">Large</span>    <span class="n">4</span>           <span class="i">Created</span>         <span class="i">Provisioning</span> <span class="n">33.3</span><span class="o">%</span>  <span class="n">19</span><span class="o">/</span><span class="n">11</span><span class="o">/</span><span class="n">2015</span> <span class="n">6</span><span class="o">:</span><span class="n">24</span><span class="o">:</span><span class="n">01</span> <span class="i">pm</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Finally, when deployment has completed we can easily obtain a cluster instance by typing</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 33)" onmouseover="showTip(event, 'fs24', 33)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 34)" onmouseover="showTip(event, 'fs25', 34)" class="t">AzureCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 35)" onmouseover="showTip(event, 'fs26', 35)" class="f">Connect</span> <span onmouseout="hideTip(event, 'fs19', 36)" onmouseover="showTip(event, 'fs19', 36)" class="i">deployment</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>and submit our first computation to the cluster</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Cloud</span><span class="o">.</span><span class="i">CurrentWorker</span> <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">ParallelEverywhere</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 37)" onmouseover="showTip(event, 'fs24', 37)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 38)" onmouseover="showTip(event, 'fs27', 38)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Resizing the cluster is as simple as calling</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 40)" onmouseover="showTip(event, 'fs28', 40)" class="f">Resize</span>(<span class="i">vmCount</span> <span class="o">=</span> <span class="n">20</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>When done, it's always a good idea to dispose of our deployment</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs19', 41)" onmouseover="showTip(event, 'fs19', 41)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 42)" onmouseover="showTip(event, 'fs29', 42)" class="f">Delete</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Managing-storage-accounts" class="anchor" href="#Managing-storage-accounts">Managing storage accounts</a></h2>
+
+<p>The subscription object can be used to manage Azure storage accounts</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 43)" onmouseover="showTip(event, 'fs30', 43)" class="i">newAccount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 44)" onmouseover="showTip(event, 'fs16', 44)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 45)" onmouseover="showTip(event, 'fs31', 45)" class="i">Storage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 46)" onmouseover="showTip(event, 'fs32', 46)" class="f">CreateAccount</span>(<span class="i">accountName</span> <span class="o">=</span> <span class="s">&quot;mynewaccount&quot;</span>, <span class="i">region</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 47)" onmouseover="showTip(event, 'fs14', 47)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 48)" onmouseover="showTip(event, 'fs33', 48)" class="i">Southeast_Asia</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>or it can be used to retrieve already existing accounts</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 49)" onmouseover="showTip(event, 'fs34', 49)" class="i">existingAccount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 50)" onmouseover="showTip(event, 'fs16', 50)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 51)" onmouseover="showTip(event, 'fs31', 51)" class="i">Storage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 52)" onmouseover="showTip(event, 'fs35', 52)" class="f">GetAccount</span>(<span class="i">accountName</span> <span class="o">=</span> <span class="s">&quot;existingaccount&quot;</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>which can be used in subsequent cluster deployments</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 53)" onmouseover="showTip(event, 'fs36', 53)" class="i">deployment&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 54)" onmouseover="showTip(event, 'fs16', 54)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 55)" onmouseover="showTip(event, 'fs20', 55)" class="f">Provision</span>(<span class="i">vmCount</span> <span class="o">=</span> <span class="n">10</span>, <span class="i">region</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 56)" onmouseover="showTip(event, 'fs14', 56)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 57)" onmouseover="showTip(event, 'fs33', 57)" class="i">Southeast_Asia</span>, <span class="i">storageAccount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs30', 58)" onmouseover="showTip(event, 'fs30', 58)" class="i">newAccount</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 59)" onmouseover="showTip(event, 'fs37', 59)" class="i">AccountName</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<p>A list of all accounts can be viewed by writing</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs16', 60)" onmouseover="showTip(event, 'fs16', 60)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 61)" onmouseover="showTip(event, 'fs31', 61)" class="i">Storage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 62)" onmouseover="showTip(event, 'fs38', 62)" class="f">ShowAccounts</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Yielding</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Azure</span> <span class="i">Storage</span> <span class="i">Accounts</span> <span class="k">for</span> <span class="i">subscription</span> <span class="s">&quot;Azure Free Trial&quot;</span>          
+
+<span class="i">Account</span> <span class="i">Name</span>    <span class="i">Region</span>          <span class="i">Account</span> <span class="i">Type</span>  <span class="i">Status</span>   <span class="i">Affinity</span> <span class="i">Group</span>    
+<span class="o">------------</span>    <span class="o">------</span>          <span class="o">------------</span>  <span class="o">------</span>   <span class="o">--------------</span>    
+<span class="i">mynewaccount</span>    <span class="i">Southeast</span> <span class="i">Asia</span>  <span class="i">Standard_LRS</span>  <span class="i">Created</span>  <span class="i">N</span><span class="o">/</span><span class="i">A</span>
+<span class="i">existingaccount</span> <span class="i">North</span> <span class="i">Europe</span>    <span class="i">Standard_LRS</span>  <span class="i">Created</span>  <span class="i">N</span><span class="o">/</span><span class="i">A</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned about MBrace.Azure.Management and how it can be used to deploy and manage MBrace clusters running on Azure.</p>
+
+<div class="tip" id="fs1">namespace MBrace</div>
+<div class="tip" id="fs2">namespace MBrace.Core</div>
+<div class="tip" id="fs3">namespace MBrace.Azure</div>
+<div class="tip" id="fs4">namespace MBrace.Azure.Management</div>
+<div class="tip" id="fs5">val pubSettingsFile : string<br /><br />Full name: 200-managing-azure-clusters.pubSettingsFile</div>
+<div class="tip" id="fs6">Multiple items<br />module Config<br /><br />--------------------<br />type Config =<br />&#160;&#160;private new : unit -&gt; Config<br />&#160;&#160;static member DefaultLogger : ISystemLogger<br />&#160;&#160;static member DefaultLogger : ISystemLogger with set<br /><br />Full name: MBrace.Azure.Management.Config</div>
+<div class="tip" id="fs7">val pubSettingsFile : string<br /><br />Full name: Config.pubSettingsFile</div>
+<div class="tip" id="fs8">val pubSettings : PublishSettings<br /><br />Full name: 200-managing-azure-clusters.pubSettings</div>
+<div class="tip" id="fs9">type PublishSettings =<br />&#160;&#160;{Subscriptions: Subscription [];}<br />&#160;&#160;member GetSubscriptionById : subscriptionId:string -&gt; Subscription<br />&#160;&#160;member Item : index:int -&gt; Subscription<br />&#160;&#160;member SubscriptionNames : string []<br />&#160;&#160;static member Parse : xml:string -&gt; PublishSettings<br />&#160;&#160;static member ParseFile : publishSettingsFile:string -&gt; PublishSettings<br /><br />Full name: MBrace.Azure.Management.PublishSettings</div>
+<div class="tip" id="fs10">static member PublishSettings.Parse : xml:string -&gt; PublishSettings</div>
+<div class="tip" id="fs11">val subscription : Subscription<br /><br />Full name: 200-managing-azure-clusters.subscription</div>
+<div class="tip" id="fs12">member PublishSettings.GetSubscriptionById : subscriptionId:string -&gt; Subscription</div>
+<div class="tip" id="fs13">val myRegion : Region<br /><br />Full name: 200-managing-azure-clusters.myRegion</div>
+<div class="tip" id="fs14">type Region =<br />&#160;&#160;private new : regionId:string -&gt; Region<br />&#160;&#160;override Equals : other:obj -&gt; bool<br />&#160;&#160;override GetHashCode : unit -&gt; int<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member Id : string<br />&#160;&#160;static member Define : regionId:string -&gt; Region<br />&#160;&#160;static member Central_US : Region<br />&#160;&#160;static member East_Asia : Region<br />&#160;&#160;static member East_US : Region<br />&#160;&#160;static member East_US_2 : Region<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Management.Region</div>
+<div class="tip" id="fs15">property Region.North_Europe: Region</div>
+<div class="tip" id="fs16">val manager : SubscriptionManager<br /><br />Full name: 200-managing-azure-clusters.manager</div>
+<div class="tip" id="fs17">type SubscriptionManager =<br />&#160;&#160;private new : client:SubscriptionClient * defaultRegion:Region * _logger:ISystemLogger * logLevel:LogLevel -&gt; SubscriptionManager<br />&#160;&#160;member AttachLogger : l:ISystemLogger -&gt; IDisposable<br />&#160;&#160;member DeleteDeployment : serviceName:string -&gt; unit<br />&#160;&#160;member DeleteDeploymentAsync : serviceName:string -&gt; Async&lt;unit&gt;<br />&#160;&#160;member GetDeployment : serviceName:string -&gt; Deployment<br />&#160;&#160;member GetDeploymentAsync : serviceName:string -&gt; Async&lt;Deployment&gt;<br />&#160;&#160;member GetDeployments : unit -&gt; Deployment []<br />&#160;&#160;member GetDeploymentsAsync : unit -&gt; Async&lt;Deployment []&gt;<br />&#160;&#160;member Provision : vmCount:int * ?serviceName:string * ?region:Region * ?vmSize:VMSize * ?mbraceVersion:string * ?storageAccount:string * ?serviceBusAccount:string * ?cloudServicePackage:string * ?serviceLabel:string * ?enableDiagnostics:bool -&gt; Deployment<br />&#160;&#160;member ProvisionAsync : vmCount:int * ?serviceName:string * ?region:Region * ?vmSize:VMSize * ?mbraceVersion:string * ?storageAccount:string * ?serviceBusAccount:string * ?cloudServicePackage:string * ?serviceLabel:string * ?enableDiagnostics:bool -&gt; Async&lt;Deployment&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Management.SubscriptionManager</div>
+<div class="tip" id="fs18">static member SubscriptionManager.Create : subscription:Subscription * defaultRegion:Region * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; SubscriptionManager</div>
+<div class="tip" id="fs19">val deployment : Deployment<br /><br />Full name: 200-managing-azure-clusters.deployment</div>
+<div class="tip" id="fs20">member SubscriptionManager.Provision : vmCount:int * ?serviceName:string * ?region:Region * ?vmSize:VMSize * ?mbraceVersion:string * ?storageAccount:string * ?serviceBusAccount:string * ?cloudServicePackage:string * ?serviceLabel:string * ?enableDiagnostics:bool -&gt; Deployment</div>
+<div class="tip" id="fs21">type VMSize =<br />&#160;&#160;private new : vmId:string -&gt; VMSize<br />&#160;&#160;override Equals : other:obj -&gt; bool<br />&#160;&#160;override GetHashCode : unit -&gt; int<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member Id : string<br />&#160;&#160;static member Define : vmId:string -&gt; VMSize<br />&#160;&#160;static member A0 : VMSize<br />&#160;&#160;static member A1 : VMSize<br />&#160;&#160;static member A10 : VMSize<br />&#160;&#160;static member A11 : VMSize<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Management.VMSize</div>
+<div class="tip" id="fs22">property VMSize.A3: VMSize</div>
+<div class="tip" id="fs23">member Deployment.ShowInfo : ?showVmInstances:bool -&gt; unit</div>
+<div class="tip" id="fs24">val cluster : AzureCluster<br /><br />Full name: 200-managing-azure-clusters.cluster</div>
+<div class="tip" id="fs25">type AzureCluster =<br />&#160;&#160;inherit MBraceClient<br />&#160;&#160;private new : manager:ClusterManager * faultPolicy:FaultPolicy option -&gt; AzureCluster<br />&#160;&#160;member AttachLocalWorker : ?workerId:string * ?workingDirectory:string * ?maxWorkItems:int * ?logFile:string * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member AttachLocalWorkers : workerCount:int * ?maxWorkItems:int * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkers : heartbeatThreshold:TimeSpan -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkersAsync : heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />&#160;&#160;member KillAllLocalWorkers : unit -&gt; unit<br />&#160;&#160;member KillLocalWorker : worker:IWorkerRef -&gt; bool<br />&#160;&#160;member Reset : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; unit<br />&#160;&#160;member ResetAsync : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.AzureCluster</div>
+<div class="tip" id="fs26">static member AzureCluster.Connect : deployment:Deployment * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : config:Configuration * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : storageConnectionString:string * serviceBusConnectionString:string * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster</div>
+<div class="tip" id="fs27">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs28">member Deployment.Resize : vmCount:int -&gt; unit</div>
+<div class="tip" id="fs29">member Deployment.Delete : unit -&gt; unit</div>
+<div class="tip" id="fs30">val newAccount : StorageAccount<br /><br />Full name: 200-managing-azure-clusters.newAccount</div>
+<div class="tip" id="fs31">property SubscriptionManager.Storage: StorageManager</div>
+<div class="tip" id="fs32">member StorageManager.CreateAccount : accountName:string * ?region:Region -&gt; StorageAccount</div>
+<div class="tip" id="fs33">property Region.Southeast_Asia: Region</div>
+<div class="tip" id="fs34">val existingAccount : StorageAccount<br /><br />Full name: 200-managing-azure-clusters.existingAccount</div>
+<div class="tip" id="fs35">member StorageManager.GetAccount : accountName:string -&gt; StorageAccount</div>
+<div class="tip" id="fs36">val deployment&#39; : Deployment<br /><br />Full name: 200-managing-azure-clusters.deployment&#39;</div>
+<div class="tip" id="fs37">property StorageAccount.AccountName: string</div>
+<div class="tip" id="fs38">member StorageManager.ShowAccounts : ?region:Region -&gt; unit</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
