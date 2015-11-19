@@ -58,15 +58,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1640', 1640)" onmouseover="showTip(event, '1640', 1640)">
-            AccountName
+          <code onmouseout="hideTip(event, '1790', 1790)" onmouseover="showTip(event, '1790', 1790)">
+            AccountKey
           </code>
-          <div class="tip" id="1640">
+          <div class="tip" id="1790">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Account identifier</p>
+          <p>Base-64 account key representation</p>
 
 
 
@@ -75,10 +75,27 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1641', 1641)" onmouseover="showTip(event, '1641', 1641)">
+          <code onmouseout="hideTip(event, '1791', 1791)" onmouseover="showTip(event, '1791', 1791)">
+            AccountName
+          </code>
+          <div class="tip" id="1791">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Account name or namespace identifier</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1792', 1792)" onmouseover="showTip(event, '1792', 1792)">
             ConnectionString
           </code>
-          <div class="tip" id="1641">
+          <div class="tip" id="1792">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
@@ -92,10 +109,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1642', 1642)" onmouseover="showTip(event, '1642', 1642)">
+          <code onmouseout="hideTip(event, '1793', 1793)" onmouseover="showTip(event, '1793', 1793)">
             CreateQueueClient(queue, mode)
           </code>
-          <div class="tip" id="1642">
+          <div class="tip" id="1793">
             <strong>Signature:</strong> (queue:string * mode:ReceiveMode) -&gt; QueueClient<br />
                       </div>
         </td>
@@ -109,10 +126,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1643', 1643)" onmouseover="showTip(event, '1643', 1643)">
+          <code onmouseout="hideTip(event, '1794', 1794)" onmouseover="showTip(event, '1794', 1794)">
             CreateSubscriptionClient(topic, name)
           </code>
-          <div class="tip" id="1643">
+          <div class="tip" id="1794">
             <strong>Signature:</strong> (topic:string * name:string) -&gt; SubscriptionClient<br />
                       </div>
         </td>
@@ -126,10 +143,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1644', 1644)" onmouseover="showTip(event, '1644', 1644)">
+          <code onmouseout="hideTip(event, '1795', 1795)" onmouseover="showTip(event, '1795', 1795)">
             CreateTopicClient(topic)
           </code>
-          <div class="tip" id="1644">
+          <div class="tip" id="1795">
             <strong>Signature:</strong> topic:string -&gt; TopicClient<br />
                       </div>
         </td>
@@ -143,10 +160,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1645', 1645)" onmouseover="showTip(event, '1645', 1645)">
+          <code onmouseout="hideTip(event, '1796', 1796)" onmouseover="showTip(event, '1796', 1796)">
             NamespaceManager
           </code>
-          <div class="tip" id="1645">
+          <div class="tip" id="1796">
             <strong>Signature:</strong> NamespaceManager<br />
                       </div>
         </td>
@@ -168,10 +185,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1646', 1646)" onmouseover="showTip(event, '1646', 1646)">
-            Parse(connectionString)
+          <code onmouseout="hideTip(event, '1797', 1797)" onmouseover="showTip(event, '1797', 1797)">
+            FromConnectionString(connectionString)
           </code>
-          <div class="tip" id="1646">
+          <div class="tip" id="1797">
             <strong>Signature:</strong> connectionString:string -&gt; AzureServiceBusAccount<br />
                       </div>
         </td>
@@ -185,15 +202,50 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1647', 1647)" onmouseover="showTip(event, '1647', 1647)">
-            TryParse(connectionString)
+          <code onmouseout="hideTip(event, '1798', 1798)" onmouseover="showTip(event, '1798', 1798)">
+            FromCredentials(...)
           </code>
-          <div class="tip" id="1647">
+          <div class="tip" id="1798">
+            <strong>Signature:</strong> (accountNameOrNamespace:string * accountKey:string) -&gt; AzureServiceBusAccount<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates an Azure service bus account reference using provided credentials.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1799', 1799)" onmouseover="showTip(event, '1799', 1799)">
+            TryFromConnectionString(...)
+          </code>
+          <div class="tip" id="1799">
             <strong>Signature:</strong> connectionString:string -&gt; AzureServiceBusAccount option<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Try creating an Azure service bus account reference using provided connection string.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1800', 1800)" onmouseover="showTip(event, '1800', 1800)">
+            TryParseNamespace(servicebusNamespace)
+          </code>
+          <div class="tip" id="1800">
+            <strong>Signature:</strong> servicebusNamespace:string -&gt; string option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Attempt to parse service bus namespaces of format 'sb://<account>.servicebus.windows.net/',
+returning the account name.</p>
 
 
 

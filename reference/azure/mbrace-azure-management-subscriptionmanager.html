@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>SubscriptionManager - MBrace.Azure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>SubscriptionManager</h1>
+<p>
+  <span>Namespace: MBrace.Azure.Management</span><br />
+</p>
+<div class="xmldoc">
+<p>Client object for managing MBrace Cloud Service deployments for user-suppplied Azure subscription</p>
+
+
+</div>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1711', 1711)" onmouseover="showTip(event, '1711', 1711)">
+            AttachLogger(l)
+          </code>
+          <div class="tip" id="1711">
+            <strong>Signature:</strong> l:ISystemLogger -&gt; IDisposable<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Attaches logger to the deployment manager instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1712', 1712)" onmouseover="showTip(event, '1712', 1712)">
+            DefaultRegion()
+          </code>
+          <div class="tip" id="1712">
+            <strong>Signature:</strong> unit -&gt; Region<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the default region used by the client instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1713', 1713)" onmouseover="showTip(event, '1713', 1713)">
+            DefaultRegion()
+          </code>
+          <div class="tip" id="1713">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the default region used by the client instance</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1714', 1714)" onmouseover="showTip(event, '1714', 1714)">
+            DeleteDeployment(serviceName)
+          </code>
+          <div class="tip" id="1714">
+            <strong>Signature:</strong> serviceName:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes deployment of given name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1715', 1715)" onmouseover="showTip(event, '1715', 1715)">
+            DeleteDeploymentAsync(serviceName)
+          </code>
+          <div class="tip" id="1715">
+            <strong>Signature:</strong> serviceName:string -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously deletes deployment of given name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1716', 1716)" onmouseover="showTip(event, '1716', 1716)">
+            GetDeployment(serviceName)
+          </code>
+          <div class="tip" id="1716">
+            <strong>Signature:</strong> serviceName:string -&gt; Deployment<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Fetches deployment of given service name</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1717', 1717)" onmouseover="showTip(event, '1717', 1717)">
+            GetDeploymentAsync(serviceName)
+          </code>
+          <div class="tip" id="1717">
+            <strong>Signature:</strong> serviceName:string -&gt; Async&lt;Deployment&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously fetches deployment of given service name</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1718', 1718)" onmouseover="showTip(event, '1718', 1718)">
+            GetDeployments()
+          </code>
+          <div class="tip" id="1718">
+            <strong>Signature:</strong> unit -&gt; Deployment []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Fetches a list of all currently running deployments</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1719', 1719)" onmouseover="showTip(event, '1719', 1719)">
+            GetDeploymentsAsync()
+          </code>
+          <div class="tip" id="1719">
+            <strong>Signature:</strong> unit -&gt; Async&lt;Deployment []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously fetches a list of all currently running deployments</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1720', 1720)" onmouseover="showTip(event, '1720', 1720)">
+            Provision(...)
+          </code>
+          <div class="tip" id="1720">
+            <strong>Signature:</strong> (vmCount:int * serviceName:string option * region:Region option * vmSize:VMSize option * mbraceVersion:string option * storageAccount:string option * serviceBusAccount:string option * cloudServicePackage:string option * serviceLabel:string option * enableDiagnostics:bool option) -&gt; Deployment<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts deployment of MBrace cloud service with supplied parameters.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1721', 1721)" onmouseover="showTip(event, '1721', 1721)">
+            ProvisionAsync(...)
+          </code>
+          <div class="tip" id="1721">
+            <strong>Signature:</strong> (vmCount:int * serviceName:string option * region:Region option * vmSize:VMSize option * mbraceVersion:string option * storageAccount:string option * serviceBusAccount:string option * cloudServicePackage:string option * serviceLabel:string option * enableDiagnostics:bool option) -&gt; Async&lt;Deployment&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously starts deployment of MBrace cloud service with supplied parameters.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1722', 1722)" onmouseover="showTip(event, '1722', 1722)">
+            ResizeDeployment(serviceName, vmCount)
+          </code>
+          <div class="tip" id="1722">
+            <strong>Signature:</strong> (serviceName:string * vmCount:int) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously resizes deployment of given name to supplied instance count (scale out).</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1723', 1723)" onmouseover="showTip(event, '1723', 1723)">
+            ResizeDeploymentAsync(...)
+          </code>
+          <div class="tip" id="1723">
+            <strong>Signature:</strong> (serviceName:string * vmCount:int) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously resizes deployment of given name to supplied instance count (scale out).</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1724', 1724)" onmouseover="showTip(event, '1724', 1724)">
+            ServiceBus
+          </code>
+          <div class="tip" id="1724">
+            <strong>Signature:</strong> ServiceBusManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Service Bus account management client</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1725', 1725)" onmouseover="showTip(event, '1725', 1725)">
+            ShowDeployments()
+          </code>
+          <div class="tip" id="1725">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Prints a report on deployments to stdout.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1726', 1726)" onmouseover="showTip(event, '1726', 1726)">
+            Storage
+          </code>
+          <div class="tip" id="1726">
+            <strong>Signature:</strong> StorageManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Storage account management client</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1727', 1727)" onmouseover="showTip(event, '1727', 1727)">
+            SubscriptionId
+          </code>
+          <div class="tip" id="1727">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Subscription identifier</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1728', 1728)" onmouseover="showTip(event, '1728', 1728)">
+            SubscriptionName
+          </code>
+          <div class="tip" id="1728">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Subscription name</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1729', 1729)" onmouseover="showTip(event, '1729', 1729)">
+            Create(...)
+          </code>
+          <div class="tip" id="1729">
+            <strong>Signature:</strong> (subscription:Subscription * defaultRegion:Region * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; SubscriptionManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new subscription manager instance using supplied Azure subscription</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1730', 1730)" onmouseover="showTip(event, '1730', 1730)">
+            FromPublishSettings(...)
+          </code>
+          <div class="tip" id="1730">
+            <strong>Signature:</strong> (publishSettings:PublishSettings * defaultRegion:Region * subscriptionId:string option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; SubscriptionManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new subscription manager instance using supplied set of Azure subscriptions</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1731', 1731)" onmouseover="showTip(event, '1731', 1731)">
+            FromPublishSettingsFile(...)
+          </code>
+          <div class="tip" id="1731">
+            <strong>Signature:</strong> (publishSettingsFile:string * defaultRegion:Region * subscriptionId:string option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; SubscriptionManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new subscription manager instance using local Azure PublishSettings file.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
