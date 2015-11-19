@@ -17,9 +17,7 @@ open MBrace.Azure
 
 2. [Download or clone the starter pack](https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md).
 
-3. Build the solution or run the following to get the required packages 
-
-       .paket\paket.bootstrapper.exe update
+3. Build the solution to get the required packages 
 
 4. Open ``HandsOnTutorial/0-provision-azure-cluster.fsx`` script. Edit the region as necessary and insert the path to your publication settings file.
    After editing your provisioning script will contains lines like this:
