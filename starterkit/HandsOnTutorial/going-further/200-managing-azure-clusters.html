@@ -64,7 +64,7 @@ all authentication information necessary to manage your Azure subscription(s).</
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">pubSettings</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="t">PublishSettings</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="f">Parse</span> <span onmouseout="hideTip(event, 'fs5', 14)" onmouseover="showTip(event, 'fs5', 14)" class="i">pubSettingsFile</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">pubSettings</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="t">PublishSettings</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="f">ParseFile</span> <span onmouseout="hideTip(event, 'fs5', 14)" onmouseover="showTip(event, 'fs5', 14)" class="i">pubSettingsFile</span>
 </code></pre></td>
 </tr>
 </table>
@@ -280,7 +280,7 @@ Provisioning can take some time (approximately 5 minutes).</p>
 <div class="tip" id="fs7">val pubSettingsFile : string<br /><br />Full name: Config.pubSettingsFile</div>
 <div class="tip" id="fs8">val pubSettings : PublishSettings<br /><br />Full name: 200-managing-azure-clusters.pubSettings</div>
 <div class="tip" id="fs9">type PublishSettings =<br />&#160;&#160;{Subscriptions: Subscription [];}<br />&#160;&#160;member GetSubscriptionById : subscriptionId:string -&gt; Subscription<br />&#160;&#160;member Item : index:int -&gt; Subscription<br />&#160;&#160;member SubscriptionNames : string []<br />&#160;&#160;static member Parse : xml:string -&gt; PublishSettings<br />&#160;&#160;static member ParseFile : publishSettingsFile:string -&gt; PublishSettings<br /><br />Full name: MBrace.Azure.Management.PublishSettings</div>
-<div class="tip" id="fs10">static member PublishSettings.Parse : xml:string -&gt; PublishSettings</div>
+<div class="tip" id="fs10">static member PublishSettings.ParseFile : publishSettingsFile:string -&gt; PublishSettings</div>
 <div class="tip" id="fs11">val subscription : Subscription<br /><br />Full name: 200-managing-azure-clusters.subscription</div>
 <div class="tip" id="fs12">member PublishSettings.GetSubscriptionById : subscriptionId:string -&gt; Subscription</div>
 <div class="tip" id="fs13">val myRegion : Region<br /><br />Full name: 200-managing-azure-clusters.myRegion</div>

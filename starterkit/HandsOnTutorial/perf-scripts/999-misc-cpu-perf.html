@@ -126,8 +126,8 @@
      } <span class="o">|&gt;</span>  <span onmouseout="hideTip(event, 'fs6', 26)" onmouseover="showTip(event, 'fs6', 26)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 27)" onmouseover="showTip(event, 'fs21', 27)" class="f">Run</span>
 
 
-<span class="c">// Run in the cluster, on a single randome worker, multi-threaded. This exploits the</span>
-<span class="c">// mutli-core nature of a single random machine in the cluster.  Performance</span>
+<span class="c">// Run in the cluster, on a single random worker, multi-threaded. This exploits the</span>
+<span class="c">// multi-core nature of a single random machine in the cluster.  Performance</span>
 <span class="c">// will depend on the specification of your machines in the cluster.</span>
 <span class="c">//</span>
 <span class="c">// Sample time: Real: 00:00:24.236, CPU: 00:00:03.000, GC gen0: 53, gen1: 10, gen2: 0</span>
@@ -155,7 +155,7 @@
             <span onmouseout="hideTip(event, 'fs14', 45)" onmouseover="showTip(event, 'fs14', 45)" class="i">numbers</span>
             <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 46)" onmouseover="showTip(event, 'fs16', 46)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 47)" onmouseover="showTip(event, 'fs23', 47)" class="i">splitInto</span> <span class="i">clusterWorkerCount</span>
             <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 48)" onmouseover="showTip(event, 'fs16', 48)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 49)" onmouseover="showTip(event, 'fs17', 49)" class="i">map</span>(<span class="k">fun</span> <span class="i">nums</span> <span class="k">-&gt;</span> 
-                 <span class="i">cloud</span> { 
+                 <span class="i">local</span> { 
                    <span class="k">return</span>
                        <span class="i">nums</span>
                        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 50)" onmouseover="showTip(event, 'fs16', 50)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 51)" onmouseover="showTip(event, 'fs23', 51)" class="i">splitInto</span> <span onmouseout="hideTip(event, 'fs1', 52)" onmouseover="showTip(event, 'fs1', 52)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 53)" onmouseover="showTip(event, 'fs24', 53)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 54)" onmouseover="showTip(event, 'fs25', 54)" class="i">ProcessorCount</span>
@@ -164,7 +164,7 @@
                              <span class="k">let</span> <span class="i">primes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs18', 58)" onmouseover="showTip(event, 'fs18', 58)" class="i">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 59)" onmouseover="showTip(event, 'fs19', 59)" class="i">getPrimes</span> <span class="i">n</span> 
                              <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs20', 60)" onmouseover="showTip(event, 'fs20', 60)" class="i">sprintf</span> <span class="s">&quot;calculated %d primes: %A on thread %d&quot;</span> <span class="i">primes</span><span class="o">.</span><span class="i">Length</span> <span class="i">primes</span> (<span onmouseout="hideTip(event, 'fs9', 61)" onmouseover="showTip(event, 'fs9', 61)" class="i">getThread</span>()) |])
                   })
-            <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span>
+            <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">ParallelBalanced</span>
         } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 62)" onmouseover="showTip(event, 'fs6', 62)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 63)" onmouseover="showTip(event, 'fs21', 63)" class="f">Run</span>
 </code></pre></td>
 </tr>

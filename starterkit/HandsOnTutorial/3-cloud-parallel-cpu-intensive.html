@@ -88,12 +88,12 @@ on the spec of your machine.</p>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">clusterPrimesTask</span> <span class="o">=</span>
     [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 21)" onmouseover="showTip(event, 'fs10', 21)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">30</span> <span class="k">-&gt;</span> 
-         <span class="i">cloud</span> { 
+         <span class="i">local</span> { 
             <span class="k">let</span> <span class="i">primes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="i">getPrimes</span> <span class="n">100000000</span>
             <span class="k">return</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">sprintf</span> <span class="s">&quot;calculated %d primes %A on machine &#39;%s&#39;&quot;</span> <span class="i">primes</span><span class="o">.</span><span class="i">Length</span> <span class="i">primes</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="i">MachineName</span> 
          }
     |]
-    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span>
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">ParallelBalanced</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 27)" onmouseover="showTip(event, 'fs6', 27)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="f">CreateProcess</span>
 
 

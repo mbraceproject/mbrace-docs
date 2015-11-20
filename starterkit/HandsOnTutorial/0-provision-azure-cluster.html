@@ -50,61 +50,66 @@ to provision an MBrace cluster using F# Interactive. In order to proceed, you wi
 to <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">sign up</a> for an Azure subscription. Once signed up, 
 <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p>
 
+<p>Before proceeding, please go to <code>AzureCluster.fsx</code> and set your azure authentication data and deployment preferences.
+Once done, we can reload the script.</p>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// replace with your local .publishsettings path</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">pubSettingsFile</span> <span class="o">=</span> <span class="s">@&quot;C:\path\to\my.publishsettings&quot;</span> 
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;AzureCluster.fsx&quot;</span>
 </code></pre></td>
 </tr>
 </table>
 
-<p>Next, specify your region and the size and number of your virtual machines, and create your cluster:</p>
+<p>Now let's create a new cluster by calling</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">deployment</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="f">ProvisionCluster</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>We can track the provisioning progress of the cluster by calling</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="f">ShowInfo</span>()
+</code></pre></td>
+</tr>
+</table>
+
+<p>Provisioning can take some time (approximately 5 minutes). 
+Once done, you can now connect to your cluster as follows:</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
-<span class="l">4: </span>
-<span class="l">5: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">region</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="i">North_Europe</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">vmSize</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="t">VMSize</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">Large</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">vmCount</span> <span class="o">=</span> <span class="n">4</span>
-    
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="i">deployment</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="t">SubscriptionManager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="f">Provision</span>(<span onmouseout="hideTip(event, 'fs4', 17)" onmouseover="showTip(event, 'fs4', 17)" class="i">pubSettingsFile</span>, <span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="i">region</span>, <span onmouseout="hideTip(event, 'fs8', 19)" onmouseover="showTip(event, 'fs8', 19)" class="i">vmSize</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs8', 20)" onmouseover="showTip(event, 'fs8', 20)" class="i">vmSize</span>, <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">vmCount</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="i">vmCount</span>) 
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="f">GetCluster</span>()
+
+<span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="f">ShowWorkers</span>()
 </code></pre></td>
 </tr>
 </table>
 
-<p>This will provision a 4-worker MBrace cluster of Large (A3) instances
-Provisioning can take some time (approximately 5 minutes). 
-You can now connect to your cluster as follows:</p>
+<p>You can now run any of the subsequent tutorials and examples in your Azure cluster.</p>
+
+<h2><a name="Modifying-the-cluster" class="anchor" href="#Modifying-the-cluster">Modifying the cluster</a></h2>
+
+<p>You can resize the cluster by calling</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="t">AzureCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="f">Connect</span>(<span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">Configuration</span>, <span class="i">logger</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="t">ConsoleLogger</span>(<span class="k">true</span>), <span class="i">logLevel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="t">LogLevel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 30)" onmouseover="showTip(event, 'fs21', 30)" class="i">Info</span>)
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs5', 16)" onmouseover="showTip(event, 'fs5', 16)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="f">ResizeCluster</span> <span class="n">20</span>
 </code></pre></td>
 </tr>
 </table>
 
-<p>You now have a connection to your cluster.</p>
-
-<p>However you should now also record your cluster details in <code>AzureCluster.fsx</code> by evaluating the following code snippet:</p>
+<p>When done, it is important to make sure that the cluster has been deprovisioned</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs22', 31)" onmouseover="showTip(event, 'fs22', 31)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 32)" onmouseover="showTip(event, 'fs23', 32)" class="f">RecordClusterDetails</span> (<span onmouseout="hideTip(event, 'fs4', 33)" onmouseover="showTip(event, 'fs4', 33)" class="i">pubSettingsFile</span>, <span onmouseout="hideTip(event, 'fs12', 34)" onmouseover="showTip(event, 'fs12', 34)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 35)" onmouseover="showTip(event, 'fs24', 35)" class="i">ServiceName</span>)
-</code></pre></td>
-</tr>
-</table>
-
-<p>This lets you reconnect to your cluster later by using the following:</p>
-
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-</pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;AzureCluster.fsx&quot;</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 36)" onmouseover="showTip(event, 'fs25', 36)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 37)" onmouseover="showTip(event, 'fs26', 37)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 38)" onmouseover="showTip(event, 'fs27', 38)" class="f">GetCluster</span>()
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="f">DeleteCluster</span>()
 </code></pre></td>
 </tr>
 </table>
@@ -120,30 +125,15 @@ see <a href="going-further/200-managing-azure-clusters.html">going-further/200-m
 <div class="tip" id="fs1">namespace MBrace</div>
 <div class="tip" id="fs2">namespace MBrace.Azure</div>
 <div class="tip" id="fs3">namespace MBrace.Azure.Management</div>
-<div class="tip" id="fs4">val pubSettingsFile : string<br /><br />Full name: 0-provision-azure-cluster.pubSettingsFile</div>
-<div class="tip" id="fs5">val region : Region<br /><br />Full name: 0-provision-azure-cluster.region</div>
-<div class="tip" id="fs6">type Region =<br />&#160;&#160;private new : regionId:string -&gt; Region<br />&#160;&#160;override Equals : other:obj -&gt; bool<br />&#160;&#160;override GetHashCode : unit -&gt; int<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member Id : string<br />&#160;&#160;static member Define : regionId:string -&gt; Region<br />&#160;&#160;static member Central_US : Region<br />&#160;&#160;static member East_Asia : Region<br />&#160;&#160;static member East_US : Region<br />&#160;&#160;static member East_US_2 : Region<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Management.Region</div>
-<div class="tip" id="fs7">property Region.North_Europe: Region</div>
-<div class="tip" id="fs8">val vmSize : VMSize<br /><br />Full name: 0-provision-azure-cluster.vmSize</div>
-<div class="tip" id="fs9">type VMSize =<br />&#160;&#160;private new : vmId:string -&gt; VMSize<br />&#160;&#160;override Equals : other:obj -&gt; bool<br />&#160;&#160;override GetHashCode : unit -&gt; int<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member Id : string<br />&#160;&#160;static member Define : vmId:string -&gt; VMSize<br />&#160;&#160;static member A0 : VMSize<br />&#160;&#160;static member A1 : VMSize<br />&#160;&#160;static member A10 : VMSize<br />&#160;&#160;static member A11 : VMSize<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Management.VMSize</div>
-<div class="tip" id="fs10">property VMSize.Large: VMSize</div>
-<div class="tip" id="fs11">val vmCount : int<br /><br />Full name: 0-provision-azure-cluster.vmCount</div>
-<div class="tip" id="fs12">val deployment : Deployment<br /><br />Full name: 0-provision-azure-cluster.deployment</div>
-<div class="tip" id="fs13">type SubscriptionManager =<br />&#160;&#160;private new : client:SubscriptionClient * defaultRegion:Region * _logger:ISystemLogger * logLevel:LogLevel -&gt; SubscriptionManager<br />&#160;&#160;member AttachLogger : l:ISystemLogger -&gt; IDisposable<br />&#160;&#160;member DeleteDeployment : serviceName:string -&gt; unit<br />&#160;&#160;member DeleteDeploymentAsync : serviceName:string -&gt; Async&lt;unit&gt;<br />&#160;&#160;member GetDeployment : serviceName:string -&gt; Deployment<br />&#160;&#160;member GetDeploymentAsync : serviceName:string -&gt; Async&lt;Deployment&gt;<br />&#160;&#160;member GetDeployments : unit -&gt; Deployment []<br />&#160;&#160;member GetDeploymentsAsync : unit -&gt; Async&lt;Deployment []&gt;<br />&#160;&#160;member Provision : vmCount:int * ?serviceName:string * ?region:Region * ?vmSize:VMSize * ?mbraceVersion:string * ?storageAccount:string * ?serviceBusAccount:string * ?cloudServicePackage:string * ?serviceLabel:string * ?enableDiagnostics:bool -&gt; Deployment<br />&#160;&#160;member ProvisionAsync : vmCount:int * ?serviceName:string * ?region:Region * ?vmSize:VMSize * ?mbraceVersion:string * ?storageAccount:string * ?serviceBusAccount:string * ?cloudServicePackage:string * ?serviceLabel:string * ?enableDiagnostics:bool -&gt; Async&lt;Deployment&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Management.SubscriptionManager</div>
-<div class="tip" id="fs14">static member SubscriptionManager.Provision : publishSettingsFile:string * region:Region * vmCount:int * ?vmSize:VMSize * ?cloudServicePackage:string * ?subscriptionId:string * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel * ?mbraceVersion:string * ?storageAccount:string * ?serviceBusAccount:string * ?serviceName:string * ?serviceLabel:string * ?enableDiagnostics:bool -&gt; Deployment</div>
-<div class="tip" id="fs15">val cluster : AzureCluster<br /><br />Full name: 0-provision-azure-cluster.cluster</div>
-<div class="tip" id="fs16">type AzureCluster =<br />&#160;&#160;inherit MBraceClient<br />&#160;&#160;private new : manager:ClusterManager * faultPolicy:FaultPolicy option -&gt; AzureCluster<br />&#160;&#160;member AttachLocalWorker : ?workerId:string * ?workingDirectory:string * ?maxWorkItems:int * ?logFile:string * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member AttachLocalWorkers : workerCount:int * ?maxWorkItems:int * ?logLevel:LogLevel * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkers : heartbeatThreshold:TimeSpan -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkersAsync : heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />&#160;&#160;member KillAllLocalWorkers : unit -&gt; unit<br />&#160;&#160;member KillLocalWorker : worker:IWorkerRef -&gt; bool<br />&#160;&#160;member Reset : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; unit<br />&#160;&#160;member ResetAsync : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.AzureCluster</div>
-<div class="tip" id="fs17">static member AzureCluster.Connect : deployment:Deployment * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : config:Configuration * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : storageConnectionString:string * serviceBusConnectionString:string * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster</div>
-<div class="tip" id="fs18">property Deployment.Configuration: Configuration</div>
-<div class="tip" id="fs19">type ConsoleLogger = MBrace.Runtime.ConsoleLogger<br /><br />Full name: MBrace.Azure.Management.ConsoleLogger</div>
-<div class="tip" id="fs20">type LogLevel = MBrace.Runtime.LogLevel<br /><br />Full name: MBrace.Azure.LogLevel</div>
-<div class="tip" id="fs21">MBrace.Runtime.LogLevel.Info: MBrace.Runtime.LogLevel = 4</div>
-<div class="tip" id="fs22">Multiple items<br />module Config<br /><br />--------------------<br />type Config =<br />&#160;&#160;private new : unit -&gt; Config<br />&#160;&#160;static member DefaultLogger : ISystemLogger<br />&#160;&#160;static member DefaultLogger : ISystemLogger with set<br /><br />Full name: MBrace.Azure.Management.Config</div>
-<div class="tip" id="fs23">val RecordClusterDetails : pubSettingsFile:string * clusterName:string -&gt; unit<br /><br />Full name: Config.RecordClusterDetails<br /><em><br /><br />&#160;Modify this file to record the cluster details</em></div>
-<div class="tip" id="fs24">property Deployment.ServiceName: string</div>
-<div class="tip" id="fs25">val cluster : MBrace.Azure.AzureCluster<br /><br />Full name: provisionazurecluster.cluster</div>
-<div class="tip" id="fs26">module Config</div>
-<div class="tip" id="fs27">val GetCluster : unit -&gt; MBrace.Azure.AzureCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Connect to the cluster </em></div>
+<div class="tip" id="fs4">val deployment : Deployment<br /><br />Full name: 0-provision-azure-cluster.deployment</div>
+<div class="tip" id="fs5">Multiple items<br />module Config<br /><br />--------------------<br />type Config =<br />&#160;&#160;private new : unit -&gt; Config<br />&#160;&#160;static member DefaultLogger : ISystemLogger<br />&#160;&#160;static member DefaultLogger : ISystemLogger with set<br /><br />Full name: MBrace.Azure.Management.Config</div>
+<div class="tip" id="fs6">val ProvisionCluster : unit -&gt; Deployment<br /><br />Full name: Config.ProvisionCluster<br /><em><br /><br />&#160;Provisions a new cluster to Azure with supplied parameters</em></div>
+<div class="tip" id="fs7">member Deployment.ShowInfo : ?showVmInstances:bool -&gt; unit</div>
+<div class="tip" id="fs8">val cluster : AzureCluster<br /><br />Full name: 0-provision-azure-cluster.cluster</div>
+<div class="tip" id="fs9">val GetCluster : unit -&gt; AzureCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Connect to the cluster </em></div>
+<div class="tip" id="fs10">member MBrace.Runtime.MBraceClient.ShowWorkers : unit -&gt; unit</div>
+<div class="tip" id="fs11">val ResizeCluster : newVmCount:int -&gt; unit<br /><br />Full name: Config.ResizeCluster<br /><em><br /><br />&#160;Resizes the cluster using an updated VM count</em></div>
+<div class="tip" id="fs12">val DeleteCluster : unit -&gt; unit<br /><br />Full name: Config.DeleteCluster<br /><em><br /><br />&#160;Deletes an existing cluster deployment</em></div>
 
         </div>
         <div class="span3">
