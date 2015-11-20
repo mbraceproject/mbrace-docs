@@ -19,21 +19,11 @@ open MBrace.Azure
 
 3. Build the solution to get the required packages 
 
-4. Open ``HandsOnTutorial/0-provision-azure-cluster.fsx`` script. Edit the region as necessary and insert the path to your publication settings file.
-   After editing your provisioning script will contains lines like this:
-
-       let region = Region.North_Europe
-       let vmSize = VMSize.Large
-       let vmCount = 4
-    
-       let deployment = 
-           SubscriptionManager.Provision
-               (pubSettingsFile, region, vmSize=vmSize, vmCount=vmCount) 
+4. Open the ``HandsOnTutorial/AzureCluster.fsx`` script. Insert the path to your publication settings file and edit any other Azure settings as required.
   
-   Then run the script - either from the command line or using send-to-interactive in your editor:
+5. Open the ``HandsOnTutorial/0-provision-azure-cluster.fsx`` script and follow the instruction up to the line
 
-       > cd HandsOnTutorial
-       > fsi 0-provision-azure-cluster.fsx 
+        let deployment = Config.ProvisionCluster()
  
    Diagnostics will be shown.  When created your cluster will now appear as a cloud service in the [Azure management portal](https://manage.windowsazure.com).
    If you have any trouble, [report an issue on github](https://github.com/mbraceproject/MBrace.Azure/issues).
