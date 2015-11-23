@@ -41,6 +41,7 @@ Examples:
 * [Example: KMeans Clustering with Incremental Notifications](starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html)
 * [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
 * [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
+* [Example: Using the R type provider with MBrace](starterkit/HandsOnTutorial/examples/200-using-r-provider.html)
 
 * [Example: Parallel Web Download](starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html)
 * [Example: Word Count](starterkit/HandsOnTutorial/examples/200-wordcount-example.html)
