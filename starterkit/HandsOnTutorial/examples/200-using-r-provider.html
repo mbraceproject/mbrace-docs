@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Using R Provider with MBrace
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Using-R-Provider-with-MBrace" class="anchor" href="#Using-R-Provider-with-MBrace">Using R Provider with MBrace</a></h1>
+
+<p>In this tutorial, you will learn how you can use MBrace to distribute code that utilises the 
+<a href="http://bluemountaincapital.github.io/FSharpRProvider/">R Type Provider</a>.</p>
+
+<h2><a name="Installing-R-across-you-cluster" class="anchor" href="#Installing-R-across-you-cluster">Installing R across you cluster</a></h2>
+
+<p>First of all, we define a bit of MBrace code that performs installation of R components on an MBrace cluster.
+This assumes that worker processes are run with elevated permisions. 
+As of MBrace.Azure v 1.1.5, bundled cloud service packages have elevated permissions enabled.
+If your cluster does not come with elevated permissions, please ensure that R is already installed across your workers.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Path to R installer mirror; change as appropriate</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="i">R_Installer</span> <span class="o">=</span> <span class="s">&quot;http://cran.cnr.berkeley.edu/bin/windows/base/R-3.2.2-win.exe&quot;</span>
+
+<span class="c">/// checks whether R is installed in the local computer</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 29)" onmouseover="showTip(event, 'fs19', 29)" class="f">isRInstalled</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 31)" onmouseover="showTip(event, 'fs21', 31)" class="i">Win32</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 32)" onmouseover="showTip(event, 'fs22', 32)" class="t">Registry</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 33)" onmouseover="showTip(event, 'fs23', 33)" class="i">LocalMachine</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 34)" onmouseover="showTip(event, 'fs24', 34)" class="f">OpenSubKey</span>(<span class="s">@&quot;SOFTWARE\R-core&quot;</span>) <span class="o">&lt;&gt;</span> <span class="k">null</span>
+
+<span class="c">/// Performs R installation operation on an MBrace cluster</span>
+<span class="c">/// Assumes workers running with elevated privileges</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 35)" onmouseover="showTip(event, 'fs25', 35)" class="f">installR</span> () <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">installRToCurrentWorker</span>() <span class="o">=</span> <span class="i">local</span> {
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs26', 36)" onmouseover="showTip(event, 'fs26', 36)" class="i">not</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs19', 37)" onmouseover="showTip(event, 'fs19', 37)" class="i">isRInstalled</span>() <span class="k">then</span>
+            <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs27', 38)" onmouseover="showTip(event, 'fs27', 38)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;Installing R in local machine.&quot;</span>
+            <span class="k">use</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 39)" onmouseover="showTip(event, 'fs1', 39)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 40)" onmouseover="showTip(event, 'fs4', 40)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 41)" onmouseover="showTip(event, 'fs28', 41)" class="i">WebClient</span>()
+            <span class="k">let</span> <span class="i">tmp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 42)" onmouseover="showTip(event, 'fs29', 42)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 43)" onmouseover="showTip(event, 'fs30', 43)" class="i">GetTempPath</span>()
+            <span class="k">let</span> <span class="i">tmpExe</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 44)" onmouseover="showTip(event, 'fs29', 44)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 45)" onmouseover="showTip(event, 'fs31', 45)" class="i">Combine</span>(<span class="i">tmp</span>, <span onmouseout="hideTip(event, 'fs29', 46)" onmouseover="showTip(event, 'fs29', 46)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 47)" onmouseover="showTip(event, 'fs32', 47)" class="i">ChangeExtension</span>(<span onmouseout="hideTip(event, 'fs29', 48)" onmouseover="showTip(event, 'fs29', 48)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 49)" onmouseover="showTip(event, 'fs33', 49)" class="i">GetRandomFileName</span>(),<span class="s">&quot;.exe&quot;</span>))
+            <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;Downloading R bits...&quot;</span>
+            <span class="k">do</span> <span class="i">wc</span><span class="o">.</span><span class="i">DownloadFile</span>(<span onmouseout="hideTip(event, 'fs34', 51)" onmouseover="showTip(event, 'fs34', 51)" class="i">Uri</span> <span onmouseout="hideTip(event, 'fs18', 52)" onmouseover="showTip(event, 'fs18', 52)" class="i">R_Installer</span>, <span class="i">tmpExe</span>)
+            <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;Installing R...&quot;</span>
+            <span class="k">let</span> <span class="i">psi</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs35', 54)" onmouseover="showTip(event, 'fs35', 54)" class="i">ProcessStartInfo</span>(<span class="i">tmpExe</span>, <span class="s">&quot;/COMPONENTS=x64,main,translation /SILENT&quot;</span>)
+            <span class="i">psi</span><span class="o">.</span><span class="i">UseShellExecute</span> <span class="o">&lt;-</span> <span class="k">false</span>
+            <span class="k">let</span> <span class="i">proc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs36', 55)" onmouseover="showTip(event, 'fs36', 55)" class="i">Process</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 56)" onmouseover="showTip(event, 'fs37', 56)" class="i">Start</span>(<span class="i">psi</span>)
+            <span class="i">proc</span><span class="o">.</span><span class="i">WaitForExit</span>()
+            <span class="k">if</span> <span class="i">proc</span><span class="o">.</span><span class="i">ExitCode</span> <span class="o">&lt;&gt;</span> <span class="n">0</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs38', 57)" onmouseover="showTip(event, 'fs38', 57)" class="i">invalidOp</span> <span class="s">&quot;failed to install R in local context&quot;</span>
+            <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs27', 58)" onmouseover="showTip(event, 'fs27', 58)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;R installation complete.&quot;</span>
+    }
+
+    <span class="c">// performs install operation for every worker in the current cluster   </span>
+    <span class="k">let!</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 59)" onmouseover="showTip(event, 'fs27', 59)" class="i">Cloud</span><span class="o">.</span><span class="i">ParallelEverywhere</span>(<span class="i">installRToCurrentWorker</span>())
+    <span class="k">return</span> ()
+}
+
+<span class="c">/// Parallel workflow that verifies whether R is successfully installed across the cluster</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 60)" onmouseover="showTip(event, 'fs39', 60)" class="f">isRInstalledCloud</span>() <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let!</span> <span class="i">results</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 61)" onmouseover="showTip(event, 'fs27', 61)" class="i">Cloud</span><span class="o">.</span><span class="i">ParallelEverywhere</span> (<span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs19', 62)" onmouseover="showTip(event, 'fs19', 62)" class="i">isRInstalled</span> ()})
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs40', 63)" onmouseover="showTip(event, 'fs40', 63)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 64)" onmouseover="showTip(event, 'fs41', 64)" class="i">forall</span> <span onmouseout="hideTip(event, 'fs42', 65)" onmouseover="showTip(event, 'fs42', 65)" class="i">id</span> <span class="i">results</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>We can now install R across the cluster by calling</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs25', 66)" onmouseover="showTip(event, 'fs25', 66)" class="f">installR</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 67)" onmouseover="showTip(event, 'fs15', 67)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs43', 68)" onmouseover="showTip(event, 'fs43', 68)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>And verify that the operation was successful</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs39', 69)" onmouseover="showTip(event, 'fs39', 69)" class="f">isRInstalledCloud</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 70)" onmouseover="showTip(event, 'fs15', 70)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs43', 71)" onmouseover="showTip(event, 'fs43', 71)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Using-the-R-provider-with-MBrace" class="anchor" href="#Using-the-R-provider-with-MBrace">Using the R provider with MBrace</a></h2>
+
+<p>We are now ready to begin using the R type provider with MBrace.
+Here is a simple, non-parallel example taken from the R Type Provider <a href="http://bluemountaincapital.github.io/FSharpRProvider/Statistics-QuickStart.html">tutorial</a>.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 72)" onmouseover="showTip(event, 'fs44', 72)" class="f">testR</span>() <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="c">// Random number generator</span>
+    <span class="k">let</span> <span class="i">rng</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs45', 73)" onmouseover="showTip(event, 'fs45', 73)" class="i">Random</span>()
+    <span class="k">let</span> <span class="i">rand</span> () <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">NextDouble</span>()
+
+    <span class="c">// Generate fake X1 and X2 </span>
+    <span class="k">let</span> <span class="i">X1s</span> <span class="o">=</span> [ <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="n">9</span> <span class="k">-&gt;</span> <span class="n">10.</span> <span class="o">*</span> <span class="i">rand</span> () ]
+    <span class="k">let</span> <span class="i">X2s</span> <span class="o">=</span> [ <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="n">9</span> <span class="k">-&gt;</span> <span class="n">5.</span> <span class="o">*</span> <span class="i">rand</span> () ]
+
+    <span class="c">// Build Ys, following the &quot;true&quot; model</span>
+    <span class="k">let</span> <span class="i">Ys</span> <span class="o">=</span> [ <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="n">9</span> <span class="k">-&gt;</span> <span class="n">5.</span> <span class="o">+</span> <span class="n">3.</span> <span class="o">*</span> <span class="i">X1s</span><span class="o">.</span>[<span class="i">i</span>] <span class="o">-</span> <span class="n">2.</span> <span class="o">*</span> <span class="i">X2s</span><span class="o">.</span>[<span class="i">i</span>] <span class="o">+</span> <span class="i">rand</span> () ]
+
+    <span class="k">let</span> <span class="i">dataset</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs46', 74)" onmouseover="showTip(event, 'fs46', 74)" class="i">namedParams</span> [
+            <span class="s">&quot;Y&quot;</span>, <span onmouseout="hideTip(event, 'fs47', 75)" onmouseover="showTip(event, 'fs47', 75)" class="i">box</span> <span class="i">Ys</span>;
+            <span class="s">&quot;X1&quot;</span>, <span onmouseout="hideTip(event, 'fs47', 76)" onmouseover="showTip(event, 'fs47', 76)" class="i">box</span> <span class="i">X1s</span>;
+            <span class="s">&quot;X2&quot;</span>, <span onmouseout="hideTip(event, 'fs47', 77)" onmouseover="showTip(event, 'fs47', 77)" class="i">box</span> <span class="i">X2s</span>; ]
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs48', 78)" onmouseover="showTip(event, 'fs48', 78)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 79)" onmouseover="showTip(event, 'fs49', 79)" class="i">data_frame</span>
+
+    <span class="k">let</span> <span class="i">result</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs48', 80)" onmouseover="showTip(event, 'fs48', 80)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 81)" onmouseover="showTip(event, 'fs50', 81)" class="i">lm</span>(<span class="i">formula</span> <span class="o">=</span> <span class="s">&quot;Y~X1+X2&quot;</span>, <span class="i">data</span> <span class="o">=</span> <span class="i">dataset</span>)
+
+    <span class="k">let</span> <span class="i">coefficients</span> <span class="o">=</span> <span class="i">result</span><span class="o">.</span><span class="i">AsList</span>()<span class="o">.</span>[<span class="s">&quot;coefficients&quot;</span>]<span class="o">.</span><span class="i">AsNumeric</span>()
+    <span class="k">let</span> <span class="i">residuals</span> <span class="o">=</span> <span class="i">result</span><span class="o">.</span><span class="i">AsList</span>()<span class="o">.</span>[<span class="s">&quot;residuals&quot;</span>]<span class="o">.</span><span class="i">AsNumeric</span>()
+    <span class="k">return</span> <span class="i">coefficients</span><span class="o">.</span><span class="i">ToArray</span>(), <span class="i">residuals</span><span class="o">.</span><span class="i">ToArray</span>()
+}
+
+<span onmouseout="hideTip(event, 'fs15', 82)" onmouseover="showTip(event, 'fs15', 82)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs43', 83)" onmouseover="showTip(event, 'fs43', 83)" class="f">Run</span> (<span onmouseout="hideTip(event, 'fs44', 84)" onmouseover="showTip(event, 'fs44', 84)" class="f">testR</span>())
+</code></pre></td>
+</tr>
+</table>
+
+<p>In this tutorial, you've learned how to use the R type provider using MBrace.</p>
+
+<p>Continue with further samples to learn more about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace System.IO.Compression</div>
+<div class="tip" id="fs4">namespace System.Net</div>
+<div class="tip" id="fs5">namespace System.Numerics</div>
+<div class="tip" id="fs6">namespace System.Diagnostics</div>
+<div class="tip" id="fs7">namespace RDotNet</div>
+<div class="tip" id="fs8">namespace RProvider</div>
+<div class="tip" id="fs9">namespace RProvider.graphics</div>
+<div class="tip" id="fs10">namespace RProvider.stats</div>
+<div class="tip" id="fs11">namespace MBrace</div>
+<div class="tip" id="fs12">namespace MBrace.Core</div>
+<div class="tip" id="fs13">namespace MBrace.Library</div>
+<div class="tip" id="fs14">namespace MBrace.Flow</div>
+<div class="tip" id="fs15">Multiple items<br />val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-using-r-provider.cluster<br /><br />--------------------<br />namespace RProvider.cluster</div>
+<div class="tip" id="fs16">module Config</div>
+<div class="tip" id="fs17">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs18">val R_Installer : string<br /><br />Full name: 200-using-r-provider.R_Installer<br /><em><br /><br />&#160;Path to R installer mirror; change as appropriate</em></div>
+<div class="tip" id="fs19">val isRInstalled : unit -&gt; bool<br /><br />Full name: 200-using-r-provider.isRInstalled<br /><em><br /><br />&#160;checks whether R is installed in the local computer</em></div>
+<div class="tip" id="fs20">namespace Microsoft</div>
+<div class="tip" id="fs21">namespace Microsoft.Win32</div>
+<div class="tip" id="fs22">type Registry =<br />&#160;&#160;static val CurrentUser : RegistryKey<br />&#160;&#160;static val LocalMachine : RegistryKey<br />&#160;&#160;static val ClassesRoot : RegistryKey<br />&#160;&#160;static val Users : RegistryKey<br />&#160;&#160;static val PerformanceData : RegistryKey<br />&#160;&#160;static val CurrentConfig : RegistryKey<br />&#160;&#160;static val DynData : RegistryKey<br />&#160;&#160;static member GetValue : keyName:string * valueName:string * defaultValue:obj -&gt; obj<br />&#160;&#160;static member SetValue : keyName:string * valueName:string * value:obj -&gt; unit + 1 overload<br /><br />Full name: Microsoft.Win32.Registry</div>
+<div class="tip" id="fs23">field Win32.Registry.LocalMachine</div>
+<div class="tip" id="fs24">Win32.RegistryKey.OpenSubKey(name: string) : Win32.RegistryKey<br />Win32.RegistryKey.OpenSubKey(name: string, permissionCheck: Win32.RegistryKeyPermissionCheck) : Win32.RegistryKey<br />Win32.RegistryKey.OpenSubKey(name: string, writable: bool) : Win32.RegistryKey<br />Win32.RegistryKey.OpenSubKey(name: string, permissionCheck: Win32.RegistryKeyPermissionCheck, rights: Security.AccessControl.RegistryRights) : Win32.RegistryKey</div>
+<div class="tip" id="fs25">val installR : unit -&gt; &#39;a<br /><br />Full name: 200-using-r-provider.installR<br /><em><br /><br />&#160;Performs R installation operation on an MBrace cluster<br />&#160;Assumes workers running with elevated privileges</em></div>
+<div class="tip" id="fs26">val not : value:bool -&gt; bool<br /><br />Full name: Microsoft.FSharp.Core.Operators.not</div>
+<div class="tip" id="fs27">module Cloud<br /><br />from MBrace.Library</div>
+<div class="tip" id="fs28">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />WebClient() : unit</div>
+<div class="tip" id="fs29">type Path =<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member GetDirectoryName : path:string -&gt; string<br />&#160;&#160;static member GetExtension : path:string -&gt; string<br />&#160;&#160;static member GetFileName : path:string -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Path</div>
+<div class="tip" id="fs30">Path.GetTempPath() : string</div>
+<div class="tip" id="fs31">Path.Combine([&lt;ParamArray&gt;] paths: string []) : string<br />Path.Combine(path1: string, path2: string) : string<br />Path.Combine(path1: string, path2: string, path3: string) : string<br />Path.Combine(path1: string, path2: string, path3: string, path4: string) : string</div>
+<div class="tip" id="fs32">Path.ChangeExtension(path: string, extension: string) : string</div>
+<div class="tip" id="fs33">Path.GetRandomFileName() : string</div>
+<div class="tip" id="fs34">Multiple items<br />type Uri =<br />&#160;&#160;new : uriString:string -&gt; Uri + 5 overloads<br />&#160;&#160;member AbsolutePath : string<br />&#160;&#160;member AbsoluteUri : string<br />&#160;&#160;member Authority : string<br />&#160;&#160;member DnsSafeHost : string<br />&#160;&#160;member Equals : comparand:obj -&gt; bool<br />&#160;&#160;member Fragment : string<br />&#160;&#160;member GetComponents : components:UriComponents * format:UriFormat -&gt; string<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member GetLeftPart : part:UriPartial -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.Uri<br /><br />--------------------<br />Uri(uriString: string) : unit<br />Uri(uriString: string, uriKind: UriKind) : unit<br />Uri(baseUri: Uri, relativeUri: string) : unit<br />Uri(baseUri: Uri, relativeUri: Uri) : unit</div>
+<div class="tip" id="fs35">Multiple items<br />type ProcessStartInfo =<br />&#160;&#160;new : unit -&gt; ProcessStartInfo + 2 overloads<br />&#160;&#160;member Arguments : string with get, set<br />&#160;&#160;member CreateNoWindow : bool with get, set<br />&#160;&#160;member Domain : string with get, set<br />&#160;&#160;member EnvironmentVariables : StringDictionary<br />&#160;&#160;member ErrorDialog : bool with get, set<br />&#160;&#160;member ErrorDialogParentHandle : nativeint with get, set<br />&#160;&#160;member FileName : string with get, set<br />&#160;&#160;member LoadUserProfile : bool with get, set<br />&#160;&#160;member Password : SecureString with get, set<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.ProcessStartInfo<br /><br />--------------------<br />ProcessStartInfo() : unit<br />ProcessStartInfo(fileName: string) : unit<br />ProcessStartInfo(fileName: string, arguments: string) : unit</div>
+<div class="tip" id="fs36">Multiple items<br />type Process =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; Process<br />&#160;&#160;member BasePriority : int<br />&#160;&#160;member BeginErrorReadLine : unit -&gt; unit<br />&#160;&#160;member BeginOutputReadLine : unit -&gt; unit<br />&#160;&#160;member CancelErrorRead : unit -&gt; unit<br />&#160;&#160;member CancelOutputRead : unit -&gt; unit<br />&#160;&#160;member Close : unit -&gt; unit<br />&#160;&#160;member CloseMainWindow : unit -&gt; bool<br />&#160;&#160;member EnableRaisingEvents : bool with get, set<br />&#160;&#160;member ExitCode : int<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.Process<br /><br />--------------------<br />Process() : unit</div>
+<div class="tip" id="fs37">Process.Start(startInfo: ProcessStartInfo) : Process<br />Process.Start(fileName: string) : Process<br />Process.Start(fileName: string, arguments: string) : Process<br />Process.Start(fileName: string, userName: string, password: Security.SecureString, domain: string) : Process<br />Process.Start(fileName: string, arguments: string, userName: string, password: Security.SecureString, domain: string) : Process</div>
+<div class="tip" id="fs38">val invalidOp : message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.invalidOp</div>
+<div class="tip" id="fs39">val isRInstalledCloud : unit -&gt; &#39;a<br /><br />Full name: 200-using-r-provider.isRInstalledCloud<br /><em><br /><br />&#160;Parallel workflow that verifies whether R is successfully installed across the cluster</em></div>
+<div class="tip" id="fs40">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs41">val forall : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; bool<br /><br />Full name: Microsoft.FSharp.Collections.Array.forall</div>
+<div class="tip" id="fs42">val id : x:&#39;T -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.id</div>
+<div class="tip" id="fs43">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs44">val testR : unit -&gt; &#39;a<br /><br />Full name: 200-using-r-provider.testR</div>
+<div class="tip" id="fs45">Multiple items<br />type Random =<br />&#160;&#160;new : unit -&gt; Random + 1 overload<br />&#160;&#160;member Next : unit -&gt; int + 2 overloads<br />&#160;&#160;member NextBytes : buffer:byte[] -&gt; unit<br />&#160;&#160;member NextDouble : unit -&gt; float<br /><br />Full name: System.Random<br /><br />--------------------<br />Random() : unit<br />Random(Seed: int) : unit</div>
+<div class="tip" id="fs46">val namedParams : s:seq&lt;string * &#39;a&gt; -&gt; Collections.Generic.IDictionary&lt;string,obj&gt;<br /><br />Full name: RProvider.Helpers.namedParams</div>
+<div class="tip" id="fs47">val box : value:&#39;T -&gt; obj<br /><br />Full name: Microsoft.FSharp.Core.Operators.box</div>
+<div class="tip" id="fs48">type R =<br />&#160;&#160;static member AIC : ?object: obj * ?___: obj * ?k: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member ARMAacf : ?ar: obj * ?ma: obj * ?lag_max: obj * ?pacf: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member ARMAtoMA : ?ar: obj * ?ma: obj * ?lag_max: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member BIC : ?object: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member Box_test : ?x: obj * ?lag: obj * ?type: obj * ?fitdf: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member C : ?object: obj * ?contr: obj * ?how_many: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member D : ?expr: obj * ?name: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member Gamma : ?link: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member HoltWinters : ?x: obj * ?alpha: obj * ?beta: obj * ?gamma: obj * ?seasonal: obj * ?start_periods: obj * ?l_start: obj * ?b_start: obj * ?s_start: obj * ?optim_start: obj * ?optim_control: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member IQR : ?x: obj * ?na_rm: obj * ?type: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;...<br /><br />Full name: RProvider.stats.R<br /><em><br /><br />R statistical functions.</em></div>
+<div class="tip" id="fs49">R.data_frame(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : SymbolicExpression<br />R.data_frame(?___: obj, ?row_names: obj, ?check_rows: obj, ?check_names: obj, ?stringsAsFactors: obj, ?paramArray: obj []) : SymbolicExpression<br /><em><br /><br />Data Frames</em></div>
+<div class="tip" id="fs50">R.lm(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : SymbolicExpression<br />R.lm(?formula: obj, ?data: obj, ?subset: obj, ?weights: obj, ?na_action: obj, ?method: obj, ?model: obj, ?x: obj, ?y: obj, ?qr: obj, ?singular_ok: obj, ?contrasts: obj, ?offset: obj, ?___: obj, ?paramArray: obj []) : SymbolicExpression<br /><em><br /><br />Fitting Linear Models</em></div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
