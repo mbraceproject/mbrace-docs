@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>FSharpFuncUtil - MBrace.Core</title>
+    <title>FSharpFunc - MBrace.Core</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
@@ -40,11 +40,14 @@
 
 
 
-<h1>FSharpFuncUtil</h1>
+<h1>FSharpFunc</h1>
 <p>
-  <span>Namespace: MBrace.Core.Internals</span><br />
+  <span>Namespace: MBrace.Core.Internals.CSharpProxy</span><br />
 </p>
 <div class="xmldoc">
+<p>C# friendly wrapper functions for F# lambdas</p>
+
+
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -55,10 +58,94 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '549', 549)" onmouseover="showTip(event, '549', 549)">
+          <code onmouseout="hideTip(event, '679', 679)" onmouseover="showTip(event, '679', 679)">
             Create(func)
           </code>
-          <div class="tip" id="549">
+          <div class="tip" id="679">
+            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '680', 680)" onmouseover="showTip(event, '680', 680)">
+            Create(func)
+          </code>
+          <div class="tip" id="680">
+            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '681', 681)" onmouseover="showTip(event, '681', 681)">
+            Create(func)
+          </code>
+          <div class="tip" id="681">
+            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a, 'b          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '682', 682)" onmouseover="showTip(event, '682', 682)">
+            Create(func)
+          </code>
+          <div class="tip" id="682">
+            <strong>Signature:</strong> func:Action&lt;&#39;a&gt; -&gt; &#39;a -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '683', 683)" onmouseover="showTip(event, '683', 683)">
+            Create(func)
+          </code>
+          <div class="tip" id="683">
+            <strong>Signature:</strong> func:Action -&gt; unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '684', 684)" onmouseover="showTip(event, '684', 684)">
+            Create(func)
+          </code>
+          <div class="tip" id="684">
+            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d,&#39;e&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '685', 685)" onmouseover="showTip(event, '685', 685)">
+            Create(func)
+          </code>
+          <div class="tip" id="685">
             <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
         </td>
@@ -69,10 +156,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '550', 550)" onmouseover="showTip(event, '550', 550)">
+          <code onmouseout="hideTip(event, '686', 686)" onmouseover="showTip(event, '686', 686)">
             Create(func)
           </code>
-          <div class="tip" id="550">
+          <div class="tip" id="686">
             <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c<br />
                           <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
         </td>
@@ -83,10 +170,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '551', 551)" onmouseover="showTip(event, '551', 551)">
+          <code onmouseout="hideTip(event, '687', 687)" onmouseover="showTip(event, '687', 687)">
             Create(func)
           </code>
-          <div class="tip" id="551">
+          <div class="tip" id="687">
             <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b<br />
                           <strong>Type parameters:</strong> 'a, 'b          </div>
         </td>
@@ -97,38 +184,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '552', 552)" onmouseover="showTip(event, '552', 552)">
-            ToFSharpFunc(func)
+          <code onmouseout="hideTip(event, '688', 688)" onmouseover="showTip(event, '688', 688)">
+            Create(func)
           </code>
-          <div class="tip" id="552">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '553', 553)" onmouseover="showTip(event, '553', 553)">
-            ToFSharpFunc(func)
-          </code>
-          <div class="tip" id="553">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '554', 554)" onmouseover="showTip(event, '554', 554)">
-            ToFSharpFunc(func)
-          </code>
-          <div class="tip" id="554">
+          <div class="tip" id="688">
             <strong>Signature:</strong> func:Func&lt;&#39;a&gt; -&gt; unit -&gt; &#39;a<br />
                           <strong>Type parameters:</strong> 'a          </div>
         </td>
@@ -139,24 +198,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '555', 555)" onmouseover="showTip(event, '555', 555)">
-            ToFSharpFunc(func)
+          <code onmouseout="hideTip(event, '689', 689)" onmouseover="showTip(event, '689', 689)">
+            Create(func)
           </code>
-          <div class="tip" id="555">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b<br />
-                          <strong>Type parameters:</strong> 'a, 'b          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '556', 556)" onmouseover="showTip(event, '556', 556)">
-            ToFSharpFunc(func)
-          </code>
-          <div class="tip" id="556">
+          <div class="tip" id="689">
             <strong>Signature:</strong> func:Converter&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b<br />
                           <strong>Type parameters:</strong> 'a, 'b          </div>
         </td>

@@ -58,10 +58,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '130', 130)" onmouseover="showTip(event, '130', 130)">
+          <code onmouseout="hideTip(event, '129', 129)" onmouseover="showTip(event, '129', 129)">
             AsLocal(workflow)
           </code>
-          <div class="tip" id="130">
+          <div class="tip" id="129">
             <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -77,15 +77,32 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '131', 131)" onmouseover="showTip(event, '131', 131)">
+          <code onmouseout="hideTip(event, '130', 130)" onmouseover="showTip(event, '130', 130)">
             AwaitProcess(...)
           </code>
-          <div class="tip" id="131">
+          <div class="tip" id="130">
             <strong>Signature:</strong> (cloudProcess:ICloudProcess&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously waits for a cloud process to complete and returns its result.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '131', 131)" onmouseover="showTip(event, '131', 131)">
+            AwaitTask(task, timeoutMilliseconds)
+          </code>
+          <div class="tip" id="131">
+            <strong>Signature:</strong> (task:Task * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously awaits a System.Threading.Task for completion.</p>
 
 
 
@@ -419,8 +436,8 @@ This operator may create distribution.</p>
             Ignore(workflow)
           </code>
           <div class="tip" id="150">
-            <strong>Signature:</strong> workflow:&#39;?7872 -&gt; Cloud&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> '?7872, 'T          </div>
+            <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Performs a cloud computations, discarding its result</p>
@@ -488,8 +505,8 @@ Should be used with combinators that support worker targeting like Cloud.Paralle
             Logf(fmt)
           </code>
           <div class="tip" id="154">
-            <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?7880,LocalCloud&lt;unit&gt;&gt; -&gt; &#39;?7880<br />
-                          <strong>Type parameters:</strong> '?7880          </div>
+            <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?7878,LocalCloud&lt;unit&gt;&gt; -&gt; &#39;?7878<br />
+                          <strong>Type parameters:</strong> '?7878          </div>
         </td>
         <td class="xmldoc">
           <p>Writes an entry to a logging provider, if it exists.</p>
