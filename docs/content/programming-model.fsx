@@ -55,6 +55,7 @@ More Techniques:
 * [Launching Python and Other Executables](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
 * [Prototyping a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
 * [Running MBrace in the Local Machine Thread Pool](starterkit/HandsOnTutorial/going-further/400-advanced-core-thread-pool.html)
+* [Cloud Gotchas](starterkit/HandsOnTutorial/going-further/400-cloud-gotchas.html)
 
 What follows is a general overview. 
 
