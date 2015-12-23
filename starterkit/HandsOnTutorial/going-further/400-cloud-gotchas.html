@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>400-cloud-gotchas</title>
+    <title>Cloud Gotchas
+</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
     <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
@@ -37,396 +38,221 @@
       <div class="row">
         <div class="span9" id="main">
           
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">  1: </span>
-<span class="l">  2: </span>
-<span class="l">  3: </span>
-<span class="l">  4: </span>
-<span class="l">  5: </span>
-<span class="l">  6: </span>
-<span class="l">  7: </span>
-<span class="l">  8: </span>
-<span class="l">  9: </span>
-<span class="l"> 10: </span>
-<span class="l"> 11: </span>
-<span class="l"> 12: </span>
-<span class="l"> 13: </span>
-<span class="l"> 14: </span>
-<span class="l"> 15: </span>
-<span class="l"> 16: </span>
-<span class="l"> 17: </span>
-<span class="l"> 18: </span>
-<span class="l"> 19: </span>
-<span class="l"> 20: </span>
-<span class="l"> 21: </span>
-<span class="l"> 22: </span>
-<span class="l"> 23: </span>
-<span class="l"> 24: </span>
-<span class="l"> 25: </span>
-<span class="l"> 26: </span>
-<span class="l"> 27: </span>
-<span class="l"> 28: </span>
-<span class="l"> 29: </span>
-<span class="l"> 30: </span>
-<span class="l"> 31: </span>
-<span class="l"> 32: </span>
-<span class="l"> 33: </span>
-<span class="l"> 34: </span>
-<span class="l"> 35: </span>
-<span class="l"> 36: </span>
-<span class="l"> 37: </span>
-<span class="l"> 38: </span>
-<span class="l"> 39: </span>
-<span class="l"> 40: </span>
-<span class="l"> 41: </span>
-<span class="l"> 42: </span>
-<span class="l"> 43: </span>
-<span class="l"> 44: </span>
-<span class="l"> 45: </span>
-<span class="l"> 46: </span>
-<span class="l"> 47: </span>
-<span class="l"> 48: </span>
-<span class="l"> 49: </span>
-<span class="l"> 50: </span>
-<span class="l"> 51: </span>
-<span class="l"> 52: </span>
-<span class="l"> 53: </span>
-<span class="l"> 54: </span>
-<span class="l"> 55: </span>
-<span class="l"> 56: </span>
-<span class="l"> 57: </span>
-<span class="l"> 58: </span>
-<span class="l"> 59: </span>
-<span class="l"> 60: </span>
-<span class="l"> 61: </span>
-<span class="l"> 62: </span>
-<span class="l"> 63: </span>
-<span class="l"> 64: </span>
-<span class="l"> 65: </span>
-<span class="l"> 66: </span>
-<span class="l"> 67: </span>
-<span class="l"> 68: </span>
-<span class="l"> 69: </span>
-<span class="l"> 70: </span>
-<span class="l"> 71: </span>
-<span class="l"> 72: </span>
-<span class="l"> 73: </span>
-<span class="l"> 74: </span>
-<span class="l"> 75: </span>
-<span class="l"> 76: </span>
-<span class="l"> 77: </span>
-<span class="l"> 78: </span>
-<span class="l"> 79: </span>
-<span class="l"> 80: </span>
-<span class="l"> 81: </span>
-<span class="l"> 82: </span>
-<span class="l"> 83: </span>
-<span class="l"> 84: </span>
-<span class="l"> 85: </span>
-<span class="l"> 86: </span>
-<span class="l"> 87: </span>
-<span class="l"> 88: </span>
-<span class="l"> 89: </span>
-<span class="l"> 90: </span>
-<span class="l"> 91: </span>
-<span class="l"> 92: </span>
-<span class="l"> 93: </span>
-<span class="l"> 94: </span>
-<span class="l"> 95: </span>
-<span class="l"> 96: </span>
-<span class="l"> 97: </span>
-<span class="l"> 98: </span>
-<span class="l"> 99: </span>
-<span class="l">100: </span>
-<span class="l">101: </span>
-<span class="l">102: </span>
-<span class="l">103: </span>
-<span class="l">104: </span>
-<span class="l">105: </span>
-<span class="l">106: </span>
-<span class="l">107: </span>
-<span class="l">108: </span>
-<span class="l">109: </span>
-<span class="l">110: </span>
-<span class="l">111: </span>
-<span class="l">112: </span>
-<span class="l">113: </span>
-<span class="l">114: </span>
-<span class="l">115: </span>
-<span class="l">116: </span>
-<span class="l">117: </span>
-<span class="l">118: </span>
-<span class="l">119: </span>
-<span class="l">120: </span>
-<span class="l">121: </span>
-<span class="l">122: </span>
-<span class="l">123: </span>
-<span class="l">124: </span>
-<span class="l">125: </span>
-<span class="l">126: </span>
-<span class="l">127: </span>
-<span class="l">128: </span>
-<span class="l">129: </span>
-<span class="l">130: </span>
-<span class="l">131: </span>
-<span class="l">132: </span>
-<span class="l">133: </span>
-<span class="l">134: </span>
-<span class="l">135: </span>
-<span class="l">136: </span>
-<span class="l">137: </span>
-<span class="l">138: </span>
-<span class="l">139: </span>
-<span class="l">140: </span>
-<span class="l">141: </span>
-<span class="l">142: </span>
-<span class="l">143: </span>
-<span class="l">144: </span>
-<span class="l">145: </span>
-<span class="l">146: </span>
-<span class="l">147: </span>
-<span class="l">148: </span>
-<span class="l">149: </span>
-<span class="l">150: </span>
-<span class="l">151: </span>
-<span class="l">152: </span>
-<span class="l">153: </span>
-<span class="l">154: </span>
-<span class="l">155: </span>
-<span class="l">156: </span>
-<span class="l">157: </span>
-<span class="l">158: </span>
-<span class="l">159: </span>
-<span class="l">160: </span>
-<span class="l">161: </span>
-<span class="l">162: </span>
-<span class="l">163: </span>
-<span class="l">164: </span>
-<span class="l">165: </span>
-<span class="l">166: </span>
-<span class="l">167: </span>
-<span class="l">168: </span>
-<span class="l">169: </span>
-<span class="l">170: </span>
-<span class="l">171: </span>
-<span class="l">172: </span>
-<span class="l">173: </span>
-<span class="l">174: </span>
-<span class="l">175: </span>
-<span class="l">176: </span>
-<span class="l">177: </span>
-<span class="l">178: </span>
-<span class="l">179: </span>
-<span class="l">180: </span>
-<span class="l">181: </span>
-<span class="l">182: </span>
-<span class="l">183: </span>
-<span class="l">184: </span>
-<span class="l">185: </span>
-<span class="l">186: </span>
-<span class="l">187: </span>
-<span class="l">188: </span>
-<span class="l">189: </span>
-<span class="l">190: </span>
-<span class="l">191: </span>
-<span class="l">192: </span>
-<span class="l">193: </span>
+<h1><a name="Cloud-Gotchas" class="anchor" href="#Cloud-Gotchas">Cloud Gotchas</a></h1>
+
+<p>This chapter explores more advanced topics of MBrace and the cloud.
+In particular, we will look at common misconceptions and errors that occur
+when programming in MBrace.</p>
+
+<p>Follow the instructions and complete the assignments described below.</p>
+
+<h2><a name="Local-vs-Remote-execution" class="anchor" href="#Local-vs-Remote-execution">Local vs. Remote execution</a></h2>
+
+<p>MBrace makes it possible to execute cloud workflows in the local process
+just as if they were asynchronous workflows: parallelism is achieved using the local threadpool.
+This can be done using the cluster.Runlocally() method:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;../ThespianCluster.fsx&quot;</span>
-<span class="c">//#load &quot;../AzureCluster.fsx&quot;</span>
-
-<span class="c">// Note: Before running, choose your cluster version at the top of this script.</span>
-<span class="c">// If necessary, edit AzureCluster.fsx to enter your connection strings.</span>
-
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="i">IO</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">Core</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 6)" onmouseover="showTip(event, 'fs3', 6)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">Core</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">BuilderAsyncExtensions</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="i">Flow</span>
-
-<span class="c">// Initialize client object to an MBrace cluster</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 11)" onmouseover="showTip(event, 'fs7', 11)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 12)" onmouseover="showTip(event, 'fs8', 12)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="f">GetCluster</span>() 
-
-<span class="c">(*</span>
-
-<span class="c"># Cloud Gotchas</span>
-
-<span class="c">This chapter explores more advanced topics of MBrace and the cloud.</span>
-<span class="c">In particular, we will look at common misconceptions and errors that occur</span>
-<span class="c">when programming in MBrace.</span>
-
-<span class="c">Follow the instructions and complete the assignments described below.</span>
-
-<span class="c">## Local vs. Remote execution</span>
-
-<span class="c">MBrace makes it possible to execute cloud workflows in the local process</span>
-<span class="c">just as if they were asynchronous workflows: parallelism is achieved using the local threadpool.</span>
-<span class="c">This can be done using the cluster.Runlocally() method:</span>
-
-<span class="c">*)</span>
-
-<span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">MachineName</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 16)" onmouseover="showTip(event, 'fs7', 16)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="f">Run</span>         <span class="c">// local execution</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">MachineName</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 16)" onmouseover="showTip(event, 'fs7', 16)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="f">Run</span>         <span class="c">// local execution</span>
 <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs10', 18)" onmouseover="showTip(event, 'fs10', 18)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="i">MachineName</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 20)" onmouseover="showTip(event, 'fs7', 20)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="f">RunLocally</span>  <span class="c">// remote execution</span>
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>As demonstrated above, local versus remote execution comes with minute differences w.r.t.
+to the computed result as well as observed side-effects.</p>
 
-<span class="c">As demonstrated above, local versus remote execution comes with minute differences w.r.t.</span>
-<span class="c">to the computed result as well as observed side-effects.</span>
+<p>Let's try a simple example. Just by looking at the example below, 
+can you guess what the difference will be when run locally as opposed to remotely?</p>
 
-<span class="c">Let&#39;s try a simple example. Just by looking at the example below, </span>
-<span class="c">can you guess what the difference will be when run locally as opposed to remotely?</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> { <span class="k">let</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">printfn</span> <span class="s">&quot;I am a side-effect!&quot;</span> <span class="k">in</span> <span class="k">return</span> <span class="n">42</span> }
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">*)</span>
+<p>While the above is a mostly harmless example, what can be said about the example below?</p>
 
-<span class="i">cloud</span> { <span class="k">let</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">printfn</span> <span class="s">&quot;I am a side-effect!&quot;</span> <span class="k">in</span> <span class="k">return</span> <span class="n">42</span> }
-
-<span class="c">(*</span>
-
-<span class="c">While the above is a mostly harmless example, what can be said about the example below?</span>
-
-<span class="c">*)</span>
-
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 23)" onmouseover="showTip(event, 'fs1', 23)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 24)" onmouseover="showTip(event, 'fs2', 24)" class="i">IO</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 23)" onmouseover="showTip(event, 'fs1', 23)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 24)" onmouseover="showTip(event, 'fs2', 24)" class="i">IO</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 25)" onmouseover="showTip(event, 'fs15', 25)" class="i">currentDirectory</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="t">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 27)" onmouseover="showTip(event, 'fs17', 27)" class="f">GetCurrentDirectory</span>()
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="i">getContents</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="i">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">EnumerateFiles</span> <span onmouseout="hideTip(event, 'fs15', 31)" onmouseover="showTip(event, 'fs15', 31)" class="i">currentDirectory</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">toArray</span> }
 
 <span onmouseout="hideTip(event, 'fs7', 34)" onmouseover="showTip(event, 'fs7', 34)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 35)" onmouseover="showTip(event, 'fs13', 35)" class="f">RunLocally</span> <span onmouseout="hideTip(event, 'fs18', 36)" onmouseover="showTip(event, 'fs18', 36)" class="i">getContents</span>
 <span onmouseout="hideTip(event, 'fs7', 37)" onmouseover="showTip(event, 'fs7', 37)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 38)" onmouseover="showTip(event, 'fs12', 38)" class="f">Run</span> <span onmouseout="hideTip(event, 'fs18', 39)" onmouseover="showTip(event, 'fs18', 39)" class="i">getContents</span>
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>Why does the error happen? Can you suggest a way the above could be fixed?</p>
 
-<span class="c">Why does the error happen? Can you suggest a way the above could be fixed?</span>
+<h2><a name="Cloud-workflows-and-serialization-I" class="anchor" href="#Cloud-workflows-and-serialization-I">Cloud workflows and serialization I</a></h2>
 
+<p>It is often the case that our code relies on objects that are not serializable.
+But what happens when this code happens to be running in the cloud?</p>
 
-<span class="c">## Cloud workflows and serialization I</span>
-
-<span class="c">It is often the case that our code relies on objects that are not serializable.</span>
-<span class="c">But what happens when this code happens to be running in the cloud?</span>
-
-<span class="c">*)</span>
-
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 40)" onmouseover="showTip(event, 'fs22', 40)" class="i">downloader</span> <span class="o">=</span> <span class="i">cloud</span> {
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 40)" onmouseover="showTip(event, 'fs22', 40)" class="i">downloader</span> <span class="o">=</span> <span class="i">cloud</span> {
     <span class="k">let</span> <span class="i">client</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 41)" onmouseover="showTip(event, 'fs1', 41)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 42)" onmouseover="showTip(event, 'fs23', 42)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 43)" onmouseover="showTip(event, 'fs24', 43)" class="i">WebClient</span>()
     <span class="k">let!</span> <span class="i">downloadProc</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">CreateProcess</span>(<span class="i">cloud</span> { <span class="k">return</span> <span class="i">client</span><span class="o">.</span><span class="i">DownloadString</span>(<span class="s">&quot;www.fsharp.org&quot;</span>) })
     <span class="k">return</span> <span class="i">downloadProc</span><span class="o">.</span><span class="i">Result</span>
 }
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>What will happen if we attempt to execute the snippet above?</p>
 
-<span class="c">What will happen if we attempt to execute the snippet above?</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs7', 44)" onmouseover="showTip(event, 'fs7', 44)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 45)" onmouseover="showTip(event, 'fs12', 45)" class="f">Run</span>(<span onmouseout="hideTip(event, 'fs22', 46)" onmouseover="showTip(event, 'fs22', 46)" class="i">downloader</span>)
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">*)</span>
+<p>Assingment: can you rewrite the snippet above so that it no longer fails?
+Tip: can you detect what segments of the code entail transition to a different machine?</p>
 
-<span onmouseout="hideTip(event, 'fs7', 44)" onmouseover="showTip(event, 'fs7', 44)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 45)" onmouseover="showTip(event, 'fs12', 45)" class="f">Run</span>(<span onmouseout="hideTip(event, 'fs22', 46)" onmouseover="showTip(event, 'fs22', 46)" class="i">downloader</span>)
+<h2><a name="Cloud-workflows-and-serialization-II" class="anchor" href="#Cloud-workflows-and-serialization-II">Cloud workflows and serialization II</a></h2>
 
-<span class="c">(*</span>
+<p>Let us now consider the following type implementation:</p>
 
-<span class="c">Assingment: can you rewrite the snippet above so that it no longer fails?</span>
-<span class="c">Tip: can you detect what segments of the code entail transition to a different machine?</span>
-
-<span class="c">## Cloud workflows and serialization II</span>
-
-<span class="c">Let us now consider the following type implementation:</span>
-
-<span class="c">*)</span>
-
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs25', 47)" onmouseover="showTip(event, 'fs25', 47)" class="t">Session</span>() <span class="o">=</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs25', 47)" onmouseover="showTip(event, 'fs25', 47)" class="t">Session</span>() <span class="o">=</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 48)" onmouseover="showTip(event, 'fs26', 48)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 49)" onmouseover="showTip(event, 'fs26', 49)" class="i">cluster</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="i">value</span> <span class="o">=</span> <span class="n">41</span>
 
     <span class="k">member</span> <span onmouseout="hideTip(event, 'fs28', 51)" onmouseover="showTip(event, 'fs28', 51)" class="i">s</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 52)" onmouseover="showTip(event, 'fs29', 52)" class="f">Increment</span>() <span class="o">=</span>
         <span onmouseout="hideTip(event, 'fs26', 53)" onmouseover="showTip(event, 'fs26', 53)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 54)" onmouseover="showTip(event, 'fs12', 54)" class="f">Run</span>(<span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs27', 55)" onmouseover="showTip(event, 'fs27', 55)" class="i">value</span> <span class="o">+</span> <span class="n">1</span> })
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>Can you predict what will happen if we run the following line?</p>
 
-<span class="c">Can you predict what will happen if we run the following line?</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs25', 56)" onmouseover="showTip(event, 'fs25', 56)" class="t">Session</span>()<span class="o">.</span><span class="f">Increment</span>()
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">*)</span>
+<p>Can you fix the problem only by changing the Increment() implementation?</p>
 
-<span onmouseout="hideTip(event, 'fs25', 56)" onmouseover="showTip(event, 'fs25', 56)" class="t">Session</span>()<span class="o">.</span><span class="f">Increment</span>()
+<p>Now, let's try the following example:</p>
 
-<span class="c">(*</span>
-
-<span class="c">Can you fix the problem only by changing the Increment() implementation?</span>
-
-<span class="c">Now, let&#39;s try the following example:</span>
-
-<span class="c">*)</span>
-
-<span class="k">module</span> <span class="t">Session2</span> <span class="o">=</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">module</span> <span class="t">Session2</span> <span class="o">=</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 57)" onmouseover="showTip(event, 'fs30', 57)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs30', 58)" onmouseover="showTip(event, 'fs30', 58)" class="i">cluster</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 59)" onmouseover="showTip(event, 'fs31', 59)" class="i">value</span> <span class="o">=</span> <span class="n">41</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 60)" onmouseover="showTip(event, 'fs32', 60)" class="f">increment</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fs30', 61)" onmouseover="showTip(event, 'fs30', 61)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 62)" onmouseover="showTip(event, 'fs12', 62)" class="f">Run</span>(<span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs31', 63)" onmouseover="showTip(event, 'fs31', 63)" class="i">value</span> <span class="o">+</span> <span class="n">1</span>})
 
 <span onmouseout="hideTip(event, 'fs33', 64)" onmouseover="showTip(event, 'fs33', 64)" class="t">Session2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 65)" onmouseover="showTip(event, 'fs32', 65)" class="f">increment</span>()
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>Can you explain why the behaviour of the above differs from the original example?</p>
 
-<span class="c">Can you explain why the behaviour of the above differs from the original example?</span>
+<h2><a name="Cloud-workflows-and-object-identity" class="anchor" href="#Cloud-workflows-and-object-identity">Cloud workflows and object identity</a></h2>
 
+<p>Consider the following snippet:</p>
 
-<span class="c">## Cloud workflows and object identity</span>
-
-<span class="c">Consider the following snippet:</span>
-
-<span class="c">*)</span>
-
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 66)" onmouseover="showTip(event, 'fs34', 66)" class="i">example2</span> <span class="o">=</span> <span class="i">cloud</span> {
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 66)" onmouseover="showTip(event, 'fs34', 66)" class="i">example2</span> <span class="o">=</span> <span class="i">cloud</span> {
     <span class="k">let</span> <span class="i">data</span> <span class="o">=</span> [| <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> |]
     <span class="k">let!</span> <span class="i">proc</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">CreateProcess</span>(<span class="i">cloud</span> { <span class="k">return</span> <span class="i">data</span> })
     <span class="k">return</span> <span onmouseout="hideTip(event, 'fs35', 67)" onmouseover="showTip(event, 'fs35', 67)" class="i">Object</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 68)" onmouseover="showTip(event, 'fs36', 68)" class="i">ReferenceEquals</span>(<span class="i">data</span>, <span class="i">proc</span><span class="o">.</span><span class="i">Result</span>) 
 }
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>Can you guess its result?</p>
 
-<span class="c">Can you guess its result?</span>
-
-<span class="c">*)</span>
-
-<span onmouseout="hideTip(event, 'fs7', 69)" onmouseover="showTip(event, 'fs7', 69)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 70)" onmouseover="showTip(event, 'fs12', 70)" class="f">Run</span> <span onmouseout="hideTip(event, 'fs34', 71)" onmouseover="showTip(event, 'fs34', 71)" class="i">example2</span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs7', 69)" onmouseover="showTip(event, 'fs7', 69)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 70)" onmouseover="showTip(event, 'fs12', 70)" class="f">Run</span> <span onmouseout="hideTip(event, 'fs34', 71)" onmouseover="showTip(event, 'fs34', 71)" class="i">example2</span>
 <span onmouseout="hideTip(event, 'fs7', 72)" onmouseover="showTip(event, 'fs7', 72)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 73)" onmouseover="showTip(event, 'fs13', 73)" class="f">RunLocally</span> <span onmouseout="hideTip(event, 'fs34', 74)" onmouseover="showTip(event, 'fs34', 74)" class="i">example2</span>
+</code></pre></td>
+</tr>
+</table>
 
-<span class="c">(*</span>
+<p>Can you explain why this behaviour happens?</p>
 
-<span class="c">Can you explain why this behaviour happens?</span>
+<h2><a name="Cloud-workflows-and-mutation" class="anchor" href="#Cloud-workflows-and-mutation">Cloud workflows and mutation</a></h2>
 
+<p>Consider the following sample:</p>
 
-<span class="c">## Cloud workflows and mutation</span>
-
-<span class="c">Consider the following sample:</span>
-
-<span class="c">*)</span>
-
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 75)" onmouseover="showTip(event, 'fs37', 75)" class="i">example3</span> <span class="o">=</span> <span class="i">cloud</span> {
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 75)" onmouseover="showTip(event, 'fs37', 75)" class="i">example3</span> <span class="o">=</span> <span class="i">cloud</span> {
     <span class="k">let</span> <span class="i">data</span> <span class="o">=</span> [|<span class="n">1</span> <span class="o">..</span> <span class="n">10</span>|]
     <span class="k">let!</span> _ <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="i">data</span><span class="o">.</span><span class="i">Length</span> <span class="o">-</span> <span class="n">1</span> <span class="k">-&gt;</span> <span class="i">cloud</span> { <span class="i">data</span><span class="o">.</span>[<span class="i">i</span>] <span class="o">&lt;-</span> <span class="n">0</span> } ]
     <span class="k">return</span> <span class="i">data</span>
 }
-
-<span class="c">(*</span>
-
-<span class="c">Can you guess its result?</span>
-
-<span class="c">*)</span>
-
-<span onmouseout="hideTip(event, 'fs7', 76)" onmouseover="showTip(event, 'fs7', 76)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 77)" onmouseover="showTip(event, 'fs12', 77)" class="f">Run</span> <span onmouseout="hideTip(event, 'fs37', 78)" onmouseover="showTip(event, 'fs37', 78)" class="i">example3</span>
-<span onmouseout="hideTip(event, 'fs7', 79)" onmouseover="showTip(event, 'fs7', 79)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 80)" onmouseover="showTip(event, 'fs13', 80)" class="f">RunLocally</span> <span onmouseout="hideTip(event, 'fs37', 81)" onmouseover="showTip(event, 'fs37', 81)" class="i">example3</span>
-
-<span class="c">(*</span>
-
-<span class="c">Can you explain why this behaviour happens?</span>
-
-<span class="c">## Summary</span>
-
-<span class="c">In this tutorial, you&#39;ve learned how to reason about exceptions and faults in MBrace.</span>
-<span class="c">Continue with further samples to learn more about the MBrace programming model.  </span>
-
-<span class="c">&gt; Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced </span>
-<span class="c">&gt; by this script, see [ThespianCluster.fsx](ThespianCluster.html) or [AzureCluster.fsx](AzureCluster.html).</span>
-
-<span class="c">*)</span>
 </code></pre></td>
 </tr>
 </table>
+
+<p>Can you guess its result?</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs7', 76)" onmouseover="showTip(event, 'fs7', 76)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 77)" onmouseover="showTip(event, 'fs12', 77)" class="f">Run</span> <span onmouseout="hideTip(event, 'fs37', 78)" onmouseover="showTip(event, 'fs37', 78)" class="i">example3</span>
+<span onmouseout="hideTip(event, 'fs7', 79)" onmouseover="showTip(event, 'fs7', 79)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 80)" onmouseover="showTip(event, 'fs13', 80)" class="f">RunLocally</span> <span onmouseout="hideTip(event, 'fs37', 81)" onmouseover="showTip(event, 'fs37', 81)" class="i">example3</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Can you explain why this behaviour happens?</p>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned how to reason about exceptions and faults in MBrace.
+Continue with further samples to learn more about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
 
 <div class="tip" id="fs1">namespace System</div>
 <div class="tip" id="fs2">namespace System.IO</div>
