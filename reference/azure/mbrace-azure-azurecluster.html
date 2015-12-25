@@ -62,7 +62,7 @@
             AttachLocalWorker(...)
           </code>
           <div class="tip" id="1532">
-            <strong>Signature:</strong> (workerId:string option * workingDirectory:string option * maxWorkItems:int option * logFile:string option * logLevel:LogLevel option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
+            <strong>Signature:</strong> (workerId:string option * workingDirectory:string option * maxWorkItems:int option * logFile:string option * logLevel:LogLevel option * quiet:bool option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -79,7 +79,7 @@
             AttachLocalWorkers(...)
           </code>
           <div class="tip" id="1533">
-            <strong>Signature:</strong> (workerCount:int * maxWorkItems:int option * logLevel:LogLevel option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
+            <strong>Signature:</strong> (workerCount:int * maxWorkItems:int option * logLevel:LogLevel option * quiet:bool option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -335,7 +335,7 @@ If successful returns a management handle object to the cluster.</p>
             InitOnCurrentMachine(...)
           </code>
           <div class="tip" id="1547">
-            <strong>Signature:</strong> (config:Configuration * workerCount:int * clientId:string option * faultPolicy:FaultPolicy option * maxWorkItems:int option * logger:ISystemLogger option * logLevel:LogLevel option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; AzureCluster<br />
+            <strong>Signature:</strong> (config:Configuration * workerCount:int * clientId:string option * faultPolicy:FaultPolicy option * maxWorkItems:int option * logger:ISystemLogger option * quiet:bool option * logLevel:LogLevel option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; AzureCluster<br />
                       </div>
         </td>
         <td class="xmldoc">
