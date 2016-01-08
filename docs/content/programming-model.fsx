@@ -28,6 +28,7 @@ can be found in the [MBrace Starter Kit](https://github.com/mbraceproject/MBrace
 * [Introduction to CPU-intensive cloud parallelism](starterkit/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
 * [Introduction to data parallel cloud flows](starterkit/HandsOnTutorial/4-cloud-parallel-data-flow.html)
 * [Exceptions and Fault tolerance](starterkit/HandsOnTutorial/10-exceptions-and-fault-tolerance.html)
+* [Local Cloud Workflows](starterkit/HandsOnTutorial/11-local-cloud-workflows.html)
 * [Using C# and native components](starterkit/HandsOnTutorial/5-using-csharp-and-native-dlls.html)
 * [Using cloud value storage](starterkit/HandsOnTutorial/6-using-cloud-values.html)
 * [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
