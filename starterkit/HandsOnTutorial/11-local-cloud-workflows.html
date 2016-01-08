@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Local Cloud Workflows
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Local-Cloud-Workflows" class="anchor" href="#Local-Cloud-Workflows">Local Cloud Workflows</a></h1>
+
+<blockquote>
+  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+
+<p>In this tutorial we will be offering an description of local cloud workflows
+and how they can be useful in avoiding common errors when developing for MBrace.</p>
+
+<h2><a name="Motivation" class="anchor" href="#Motivation">Motivation</a></h2>
+
+<p>Cloud workflows are computations that often span multiple machines.
+This means variables in scope often need to be serialized and sent
+to a remote machine for resumption of the computation.
+This leads to a new class of potential errors, as illustrated below:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 14)" onmouseover="showTip(event, 'fs1', 14)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">WebClient</span>()
+    <span class="k">let</span> <span class="i">download</span> <span class="i">uri</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return!</span> <span class="i">wc</span><span class="o">.</span><span class="i">AsyncDownloadString</span> (<span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">Uri</span> <span class="i">uri</span>) }
+    <span class="k">let!</span> <span class="i">results</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="i">download</span> <span class="s">&quot;http://mbrace.io&quot;</span> ; <span class="i">download</span> <span class="s">&quot;http://fsharp.org&quot;</span> ]
+    <span class="k">return</span> <span class="i">results</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>which when run yields</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="bash">System.Runtime.Serialization.SerializationException: Cloud.Parallel&lt;string&gt; workflow 
+uses non-serializable closures. 
+    ---&gt; Nessos.FsPickler.NonSerializableTypeException: Type 'FSI_0005+download@37-1' contains 
+non-serializable field of type 'System.Net.WebClient'.
+</code></pre></td></tr></table>
+
+<p>The obvious fix here is to remove the global <code>WebClient</code> instance, which is not serializable
+and replace it with localized instantiations:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">download</span> <span class="i">uri</span> <span class="o">=</span> <span class="i">cloud</span> { 
+        <span class="k">let</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 19)" onmouseover="showTip(event, 'fs10', 19)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="i">WebClient</span>()
+        <span class="k">return!</span> <span class="i">wc</span><span class="o">.</span><span class="i">AsyncDownloadString</span> (<span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">Uri</span> <span class="i">uri</span>) 
+    }
+
+    <span class="k">let!</span> <span class="i">results</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="i">download</span> <span class="s">&quot;http://mbrace.io&quot;</span> ; <span class="i">download</span> <span class="s">&quot;http://fsharp.org&quot;</span> ]
+    <span class="k">return</span> <span class="i">results</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>The example however does illustrate a more general problem;
+suppose we have a black-box cloud computation:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="i">comp</span> <span class="o">:</span> <span class="i">Cloud</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">int</span><span class="o">&gt;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Dependending on the implementation, 
+this could either introduce distribution:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 23)" onmouseover="showTip(event, 'fs14', 23)" class="i">comp</span> <span class="o">:</span> <span class="i">Cloud</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 24)" onmouseover="showTip(event, 'fs13', 24)" class="i">int</span><span class="o">&gt;</span> <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">f</span> <span class="i">x</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span class="i">x</span> }
+    <span class="k">let!</span> <span class="i">results</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="i">f</span> <span class="n">17</span> ; <span class="i">f</span> <span class="n">25</span>]
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs15', 25)" onmouseover="showTip(event, 'fs15', 25)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="i">sum</span> <span class="i">results</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>or no distribution at all:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 27)" onmouseover="showTip(event, 'fs17', 27)" class="i">comp&#39;</span> <span class="o">:</span> <span class="i">Cloud</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 28)" onmouseover="showTip(event, 'fs13', 28)" class="i">int</span><span class="o">&gt;</span> <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">f</span> <span class="i">x</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span class="i">x</span> }
+    <span class="k">let!</span> <span class="i">a</span> <span class="o">=</span> <span class="i">f</span> <span class="n">17</span>
+    <span class="k">let!</span> <span class="i">b</span> <span class="o">=</span> <span class="i">f</span> <span class="n">25</span>
+    <span class="k">return</span> <span class="i">a</span> <span class="o">+</span> <span class="i">b</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>The two computations carry identical types,
+yet their execution patterns are very different.
+This can often lead to unanticipated errors,
+for instance</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 29)" onmouseover="showTip(event, 'fs18', 29)" class="f">test</span> (<span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">arg</span> <span class="o">:</span> <span class="i">Cloud</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>) <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 31)" onmouseover="showTip(event, 'fs1', 31)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 32)" onmouseover="showTip(event, 'fs10', 32)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 33)" onmouseover="showTip(event, 'fs11', 33)" class="i">WebClient</span>()
+    <span class="k">let!</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 34)" onmouseover="showTip(event, 'fs19', 34)" class="i">arg</span>
+    <span class="k">return</span> <span class="i">wc</span><span class="o">.</span><span class="i">GetHashCode</span>()
+}
+
+<span onmouseout="hideTip(event, 'fs18', 35)" onmouseover="showTip(event, 'fs18', 35)" class="f">test</span> <span onmouseout="hideTip(event, 'fs14', 36)" onmouseover="showTip(event, 'fs14', 36)" class="i">comp</span>  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 37)" onmouseover="showTip(event, 'fs7', 37)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 38)" onmouseover="showTip(event, 'fs20', 38)" class="f">Run</span>
+<span onmouseout="hideTip(event, 'fs18', 39)" onmouseover="showTip(event, 'fs18', 39)" class="f">test</span> <span onmouseout="hideTip(event, 'fs17', 40)" onmouseover="showTip(event, 'fs17', 40)" class="i">comp&#39;</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 41)" onmouseover="showTip(event, 'fs7', 41)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 42)" onmouseover="showTip(event, 'fs20', 42)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>which would fail with a runtime serialization error
+only if <code>comp</code> entails distribution.</p>
+
+<h2><a name="Local-Cloud-Workflows-1" class="anchor" href="#Local-Cloud-Workflows-1">Local Cloud Workflows</a></h2>
+
+<p>For the reasons outlined above, MBrace comes with <em>local</em> cloud workflows.
+These are a special type of cloud computation which are necessarily constrained
+to execute within a single worker. They can defined using the special <code>local</code> builder:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 43)" onmouseover="showTip(event, 'fs21', 43)" class="i">localWorkflow</span> <span class="o">:</span> <span class="i">LocalCloud</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 44)" onmouseover="showTip(event, 'fs13', 44)" class="i">int</span><span class="o">&gt;</span> <span class="o">=</span> <span class="i">local</span> { <span class="k">return</span> <span class="n">42</span> }
+</code></pre></td>
+</tr>
+</table>
+
+<p>This creates workflows of type <code>LocalCloud&lt;'T&gt;</code>, which is a subtype of <code>Cloud&lt;'T&gt;</code>.
+Local workflows can be safely used in place of cloud workflows, however the opposite is not possible.
+In other words, the workflow below type checks:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> {
+    <span class="k">let!</span> <span class="i">x</span> <span class="o">=</span> <span class="i">local</span> { <span class="k">return</span> <span class="n">17</span> }
+    <span class="k">return</span> <span class="i">x</span> <span class="o">+</span> <span class="n">25</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>However, attempting to distribute inside the body of a local workflow:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">local</span> {
+    <span class="k">let</span> <span class="i">f</span> <span class="i">x</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span class="i">x</span> }
+    <span class="k">let!</span> <span class="i">x</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="i">f</span> <span class="n">17</span> ; <span class="i">f</span> <span class="n">25</span>]
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs15', 45)" onmouseover="showTip(event, 'fs15', 45)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 46)" onmouseover="showTip(event, 'fs16', 46)" class="i">sum</span> <span class="i">x</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>yields a compile-time error:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="bash">error FS0001: This expression was expected to have type
+    LocalCloud&lt;'a&gt;    
+but here has type
+    Cloud&lt;int []&gt;
+</code></pre></td></tr></table>
+
+<p>In other words, local workflows provided a compile-time guarantee
+that their execution will <em>never</em> execute beyond the context of
+a single machine. This allows the MBrace library author to enforce
+a certain degree of sanity with respect to serialization:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="f">testLocal</span> (<span onmouseout="hideTip(event, 'fs19', 48)" onmouseover="showTip(event, 'fs19', 48)" class="i">arg</span> <span class="o">:</span> <span class="i">LocalCloud</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span>) <span class="o">=</span> <span class="i">local</span> {
+    <span class="k">use</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 49)" onmouseover="showTip(event, 'fs1', 49)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 50)" onmouseover="showTip(event, 'fs10', 50)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 51)" onmouseover="showTip(event, 'fs11', 51)" class="i">WebClient</span>()
+    <span class="k">let!</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 52)" onmouseover="showTip(event, 'fs19', 52)" class="i">arg</span> <span class="c">// execution guaranteed to not switch to separate machine</span>
+    <span class="k">return</span> <span class="i">wc</span><span class="o">.</span><span class="i">GetHashCode</span>() <span class="c">// hence &#39;wc&#39; will only live within the context of a single address space</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<h2><a name="Applications" class="anchor" href="#Applications">Applications</a></h2>
+
+<p>The MBrace core APIs already make heavy use of local workflows;
+most store primitive operations are of type <code>LocalCloud&lt;'T&gt;</code> since
+they usually do not entail distribution:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">local</span> {
+    <span class="k">let!</span> <span class="i">files</span> <span class="o">=</span> <span class="i">CloudFile</span><span class="o">.</span><span class="i">Enumerate</span> <span class="s">&quot;/container&quot;</span>
+    <span class="k">return</span> <span class="i">files</span><span class="o">.</span><span class="i">Length</span>
+}
+</code></pre></td>
+</tr>
+</table>
+
+<p>The same happens with many library implementations:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="i">MBrace</span><span class="o">.</span><span class="i">Library</span><span class="o">.</span><span class="i">Cloud</span>
+
+<span class="k">val</span> <span class="i">Balanced</span><span class="o">.</span><span class="i">mapReduceLocal</span> <span class="o">:</span> 
+    <span class="i">mapper</span><span class="o">:</span>(<span class="o">&#39;</span><span class="i">T</span> <span class="k">-&gt;</span> <span class="i">LocalCloud</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">R</span><span class="o">&gt;</span>) <span class="k">-&gt;</span> <span class="i">reducer</span><span class="o">:</span>(<span class="o">&#39;</span><span class="i">R</span> <span class="k">-&gt;</span> <span class="o">&#39;</span><span class="i">R</span> <span class="k">-&gt;</span> <span class="i">LocalCloud</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">R</span><span class="o">&gt;</span>) 
+        <span class="k">-&gt;</span> <span class="i">init</span><span class="o">:</span><span class="o">&#39;</span><span class="i">R</span> <span class="k">-&gt;</span> <span class="i">inputs</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs23', 53)" onmouseover="showTip(event, 'fs23', 53)" class="i">seq</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="k">-&gt;</span> <span class="i">Cloud</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">R</span><span class="o">&gt;</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>In this case, a distributed cloud computation is created given user-supplied computations
+that must be constrained to a single machine. This API restriction enables the library author
+to efficiently schedule computation across the cluster based on the assumption that user code
+will never escape the scope of a single machine per input.</p>
+
+<h2><a name="Gotchas" class="anchor" href="#Gotchas">Gotchas</a></h2>
+
+<p>It is important to clarify that even though local workflows do not introduce distribution
+<em>inside</em> their implementation, this does not imply that they are devoid of any serialization issues.
+Let's illustrate using a couple of examples. Running</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">local</span> { <span class="k">return</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 54)" onmouseover="showTip(event, 'fs1', 54)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 55)" onmouseover="showTip(event, 'fs10', 55)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 56)" onmouseover="showTip(event, 'fs11', 56)" class="i">WebClient</span>() } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 57)" onmouseover="showTip(event, 'fs7', 57)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 58)" onmouseover="showTip(event, 'fs20', 58)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>fails with the error</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="bash">System.Runtime.Serialization.SerializationException: Cloud process returns non-serializable type 'System.Net.WebClient'.
+    at MBrace.Runtime.Combinators.runStartAsCloudProcess@297.Invoke(Unit unitVar)
+</code></pre></td></tr></table>
+
+<p>This happens because the local computation returns result which cannot be serialized. Similarly</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 59)" onmouseover="showTip(event, 'fs1', 59)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 60)" onmouseover="showTip(event, 'fs10', 60)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 61)" onmouseover="showTip(event, 'fs11', 61)" class="i">WebClient</span>()
+    <span class="k">let!</span> <span class="i">proc</span> <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">CreateProcess</span>(<span class="i">local</span> { <span class="k">return</span> <span class="i">wc</span><span class="o">.</span><span class="i">GetHashCode</span>() })
+    <span class="k">return</span> <span class="i">proc</span><span class="o">.</span><span class="i">Result</span>
+} <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 62)" onmouseover="showTip(event, 'fs7', 62)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 63)" onmouseover="showTip(event, 'fs20', 63)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>fails with the error</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="bash">System.Runtime.Serialization.SerializationException: Cloud process of type 'int' uses non-serializable closure. 
+    ---&gt; Nessos.FsPickler.NonSerializableTypeException: Type 'FSI_0020+it@230-7' contains non-serializable field of type 'System.Net.WebClient'.
+</code></pre></td></tr></table>
+
+<p>Since its closure has been rendered nonserializable due to its containing an instance of type <code>WebClient</code>.</p>
+
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+
+<p>In this tutorial, you've learned how to use local workflows to avoid common errors
+when developing in MBrace. Continue with further samples to learn more about the MBrace programming model.</p>
+
+<blockquote>
+  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">module BuilderAsyncExtensions<br /><br />from MBrace.Core</div>
+<div class="tip" id="fs6">namespace MBrace.Flow</div>
+<div class="tip" id="fs7">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 11-local-cloud-workflows.cluster</div>
+<div class="tip" id="fs8">module Config</div>
+<div class="tip" id="fs9">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs10">namespace System.Net</div>
+<div class="tip" id="fs11">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />Net.WebClient() : unit</div>
+<div class="tip" id="fs12">Multiple items<br />type Uri =<br />&#160;&#160;new : uriString:string -&gt; Uri + 5 overloads<br />&#160;&#160;member AbsolutePath : string<br />&#160;&#160;member AbsoluteUri : string<br />&#160;&#160;member Authority : string<br />&#160;&#160;member DnsSafeHost : string<br />&#160;&#160;member Equals : comparand:obj -&gt; bool<br />&#160;&#160;member Fragment : string<br />&#160;&#160;member GetComponents : components:UriComponents * format:UriFormat -&gt; string<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member GetLeftPart : part:UriPartial -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.Uri<br /><br />--------------------<br />Uri(uriString: string) : unit<br />Uri(uriString: string, uriKind: UriKind) : unit<br />Uri(baseUri: Uri, relativeUri: string) : unit<br />Uri(baseUri: Uri, relativeUri: Uri) : unit</div>
+<div class="tip" id="fs13">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs14">val comp : obj<br /><br />Full name: 11-local-cloud-workflows.comp</div>
+<div class="tip" id="fs15">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs16">val sum : array:&#39;T [] -&gt; &#39;T (requires member ( + ) and member get_Zero)<br /><br />Full name: Microsoft.FSharp.Collections.Array.sum</div>
+<div class="tip" id="fs17">val comp&#39; : obj<br /><br />Full name: 11-local-cloud-workflows.comp&#39;</div>
+<div class="tip" id="fs18">val test : arg:&#39;a -&gt; &#39;b<br /><br />Full name: 11-local-cloud-workflows.test</div>
+<div class="tip" id="fs19">val arg : &#39;a</div>
+<div class="tip" id="fs20">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs21">val localWorkflow : obj<br /><br />Full name: 11-local-cloud-workflows.localWorkflow</div>
+<div class="tip" id="fs22">val testLocal : arg:&#39;a -&gt; &#39;b<br /><br />Full name: 11-local-cloud-workflows.testLocal</div>
+<div class="tip" id="fs23">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq<br /><br />--------------------<br />type seq&lt;&#39;T&gt; = System.Collections.Generic.IEnumerable&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.seq&lt;_&gt;</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
