@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Management object for writing cloud process logs to the table store</p>
 
-
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -58,15 +57,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1990', 1990)" onmouseover="showTip(event, '1990', 1990)">
+          <code onmouseout="hideTip(event, '2001', 2001)" onmouseover="showTip(event, '2001', 2001)">
             new(clusterId)
           </code>
-          <div class="tip" id="1990">
+          <div class="tip" id="2001">
             <strong>Signature:</strong> clusterId:ClusterId -&gt; TableCloudLogManager<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>.ctor</code></p>
         </td>
       </tr>
     </tbody>
@@ -80,10 +80,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1991', 1991)" onmouseover="showTip(event, '1991', 1991)">
+          <code onmouseout="hideTip(event, '2002', 2002)" onmouseover="showTip(event, '2002', 2002)">
             GetLogPoller(processId)
           </code>
-          <div class="tip" id="1991">
+          <div class="tip" id="2002">
             <strong>Signature:</strong> processId:string -&gt; ILogPoller&lt;CloudLogEntry&gt;<br />
                       </div>
         </td>
@@ -91,22 +91,20 @@
           <p>Fetches a cloud process log entry observable that asynchonously polls the store for new log entries.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1992', 1992)" onmouseover="showTip(event, '1992', 1992)">
+          <code onmouseout="hideTip(event, '2003', 2003)" onmouseover="showTip(event, '2003', 2003)">
             GetLogs(processId, fromDate, toDate)
           </code>
-          <div class="tip" id="1992">
+          <div class="tip" id="2003">
             <strong>Signature:</strong> (processId:string * fromDate:DateTimeOffset option * toDate:DateTimeOffset option) -&gt; Async&lt;ICollection&lt;CloudLogRecord&gt;&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Fetches all cloud process log entries satisfying given constraints.</p>
-
 
 
         </td>

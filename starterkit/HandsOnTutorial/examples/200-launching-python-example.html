@@ -39,14 +39,11 @@
         <div class="span9" id="main">
           
 <h1><a name="Example-Running-python-code-using-MBrace" class="anchor" href="#Example-Running-python-code-using-MBrace">Example: Running python code using MBrace</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>In this tutorial, you can deploy and execute python code across an MBrace cluster.
 This is achieved by defining a workflow that performs on-demand, per-worker installation of python bits.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -103,11 +100,9 @@ This is achieved by defining a workflow that performs on-demand, per-worker inst
 </code></pre></td>
 </tr>
 </table>
-
 <p>We now wrap the installation workflow in a <a href="http://mbrace.io/reference/core/mbrace-library-domainlocal.html"><code>DomainLocal</code></a> type.
 This creates a serializable entity that will initialize the workflow exactly once in every AppDomain it is being executed.
 Compare this to the <a href="https://msdn.microsoft.com/en-us/library/dd642243(v=vs.110).aspx"><code>ThreadLocal</code></a> class available in mscorlib.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -208,10 +203,8 @@ Compare this to the <a href="https://msdn.microsoft.com/en-us/library/dd642243(v
 </code></pre></td>
 </tr>
 </table>
-
 <p>We can now test this set up by running python code in the cloud.
 Let's begin with a simple hello world example:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -222,9 +215,7 @@ Let's begin with a simple hello world example:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Let's try passing an input through stdin</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -251,10 +242,8 @@ Let's begin with a simple hello world example:</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>Let's now try a distributed workflow. 
+<p>Let's now try a distributed workflow.
 Our goal is to use python to fetch the hostnames of every individual worker in the cluster:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -281,15 +270,12 @@ Our goal is to use python to fetch the hostnames of every individual worker in t
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this tutorial, you've learned how to distribute python code using clean-slate MBrace clusters.
 Further features, such as timeouts, cancellation and asynchronous execution can be easily implemented
 using the MBrace primitives and are left as an exercise to the reader.</p>
-
 <p>Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

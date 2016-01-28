@@ -39,16 +39,12 @@
         <div class="span9" id="main">
           
 <h1><a name="KNN-Digit-Recognizer" class="anchor" href="#KNN-Digit-Recognizer">KNN Digit Recognizer</a></h1>
-
 <blockquote>
-  <p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>This example shows a digit recognizer classification using k nearest neighbours based on the Kaggle dataset.
 <a href="https://www.kaggle.com/c/digit-recognizer">https://www.kaggle.com/c/digit-recognizer</a></p>
-
 <p>First, define the types and constants relevant to images:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -93,9 +89,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define the types relevant to classification of images:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -152,9 +146,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, implement a range of image classifiers:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -221,9 +213,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, implement local multicore classification and validation:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -272,10 +262,8 @@
 </code></pre></td>
 </tr>
 </table>
-
-<p>Next, implement the distributed, cloud versions of the same algorithms, to classify and validate the images using 
+<p>Next, implement the distributed, cloud versions of the same algorithms, to classify and validate the images using
 an MBrace cluster:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -310,9 +298,7 @@ an MBrace cluster:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now, acquire the samples:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -343,18 +329,14 @@ an MBrace cluster:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Run the validation operation in the cluster:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs115', 298)" onmouseover="showTip(event, 'fs115', 298)" class="i">validateTask</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return!</span> <span onmouseout="hideTip(event, 'fs105', 299)" onmouseover="showTip(event, 'fs105', 299)" class="i">validateCloud</span> <span onmouseout="hideTip(event, 'fs114', 300)" onmouseover="showTip(event, 'fs114', 300)" class="i">classifier</span> <span onmouseout="hideTip(event, 'fs110', 301)" onmouseover="showTip(event, 'fs110', 301)" class="i">training</span><span class="o">.</span>[<span class="n">0</span> <span class="o">..</span> <span class="n">39999</span>] <span onmouseout="hideTip(event, 'fs110', 302)" onmouseover="showTip(event, 'fs110', 302)" class="i">training</span><span class="o">.</span>[<span class="n">40000</span> <span class="o">..</span>] } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 303)" onmouseover="showTip(event, 'fs10', 303)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs116', 304)" onmouseover="showTip(event, 'fs116', 304)" class="f">CreateProcess</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Check on its progress:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -363,18 +345,14 @@ an MBrace cluster:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Run the classification operation in the cluster:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs119', 309)" onmouseover="showTip(event, 'fs119', 309)" class="i">classifyTask</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return!</span> <span onmouseout="hideTip(event, 'fs100', 310)" onmouseover="showTip(event, 'fs100', 310)" class="i">classifyCloud</span> <span onmouseout="hideTip(event, 'fs114', 311)" onmouseover="showTip(event, 'fs114', 311)" class="i">classifier</span> <span onmouseout="hideTip(event, 'fs110', 312)" onmouseover="showTip(event, 'fs110', 312)" class="i">training</span> <span onmouseout="hideTip(event, 'fs112', 313)" onmouseover="showTip(event, 'fs112', 313)" class="i">tests</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 314)" onmouseover="showTip(event, 'fs10', 314)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs116', 315)" onmouseover="showTip(event, 'fs116', 315)" class="f">CreateProcess</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Check on its progress:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -383,9 +361,7 @@ an MBrace cluster:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Get the results:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -394,13 +370,11 @@ an MBrace cluster:</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>In this example, you've learned how perform a machine learning classification task 
+<p>In this example, you've learned how perform a machine learning classification task
 on an MBrace cluster. Continue with further samples to learn more about the
 MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

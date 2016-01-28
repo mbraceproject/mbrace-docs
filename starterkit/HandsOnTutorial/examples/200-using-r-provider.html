@@ -39,17 +39,13 @@
         <div class="span9" id="main">
           
 <h1><a name="Using-the-R-type-provider-with-MBrace" class="anchor" href="#Using-the-R-type-provider-with-MBrace">Using the R type provider with MBrace</a></h1>
-
-<p>In this tutorial, you will learn how you can use MBrace to distribute code that utilises the 
+<p>In this tutorial, you will learn how you can use MBrace to distribute code that utilises the
 <a href="http://bluemountaincapital.github.io/FSharpRProvider/">R Type Provider</a>.</p>
-
 <h2><a name="Installing-R-across-your-cluster" class="anchor" href="#Installing-R-across-your-cluster">Installing R across your cluster</a></h2>
-
 <p>First of all, we define a bit of MBrace code that performs installation of R components on an MBrace cluster.
-This assumes that worker processes are run with elevated permisions. 
+This assumes that worker processes are run with elevated permisions.
 As of MBrace.Azure v 1.1.5, bundled cloud service packages have elevated permissions enabled.
 If your cluster does not come with elevated permissions, please ensure that R is already installed across your workers.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -126,30 +122,23 @@ If your cluster does not come with elevated permissions, please ensure that R is
 </code></pre></td>
 </tr>
 </table>
-
 <p>We can now install R across the cluster by calling</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs25', 66)" onmouseover="showTip(event, 'fs25', 66)" class="f">installR</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 67)" onmouseover="showTip(event, 'fs15', 67)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs43', 68)" onmouseover="showTip(event, 'fs43', 68)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>And verify that the operation was successful</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs39', 69)" onmouseover="showTip(event, 'fs39', 69)" class="f">isRInstalledCloud</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 70)" onmouseover="showTip(event, 'fs15', 70)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs43', 71)" onmouseover="showTip(event, 'fs43', 71)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Deploying-R-provider-code-to-your-cluster" class="anchor" href="#Deploying-R-provider-code-to-your-cluster">Deploying R provider code to your cluster</a></h2>
-
 <p>We are now ready to begin using the R type provider with MBrace.
 Here is a simple, non-parallel example taken from the R Type Provider <a href="http://bluemountaincapital.github.io/FSharpRProvider/Statistics-QuickStart.html">tutorial</a>.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -208,13 +197,10 @@ Here is a simple, non-parallel example taken from the R Type Provider <a href="h
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this tutorial, you've learned how to use the R type provider using MBrace.</p>
-
 <p>Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

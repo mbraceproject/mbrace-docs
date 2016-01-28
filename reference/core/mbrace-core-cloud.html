@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Cloud workflows user API</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '129', 129)" onmouseover="showTip(event, '129', 129)">
+          <code onmouseout="hideTip(event, '125', 125)" onmouseover="showTip(event, '125', 125)">
             AsLocal(workflow)
           </code>
-          <div class="tip" id="129">
+          <div class="tip" id="125">
             <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -71,22 +70,85 @@ Any distributed parallelism combinators called by the
 workflow will be re-interpreted using thread parallelism semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '130', 130)" onmouseover="showTip(event, '130', 130)">
+          <code onmouseout="hideTip(event, '126', 126)" onmouseover="showTip(event, '126', 126)">
             AwaitProcess(...)
           </code>
-          <div class="tip" id="130">
+          <div class="tip" id="126">
             <strong>Signature:</strong> (cloudProcess:ICloudProcess&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously waits for a cloud process to complete and returns its result.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '127', 127)" onmouseover="showTip(event, '127', 127)">
+            AwaitTask(task, timeoutMilliseconds)
+          </code>
+          <div class="tip" id="127">
+            <strong>Signature:</strong> (task:Task * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously awaits a System.Threading.Task for completion.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '128', 128)" onmouseover="showTip(event, '128', 128)">
+            AwaitTask(task, timeoutMilliseconds)
+          </code>
+          <div class="tip" id="128">
+            <strong>Signature:</strong> (task:Task&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously awaits a System.Threading.Task for completion.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '129', 129)" onmouseover="showTip(event, '129', 129)">
+            CancellationToken
+          </code>
+          <div class="tip" id="129">
+            <strong>Signature:</strong> LocalCloud&lt;ICloudCancellationToken&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the current cancellation token.</p>
+
+
+              <p>CompiledName: <code>get_CancellationToken</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '130', 130)" onmouseover="showTip(event, '130', 130)">
+            Catch(workflow)
+          </code>
+          <div class="tip" id="130">
+            <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;Choice&lt;&#39;T,exn&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Catch exception from given cloud workflow.</p>
 
 
         </td>
@@ -95,15 +157,19 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '131', 131)" onmouseover="showTip(event, '131', 131)">
-            AwaitTask(task, timeoutMilliseconds)
+            Choice(computations)
           </code>
           <div class="tip" id="131">
-            <strong>Signature:</strong> (task:Task * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;unit&gt;<br />
-                      </div>
+            <strong>Signature:</strong> (computations:seq&lt;&#39;a * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously awaits a System.Threading.Task for completion.</p>
-
+          <p>Returns a cloud computation that will execute the given computation on the corresponding worker,
+possibly in parallel and will return when any of the supplied computations
+have returned a successful value or if all of them fail to succeed.
+If a computation succeeds the rest of them are canceled.
+The success of a computation is encoded as an option type.
+This operator may create distribution.</p>
 
 
         </td>
@@ -112,15 +178,19 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '132', 132)" onmouseover="showTip(event, '132', 132)">
-            AwaitTask(task, timeoutMilliseconds)
+            Choice(computations)
           </code>
           <div class="tip" id="132">
-            <strong>Signature:</strong> (task:Task&lt;&#39;T&gt; * timeoutMilliseconds:int option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> computations:seq&lt;&#39;a&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously awaits a System.Threading.Task for completion.</p>
-
+          <p>Returns a cloud computation that will execute given computations
+possibly in parallel and will return when any of the supplied computations
+have returned a successful value or if all of them fail to succeed.
+If a computation succeeds the rest of them are canceled.
+The success of a computation is encoded as an option type.
+This operator may create distribution.</p>
 
 
         </td>
@@ -129,15 +199,19 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '133', 133)" onmouseover="showTip(event, '133', 133)">
-            CancellationToken
+            ChoiceEverywhere(computation)
           </code>
           <div class="tip" id="133">
-            <strong>Signature:</strong> LocalCloud&lt;ICloudCancellationToken&gt;<br />
-                      </div>
+            <strong>Signature:</strong> (computation:Cloud&lt;&#39;T option&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Gets the current cancellation token.</p>
-
+          <p>Returns a cloud computation that will execute the given computation on every available worker
+possibly in parallel and will return when any of the supplied computations
+have returned a successful value or if all of them fail to succeed.
+If a computation succeeds the rest of them are canceled.
+The success of a computation is encoded as an option type.
+This operator may create distribution.</p>
 
 
         </td>
@@ -146,15 +220,14 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '134', 134)" onmouseover="showTip(event, '134', 134)">
-            Catch(workflow)
+            CreateCancellationTokenSource()
           </code>
           <div class="tip" id="134">
-            <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;Choice&lt;&#39;T,exn&gt;&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Catch exception from given cloud workflow.</p>
-
+          <p>Creates a new cloud cancellation token source</p>
 
 
         </td>
@@ -163,20 +236,14 @@ workflow will be re-interpreted using thread parallelism semantics.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '135', 135)" onmouseover="showTip(event, '135', 135)">
-            Choice(computations)
+            CreateLinkedCancellationTokenSource(...)
           </code>
           <div class="tip" id="135">
-            <strong>Signature:</strong> (computations:seq&lt;&#39;a * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
-                          <strong>Type parameters:</strong> 'a, 'T          </div>
+            <strong>Signature:</strong> tokens:seq&lt;ICloudCancellationToken&gt; -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Returns a cloud computation that will execute the given computation on the corresponding worker,
-possibly in parallel and will return when any of the supplied computations
-have returned a successful value or if all of them fail to succeed. 
-If a computation succeeds the rest of them are canceled.
-The success of a computation is encoded as an option type.
-This operator may create distribution.</p>
-
+          <p>Creates a linked cloud cancellation token source.</p>
 
 
         </td>
@@ -185,20 +252,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '136', 136)" onmouseover="showTip(event, '136', 136)">
-            Choice(computations)
+            CreateLinkedCancellationTokenSource(...)
           </code>
           <div class="tip" id="136">
-            <strong>Signature:</strong> computations:seq&lt;&#39;a&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
-                          <strong>Type parameters:</strong> 'a, 'T          </div>
+            <strong>Signature:</strong> (token1:ICloudCancellationToken * token2:ICloudCancellationToken) -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Returns a cloud computation that will execute given computations
-possibly in parallel and will return when any of the supplied computations
-have returned a successful value or if all of them fail to succeed. 
-If a computation succeeds the rest of them are canceled.
-The success of a computation is encoded as an option type.
-This operator may create distribution.</p>
-
+          <p>Creates a linked cloud cancellation token source.</p>
 
 
         </td>
@@ -207,20 +268,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '137', 137)" onmouseover="showTip(event, '137', 137)">
-            ChoiceEverywhere(computation)
+            CreateLinkedCancellationTokenSource(...)
           </code>
           <div class="tip" id="137">
-            <strong>Signature:</strong> (computation:Cloud&lt;&#39;T option&gt;) -&gt; Cloud&lt;&#39;T option&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> (parent:ICloudCancellationToken option) -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Returns a cloud computation that will execute the given computation on every available worker
-possibly in parallel and will return when any of the supplied computations
-have returned a successful value or if all of them fail to succeed. 
-If a computation succeeds the rest of them are canceled.
-The success of a computation is encoded as an option type.
-This operator may create distribution.</p>
-
+          <p>Creates a linked cloud cancellation token source.</p>
 
 
         </td>
@@ -229,15 +284,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '138', 138)" onmouseover="showTip(event, '138', 138)">
-            CreateCancellationTokenSource()
+            CreateProcess(...)
           </code>
           <div class="tip" id="138">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
-                      </div>
+            <strong>Signature:</strong> (computation:Cloud&lt;&#39;T&gt; * faultPolicy:FaultPolicy option * target:IWorkerRef option * cancellationToken:ICloudCancellationToken option * processName:string option) -&gt; Cloud&lt;ICloudProcess&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a new cloud cancellation token source</p>
-
+          <p>Start cloud computation as a separate cloud process. Returns a cloud computation that queries the result.</p>
 
 
         </td>
@@ -246,32 +300,31 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '139', 139)" onmouseover="showTip(event, '139', 139)">
-            CreateLinkedCancellationTokenSource(...)
+            CurrentWorker
           </code>
           <div class="tip" id="139">
-            <strong>Signature:</strong> tokens:seq&lt;ICloudCancellationToken&gt; -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
+            <strong>Signature:</strong> LocalCloud&lt;IWorkerRef&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a linked cloud cancellation token source.</p>
+          <p>Gets information on the execution cluster.</p>
 
 
-
+              <p>CompiledName: <code>get_CurrentWorker</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '140', 140)" onmouseover="showTip(event, '140', 140)">
-            CreateLinkedCancellationTokenSource(...)
+            Dispose(disposable)
           </code>
           <div class="tip" id="140">
-            <strong>Signature:</strong> (token1:ICloudCancellationToken * token2:ICloudCancellationToken) -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
-                      </div>
+            <strong>Signature:</strong> disposable:&#39;Disposable -&gt; LocalCloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'Disposable          </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a linked cloud cancellation token source.</p>
-
+          <p>Disposes of a distributed resource.</p>
 
 
         </td>
@@ -280,32 +333,31 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '141', 141)" onmouseover="showTip(event, '141', 141)">
-            CreateLinkedCancellationTokenSource(...)
+            FaultPolicy
           </code>
           <div class="tip" id="141">
-            <strong>Signature:</strong> (parent:ICloudCancellationToken option) -&gt; LocalCloud&lt;ICloudCancellationTokenSource&gt;<br />
+            <strong>Signature:</strong> LocalCloud&lt;FaultPolicy&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a linked cloud cancellation token source.</p>
+          <p>Gets the current fault policy.</p>
 
 
-
+              <p>CompiledName: <code>get_FaultPolicy</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '142', 142)" onmouseover="showTip(event, '142', 142)">
-            CreateProcess(...)
+            GetAvailableWorkers()
           </code>
           <div class="tip" id="142">
-            <strong>Signature:</strong> (computation:Cloud&lt;&#39;T&gt; * faultPolicy:FaultPolicy option * target:IWorkerRef option * cancellationToken:ICloudCancellationToken option * processName:string option) -&gt; Cloud&lt;ICloudProcess&lt;&#39;T&gt;&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;IWorkerRef []&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Start cloud computation as a separate cloud process. Returns a cloud computation that queries the result.</p>
-
+          <p>Gets all workers in currently running cluster context.</p>
 
 
         </td>
@@ -314,15 +366,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '143', 143)" onmouseover="showTip(event, '143', 143)">
-            CurrentWorker
+            GetCloudProcessId()
           </code>
           <div class="tip" id="143">
-            <strong>Signature:</strong> LocalCloud&lt;IWorkerRef&gt;<br />
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets information on the execution cluster.</p>
-
+          <p>Gets the assigned id of the currently running CloudProcess.</p>
 
 
         </td>
@@ -331,15 +382,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '144', 144)" onmouseover="showTip(event, '144', 144)">
-            Dispose(disposable)
+            GetWorkerCount()
           </code>
           <div class="tip" id="144">
-            <strong>Signature:</strong> disposable:&#39;Disposable -&gt; LocalCloud&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> 'Disposable          </div>
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;int&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Disposes of a distributed resource.</p>
-
+          <p>Gets total number of available workers in cluster context.</p>
 
 
         </td>
@@ -348,15 +398,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '145', 145)" onmouseover="showTip(event, '145', 145)">
-            FaultPolicy
+            GetWorkItemId()
           </code>
           <div class="tip" id="145">
-            <strong>Signature:</strong> LocalCloud&lt;FaultPolicy&gt;<br />
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets the current fault policy.</p>
-
+          <p>Gets the assigned id of the currently running cloud work item.</p>
 
 
         </td>
@@ -365,15 +414,14 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '146', 146)" onmouseover="showTip(event, '146', 146)">
-            GetAvailableWorkers()
+            Ignore(workflow)
           </code>
           <div class="tip" id="146">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;IWorkerRef []&gt;<br />
-                      </div>
+            <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Gets all workers in currently running cluster context.</p>
-
+          <p>Performs a cloud computations, discarding its result</p>
 
 
         </td>
@@ -382,77 +430,9 @@ This operator may create distribution.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '147', 147)" onmouseover="showTip(event, '147', 147)">
-            GetCloudProcessId()
-          </code>
-          <div class="tip" id="147">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the assigned id of the currently running CloudProcess.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
-            GetWorkerCount()
-          </code>
-          <div class="tip" id="148">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;int&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets total number of available workers in cluster context.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
-            GetWorkItemId()
-          </code>
-          <div class="tip" id="149">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the assigned id of the currently running cloud work item.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
-            Ignore(workflow)
-          </code>
-          <div class="tip" id="150">
-            <strong>Signature:</strong> workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Performs a cloud computations, discarding its result</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
             IsPreviouslyFaulted
           </code>
-          <div class="tip" id="151">
+          <div class="tip" id="147">
             <strong>Signature:</strong> LocalCloud&lt;bool&gt;<br />
                       </div>
         </td>
@@ -460,16 +440,16 @@ This operator may create distribution.</p>
           <p>Returns true if the current computation is a retry of a previously faulted computation.</p>
 
 
-
+              <p>CompiledName: <code>get_IsPreviouslyFaulted</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
+          <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
             IsTargetedWorkerSupported
           </code>
-          <div class="tip" id="152">
+          <div class="tip" id="148">
             <strong>Signature:</strong> LocalCloud&lt;bool&gt;<br />
                       </div>
         </td>
@@ -478,16 +458,16 @@ This operator may create distribution.</p>
 Should be used with combinators that support worker targeting like Cloud.Parallel/Choice/StartChild.</p>
 
 
-
+              <p>CompiledName: <code>get_IsTargetedWorkerSupported</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
+          <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
             Log(logEntry)
           </code>
-          <div class="tip" id="153">
+          <div class="tip" id="149">
             <strong>Signature:</strong> logEntry:string -&gt; LocalCloud&lt;unit&gt;<br />
                       </div>
         </td>
@@ -495,16 +475,15 @@ Should be used with combinators that support worker targeting like Cloud.Paralle
           <p>Writes an entry to a logging provider, if it exists.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
+          <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
             Logf(fmt)
           </code>
-          <div class="tip" id="154">
+          <div class="tip" id="150">
             <strong>Signature:</strong> fmt:StringFormat&lt;&#39;?7878,LocalCloud&lt;unit&gt;&gt; -&gt; &#39;?7878<br />
                           <strong>Type parameters:</strong> '?7878          </div>
         </td>
@@ -512,16 +491,15 @@ Should be used with combinators that support worker targeting like Cloud.Paralle
           <p>Writes an entry to a logging provider, if it exists.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
+          <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
             OfAsync(asyncWorkflow)
           </code>
-          <div class="tip" id="155">
+          <div class="tip" id="151">
             <strong>Signature:</strong> asyncWorkflow:Async&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -529,16 +507,15 @@ Should be used with combinators that support worker targeting like Cloud.Paralle
           <p>Wraps an asynchronous workflow into a cloud workflow.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
+          <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
             Parallel(computations)
           </code>
-          <div class="tip" id="156">
+          <div class="tip" id="152">
             <strong>Signature:</strong> (computations:seq&lt;&#39;a * IWorkerRef&gt;) -&gt; Cloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
@@ -549,16 +526,15 @@ This operator may create distribution.
 Exceptions raised by children carry cancellation semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
+          <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
             Parallel(left, right)
           </code>
-          <div class="tip" id="157">
+          <div class="tip" id="153">
             <strong>Signature:</strong> (left:Cloud&lt;&#39;L&gt; * right:Cloud&lt;&#39;R&gt;) -&gt; Cloud&lt;&#39;L * &#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'L, 'R          </div>
         </td>
@@ -569,16 +545,15 @@ This operator may create distribution.
 Exceptions raised by children carry cancellation semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '158', 158)" onmouseover="showTip(event, '158', 158)">
+          <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
             Parallel(computations)
           </code>
-          <div class="tip" id="158">
+          <div class="tip" id="154">
             <strong>Signature:</strong> computations:seq&lt;&#39;a&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
@@ -589,16 +564,15 @@ This operator may create distribution.
 Exceptions raised by children carry cancellation semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '159', 159)" onmouseover="showTip(event, '159', 159)">
+          <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
             ParallelEverywhere(computation)
           </code>
-          <div class="tip" id="159">
+          <div class="tip" id="155">
             <strong>Signature:</strong> computation:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -609,16 +583,15 @@ This operator may create distribution.
 Any exception raised by children carry cancellation semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '160', 160)" onmouseover="showTip(event, '160', 160)">
+          <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
             Raise(e)
           </code>
-          <div class="tip" id="160">
+          <div class="tip" id="156">
             <strong>Signature:</strong> e:exn -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -626,16 +599,15 @@ Any exception raised by children carry cancellation semantics.</p>
           <p>Raise an exception.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '161', 161)" onmouseover="showTip(event, '161', 161)">
+          <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
             Sleep(millisecondsDue)
           </code>
-          <div class="tip" id="161">
+          <div class="tip" id="157">
             <strong>Signature:</strong> millisecondsDue:int -&gt; LocalCloud&lt;unit&gt;<br />
                       </div>
         </td>
@@ -643,16 +615,15 @@ Any exception raised by children carry cancellation semantics.</p>
           <p>Creates a cloud workflow that asynchronously sleeps for a given amount of time.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '162', 162)" onmouseover="showTip(event, '162', 162)">
+          <code onmouseout="hideTip(event, '158', 158)" onmouseover="showTip(event, '158', 158)">
             StartChild(workflow, target)
           </code>
-          <div class="tip" id="162">
+          <div class="tip" id="158">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * target:IWorkerRef option) -&gt; Cloud&lt;LocalCloud&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -660,16 +631,15 @@ Any exception raised by children carry cancellation semantics.</p>
           <p>Start cloud computation as child process. Returns a cloud computation that queries the result.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '163', 163)" onmouseover="showTip(event, '163', 163)">
+          <code onmouseout="hideTip(event, '159', 159)" onmouseover="showTip(event, '159', 159)">
             TryFinally(body, finalizer)
           </code>
-          <div class="tip" id="163">
+          <div class="tip" id="159">
             <strong>Signature:</strong> (body:Cloud&lt;&#39;T&gt; * finalizer:LocalCloud&lt;unit&gt;) -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -677,16 +647,15 @@ Any exception raised by children carry cancellation semantics.</p>
           <p>Try/Finally combinator for monadic finalizers.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '164', 164)" onmouseover="showTip(event, '164', 164)">
+          <code onmouseout="hideTip(event, '160', 160)" onmouseover="showTip(event, '160', 160)">
             TryGetFaultData()
           </code>
-          <div class="tip" id="164">
+          <div class="tip" id="160">
             <strong>Signature:</strong> unit -&gt; LocalCloud&lt;FaultData option&gt;<br />
                       </div>
         </td>
@@ -696,16 +665,15 @@ Returns 'Some' if the current computation is a retry of a previously faulted
 computation or 'None' if no fault has occurred.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '165', 165)" onmouseover="showTip(event, '165', 165)">
+          <code onmouseout="hideTip(event, '161', 161)" onmouseover="showTip(event, '161', 161)">
             WhenAll(processes)
           </code>
-          <div class="tip" id="165">
+          <div class="tip" id="161">
             <strong>Signature:</strong> (processes:ICloudProcess []) -&gt; LocalCloud&lt;unit&gt;<br />
                       </div>
         </td>
@@ -713,16 +681,15 @@ computation or 'None' if no fault has occurred.</p>
           <p>Asynchronously waits until all of the given processes complete.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
+          <code onmouseout="hideTip(event, '162', 162)" onmouseover="showTip(event, '162', 162)">
             WhenAny(processes)
           </code>
-          <div class="tip" id="166">
+          <div class="tip" id="162">
             <strong>Signature:</strong> (processes:ICloudProcess&lt;&#39;T&gt; []) -&gt; LocalCloud&lt;ICloudProcess&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -730,16 +697,15 @@ computation or 'None' if no fault has occurred.</p>
           <p>Asynchronously waits until one of the given processes completes.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+          <code onmouseout="hideTip(event, '163', 163)" onmouseover="showTip(event, '163', 163)">
             WhenAny(processes)
           </code>
-          <div class="tip" id="167">
+          <div class="tip" id="163">
             <strong>Signature:</strong> (processes:ICloudProcess []) -&gt; LocalCloud&lt;ICloudProcess&gt;<br />
                       </div>
         </td>
@@ -747,22 +713,20 @@ computation or 'None' if no fault has occurred.</p>
           <p>Asynchronously waits until one of the given processes completes.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
+          <code onmouseout="hideTip(event, '164', 164)" onmouseover="showTip(event, '164', 164)">
             WithFaultPolicy(policy workflow)
           </code>
-          <div class="tip" id="168">
+          <div class="tip" id="164">
             <strong>Signature:</strong> policy:FaultPolicy -&gt; workflow:Cloud&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Sets a new fault policy for given workflow.</p>
-
 
 
         </td>

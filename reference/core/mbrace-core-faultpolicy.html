@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Fault policy to be applied in a distributed MBrace computation.</p>
 
-
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -58,15 +57,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '310', 310)" onmouseover="showTip(event, '310', 310)">
+          <code onmouseout="hideTip(event, '306', 306)" onmouseover="showTip(event, '306', 306)">
             new()
           </code>
-          <div class="tip" id="310">
+          <div class="tip" id="306">
             <strong>Signature:</strong> unit -&gt; FaultPolicy<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>.ctor</code></p>
         </td>
       </tr>
     </tbody>
@@ -80,10 +80,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '311', 311)" onmouseover="showTip(event, '311', 311)">
+          <code onmouseout="hideTip(event, '307', 307)" onmouseover="showTip(event, '307', 307)">
             GetFaultRecoveryAction(...)
           </code>
-          <div class="tip" id="311">
+          <div class="tip" id="307">
             <strong>Signature:</strong> (numberOfFaults:int * faultException:exn) -&gt; FaultRecoveryAction<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -92,16 +92,15 @@
           <p>Decides on the recovery action that should take place using supplied fault data.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '312', 312)" onmouseover="showTip(event, '312', 312)">
+          <code onmouseout="hideTip(event, '308', 308)" onmouseover="showTip(event, '308', 308)">
             Id
           </code>
-          <div class="tip" id="312">
+          <div class="tip" id="308">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -110,7 +109,7 @@
           <p>FaultPolicy identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
     </tbody>
@@ -124,10 +123,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '313', 313)" onmouseover="showTip(event, '313', 313)">
+          <code onmouseout="hideTip(event, '309', 309)" onmouseover="showTip(event, '309', 309)">
             InfiniteRetries(delay)
           </code>
-          <div class="tip" id="313">
+          <div class="tip" id="309">
             <strong>Signature:</strong> (delay:TimeSpan option) -&gt; FaultPolicy<br />
                       </div>
         </td>
@@ -135,16 +134,15 @@
           <p>Forever re-attempt faulted computations.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '314', 314)" onmouseover="showTip(event, '314', 314)">
+          <code onmouseout="hideTip(event, '310', 310)" onmouseover="showTip(event, '310', 310)">
             NoRetry
           </code>
-          <div class="tip" id="314">
+          <div class="tip" id="310">
             <strong>Signature:</strong> FaultPolicy<br />
                       </div>
         </td>
@@ -152,23 +150,22 @@
           <p>Makes no attempt at retrying a faulted computation, raising any exception at the first occurrence.</p>
 
 
-
+              <p>CompiledName: <code>get_NoRetry</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '315', 315)" onmouseover="showTip(event, '315', 315)">
+          <code onmouseout="hideTip(event, '311', 311)" onmouseover="showTip(event, '311', 311)">
             WithExponentialDelay(...)
           </code>
-          <div class="tip" id="315">
+          <div class="tip" id="311">
             <strong>Signature:</strong> (maxRetries:int * initialDelay:TimeSpan option) -&gt; FaultPolicy<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Retries computation until a given number, 
+          <p>Retries computation until a given number,
 using exponentially increasing delay intervals after each fault.</p>
-
 
 
         </td>
@@ -176,10 +173,10 @@ using exponentially increasing delay intervals after each fault.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '316', 316)" onmouseover="showTip(event, '316', 316)">
+          <code onmouseout="hideTip(event, '312', 312)" onmouseover="showTip(event, '312', 312)">
             WithMappedDelay(maxRetries, delayF)
           </code>
-          <div class="tip" id="316">
+          <div class="tip" id="312">
             <strong>Signature:</strong> (maxRetries:int * delayF:(int -&gt; TimeSpan)) -&gt; FaultPolicy<br />
                       </div>
         </td>
@@ -187,22 +184,20 @@ using exponentially increasing delay intervals after each fault.</p>
           <p>Retries with delay mapped to attempt number.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '317', 317)" onmouseover="showTip(event, '317', 317)">
+          <code onmouseout="hideTip(event, '313', 313)" onmouseover="showTip(event, '313', 313)">
             WithMaxRetries(maxRetries, delay)
           </code>
-          <div class="tip" id="317">
+          <div class="tip" id="313">
             <strong>Signature:</strong> (maxRetries:int * delay:TimeSpan option) -&gt; FaultPolicy<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Retries at most a given number of times.</p>
-
 
 
         </td>

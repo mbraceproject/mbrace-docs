@@ -39,43 +39,33 @@
         <div class="span9" id="main">
           
 <h1><a name="Using-Cloud-Queues" class="anchor" href="#Using-Cloud-Queues">Using Cloud Queues</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>In this tutorial you learn how to create and use cloud queues, which allow you to send messages between
 cloud workflows.  The state of queues is kept in cloud storage.</p>
-
 <p>First, you create a cloud queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">queue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">string</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 13)" onmouseover="showTip(event, 'fs6', 13)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you send to the channel by scheduling a cloud process to do the send:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> { <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">queue</span><span class="o">.</span><span class="i">Enqueue</span> <span class="s">&quot;hello&quot;</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 16)" onmouseover="showTip(event, 'fs6', 16)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you receive from the channel by scheduling a cloud process to do the receive:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">msg</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span onmouseout="hideTip(event, 'fs9', 19)" onmouseover="showTip(event, 'fs9', 19)" class="i">queue</span><span class="o">.</span><span class="i">Dequeue</span>() } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 20)" onmouseover="showTip(event, 'fs6', 20)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you start a cloud task to send 100 messages to the queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -92,9 +82,7 @@ cloud workflows.  The state of queues is kept in cloud storage.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you start a cloud task to wait for the 100 messages:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -117,29 +105,22 @@ cloud workflows.  The state of queues is kept in cloud storage.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you wait for the result of the receiving cloud task:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs17', 38)" onmouseover="showTip(event, 'fs17', 38)" class="i">receiveTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Using-queues-as-inputs-to-reactive-data-parallel-cloud-flows" class="anchor" href="#Using-queues-as-inputs-to-reactive-data-parallel-cloud-flows">Using queues as inputs to reactive data parallel cloud flows</a></h2>
-
 <p>You now learn how to use cloud queues as inputs to a data parallel cloud flow.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;lib/sieve.fsx&quot;</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>First, you create a request queue and an output queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -148,9 +129,7 @@ cloud workflows.  The state of queues is kept in cloud storage.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you create a data parallel cloud workflow with 4-way parallelism that reads from the request queue. The requests are integer messages indicating a number of prime nnumbers to compute. The outputs are the sum of the prime numbers.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -165,18 +144,14 @@ cloud workflows.  The state of queues is kept in cloud storage.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>This task will continue running until it is explicitly cancelled or the queues are deleted. Check on the task using the following:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs24', 68)" onmouseover="showTip(event, 'fs24', 68)" class="i">processingFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 69)" onmouseover="showTip(event, 'fs16', 69)" class="f">ShowInfo</span>() 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you start a cloud task to send 100 different requests to the queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -197,9 +172,7 @@ cloud workflows.  The state of queues is kept in cloud storage.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you run a cloud task to collect up to 10 results from the output queue.  You can run this multiple times to collect all the results.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -210,15 +183,12 @@ cloud workflows.  The state of queues is kept in cloud storage.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned how to use queues in cloud storage and how to use them
-as inputs to data parallel cloud workflows. Continue with further samples to learn more 
+as inputs to data parallel cloud workflows. Continue with further samples to learn more
 about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

@@ -39,23 +39,17 @@
         <div class="span9" id="main">
           
 <h1><a name="Example-Running-an-iterative-algorithm-at-scale-with-incremental-notifications" class="anchor" href="#Example-Running-an-iterative-algorithm-at-scale-with-incremental-notifications">Example: Running an iterative algorithm at scale with incremental notifications</a></h1>
-
 <blockquote>
-  <p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>This example shows how to implement the iterative algorithm k-Means, which finds centroids of clusters for points.</p>
-
 <p>It shows some important techniques</p>
-
 <ul>
-<li><p>How to partition data and keep affinity of workers to data</p></li>
-<li><p>How to emit partial results to an intermediate queue</p></li>
-<li><p>How to observe that queue using incremental charting</p></li>
+<li>How to partition data and keep affinity of workers to data</li>
+<li>How to emit partial results to an intermediate queue</li>
+<li>How to observe that queue using incremental charting</li>
 </ul>
-
 <p>First define some parameters for the input set we want to classify:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -70,9 +64,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Generate some random input data, a deterministic set of points based on the parameters above.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -113,9 +105,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next you display a chart showing the first 500 points from each partition:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -136,11 +126,8 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Giving <img src="../img/kmeans-input.png" alt="Input to KMeans" /></p>
-
 <p>Now you define a set of helper functions and types related to points and finding centroids:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -233,11 +220,9 @@
 </code></pre></td>
 </tr>
 </table>
-
-<p>This is the iterative computation.  Computes the new centroids based on classifying each point to an existing centroid. 
-Then computes new centroids based on that classification.  <code>emit</code> is used to emit observations of 
+<p>This is the iterative computation.  Computes the new centroids based on classifying each point to an existing centroid.
+Then computes new centroids based on that classification.  <code>emit</code> is used to emit observations of
 intermediate states to a queue or some other sink.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -316,9 +301,7 @@ intermediate states to a queue or some other sink.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The main cloud routine. Partitions the points according to the available workers, then iterates.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -367,12 +350,9 @@ intermediate states to a queue or some other sink.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Running-a-test-flight-of-the-algorithm" class="anchor" href="#Running-a-test-flight-of-the-algorithm">Running a test flight of the algorithm</a></h2>
-
 <p>You can now run a test flight of the algorithm with a drastically increased epsilon value to allow for
 more rapid convergence:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -383,9 +363,7 @@ more rapid convergence:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Take a look at progress</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -398,18 +376,14 @@ more rapid convergence:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Get the result:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs108', 302)" onmouseover="showTip(event, 'fs108', 302)" class="i">centroids</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs101', 303)" onmouseover="showTip(event, 'fs101', 303)" class="i">kmeansTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs109', 304)" onmouseover="showTip(event, 'fs109', 304)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now chart a selection of the original points and the overall result</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -420,16 +394,11 @@ more rapid convergence:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Giving <img src="../img/kmeans-results-1.png" alt="First results from KMeans" /></p>
-
 <h2><a name="Observing-intermediate-states-of-the-algorithm" class="anchor" href="#Observing-intermediate-states-of-the-algorithm">Observing intermediate states of the algorithm</a></h2>
-
 <p>Frequently when running iterative algorithms or long running processes you will need
 to emit information for visualization and inspection of the progress of the algorithm.</p>
-
 <p>To do this, you create a queue to observe the partial output results from the iterations.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -440,9 +409,7 @@ to emit information for visualization and inspection of the progress of the algo
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you start the task, emitting observations to the queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -453,9 +420,7 @@ to emit information for visualization and inspection of the progress of the algo
 </code></pre></td>
 </tr>
 </table>
-
 <p>Take a look at progress</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -468,9 +433,7 @@ to emit information for visualization and inspection of the progress of the algo
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you chart the intermediate results as they arrive as an incrementally updating chart:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -501,22 +464,16 @@ to emit information for visualization and inspection of the progress of the algo
 </code></pre></td>
 </tr>
 </table>
-
 <p>This produces the following incrementally:</p>
-
 <p><img src="../img/kmeans-results-2-incremental.png" alt="Incremental results from KMeans" /></p>
-
 <p>Now wait for the overall result:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs136', 375)" onmouseover="showTip(event, 'fs136', 375)" class="i">centroids2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs117', 376)" onmouseover="showTip(event, 'fs117', 376)" class="i">kmeansTask2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs109', 377)" onmouseover="showTip(event, 'fs109', 377)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now chart the original points, the centroids we computed on the first flight, and the final centroids.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -529,17 +486,13 @@ to emit information for visualization and inspection of the progress of the algo
 </code></pre></td>
 </tr>
 </table>
-
 <p>Giving</p>
-
 <p><img src="../img/kmeans-results-2.png" alt="The centroids found by the clustering" /></p>
-
 <p>In this example, you've learned how to run an iterative algorithm on an MBrace cluster,
 including how to emit and observe intermediate states from the iterations.
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

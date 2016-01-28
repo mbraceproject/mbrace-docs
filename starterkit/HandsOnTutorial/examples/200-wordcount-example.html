@@ -39,16 +39,12 @@
         <div class="span9" id="main">
           
 <h1><a name="Example-Cloud-distributed-WordCount" class="anchor" href="#Example-Cloud-distributed-WordCount">Example: Cloud-distributed WordCount</a></h1>
-
 <blockquote>
-  <p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>This example implements the classic word count example commonly associated with distributed Map/Reduce frameworks.
 We use CloudFlow for the implementation and <a href="http://www.textfiles.com">textfiles.com</a> as our data source.</p>
-
 <p>First, some basic type definitions:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -77,9 +73,7 @@ We use CloudFlow for the implementation and <a href="http://www.textfiles.com">t
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now, define the words to ignore in the word count:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -122,11 +116,9 @@ We use CloudFlow for the implementation and <a href="http://www.textfiles.com">t
 </code></pre></td>
 </tr>
 </table>
-
 <p>We are now ready to define our distributed workflows.
 First, we create a distributed download workflow that caches the contents of supplied urls across the cluster.
 This returns a PersistedCloudFlow type that can be readily used for consumption by future flow queries.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -139,9 +131,7 @@ This returns a PersistedCloudFlow type that can be readily used for consumption 
 </code></pre></td>
 </tr>
 </table>
-
 <p>The wordcount function can now be defined:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -164,11 +154,8 @@ This returns a PersistedCloudFlow type that can be readily used for consumption 
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Test-the-wordcount-sample-using-textfiles-com" class="anchor" href="#Test-the-wordcount-sample-using-textfiles-com">Test the wordcount sample using textfiles.com</a></h2>
-
 <p>Step 1. Determine URIs to data inputs from textfiles.com</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -177,9 +164,7 @@ This returns a PersistedCloudFlow type that can be readily used for consumption 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Step 2. Download URIs to across cluster and load in memory</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -200,9 +185,7 @@ This returns a PersistedCloudFlow type that can be readily used for consumption 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Step 3. Perform wordcount on downloaded data</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -213,9 +196,7 @@ This returns a PersistedCloudFlow type that can be readily used for consumption 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Check progress:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -224,22 +205,18 @@ This returns a PersistedCloudFlow type that can be readily used for consumption 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Wait for the results:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs62', 112)" onmouseover="showTip(event, 'fs62', 112)" class="i">wordCountTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs63', 113)" onmouseover="showTip(event, 'fs63', 113)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this tutorial, you've learned how to perform a scalable textual analysis task using MBrace.
 Continue with further samples to learn more about the
 MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

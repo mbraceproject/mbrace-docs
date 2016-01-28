@@ -55,10 +55,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '294', 294)" onmouseover="showTip(event, '294', 294)">
+          <code onmouseout="hideTip(event, '290', 290)" onmouseover="showTip(event, '290', 290)">
             Cast(cloudValue)
           </code>
-          <div class="tip" id="294">
+          <div class="tip" id="290">
             <strong>Signature:</strong> cloudValue:ICloudValue -&gt; CloudValue&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -66,16 +66,15 @@
           <p>Casts given CloudValue instance to specified type.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '295', 295)" onmouseover="showTip(event, '295', 295)">
+          <code onmouseout="hideTip(event, '291', 291)" onmouseover="showTip(event, '291', 291)">
             DefaultStorageLevel
           </code>
-          <div class="tip" id="295">
+          <div class="tip" id="291">
             <strong>Signature:</strong> LocalCloud&lt;StorageLevel&gt;<br />
                       </div>
         </td>
@@ -83,16 +82,16 @@
           <p>Gets the default cache storage level used by the runtime.</p>
 
 
-
+              <p>CompiledName: <code>get_DefaultStorageLevel</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '296', 296)" onmouseover="showTip(event, '296', 296)">
+          <code onmouseout="hideTip(event, '292', 292)" onmouseover="showTip(event, '292', 292)">
             Delete(value)
           </code>
-          <div class="tip" id="296">
+          <div class="tip" id="292">
             <strong>Signature:</strong> value:ICloudValue -&gt; LocalCloud&lt;unit&gt;<br />
                       </div>
         </td>
@@ -100,16 +99,15 @@
           <p>Deletes the provided CloudValue from store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '297', 297)" onmouseover="showTip(event, '297', 297)">
+          <code onmouseout="hideTip(event, '293', 293)" onmouseover="showTip(event, '293', 293)">
             GetAllValues()
           </code>
-          <div class="tip" id="297">
+          <div class="tip" id="293">
             <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ICloudValue []&gt;<br />
                       </div>
         </td>
@@ -117,16 +115,15 @@
           <p>Fetches all existing CloudValue from underlying store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '298', 298)" onmouseover="showTip(event, '298', 298)">
+          <code onmouseout="hideTip(event, '294', 294)" onmouseover="showTip(event, '294', 294)">
             IsSupportedStorageLevel(storageLevel)
           </code>
-          <div class="tip" id="298">
+          <div class="tip" id="294">
             <strong>Signature:</strong> storageLevel:StorageLevel -&gt; LocalCloud&lt;bool&gt;<br />
                       </div>
         </td>
@@ -135,16 +132,15 @@
 CloudValue implementation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '299', 299)" onmouseover="showTip(event, '299', 299)">
+          <code onmouseout="hideTip(event, '295', 295)" onmouseover="showTip(event, '295', 295)">
             New(value, storageLevel)
           </code>
-          <div class="tip" id="299">
+          <div class="tip" id="295">
             <strong>Signature:</strong> (value:&#39;T * storageLevel:StorageLevel option) -&gt; LocalCloud&lt;CloudValue&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -152,16 +148,15 @@ CloudValue implementation.</p>
           <p>Creates a new CloudValue instance with provided payload.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '300', 300)" onmouseover="showTip(event, '300', 300)">
+          <code onmouseout="hideTip(event, '296', 296)" onmouseover="showTip(event, '296', 296)">
             NewArray(values, storageLevel)
           </code>
-          <div class="tip" id="300">
+          <div class="tip" id="296">
             <strong>Signature:</strong> (values:seq&lt;&#39;T&gt; * storageLevel:StorageLevel option) -&gt; LocalCloud&lt;CloudArray&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -169,16 +164,15 @@ CloudValue implementation.</p>
           <p>Creates a partitioned set of CloudArrays from input sequence according to size.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '301', 301)" onmouseover="showTip(event, '301', 301)">
+          <code onmouseout="hideTip(event, '297', 297)" onmouseover="showTip(event, '297', 297)">
             NewArrayPartitioned(...)
           </code>
-          <div class="tip" id="301">
+          <div class="tip" id="297">
             <strong>Signature:</strong> (values:seq&lt;&#39;T&gt; * partitionThreshold:int64 * storageLevel:StorageLevel option) -&gt; LocalCloud&lt;CloudArray&lt;&#39;T&gt; []&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -186,16 +180,15 @@ CloudValue implementation.</p>
           <p>Creates a partitioned set of CloudArrays from input sequence according to size.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '302', 302)" onmouseover="showTip(event, '302', 302)">
+          <code onmouseout="hideTip(event, '298', 298)" onmouseover="showTip(event, '298', 298)">
             Read(value)
           </code>
-          <div class="tip" id="302">
+          <div class="tip" id="298">
             <strong>Signature:</strong> value:CloudValue&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -203,22 +196,20 @@ CloudValue implementation.</p>
           <p>Dereferences a cloud value.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '303', 303)" onmouseover="showTip(event, '303', 303)">
+          <code onmouseout="hideTip(event, '299', 299)" onmouseover="showTip(event, '299', 299)">
             TryGetValueById(id)
           </code>
-          <div class="tip" id="303">
+          <div class="tip" id="299">
             <strong>Signature:</strong> id:string -&gt; LocalCloud&lt;ICloudValue option&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Retrieves a CloudValue instance by provided id.</p>
-
 
 
         </td>

@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Denotes a cloud process that is being executed in the cluster.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '328', 328)" onmouseover="showTip(event, '328', 328)">
+          <code onmouseout="hideTip(event, '324', 324)" onmouseover="showTip(event, '324', 324)">
             AwaitResultBoxedAsync(...)
           </code>
-          <div class="tip" id="328">
+          <div class="tip" id="324">
             <strong>Signature:</strong> (timeoutMilliseconds:int option) -&gt; Async&lt;obj&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,16 +69,15 @@
           <p>Awaits cloud process for completion, returning its eventual result.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '329', 329)" onmouseover="showTip(event, '329', 329)">
+          <code onmouseout="hideTip(event, '325', 325)" onmouseover="showTip(event, '325', 325)">
             CancellationToken
           </code>
-          <div class="tip" id="329">
+          <div class="tip" id="325">
             <strong>Signature:</strong> ICloudCancellationToken<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,16 +86,16 @@
           <p>Gets the cancellation corresponding to the Task instance</p>
 
 
-
+              <p>CompiledName: <code>get_CancellationToken</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '330', 330)" onmouseover="showTip(event, '330', 330)">
+          <code onmouseout="hideTip(event, '326', 326)" onmouseover="showTip(event, '326', 326)">
             Id
           </code>
-          <div class="tip" id="330">
+          <div class="tip" id="326">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -106,16 +104,16 @@
           <p>Unique cloud process identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '331', 331)" onmouseover="showTip(event, '331', 331)">
+          <code onmouseout="hideTip(event, '327', 327)" onmouseover="showTip(event, '327', 327)">
             IsCanceled
           </code>
-          <div class="tip" id="331">
+          <div class="tip" id="327">
             <strong>Signature:</strong> bool<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -124,16 +122,16 @@
           <p>Gets a boolean indicating that the cloud process has been canceled.</p>
 
 
-
+              <p>CompiledName: <code>get_IsCanceled</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '332', 332)" onmouseover="showTip(event, '332', 332)">
+          <code onmouseout="hideTip(event, '328', 328)" onmouseover="showTip(event, '328', 328)">
             IsCompleted
           </code>
-          <div class="tip" id="332">
+          <div class="tip" id="328">
             <strong>Signature:</strong> bool<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -142,16 +140,16 @@
           <p>Gets a boolean indicating that the cloud process has completed successfully.</p>
 
 
-
+              <p>CompiledName: <code>get_IsCompleted</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '333', 333)" onmouseover="showTip(event, '333', 333)">
+          <code onmouseout="hideTip(event, '329', 329)" onmouseover="showTip(event, '329', 329)">
             IsFaulted
           </code>
-          <div class="tip" id="333">
+          <div class="tip" id="329">
             <strong>Signature:</strong> bool<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -160,16 +158,16 @@
           <p>Gets a boolean indicating that the cloud process has completed with fault.</p>
 
 
-
+              <p>CompiledName: <code>get_IsFaulted</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '334', 334)" onmouseover="showTip(event, '334', 334)">
+          <code onmouseout="hideTip(event, '330', 330)" onmouseover="showTip(event, '330', 330)">
             ResultBoxed
           </code>
-          <div class="tip" id="334">
+          <div class="tip" id="330">
             <strong>Signature:</strong> obj<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -178,16 +176,16 @@
           <p>Synchronously gets the cloud process result, blocking until it completes.</p>
 
 
-
+              <p>CompiledName: <code>get_ResultBoxed</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '335', 335)" onmouseover="showTip(event, '335', 335)">
+          <code onmouseout="hideTip(event, '331', 331)" onmouseover="showTip(event, '331', 331)">
             Status
           </code>
-          <div class="tip" id="335">
+          <div class="tip" id="331">
             <strong>Signature:</strong> CloudProcessStatus<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -196,16 +194,16 @@
           <p>Gets a TaskStatus enumeration indicating the current cloud process state.</p>
 
 
-
+              <p>CompiledName: <code>get_Status</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '336', 336)" onmouseover="showTip(event, '336', 336)">
+          <code onmouseout="hideTip(event, '332', 332)" onmouseover="showTip(event, '332', 332)">
             TryGetResultBoxedAsync()
           </code>
-          <div class="tip" id="336">
+          <div class="tip" id="332">
             <strong>Signature:</strong> unit -&gt; Async&lt;obj option&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -214,23 +212,21 @@
           <p>Returns the cloud process result if completed or None if still pending.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '337', 337)" onmouseover="showTip(event, '337', 337)">
+          <code onmouseout="hideTip(event, '333', 333)" onmouseover="showTip(event, '333', 333)">
             WaitAsync(timeoutMilliseconds)
           </code>
-          <div class="tip" id="337">
+          <div class="tip" id="333">
             <strong>Signature:</strong> (timeoutMilliseconds:int option) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously waits for the cloud process to complete.</p>
-
 
 
         </td>

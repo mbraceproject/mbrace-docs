@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Defines a serializable, distributed result aggregator entity.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1091', 1091)" onmouseover="showTip(event, '1091', 1091)">
+          <code onmouseout="hideTip(event, '1101', 1101)" onmouseover="showTip(event, '1101', 1101)">
             Capacity
           </code>
-          <div class="tip" id="1091">
+          <div class="tip" id="1101">
             <strong>Signature:</strong> int<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,16 +69,16 @@
           <p>Declared capacity for result aggregator.</p>
 
 
-
+              <p>CompiledName: <code>get_Capacity</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1092', 1092)" onmouseover="showTip(event, '1092', 1092)">
+          <code onmouseout="hideTip(event, '1102', 1102)" onmouseover="showTip(event, '1102', 1102)">
             CurrentSize
           </code>
-          <div class="tip" id="1092">
+          <div class="tip" id="1102">
             <strong>Signature:</strong> Async&lt;int&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,16 +87,16 @@
           <p>Asynchronously returns current accumulated size for aggregator.</p>
 
 
-
+              <p>CompiledName: <code>get_CurrentSize</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1093', 1093)" onmouseover="showTip(event, '1093', 1093)">
+          <code onmouseout="hideTip(event, '1103', 1103)" onmouseover="showTip(event, '1103', 1103)">
             IsCompleted
           </code>
-          <div class="tip" id="1093">
+          <div class="tip" id="1103">
             <strong>Signature:</strong> Async&lt;bool&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -106,16 +105,16 @@
           <p>Asynchronously returns if result aggregator has been completed.</p>
 
 
-
+              <p>CompiledName: <code>get_IsCompleted</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1094', 1094)" onmouseover="showTip(event, '1094', 1094)">
+          <code onmouseout="hideTip(event, '1104', 1104)" onmouseover="showTip(event, '1104', 1104)">
             SetResult(index, value, workerId)
           </code>
-          <div class="tip" id="1094">
+          <div class="tip" id="1104">
             <strong>Signature:</strong> (index:int * value:&#39;T * workerId:IWorkerId) -&gt; Async&lt;bool&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -125,23 +124,21 @@
 Returns true if aggregation is completed.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1095', 1095)" onmouseover="showTip(event, '1095', 1095)">
+          <code onmouseout="hideTip(event, '1105', 1105)" onmouseover="showTip(event, '1105', 1105)">
             ToArray()
           </code>
-          <div class="tip" id="1095">
+          <div class="tip" id="1105">
             <strong>Signature:</strong> unit -&gt; Async&lt;&#39;T []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously returns aggregated results, provided aggregation is completed.</p>
-
 
 
         </td>

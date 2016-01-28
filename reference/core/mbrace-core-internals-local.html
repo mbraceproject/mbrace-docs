@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Internal local workflow combinators</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '644', 644)" onmouseover="showTip(event, '644', 644)">
+          <code onmouseout="hideTip(event, '640', 640)" onmouseover="showTip(event, '640', 640)">
             FromContinuations(body)
           </code>
-          <div class="tip" id="644">
+          <div class="tip" id="640">
             <strong>Signature:</strong> (body:(ExecutionContext -&gt; Continuation&lt;&#39;T&gt; -&gt; unit)) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -69,16 +68,15 @@
           <p>Creates a cloud workflow that captures the current execution context.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '645', 645)" onmouseover="showTip(event, '645', 645)">
+          <code onmouseout="hideTip(event, '641', 641)" onmouseover="showTip(event, '641', 641)">
             WithAppendedStackTrace(...)
           </code>
-          <div class="tip" id="645">
+          <div class="tip" id="641">
             <strong>Signature:</strong> functionName:string -&gt; workflow:LocalCloud&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -86,16 +84,15 @@
           <p>Appends a function information entry to the symbolic stacktrace in the exception continuation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '646', 646)" onmouseover="showTip(event, '646', 646)">
+          <code onmouseout="hideTip(event, '642', 642)" onmouseover="showTip(event, '642', 642)">
             WithMappedContinuation(mapper workflow)
           </code>
-          <div class="tip" id="646">
+          <div class="tip" id="642">
             <strong>Signature:</strong> (mapper:(Continuation&lt;&#39;T&gt; -&gt; Continuation&lt;&#39;S&gt;)) -&gt; workflow:LocalCloud&lt;&#39;S&gt; -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -103,16 +100,15 @@
           <p>Wraps a workflow with a mapped continuation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '647', 647)" onmouseover="showTip(event, '647', 647)">
+          <code onmouseout="hideTip(event, '643', 643)" onmouseover="showTip(event, '643', 643)">
             WithNestedContext(...)
           </code>
-          <div class="tip" id="647">
+          <div class="tip" id="643">
             <strong>Signature:</strong> (workflow:LocalCloud&lt;&#39;T&gt; * update:(ExecutionContext -&gt; ExecutionContext) * revert:(ExecutionContext -&gt; ExecutionContext)) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -122,16 +118,15 @@ introduced using the update/revert functions.
 These must be serializable and exception safe.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '648', 648)" onmouseover="showTip(event, '648', 648)">
+          <code onmouseout="hideTip(event, '644', 644)" onmouseover="showTip(event, '644', 644)">
             WithNestedResource(...)
           </code>
-          <div class="tip" id="648">
+          <div class="tip" id="644">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * update:(&#39;TResource -&gt; &#39;TResource) * revert:(&#39;TResource -&gt; &#39;TResource)) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'TResource          </div>
         </td>
@@ -139,7 +134,6 @@ These must be serializable and exception safe.</p>
           <p>Runs provided workflow in a nested execution context that is
 introduced using the update/revert functions.
 These must be serializable and exception safe.</p>
-
 
 
         </td>

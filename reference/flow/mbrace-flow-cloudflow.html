@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Provides CloudFlow producers.</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,16 +57,79 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '815', 815)" onmouseover="showTip(event, '815', 815)">
+          <code onmouseout="hideTip(event, '811', 811)" onmouseover="showTip(event, '811', 811)">
             OfArray(source)
           </code>
-          <div class="tip" id="815">
+          <div class="tip" id="811">
             <strong>Signature:</strong> (source:&#39;T []) -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Wraps array as a CloudFlow.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '812', 812)" onmouseover="showTip(event, '812', 812)">
+            OfCloudArrays(cloudArrays)
+          </code>
+          <div class="tip" id="812">
+            <strong>Signature:</strong> cloudArrays:seq&lt;&#39;?23985&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> '?23985, 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudFlow from a collection of provided cloud sequences.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '813', 813)" onmouseover="showTip(event, '813', 813)">
+            OfCloudCollection(...)
+          </code>
+          <div class="tip" id="813">
+            <strong>Signature:</strong> (collection:ICloudCollection&lt;&#39;T&gt; * sizeThresholdPerWorker:(unit -&gt; int64) option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudFlow according to partitions of provided cloud collection.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '814', 814)" onmouseover="showTip(event, '814', 814)">
+            OfCloudDirectory(...)
+          </code>
+          <div class="tip" id="814">
+            <strong>Signature:</strong> (dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow from all files in provided directory using the given reader.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '815', 815)" onmouseover="showTip(event, '815', 815)">
+            OfCloudDirectory(...)
+          </code>
+          <div class="tip" id="815">
+            <strong>Signature:</strong> (dirPath:string * serializer:ISerializer * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constructs a CloudFlow of all files in provided cloud directory using the given serializer implementation.</p>
 
 
         </td>
@@ -76,15 +138,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '816', 816)" onmouseover="showTip(event, '816', 816)">
-            OfCloudArrays(cloudArrays)
+            OfCloudDirectory(...)
           </code>
           <div class="tip" id="816">
-            <strong>Signature:</strong> cloudArrays:seq&lt;&#39;?23931&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />
-                          <strong>Type parameters:</strong> '?23931, 'T          </div>
+            <strong>Signature:</strong> (dirPath:string * deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a CloudFlow from a collection of provided cloud sequences.</p>
-
+          <p>Constructs a CloudFlow of all files in provided cloud directory using the given deserializer.</p>
 
 
         </td>
@@ -93,15 +154,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '817', 817)" onmouseover="showTip(event, '817', 817)">
-            OfCloudCollection(...)
+            OfCloudDirectoryByLine(...)
           </code>
           <div class="tip" id="817">
-            <strong>Signature:</strong> (collection:ICloudCollection&lt;&#39;T&gt; * sizeThresholdPerWorker:(unit -&gt; int64) option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> (dirPath:string * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a CloudFlow according to partitions of provided cloud collection.</p>
-
+          <p>Constructs a text CloudFlow by line from all files in supplied CloudDirectory.</p>
 
 
         </td>
@@ -110,15 +170,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '818', 818)" onmouseover="showTip(event, '818', 818)">
-            OfCloudDirectory(...)
+            OfCloudFileByLine(path, encoding)
           </code>
           <div class="tip" id="818">
-            <strong>Signature:</strong> (dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow from all files in provided directory using the given reader.</p>
-
+          <p>Constructs a CloudFlow of lines from a single large text file.</p>
 
 
         </td>
@@ -127,15 +186,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '819', 819)" onmouseover="showTip(event, '819', 819)">
-            OfCloudDirectory(...)
+            OfCloudFileByLine(...)
           </code>
           <div class="tip" id="819">
-            <strong>Signature:</strong> (dirPath:string * serializer:ISerializer * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow of all files in provided cloud directory using the given serializer implementation.</p>
-
+          <p>Constructs a CloudFlow of lines from a collection of text files.</p>
 
 
         </td>
@@ -144,15 +202,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '820', 820)" onmouseover="showTip(event, '820', 820)">
-            OfCloudDirectory(...)
+            OfCloudFiles(...)
           </code>
           <div class="tip" id="820">
-            <strong>Signature:</strong> (dirPath:string * deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow of all files in provided cloud directory using the given deserializer.</p>
-
+          <p>Constructs a CloudFlow from a collection of text files using the given reader.</p>
 
 
         </td>
@@ -161,15 +218,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '821', 821)" onmouseover="showTip(event, '821', 821)">
-            OfCloudDirectoryByLine(...)
+            OfCloudFiles(...)
           </code>
           <div class="tip" id="821">
-            <strong>Signature:</strong> (dirPath:string * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;string&gt;<br />
-                      </div>
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * serializer:ISerializer * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a text CloudFlow by line from all files in supplied CloudDirectory.</p>
-
+          <p>Constructs a CloudFlow from a collection of CloudFiles using the given serializer implementation.</p>
 
 
         </td>
@@ -178,15 +234,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '822', 822)" onmouseover="showTip(event, '822', 822)">
-            OfCloudFileByLine(path, encoding)
+            OfCloudFiles(...)
           </code>
           <div class="tip" id="822">
-            <strong>Signature:</strong> (path:string * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
-                      </div>
+            <strong>Signature:</strong> (paths:seq&lt;string&gt; * deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow of lines from a single large text file.</p>
-
+          <p>Constructs a CloudFlow from a collection of CloudFiles using the given deserializer.</p>
 
 
         </td>
@@ -195,15 +250,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '823', 823)" onmouseover="showTip(event, '823', 823)">
-            OfCloudFileByLine(...)
+            OfCloudQueue(queue, degreeOfParallelism)
           </code>
           <div class="tip" id="823">
-            <strong>Signature:</strong> (paths:seq&lt;string&gt; * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;string&gt;<br />
-                      </div>
+            <strong>Signature:</strong> (queue:CloudQueue&lt;&#39;T&gt; * degreeOfParallelism:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow of lines from a collection of text files.</p>
-
+          <p>Creates a CloudFlow from the ReceivePort of a CloudQueue.</p>
 
 
         </td>
@@ -212,15 +266,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '824', 824)" onmouseover="showTip(event, '824', 824)">
-            OfCloudFiles(...)
+            OfHttpFileByLine(urls, encoding)
           </code>
           <div class="tip" id="824">
-            <strong>Signature:</strong> (paths:seq&lt;string&gt; * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * encoding:Encoding option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> (urls:seq&lt;string&gt; * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow from a collection of text files using the given reader.</p>
-
+          <p>Constructs a CloudFlow of lines from a collection of HTTP text files.</p>
 
 
         </td>
@@ -229,15 +282,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '825', 825)" onmouseover="showTip(event, '825', 825)">
-            OfCloudFiles(...)
+            OfHttpFileByLine(url, encoding)
           </code>
           <div class="tip" id="825">
-            <strong>Signature:</strong> (paths:seq&lt;string&gt; * serializer:ISerializer * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> (url:string * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Constructs a CloudFlow from a collection of CloudFiles using the given serializer implementation.</p>
-
+          <p>Constructs a CloudFlow of lines from a single HTTP text file.</p>
 
 
         </td>
@@ -246,83 +298,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '826', 826)" onmouseover="showTip(event, '826', 826)">
-            OfCloudFiles(...)
-          </code>
-          <div class="tip" id="826">
-            <strong>Signature:</strong> (paths:seq&lt;string&gt; * deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) option * sizeThresholdPerCore:int64 option) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Constructs a CloudFlow from a collection of CloudFiles using the given deserializer.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '827', 827)" onmouseover="showTip(event, '827', 827)">
-            OfCloudQueue(queue, degreeOfParallelism)
-          </code>
-          <div class="tip" id="827">
-            <strong>Signature:</strong> (queue:CloudQueue&lt;&#39;T&gt; * degreeOfParallelism:int) -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Creates a CloudFlow from the ReceivePort of a CloudQueue.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '828', 828)" onmouseover="showTip(event, '828', 828)">
-            OfHttpFileByLine(urls, encoding)
-          </code>
-          <div class="tip" id="828">
-            <strong>Signature:</strong> (urls:seq&lt;string&gt; * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Constructs a CloudFlow of lines from a collection of HTTP text files.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '829', 829)" onmouseover="showTip(event, '829', 829)">
-            OfHttpFileByLine(url, encoding)
-          </code>
-          <div class="tip" id="829">
-            <strong>Signature:</strong> (url:string * encoding:Encoding option) -&gt; CloudFlow&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Constructs a CloudFlow of lines from a single HTTP text file.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '830', 830)" onmouseover="showTip(event, '830', 830)">
             OfSeqs(enumerations)
           </code>
-          <div class="tip" id="830">
-            <strong>Signature:</strong> enumerations:seq&lt;&#39;?23934&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> '?23934, 'T          </div>
+          <div class="tip" id="826">
+            <strong>Signature:</strong> enumerations:seq&lt;&#39;?23988&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> '?23988, 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a CloudFlow instance from a finite collection of serializable enumerations.</p>
-
 
 
         </td>

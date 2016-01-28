@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Cloud file storage abstraction</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '568', 568)" onmouseover="showTip(event, '568', 568)">
+          <code onmouseout="hideTip(event, '564', 564)" onmouseover="showTip(event, '564', 564)">
             BeginRead(path)
           </code>
-          <div class="tip" id="568">
+          <div class="tip" id="564">
             <strong>Signature:</strong> path:string -&gt; Async&lt;Stream&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,16 +69,15 @@
           <p>Reads from an existing file in store. If successful returns a reader stream.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '569', 569)" onmouseover="showTip(event, '569', 569)">
+          <code onmouseout="hideTip(event, '565', 565)" onmouseover="showTip(event, '565', 565)">
             BeginWrite(path)
           </code>
-          <div class="tip" id="569">
+          <div class="tip" id="565">
             <strong>Signature:</strong> path:string -&gt; Async&lt;Stream&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,16 +86,15 @@
           <p>Creates a new file in store. If successful returns a writer stream.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '570', 570)" onmouseover="showTip(event, '570', 570)">
+          <code onmouseout="hideTip(event, '566', 566)" onmouseover="showTip(event, '566', 566)">
             Combine(paths)
           </code>
-          <div class="tip" id="570">
+          <div class="tip" id="566">
             <strong>Signature:</strong> (paths:string []) -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -106,16 +103,15 @@
           <p>Combines an array of paths into a path.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '571', 571)" onmouseover="showTip(event, '571', 571)">
+          <code onmouseout="hideTip(event, '567', 567)" onmouseover="showTip(event, '567', 567)">
             CreateDirectory(directory)
           </code>
-          <div class="tip" id="571">
+          <div class="tip" id="567">
             <strong>Signature:</strong> directory:string -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -124,16 +120,15 @@
           <p>Creates a new directory in store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '572', 572)" onmouseover="showTip(event, '572', 572)">
+          <code onmouseout="hideTip(event, '568', 568)" onmouseover="showTip(event, '568', 568)">
             DefaultDirectory
           </code>
-          <div class="tip" id="572">
+          <div class="tip" id="568">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -142,16 +137,16 @@
           <p>Gets the default directory used by the current cluster.</p>
 
 
-
+              <p>CompiledName: <code>get_DefaultDirectory</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '573', 573)" onmouseover="showTip(event, '573', 573)">
+          <code onmouseout="hideTip(event, '569', 569)" onmouseover="showTip(event, '569', 569)">
             DeleteDirectory(...)
           </code>
-          <div class="tip" id="573">
+          <div class="tip" id="569">
             <strong>Signature:</strong> (directory:string * recursiveDelete:bool) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -160,16 +155,15 @@
           <p>Deletes provided directory.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '574', 574)" onmouseover="showTip(event, '574', 574)">
+          <code onmouseout="hideTip(event, '570', 570)" onmouseover="showTip(event, '570', 570)">
             DeleteFile(path)
           </code>
-          <div class="tip" id="574">
+          <div class="tip" id="570">
             <strong>Signature:</strong> path:string -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -178,16 +172,15 @@
           <p>Deletes file in given path.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '575', 575)" onmouseover="showTip(event, '575', 575)">
+          <code onmouseout="hideTip(event, '571', 571)" onmouseover="showTip(event, '571', 571)">
             DirectoryExists(directory)
           </code>
-          <div class="tip" id="575">
+          <div class="tip" id="571">
             <strong>Signature:</strong> directory:string -&gt; Async&lt;bool&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -196,16 +189,15 @@
           <p>Checks if directory exists in given path.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '576', 576)" onmouseover="showTip(event, '576', 576)">
+          <code onmouseout="hideTip(event, '572', 572)" onmouseover="showTip(event, '572', 572)">
             DownloadToLocalFile(...)
           </code>
-          <div class="tip" id="576">
+          <div class="tip" id="572">
             <strong>Signature:</strong> (cloudSourcePath:string * localTargetPath:string) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -214,16 +206,15 @@
           <p>Downloads a cloud file to the specified path in the local disk.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '577', 577)" onmouseover="showTip(event, '577', 577)">
+          <code onmouseout="hideTip(event, '573', 573)" onmouseover="showTip(event, '573', 573)">
             DownloadToStream(path, stream)
           </code>
-          <div class="tip" id="577">
+          <div class="tip" id="573">
             <strong>Signature:</strong> (path:string * stream:Stream) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -232,16 +223,15 @@
           <p>Downloads the contents of provided cloud file to specified write stream.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '578', 578)" onmouseover="showTip(event, '578', 578)">
+          <code onmouseout="hideTip(event, '574', 574)" onmouseover="showTip(event, '574', 574)">
             EnumerateDirectories(directory)
           </code>
-          <div class="tip" id="578">
+          <div class="tip" id="574">
             <strong>Signature:</strong> directory:string -&gt; Async&lt;string []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -250,16 +240,15 @@
           <p>Get all directories that exist in given directory.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '579', 579)" onmouseover="showTip(event, '579', 579)">
+          <code onmouseout="hideTip(event, '575', 575)" onmouseover="showTip(event, '575', 575)">
             EnumerateFiles(directory)
           </code>
-          <div class="tip" id="579">
+          <div class="tip" id="575">
             <strong>Signature:</strong> directory:string -&gt; Async&lt;string []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -268,16 +257,15 @@
           <p>Gets all files that exist in given container.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '580', 580)" onmouseover="showTip(event, '580', 580)">
+          <code onmouseout="hideTip(event, '576', 576)" onmouseover="showTip(event, '576', 576)">
             FileExists(path)
           </code>
-          <div class="tip" id="580">
+          <div class="tip" id="576">
             <strong>Signature:</strong> path:string -&gt; Async&lt;bool&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -286,16 +274,15 @@
           <p>Checks if file exists in store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '581', 581)" onmouseover="showTip(event, '581', 581)">
+          <code onmouseout="hideTip(event, '577', 577)" onmouseover="showTip(event, '577', 577)">
             GetDirectoryName(path)
           </code>
-          <div class="tip" id="581">
+          <div class="tip" id="577">
             <strong>Signature:</strong> path:string -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -304,16 +291,15 @@
           <p>Returns the directory name for given path.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '582', 582)" onmouseover="showTip(event, '582', 582)">
+          <code onmouseout="hideTip(event, '578', 578)" onmouseover="showTip(event, '578', 578)">
             GetFileName(path)
           </code>
-          <div class="tip" id="582">
+          <div class="tip" id="578">
             <strong>Signature:</strong> path:string -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -322,16 +308,15 @@
           <p>Returns the file name for given path.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '583', 583)" onmouseover="showTip(event, '583', 583)">
+          <code onmouseout="hideTip(event, '579', 579)" onmouseover="showTip(event, '579', 579)">
             GetFileSize(path)
           </code>
-          <div class="tip" id="583">
+          <div class="tip" id="579">
             <strong>Signature:</strong> path:string -&gt; Async&lt;int64&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -340,16 +325,15 @@
           <p>Asynchronously gets the file size in bytes.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '584', 584)" onmouseover="showTip(event, '584', 584)">
+          <code onmouseout="hideTip(event, '580', 580)" onmouseover="showTip(event, '580', 580)">
             GetLastModifiedTime(path, isDirectory)
           </code>
-          <div class="tip" id="584">
+          <div class="tip" id="580">
             <strong>Signature:</strong> (path:string * isDirectory:bool) -&gt; Async&lt;DateTimeOffset&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -358,16 +342,15 @@
           <p>Asynchronously gets the last modification time for given path.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '585', 585)" onmouseover="showTip(event, '585', 585)">
+          <code onmouseout="hideTip(event, '581', 581)" onmouseover="showTip(event, '581', 581)">
             GetRandomDirectoryName()
           </code>
-          <div class="tip" id="585">
+          <div class="tip" id="581">
             <strong>Signature:</strong> unit -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -376,16 +359,15 @@
           <p>Generates a random, uniquely specified path to directory</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '586', 586)" onmouseover="showTip(event, '586', 586)">
+          <code onmouseout="hideTip(event, '582', 582)" onmouseover="showTip(event, '582', 582)">
             Id
           </code>
-          <div class="tip" id="586">
+          <div class="tip" id="582">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -394,16 +376,16 @@
           <p>Store identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '587', 587)" onmouseover="showTip(event, '587', 587)">
+          <code onmouseout="hideTip(event, '583', 583)" onmouseover="showTip(event, '583', 583)">
             IsCaseSensitiveFileSystem
           </code>
-          <div class="tip" id="587">
+          <div class="tip" id="583">
             <strong>Signature:</strong> bool<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -412,16 +394,16 @@
           <p>Indicates whether the file system uses case sensitive paths</p>
 
 
-
+              <p>CompiledName: <code>get_IsCaseSensitiveFileSystem</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '588', 588)" onmouseover="showTip(event, '588', 588)">
+          <code onmouseout="hideTip(event, '584', 584)" onmouseover="showTip(event, '584', 584)">
             IsPathRooted(path)
           </code>
-          <div class="tip" id="588">
+          <div class="tip" id="584">
             <strong>Signature:</strong> path:string -&gt; bool<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -430,16 +412,15 @@
           <p>Returns true iff path is absolute under the store uri format.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '589', 589)" onmouseover="showTip(event, '589', 589)">
+          <code onmouseout="hideTip(event, '585', 585)" onmouseover="showTip(event, '585', 585)">
             Name
           </code>
-          <div class="tip" id="589">
+          <div class="tip" id="585">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -448,16 +429,16 @@
           <p>Implementation name</p>
 
 
-
+              <p>CompiledName: <code>get_Name</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '590', 590)" onmouseover="showTip(event, '590', 590)">
+          <code onmouseout="hideTip(event, '586', 586)" onmouseover="showTip(event, '586', 586)">
             ReadETag(path, etag)
           </code>
-          <div class="tip" id="590">
+          <div class="tip" id="586">
             <strong>Signature:</strong> (path:string * etag:ETag) -&gt; Async&lt;Stream option&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -467,16 +448,15 @@
 provided that supplied etag matches payload.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '591', 591)" onmouseover="showTip(event, '591', 591)">
+          <code onmouseout="hideTip(event, '587', 587)" onmouseover="showTip(event, '587', 587)">
             RootDirectory
           </code>
-          <div class="tip" id="591">
+          <div class="tip" id="587">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -485,16 +465,16 @@ provided that supplied etag matches payload.</p>
           <p>Gets the root directory for cloud store instance.</p>
 
 
-
+              <p>CompiledName: <code>get_RootDirectory</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '592', 592)" onmouseover="showTip(event, '592', 592)">
+          <code onmouseout="hideTip(event, '588', 588)" onmouseover="showTip(event, '588', 588)">
             TryGetETag(path)
           </code>
-          <div class="tip" id="592">
+          <div class="tip" id="588">
             <strong>Signature:</strong> path:string -&gt; Async&lt;ETag option&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -503,16 +483,15 @@ provided that supplied etag matches payload.</p>
           <p>Asynchronously returns the ETag for provided file, if it exists.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '593', 593)" onmouseover="showTip(event, '593', 593)">
+          <code onmouseout="hideTip(event, '589', 589)" onmouseover="showTip(event, '589', 589)">
             UploadFromLocalFile(...)
           </code>
-          <div class="tip" id="593">
+          <div class="tip" id="589">
             <strong>Signature:</strong> (localSourcePath:string * cloudTargetPath:string) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -521,16 +500,15 @@ provided that supplied etag matches payload.</p>
           <p>Uploads a local file to specified path in the cloud file store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '594', 594)" onmouseover="showTip(event, '594', 594)">
+          <code onmouseout="hideTip(event, '590', 590)" onmouseover="showTip(event, '590', 590)">
             UploadFromStream(path, stream)
           </code>
-          <div class="tip" id="594">
+          <div class="tip" id="590">
             <strong>Signature:</strong> (path:string * stream:Stream) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -539,16 +517,15 @@ provided that supplied etag matches payload.</p>
           <p>Uploads the contents of provided read stream to specified cloud file.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '595', 595)" onmouseover="showTip(event, '595', 595)">
+          <code onmouseout="hideTip(event, '591', 591)" onmouseover="showTip(event, '591', 591)">
             WithDefaultDirectory(directory)
           </code>
-          <div class="tip" id="595">
+          <div class="tip" id="591">
             <strong>Signature:</strong> directory:string -&gt; ICloudFileStore<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -557,23 +534,21 @@ provided that supplied etag matches payload.</p>
           <p>Creates a copy of the file store implementation with updated default directory.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '596', 596)" onmouseover="showTip(event, '596', 596)">
+          <code onmouseout="hideTip(event, '592', 592)" onmouseover="showTip(event, '592', 592)">
             WriteETag(path, writer)
           </code>
-          <div class="tip" id="596">
+          <div class="tip" id="592">
             <strong>Signature:</strong> (path:string * writer:(Stream -&gt; Async&lt;&#39;R&gt;)) -&gt; Async&lt;ETag * &#39;R&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'R          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a new file in store. If successful returns a writer stream.</p>
-
 
 
         </td>

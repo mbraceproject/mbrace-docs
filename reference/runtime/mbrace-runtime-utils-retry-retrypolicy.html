@@ -56,10 +56,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1327', 1327)" onmouseover="showTip(event, '1327', 1327)">
+          <code onmouseout="hideTip(event, '1337', 1337)" onmouseover="showTip(event, '1337', 1337)">
             Policy(int -&gt; exn -&gt; TimeSpan option)
           </code>
-          <div class="tip" id="1327">
+          <div class="tip" id="1337">
             <strong>Signature:</strong> int -&gt; exn -&gt; TimeSpan option<br />
                       </div>
         </td>
@@ -78,10 +78,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1328', 1328)" onmouseover="showTip(event, '1328', 1328)">
+          <code onmouseout="hideTip(event, '1338', 1338)" onmouseover="showTip(event, '1338', 1338)">
             DelayMap(maxRetries, delayF)
           </code>
-          <div class="tip" id="1328">
+          <div class="tip" id="1338">
             <strong>Signature:</strong> (maxRetries:int * delayF:(int -&gt; float&lt;MeasureProduct&lt;sec,MeasureOne&gt;&gt;)) -&gt; RetryPolicy<br />
                       </div>
         </td>
@@ -89,16 +89,15 @@
           <p>maps delay time w.r.t number of performed retries</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1329', 1329)" onmouseover="showTip(event, '1329', 1329)">
+          <code onmouseout="hideTip(event, '1339', 1339)" onmouseover="showTip(event, '1339', 1339)">
             ExponentialDelay(...)
           </code>
-          <div class="tip" id="1329">
+          <div class="tip" id="1339">
             <strong>Signature:</strong> (maxRetries:int * initialDelay:float&lt;MeasureProduct&lt;sec,MeasureOne&gt;&gt;) -&gt; RetryPolicy<br />
                       </div>
         </td>
@@ -106,16 +105,15 @@
           <p>doubles the delay interval after every retry</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1330', 1330)" onmouseover="showTip(event, '1330', 1330)">
+          <code onmouseout="hideTip(event, '1340', 1340)" onmouseover="showTip(event, '1340', 1340)">
             Filter(policy)
           </code>
-          <div class="tip" id="1330">
+          <div class="tip" id="1340">
             <strong>Signature:</strong> policy:RetryPolicy -&gt; RetryPolicy<br />
                           <strong>Type parameters:</strong> 'exn          </div>
         </td>
@@ -123,16 +121,15 @@
           <p>Performs exception type filtering action on exception before running nested retry policy.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1331', 1331)" onmouseover="showTip(event, '1331', 1331)">
+          <code onmouseout="hideTip(event, '1341', 1341)" onmouseover="showTip(event, '1341', 1341)">
             Infinite(delay)
           </code>
-          <div class="tip" id="1331">
+          <div class="tip" id="1341">
             <strong>Signature:</strong> (delay:float&lt;MeasureProduct&lt;sec,MeasureOne&gt;&gt; option) -&gt; RetryPolicy<br />
                       </div>
         </td>
@@ -140,16 +137,15 @@
           <p>performs infinitely many retries until operation succeeds</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1332', 1332)" onmouseover="showTip(event, '1332', 1332)">
+          <code onmouseout="hideTip(event, '1342', 1342)" onmouseover="showTip(event, '1342', 1342)">
             NoRetry
           </code>
-          <div class="tip" id="1332">
+          <div class="tip" id="1342">
             <strong>Signature:</strong> RetryPolicy<br />
                       </div>
         </td>
@@ -157,22 +153,21 @@
           <p>Policy that performs no retries</p>
 
 
-
+              <p>CompiledName: <code>get_NoRetry</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1333', 1333)" onmouseover="showTip(event, '1333', 1333)">
+          <code onmouseout="hideTip(event, '1343', 1343)" onmouseover="showTip(event, '1343', 1343)">
             Retry(maxRetries, delay)
           </code>
-          <div class="tip" id="1333">
+          <div class="tip" id="1343">
             <strong>Signature:</strong> (maxRetries:int option * delay:float&lt;MeasureProduct&lt;sec,MeasureOne&gt;&gt; option) -&gt; RetryPolicy<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>performs given number of retries</p>
-
 
 
         </td>

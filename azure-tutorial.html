@@ -39,13 +39,13 @@
         <div class="span9" id="main">
           
 <h1><a name="Using-MBrace-on-Azure" class="anchor" href="#Using-MBrace-on-Azure">Using MBrace on Azure</a></h1>
-
 <ol>
 <li><p><a href="https://azure.microsoft.com">Create an Azure account</a> and <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p></li>
 <li><p><a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md">Download or clone the starter pack</a>.</p></li>
-<li><p>Build the solution to get the required packages</p></li>
+<li>Build the solution to get the required packages</li>
 <li><p>Open the <code>HandsOnTutorial/AzureCluster.fsx</code> script. Insert the path to your publication settings file and edit any other Azure settings as required.</p></li>
-<li><p>Open the <code>HandsOnTutorial/0-provision-azure-cluster.fsx</code> script and follow the instruction up to the line</p>
+<li>
+<p>Open the <code>HandsOnTutorial/0-provision-azure-cluster.fsx</code> script and follow the instruction up to the line</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"> <span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">deployment</span> <span class="o">=</span> <span class="i">Config</span><span class="o">.</span><span class="i">ProvisionCluster</span>()
@@ -53,42 +53,35 @@
 </tr>
 </table>
 <p>Diagnostics will be shown.  When created your cluster will now appear as a cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.
-If you have any trouble, <a href="https://github.com/mbraceproject/MBrace.Azure/issues">report an issue on github</a>.</p></li>
-<li>Open the first tutorial script in the starter pack 
+If you have any trouble, <a href="https://github.com/mbraceproject/MBrace.Azure/issues">report an issue on github</a>.</p>
+</li>
+<li>
+<p>Open the first tutorial script in the starter pack
 hands-on tutorial (or read <a href="starterkit/HandsOnTutorial/1-hello-world.html">the online version</a>). The scripts follow the tutorials in the
-<a href="http://www.mbrace.io/programming-model.html">Core Programming Model</a>.</li>
+<a href="http://www.mbrace.io/programming-model.html">Core Programming Model</a>.</p>
+</li>
 </ol>
-
 <h3><a name="How-your-MBrace-code-runs-on-Azure" class="anchor" href="#How-your-MBrace-code-runs-on-Azure">How your MBrace code runs on Azure</a></h3>
-
 <p>Your MBrace code has two parts: a client and a cluster. The cluster runs as an Azure Cloud Service with associated
 storage and queue assets. You can <a href="https://manage.windowsazure.com/">manage your cluster on the Azure management portal</a>.</p>
-
 <p>Typically your MBrace client will run in:</p>
-
 <ul>
-<li><p>an F# interactive instance in your editor; or</p></li>
-<li><p>as part of another cloud service, website or web job; or</p></li>
-<li><p>as a client desktop process.</p></li>
+<li>an F# interactive instance in your editor; or</li>
+<li>as part of another cloud service, website or web job; or</li>
+<li>as a client desktop process.</li>
 </ul>
-
 <p>In all cases, the client will need sufficient network access to be able to write to the
 Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.</p>
-
-<p>When your client submits jobs using <code>cluster.CreateProcess</code> or <code>cluster.Run</code>, parts of 
+<p>When your client submits jobs using <code>cluster.CreateProcess</code> or <code>cluster.Run</code>, parts of
 your client code will be transported to the cluster and executed
 there. MBrace looks after the transport of code and data using Vagabond.</p>
-
 <p>Take care that the base architectures on client and cluster are compatible, e.g. both are 64-bit.</p>
-
 <h3><a name="Using-your-Azure-cluster-from-compiled-code" class="anchor" href="#Using-your-Azure-cluster-from-compiled-code">Using your Azure cluster from compiled code</a></h3>
-
 <p>To use your Azure cluster from compiled projects (rather than scripts),
-add a reference to the <code>MBrace.Azure</code> package and use the 
+add a reference to the <code>MBrace.Azure</code> package and use the
 following code. The configuration strings can be found by the
 Azure management console or the <code>GetDeployment().Configuration</code> in
 an MBrace data script.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>

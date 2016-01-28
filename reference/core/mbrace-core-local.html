@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Local-parallelism combinators</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '353', 353)" onmouseover="showTip(event, '353', 353)">
+          <code onmouseout="hideTip(event, '349', 349)" onmouseover="showTip(event, '349', 349)">
             Catch(workflow)
           </code>
-          <div class="tip" id="353">
+          <div class="tip" id="349">
             <strong>Signature:</strong> workflow:LocalCloud&lt;&#39;T&gt; -&gt; LocalCloud&lt;Choice&lt;&#39;T,exn&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -69,27 +68,25 @@
           <p>Catch exception from given cloud workflow.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '354', 354)" onmouseover="showTip(event, '354', 354)">
+          <code onmouseout="hideTip(event, '350', 350)" onmouseover="showTip(event, '350', 350)">
             Choice(computations)
           </code>
-          <div class="tip" id="354">
+          <div class="tip" id="350">
             <strong>Signature:</strong> (computations:seq&lt;LocalCloud&lt;&#39;T option&gt;&gt;) -&gt; LocalCloud&lt;&#39;T option&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Returns a cloud computation that will execute given computations
 possibly in parallel and will return when any of the supplied computations
-have returned a successful value or if all of them fail to succeed. 
+have returned a successful value or if all of them fail to succeed.
 If a computation succeeds the rest of them are canceled.
 The success of a computation is encoded as an option type.
 This operator may create distribution.</p>
-
 
 
         </td>
@@ -97,10 +94,10 @@ This operator may create distribution.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '355', 355)" onmouseover="showTip(event, '355', 355)">
+          <code onmouseout="hideTip(event, '351', 351)" onmouseover="showTip(event, '351', 351)">
             Ignore(workflow)
           </code>
-          <div class="tip" id="355">
+          <div class="tip" id="351">
             <strong>Signature:</strong> workflow:LocalCloud&lt;&#39;T&gt; -&gt; LocalCloud&lt;unit&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -108,16 +105,15 @@ This operator may create distribution.</p>
           <p>Performs a cloud computations, discarding its result</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '356', 356)" onmouseover="showTip(event, '356', 356)">
+          <code onmouseout="hideTip(event, '352', 352)" onmouseover="showTip(event, '352', 352)">
             Parallel(left, right)
           </code>
-          <div class="tip" id="356">
+          <div class="tip" id="352">
             <strong>Signature:</strong> (left:LocalCloud&lt;&#39;L&gt; * right:LocalCloud&lt;&#39;R&gt;) -&gt; LocalCloud&lt;&#39;L * &#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'L, 'R          </div>
         </td>
@@ -128,16 +124,15 @@ This operator may create distribution.
 Exceptions raised by children carry cancellation semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '357', 357)" onmouseover="showTip(event, '357', 357)">
+          <code onmouseout="hideTip(event, '353', 353)" onmouseover="showTip(event, '353', 353)">
             Parallel(computations)
           </code>
-          <div class="tip" id="357">
+          <div class="tip" id="353">
             <strong>Signature:</strong> computations:seq&lt;LocalCloud&lt;&#39;T&gt;&gt; -&gt; LocalCloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -148,22 +143,20 @@ This operator may create distribution.
 Exceptions raised by children carry cancellation semantics.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '358', 358)" onmouseover="showTip(event, '358', 358)">
+          <code onmouseout="hideTip(event, '354', 354)" onmouseover="showTip(event, '354', 354)">
             TryFinally(body, finalizer)
           </code>
-          <div class="tip" id="358">
+          <div class="tip" id="354">
             <strong>Signature:</strong> (body:LocalCloud&lt;&#39;T&gt; * finalizer:LocalCloud&lt;unit&gt;) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Try/Finally combinator for monadic finalizers.</p>
-
 
 
         </td>

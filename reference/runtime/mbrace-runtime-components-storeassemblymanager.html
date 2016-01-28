@@ -48,7 +48,6 @@
 <p>AssemblyManager implementation that uses cloud store to share Vagabond assemblies.
 Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfiguration object instead.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -59,10 +58,10 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1286', 1286)" onmouseover="showTip(event, '1286', 1286)">
+          <code onmouseout="hideTip(event, '1296', 1296)" onmouseover="showTip(event, '1296', 1296)">
             ComputeDependencies(graph)
           </code>
-          <div class="tip" id="1286">
+          <div class="tip" id="1296">
             <strong>Signature:</strong> graph:&#39;T -&gt; VagabondAssembly []<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -70,16 +69,15 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
           <p>Compute dependencies for provided object graph</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1287', 1287)" onmouseover="showTip(event, '1287', 1287)">
+          <code onmouseout="hideTip(event, '1297', 1297)" onmouseover="showTip(event, '1297', 1297)">
             DownloadAssemblies(ids)
           </code>
-          <div class="tip" id="1287">
+          <div class="tip" id="1297">
             <strong>Signature:</strong> ids:seq&lt;AssemblyId&gt; -&gt; Async&lt;VagabondAssembly []&gt;<br />
                       </div>
         </td>
@@ -87,16 +85,15 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
           <p>Asynchronously download provided dependencies from store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1288', 1288)" onmouseover="showTip(event, '1288', 1288)">
+          <code onmouseout="hideTip(event, '1298', 1298)" onmouseover="showTip(event, '1298', 1298)">
             LoadAssemblies(assemblies)
           </code>
-          <div class="tip" id="1288">
+          <div class="tip" id="1298">
             <strong>Signature:</strong> assemblies:seq&lt;VagabondAssembly&gt; -&gt; AssemblyLoadInfo []<br />
                       </div>
         </td>
@@ -104,16 +101,15 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
           <p>Load local assemblies to current AppDomain</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1289', 1289)" onmouseover="showTip(event, '1289', 1289)">
+          <code onmouseout="hideTip(event, '1299', 1299)" onmouseover="showTip(event, '1299', 1299)">
             NativeDependencies
           </code>
-          <div class="tip" id="1289">
+          <div class="tip" id="1299">
             <strong>Signature:</strong> VagabondAssembly []<br />
                       </div>
         </td>
@@ -121,16 +117,16 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
           <p>Gets all native dependencies registered in current instance</p>
 
 
-
+              <p>CompiledName: <code>get_NativeDependencies</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1290', 1290)" onmouseover="showTip(event, '1290', 1290)">
+          <code onmouseout="hideTip(event, '1300', 1300)" onmouseover="showTip(event, '1300', 1300)">
             RegisterNativeDependency(assemblyPath)
           </code>
-          <div class="tip" id="1290">
+          <div class="tip" id="1300">
             <strong>Signature:</strong> assemblyPath:string -&gt; VagabondAssembly<br />
                       </div>
         </td>
@@ -138,22 +134,20 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
           <p>Registers a native assembly dependency to client state.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1291', 1291)" onmouseover="showTip(event, '1291', 1291)">
+          <code onmouseout="hideTip(event, '1301', 1301)" onmouseover="showTip(event, '1301', 1301)">
             UploadAssemblies(assemblies)
           </code>
-          <div class="tip" id="1291">
+          <div class="tip" id="1301">
             <strong>Signature:</strong> assemblies:seq&lt;VagabondAssembly&gt; -&gt; Async&lt;DataDependencyInfo []&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously upload provided dependencies to store.</p>
-
 
 
         </td>
@@ -169,16 +163,15 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1292', 1292)" onmouseover="showTip(event, '1292', 1292)">
+          <code onmouseout="hideTip(event, '1302', 1302)" onmouseover="showTip(event, '1302', 1302)">
             Create(config, localLogger)
           </code>
-          <div class="tip" id="1292">
+          <div class="tip" id="1302">
             <strong>Signature:</strong> (config:StoreAssemblyManagerConfiguration * localLogger:ISystemLogger option) -&gt; StoreAssemblyManager<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a local StoreAssemblyManager instance with provided configuration.</p>
-
 
 
         </td>

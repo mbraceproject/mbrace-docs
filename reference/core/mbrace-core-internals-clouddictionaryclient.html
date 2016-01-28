@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Collection of client methods for CloudDictionary API</p>
 
-
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -58,15 +57,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '433', 433)" onmouseover="showTip(event, '433', 433)">
+          <code onmouseout="hideTip(event, '429', 429)" onmouseover="showTip(event, '429', 429)">
             new(provider)
           </code>
-          <div class="tip" id="433">
+          <div class="tip" id="429">
             <strong>Signature:</strong> provider:ICloudDictionaryProvider -&gt; CloudDictionaryClient<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>.ctor</code></p>
         </td>
       </tr>
     </tbody>
@@ -80,16 +80,78 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '434', 434)" onmouseover="showTip(event, '434', 434)">
+          <code onmouseout="hideTip(event, '430', 430)" onmouseover="showTip(event, '430', 430)">
             GetById(dictionaryId)
           </code>
-          <div class="tip" id="434">
+          <div class="tip" id="430">
             <strong>Signature:</strong> dictionaryId:string -&gt; CloudDictionary&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Attempt to recover an already existing CloudDictionary of provided Id and type.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '431', 431)" onmouseover="showTip(event, '431', 431)">
+            GetByIdAsync(dictionaryId)
+          </code>
+          <div class="tip" id="431">
+            <strong>Signature:</strong> dictionaryId:string -&gt; Async&lt;CloudDictionary&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously attempt to recover an already existing CloudDictionary of provided Id and type.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '432', 432)" onmouseover="showTip(event, '432', 432)">
+            Id
+          </code>
+          <div class="tip" id="432">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+              <p>CompiledName: <code>get_Id</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '433', 433)" onmouseover="showTip(event, '433', 433)">
+            New(dictionaryId)
+          </code>
+          <div class="tip" id="433">
+            <strong>Signature:</strong> (dictionaryId:string option) -&gt; CloudDictionary&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new CloudDictionary instance.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '434', 434)" onmouseover="showTip(event, '434', 434)">
+            NewAsync(dictionaryId)
+          </code>
+          <div class="tip" id="434">
+            <strong>Signature:</strong> (dictionaryId:string option) -&gt; Async&lt;CloudDictionary&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously creates a new CloudDictionary instance.</p>
 
 
         </td>
@@ -98,79 +160,15 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '435', 435)" onmouseover="showTip(event, '435', 435)">
-            GetByIdAsync(dictionaryId)
-          </code>
-          <div class="tip" id="435">
-            <strong>Signature:</strong> dictionaryId:string -&gt; Async&lt;CloudDictionary&lt;&#39;T&gt;&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously attempt to recover an already existing CloudDictionary of provided Id and type.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '436', 436)" onmouseover="showTip(event, '436', 436)">
-            Id
-          </code>
-          <div class="tip" id="436">
-            <strong>Signature:</strong> string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '437', 437)" onmouseover="showTip(event, '437', 437)">
-            New(dictionaryId)
-          </code>
-          <div class="tip" id="437">
-            <strong>Signature:</strong> (dictionaryId:string option) -&gt; CloudDictionary&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Creates a new CloudDictionary instance.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '438', 438)" onmouseover="showTip(event, '438', 438)">
-            NewAsync(dictionaryId)
-          </code>
-          <div class="tip" id="438">
-            <strong>Signature:</strong> (dictionaryId:string option) -&gt; Async&lt;CloudDictionary&lt;&#39;T&gt;&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously creates a new CloudDictionary instance.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '439', 439)" onmouseover="showTip(event, '439', 439)">
             Provider
           </code>
-          <div class="tip" id="439">
+          <div class="tip" id="435">
             <strong>Signature:</strong> ICloudDictionaryProvider<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>get_Provider</code></p>
         </td>
       </tr>
     </tbody>
@@ -184,16 +182,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '440', 440)" onmouseover="showTip(event, '440', 440)">
+          <code onmouseout="hideTip(event, '436', 436)" onmouseover="showTip(event, '436', 436)">
             Create(resources)
           </code>
-          <div class="tip" id="440">
+          <div class="tip" id="436">
             <strong>Signature:</strong> resources:ResourceRegistry -&gt; CloudDictionaryClient<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a CloudDictionary client by resolving the local execution context.</p>
-
 
 
         </td>

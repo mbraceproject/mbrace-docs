@@ -39,11 +39,8 @@
         <div class="span9" id="main">
           
 <h1><a name="Creating-an-Incremental-Stock-Analysis" class="anchor" href="#Creating-an-Incremental-Stock-Analysis">Creating an Incremental Stock Analysis</a></h1>
-
 <p>This example shows how to create a stock trading simulator.</p>
-
 <p>First, setup the CSV type provider to read a list of stocks in a strongly typed way:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -54,18 +51,14 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Load the list of stocks. This is relatively small data, so we can read it locally.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 18)" onmouseover="showTip(event, 'fs15', 18)" class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="t">Stocks</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="f">Load</span>(<span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">stockDataPath</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define a type that represents stock trading data:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -80,9 +73,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you extract some essential information from the list of stocks.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -113,10 +104,8 @@
 </code></pre></td>
 </tr>
 </table>
-
-<p>Next, define a function to generate simulated market data at a one timestamp based 
+<p>Next, define a function to generate simulated market data at a one timestamp based
 on the input list of stocks and their average prices:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -141,14 +130,11 @@ on the input list of stocks and their average prices:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define the queue which stores incoming market trading data.</p>
-
 <p>We group many data packages together, write them to storage, and put them into the queue as one element.
-Group many packages together will reduce the number of cloud I/O operations which is 
+Group many packages together will reduce the number of cloud I/O operations which is
 restricted by quota on most fabrics.  Additionally, the size of elements we can write to the queue
 is also restricted, so we write a cloud value, and the queue holds a reference to this cloud value.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -159,19 +145,15 @@ is also restricted, so we write a cloud value, and the queue holds a reference t
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define the queue to store analysis results:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 79)" onmouseover="showTip(event, 'fs46', 79)" class="i">resultQueue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs43', 80)" onmouseover="showTip(event, 'fs43', 80)" class="i">MarketDataGroup</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 81)" onmouseover="showTip(event, 'fs8', 81)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 82)" onmouseover="showTip(event, 'fs45', 82)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define a function to generate simulated market data and write it into the request queue:
 Wait 3 seconds between two slices.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -196,9 +178,7 @@ Wait 3 seconds between two slices.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, start the simulation task to generate market data into the request queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -207,9 +187,7 @@ Wait 3 seconds between two slices.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you define a function to determine if market data has a large ask or bid volume:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -228,10 +206,8 @@ Wait 3 seconds between two slices.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define the task to process simulated stock trading data and generate
 signals when a stock with large ask or bid volume is detected.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -274,27 +250,21 @@ signals when a stock with large ask or bid volume is detected.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>You now start the analysis task:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs68', 132)" onmouseover="showTip(event, 'fs68', 132)" class="i">analysisTask</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs62', 133)" onmouseover="showTip(event, 'fs62', 133)" class="i">AnalyzeMarketData</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 134)" onmouseover="showTip(event, 'fs8', 134)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 135)" onmouseover="showTip(event, 'fs50', 135)" class="f">CreateProcess</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, get batches of results from the result queue:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs46', 136)" onmouseover="showTip(event, 'fs46', 136)" class="i">resultQueue</span><span class="o">.</span><span class="i">DequeueBatch</span>(<span class="n">10</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>Finally, cancel the running simulation tasks:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -303,9 +273,7 @@ signals when a stock with large ask or bid volume is detected.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>And check that all tasks have completed on the cluster:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -314,15 +282,12 @@ signals when a stock with large ask or bid volume is detected.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In texample, you learned you to create a simulation running in the cloud.  The components
-in the simulation take base data and write outputs to cloud queues. 
+in the simulation take base data and write outputs to cloud queues.
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

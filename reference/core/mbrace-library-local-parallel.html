@@ -48,7 +48,6 @@
 <div class="xmldoc">
 <p>Collection of combinators that operate on inputs in parallel within the local process.</p>
 
-
 </div>
 
 <!-- Render nested types and modules, if there are any -->
@@ -62,16 +61,79 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '84', 84)" onmouseover="showTip(event, '84', 84)">
+          <code onmouseout="hideTip(event, '80', 80)" onmouseover="showTip(event, '80', 80)">
             choose(chooser source)
           </code>
-          <div class="tip" id="84">
+          <div class="tip" id="80">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
         <td class="xmldoc">
           <p>Parallel choose combinator.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
+            collect(collector source)
+          </code>
+          <div class="tip" id="81">
+            <strong>Signature:</strong> collector:(&#39;T -&gt; LocalCloud&lt;&#39;?7373&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?7373, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential eager collect combinator.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '82', 82)" onmouseover="showTip(event, '82', 82)">
+            filter(predicate source)
+          </code>
+          <div class="tip" id="82">
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T []&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Parallel filter combinator.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '83', 83)" onmouseover="showTip(event, '83', 83)">
+            iter(body source)
+          </code>
+          <div class="tip" id="83">
+            <strong>Signature:</strong> body:(&#39;T -&gt; LocalCloud&lt;unit&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Sequential iter combinator.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '84', 84)" onmouseover="showTip(event, '84', 84)">
+            map(mapper source)
+          </code>
+          <div class="tip" id="84">
+            <strong>Signature:</strong> mapper:(&#39;T -&gt; LocalCloud&lt;&#39;S&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;S []&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'S          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Parallel map combinator.</p>
 
 
         </td>
@@ -80,15 +142,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '85', 85)" onmouseover="showTip(event, '85', 85)">
-            collect(collector source)
+            tryFind(predicate source)
           </code>
           <div class="tip" id="85">
-            <strong>Signature:</strong> collector:(&#39;T -&gt; LocalCloud&lt;&#39;?7373&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;S []&gt;<br />
-                          <strong>Type parameters:</strong> 'T, '?7373, 'S          </div>
+            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T option&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Sequential eager collect combinator.</p>
-
+          <p>Sequential tryFind combinator.</p>
 
 
         </td>
@@ -97,83 +158,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '86', 86)" onmouseover="showTip(event, '86', 86)">
-            filter(predicate source)
-          </code>
-          <div class="tip" id="86">
-            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T []&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Parallel filter combinator.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '87', 87)" onmouseover="showTip(event, '87', 87)">
-            iter(body source)
-          </code>
-          <div class="tip" id="87">
-            <strong>Signature:</strong> body:(&#39;T -&gt; LocalCloud&lt;unit&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;unit&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Sequential iter combinator.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '88', 88)" onmouseover="showTip(event, '88', 88)">
-            map(mapper source)
-          </code>
-          <div class="tip" id="88">
-            <strong>Signature:</strong> mapper:(&#39;T -&gt; LocalCloud&lt;&#39;S&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;S []&gt;<br />
-                          <strong>Type parameters:</strong> 'T, 'S          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Parallel map combinator.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '89', 89)" onmouseover="showTip(event, '89', 89)">
-            tryFind(predicate source)
-          </code>
-          <div class="tip" id="89">
-            <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;T option&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Sequential tryFind combinator.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '90', 90)" onmouseover="showTip(event, '90', 90)">
             tryPick(chooser source)
           </code>
-          <div class="tip" id="90">
+          <div class="tip" id="86">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; LocalCloud&lt;&#39;S option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
         <td class="xmldoc">
           <p>Sequential tryPick combinator.</p>
-
 
 
         </td>

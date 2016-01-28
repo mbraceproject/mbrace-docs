@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Immutable queue implementation with messages indexable by topic</p>
 
-
 </div>
   <h3>Record Fields</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2321', 2321)" onmouseover="showTip(event, '2321', 2321)">
+          <code onmouseout="hideTip(event, '2332', 2332)" onmouseover="showTip(event, '2332', 2332)">
             GlobalQueue
           </code>
-          <div class="tip" id="2321">
+          <div class="tip" id="2332">
             <strong>Signature:</strong> ImmutableQueue&lt;&#39;T&gt;<br />
                       </div>
         </td>
@@ -72,10 +71,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2322', 2322)" onmouseover="showTip(event, '2322', 2322)">
+          <code onmouseout="hideTip(event, '2333', 2333)" onmouseover="showTip(event, '2333', 2333)">
             TopicQueues
           </code>
-          <div class="tip" id="2322">
+          <div class="tip" id="2333">
             <strong>Signature:</strong> Map&lt;&#39;Topic,ImmutableQueue&lt;&#39;T&gt;&gt;<br />
                       </div>
         </td>
@@ -94,17 +93,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2323', 2323)" onmouseover="showTip(event, '2323', 2323)">
+          <code onmouseout="hideTip(event, '2334', 2334)" onmouseover="showTip(event, '2334', 2334)">
             Cleanup(cleanup)
           </code>
-          <div class="tip" id="2323">
+          <div class="tip" id="2334">
             <strong>Signature:</strong> (cleanup:(&#39;Topic -&gt; bool)) -&gt; &#39;T [] * TopicQueue&lt;&#39;Topic,&#39;T&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Perform cleanup of the queue, by moving all elements from 
+          <p>Perform cleanup of the queue, by moving all elements from
 cleaned up topics to the global queue.</p>
-
 
 
         </td>
@@ -112,10 +110,10 @@ cleaned up topics to the global queue.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2324', 2324)" onmouseover="showTip(event, '2324', 2324)">
+          <code onmouseout="hideTip(event, '2335', 2335)" onmouseover="showTip(event, '2335', 2335)">
             Enqueue(t, topic)
           </code>
-          <div class="tip" id="2324">
+          <div class="tip" id="2335">
             <strong>Signature:</strong> (t:&#39;T * topic:&#39;Topic option) -&gt; TopicQueue&lt;&#39;Topic,&#39;T&gt;<br />
                       </div>
         </td>
@@ -123,22 +121,20 @@ cleaned up topics to the global queue.</p>
           <p>Enqueue a new item to queue, optionally with a specified topic.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2325', 2325)" onmouseover="showTip(event, '2325', 2325)">
+          <code onmouseout="hideTip(event, '2336', 2336)" onmouseover="showTip(event, '2336', 2336)">
             TryDequeue(topic)
           </code>
-          <div class="tip" id="2325">
+          <div class="tip" id="2336">
             <strong>Signature:</strong> (topic:&#39;Topic option) -&gt; (&#39;T * TopicQueue&lt;&#39;Topic,&#39;T&gt;) option<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Dequeue a message from queue, optionally declaring a topic.</p>
-
 
 
         </td>
@@ -154,10 +150,10 @@ cleaned up topics to the global queue.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2326', 2326)" onmouseover="showTip(event, '2326', 2326)">
+          <code onmouseout="hideTip(event, '2337', 2337)" onmouseover="showTip(event, '2337', 2337)">
             Empty
           </code>
-          <div class="tip" id="2326">
+          <div class="tip" id="2337">
             <strong>Signature:</strong> TopicQueue&lt;&#39;Topic,&#39;T&gt;<br />
                       </div>
         </td>
@@ -165,7 +161,7 @@ cleaned up topics to the global queue.</p>
           <p>Creates an empty queue</p>
 
 
-
+              <p>CompiledName: <code>get_Empty</code></p>
         </td>
       </tr>
     </tbody>

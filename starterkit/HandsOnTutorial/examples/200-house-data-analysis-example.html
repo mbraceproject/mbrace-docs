@@ -39,29 +39,23 @@
         <div class="span9" id="main">
           
 <h1><a name="Using-Data-Parallel-Cloud-Flows-to-Analyze-Historical-Event-Data" class="anchor" href="#Using-Data-Parallel-Cloud-Flows-to-Analyze-Historical-Event-Data">Using Data Parallel Cloud Flows to Analyze Historical Event Data</a></h1>
-
 <p>In this example, you learn how to use data parallel cloud flows with historical event data at scale.
 The data is drawn directly from open government data on the internet.  This sample has been adapted
 from Isaac Abraham's <a href="https://cockneycoder.wordpress.com/2015/10/20/mbrace-cloudflows-and-fsharp-data-a-perfect-match/">blog</a>.</p>
-
-<p>You start by using FSharp.Data and its CSV Type Provider. 
-Usually the type provider can infer all data types and columns but in this case the file does 
-not include headers, so we’ll supply them ourselves. 
-You use a local version of the CSV file which contains a subset of the data 
+<p>You start by using FSharp.Data and its CSV Type Provider.
+Usually the type provider can infer all data types and columns but in this case the file does
+not include headers, so we’ll supply them ourselves.
+You use a local version of the CSV file which contains a subset of the data
 (the live dataset even for a single month is &gt; 10MB)</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="t">HousePrices</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="t">CsvProvider</span><span class="o">&lt;</span> <span class="s">@&quot;../../data/SampleHousePrices.csv&quot;</span>, <span class="i">HasHeaders</span> <span class="o">=</span> <span class="k">true</span><span class="o">&gt;</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>With that, you have a strongly-typed way to parse CSV data.</p>
-
 <p>Here is the input data.  (Each of these files is ~70MB but can take a significant amount of time to download
 due to possible rate-limiting from the server).</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -98,11 +92,9 @@ due to possible rate-limiting from the server).</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>Now, stream the data source from the original web location and 
+<p>Now, stream the data source from the original web location and
 across the cluster, then convert the raw text to our CSV provided type.
 Entries are grouped by month and the average price for each month is computed.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -135,24 +127,19 @@ Entries are grouped by month and the average price for each month is computed.</
 </code></pre></td>
 </tr>
 </table>
-
 <p>A <em>CloudFlow</em> is an MBrace primitive which allows a distributed set of transformations to be chained together.
 A CloudFlow pipeline is partitioned across the cluster, making full use of resources available:
 only when the pipelines are completed in each partition are they aggregated together again.</p>
-
 <p>Now observe the progress. Time will depend on download speeds to your data center or location.<br />
 For the large data sets above you can expect approximately 2 minutes.</p>
-
 <p>While you're waiting, notice that you're using type providers <em>in tandem</em> with cloud computations.
 Once we call the ParseRows function, in the next call in the pipeline,
 we’re working with a strongly-typed object model – so DateOfTransfer is a proper DateTime etc.
-For example, if you hit "." after "row" you will see the available information 
+For example, if you hit "." after "row" you will see the available information
 includes <code>Locality</code>, <code>Price</code>, <code>Street</code>, <code>Postcode</code> and so on.
 In addition, all dependent assemblies have automatically been shipped with MBrace.
 MBrace wasn’t explicitly designed to work with FSharp.Data and F# type providers – <em>it just works</em>.</p>
-
 <p>Now wait for the results.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -165,9 +152,7 @@ MBrace wasn’t explicitly designed to work with FSharp.Data and F# type provide
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now that you have a summary array of year, month and price data, you can chart the data.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -194,19 +179,14 @@ MBrace wasn’t explicitly designed to work with FSharp.Data and F# type provide
 </code></pre></td>
 </tr>
 </table>
-
 <p><img src="../img/house-prices-chart-1.png" alt="Price over time (2012 subset of data)" /></p>
-
 <h2><a name="Persisted-Cloud-Flows" class="anchor" href="#Persisted-Cloud-Flows">Persisted Cloud Flows</a></h2>
-
-<p>To prevent repeated work, MBrace supports something called Persisted Cloud Flows (known in the Spark world as RDDs). 
-These are flows whose results are partitioned and cached across the cluster, ready to be re-used again and again. 
+<p>To prevent repeated work, MBrace supports something called Persisted Cloud Flows (known in the Spark world as RDDs).
+These are flows whose results are partitioned and cached across the cluster, ready to be re-used again and again.
 This is particularly useful if you have an intermediary result set that you wish to query multiple times.</p>
-
-<p>In this case, you now persist the first few lines of the computation 
-(which involves downloading the data from source and parsing with the CSV Type Provider), 
+<p>In this case, you now persist the first few lines of the computation
+(which involves downloading the data from source and parsing with the CSV Type Provider),
 ready to be used for any number of strongly-typed queries we might have: –</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -225,9 +205,7 @@ ready to be used for any number of strongly-typed queries we might have: –</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now observe progress:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -236,22 +214,17 @@ ready to be used for any number of strongly-typed queries we might have: –</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now wait for the results:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 99)" onmouseover="showTip(event, 'fs57', 99)" class="i">persistedHousePrices</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs55', 100)" onmouseover="showTip(event, 'fs55', 100)" class="i">persistedHousePricesTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs58', 101)" onmouseover="showTip(event, 'fs58', 101)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The input file will have been partitioned depending on the number of workers in your cluster.
 The partitions are already assigned to different workers.
 With the results persisted on the nodes, we can use them again and again.</p>
-
 <p>First, get the total number of entries across the partitioned, persisted result:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -264,9 +237,7 @@ With the results persisted on the nodes, we can use them again and again.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, get the first 100 entries:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -281,9 +252,7 @@ With the results persisted on the nodes, we can use them again and again.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, get the average house price by year/month.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -304,9 +273,7 @@ With the results persisted on the nodes, we can use them again and again.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Make a chart of the results. This will be the same chart as before, but based on persisted results.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -323,10 +290,8 @@ With the results persisted on the nodes, we can use them again and again.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, get the average prices per street. This takes a fair while since there are a lot of streets.
 We persist the results: CloudFlow.cache is the same as persiting to memory.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -353,9 +318,7 @@ We persist the results: CloudFlow.cache is the same as persiting to memory.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, use the cached results to get the most expensive city and street.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -370,9 +333,7 @@ We persist the results: CloudFlow.cache is the same as persiting to memory.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, use the cached results to also get the least expensive city and street.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -387,9 +348,7 @@ We persist the results: CloudFlow.cache is the same as persiting to memory.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Count the sales by city:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -410,27 +369,20 @@ We persist the results: CloudFlow.cache is the same as persiting to memory.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p><img src="../img/house-prices-by-city.png" alt="Count by city" /></p>
-
 <p>And so on.</p>
-
 <p>So notice that the first query takes 45 seconds to execute,
-which involves downloading the data and parsing it via the CSV type provider. 
-Once we’ve done that, we persist it across the cluster in memory – 
+which involves downloading the data and parsing it via the CSV type provider.
+Once we’ve done that, we persist it across the cluster in memory –
 then we can re-use that persisted flow in all subsequent queries, each of which just takes a few seconds to run.</p>
-
 <h3><a name="Finding-the-Current-Prices-of-Monopoly-Streets" class="anchor" href="#Finding-the-Current-Prices-of-Monopoly-Streets">Finding the Current Prices of Monopoly Streets</a></h3>
-
 <p>We all know and love the game <a href="https://en.wikipedia.org/wiki/Go_to_jail">Monopoly</a>.
 For those who grew up in the United Kingdom or Australia, you probably played
 using the London street names and prices where buying Mayfair cost £400.  But how do
 prices today look, and which streets are now the most expensive?</p>
-
 <p>Next, you get the list of all streets on the Monopoly board using the HTML type provider
 over <a href="http://www.jdawiseman.com/papers/trivia/monopoly-rents.html">this web page</a>.
 This is a type provider in FSharp.Data that helps you crack the content of HTML tables.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -443,18 +395,14 @@ This is a type provider in FSharp.Data that helps you crack the content of HTML 
 </code></pre></td>
 </tr>
 </table>
-
 <p>This page contains a particular table with all the property names for the UK edition of Monopoly:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs84', 213)" onmouseover="showTip(event, 'fs84', 213)" class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs82', 214)" onmouseover="showTip(event, 'fs82', 214)" class="i">monopolyPage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs85', 215)" onmouseover="showTip(event, 'fs85', 215)" class="i">Tables</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs86', 216)" onmouseover="showTip(event, 'fs86', 216)" class="i">Table2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs87', 217)" onmouseover="showTip(event, 'fs87', 217)" class="i">Rows</span> 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Giving:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -469,9 +417,7 @@ This is a type provider in FSharp.Data that helps you crack the content of HTML 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next you put the names into a set, converting them to lower case as you go:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -494,10 +440,8 @@ This is a type provider in FSharp.Data that helps you crack the content of HTML 
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you find the sales that correspond to Monopoly streets, again reusing your calculation
 of average-prices on streets:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -516,9 +460,7 @@ of average-prices on streets:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>You're done! If you are using the large 4-year data set, you will see this:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -565,24 +507,19 @@ of average-prices on streets:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Some of these results are false: they are probably not the streets being referred
 to in the Monopoly game!  But most are accurate.  You will see that the "red" set
 does particularly well in the 21st century!!  Also, many of the "cheap" properties
 are still at the lower end of the list, albeit at roughly 7,000x the price of the original
 game!</p>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this example, you've learned how to use data parallel cloud flows with historical event data
-drawn directly from the internet.  By using F# type providers (FSharp.Data) plus a sample of the data 
+drawn directly from the internet.  By using F# type providers (FSharp.Data) plus a sample of the data
 you have given strong types to your information.  You then learned how to persist partial results
 and to calculate averages and sums of groups of the data.</p>
-
 <p>Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

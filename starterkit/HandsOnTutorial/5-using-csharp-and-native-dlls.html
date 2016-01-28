@@ -39,23 +39,17 @@
         <div class="span9" id="main">
           
 <h1><a name="Using-C-DLLs-and-Native-Components" class="anchor" href="#Using-C-DLLs-and-Native-Components">Using C# DLLs and Native Components</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>It is very simple to use C# DLLs, native DLLs and any nuget packages in your cloud computations.
 For C# DLLs you just download and reference the packages as normal
-in your F# scripting or other client application. The DLLs for the packages are automatically uploaded to 
+in your F# scripting or other client application. The DLLs for the packages are automatically uploaded to
 the cloud workers as needed.  In a sense, you don't need to do anything special.</p>
-
 <p>In this tutorial, you first reference some C# DLLs from the Math.NET NuGet package.
 You also use native binaries from the Intel MKL library.</p>
-
 <h2><a name="Using-C-DLLs-Locally" class="anchor" href="#Using-C-DLLs-Locally">Using C# DLLs Locally</a></h2>
-
 <p>First, you reference and use the packages on the local machine:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -82,13 +76,9 @@ You also use native binaries from the Intel MKL library.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Using-C-DLLs-on-the-cluster" class="anchor" href="#Using-C-DLLs-on-the-cluster">Using C# DLLs on the cluster</a></h2>
-
 <p>Next, run the code on MBrace. Note that the DLLs from the packages are uploaded automatically.</p>
-
 <p>The following inverts 100 150x150 matrices using C# code on the cluster.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -127,15 +117,11 @@ You also use native binaries from the Intel MKL library.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Running-Native-Code-on-the-Cluster" class="anchor" href="#Running-Native-Code-on-the-Cluster">Running Native Code on the Cluster</a></h2>
-
 <p>Next, you run the same work using the Interl MKL native DLLs.</p>
-
 <blockquote>
-  <p>To upload native DLLs, register their paths as native dependencies. These will be included with all uploaded dependencies of the session.</p>
+<p>To upload native DLLs, register their paths as native dependencies. These will be included with all uploaded dependencies of the session.</p>
 </blockquote>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -176,9 +162,7 @@ You also use native binaries from the Intel MKL library.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now run a much larger job: 1000 250x250 matrices, inverted using Intel MKL:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -227,16 +211,13 @@ You also use native binaries from the Intel MKL library.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
-<p>In this tutorial, you've learned how to use C# DLLs, NuGet packages and 
-native DLLs in your MBrace computations. You've also compared performance between native code and 
+<p>In this tutorial, you've learned how to use C# DLLs, NuGet packages and
+native DLLs in your MBrace computations. You've also compared performance between native code and
 C# code running on your cluster for one particular example.<br />
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

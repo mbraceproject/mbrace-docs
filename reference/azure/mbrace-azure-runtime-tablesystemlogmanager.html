@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Management object for table storage based log files</p>
 
-
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -58,15 +57,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1995', 1995)" onmouseover="showTip(event, '1995', 1995)">
+          <code onmouseout="hideTip(event, '2006', 2006)" onmouseover="showTip(event, '2006', 2006)">
             new(clusterId)
           </code>
-          <div class="tip" id="1995">
+          <div class="tip" id="2006">
             <strong>Signature:</strong> clusterId:ClusterId -&gt; TableSystemLogManager<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>.ctor</code></p>
         </td>
       </tr>
     </tbody>
@@ -80,10 +80,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1996', 1996)" onmouseover="showTip(event, '1996', 1996)">
+          <code onmouseout="hideTip(event, '2007', 2007)" onmouseover="showTip(event, '2007', 2007)">
             ClearLogs(loggerId)
           </code>
-          <div class="tip" id="1996">
+          <div class="tip" id="2007">
             <strong>Signature:</strong> (loggerId:string option) -&gt; Async&lt;unit&gt;<br />
                       </div>
         </td>
@@ -91,16 +91,15 @@
           <p>Asynchronously clears all system logs from table store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1997', 1997)" onmouseover="showTip(event, '1997', 1997)">
+          <code onmouseout="hideTip(event, '2008', 2008)" onmouseover="showTip(event, '2008', 2008)">
             CreateLogWriter(loggerId)
           </code>
-          <div class="tip" id="1997">
+          <div class="tip" id="2008">
             <strong>Signature:</strong> loggerId:string -&gt; Async&lt;IRemoteSystemLogger&gt;<br />
                       </div>
         </td>
@@ -108,16 +107,15 @@
           <p>Creates a local log writer using provided logger id.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1998', 1998)" onmouseover="showTip(event, '1998', 1998)">
+          <code onmouseout="hideTip(event, '2009', 2009)" onmouseover="showTip(event, '2009', 2009)">
             GetLogs(loggerId, fromDate, toDate)
           </code>
-          <div class="tip" id="1998">
+          <div class="tip" id="2009">
             <strong>Signature:</strong> (loggerId:string option * fromDate:DateTimeOffset option * toDate:DateTimeOffset option) -&gt; Async&lt;ICollection&lt;SystemLogRecord&gt;&gt;<br />
                       </div>
         </td>
@@ -125,22 +123,20 @@
           <p>Fetches logs matching specified constraints from table storage.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1999', 1999)" onmouseover="showTip(event, '1999', 1999)">
+          <code onmouseout="hideTip(event, '2010', 2010)" onmouseover="showTip(event, '2010', 2010)">
             GetSystemLogPoller(loggerId)
           </code>
-          <div class="tip" id="1999">
+          <div class="tip" id="2010">
             <strong>Signature:</strong> (loggerId:string option) -&gt; ILogPoller&lt;SystemLogEntry&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Gets a log entry observable that asynchronously polls for new logs.</p>
-
 
 
         </td>

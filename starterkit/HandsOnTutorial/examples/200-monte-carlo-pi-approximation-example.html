@@ -39,20 +39,15 @@
         <div class="span9" id="main">
           
 <h1><a name="Example-Monte-Carlo-Pi-Approximation" class="anchor" href="#Example-Monte-Carlo-Pi-Approximation">Example: Monte Carlo Pi Approximation</a></h1>
-
 <blockquote>
-  <p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>In this example you learn you to perform distributed, multi-core CPU computations
 on your MBrace cluster.</p>
-
 <p>The example implements the classic monte carlo implementation using MBrace.
 Take random points in the [0,1] x [0,1] square and count the occurences within the circle radius.
 The resulting fraction should estimate π / 4.</p>
-
 <p>First, define a local, single-threaded Pi estimator:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -95,9 +90,7 @@ The resulting fraction should estimate π / 4.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, define a helper function to convert a bigint rational to floating point number:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -118,10 +111,8 @@ The resulting fraction should estimate π / 4.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>We are now ready to create the distributed component of our sample.
 Now calculate π using MBrace:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -166,18 +157,14 @@ Now calculate π using MBrace:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Start the cloud process:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs50', 108)" onmouseover="showTip(event, 'fs50', 108)" class="i">calcTask</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 109)" onmouseover="showTip(event, 'fs7', 109)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 110)" onmouseover="showTip(event, 'fs51', 110)" class="f">CreateProcess</span>(<span onmouseout="hideTip(event, 'fs43', 111)" onmouseover="showTip(event, 'fs43', 111)" class="f">calculatePi</span> <span class="n">10000000000I</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>Check on its progress:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -186,22 +173,18 @@ Now calculate π using MBrace:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Get the result:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs50', 116)" onmouseover="showTip(event, 'fs50', 116)" class="i">calcTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 117)" onmouseover="showTip(event, 'fs54', 117)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
-<p>In this example, you've learned how to run a CPU-intensive Monte Carlo algorithm 
+<p>In this example, you've learned how to run a CPU-intensive Monte Carlo algorithm
 on an MBrace cluster. Continue with further samples to learn more about the
 MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

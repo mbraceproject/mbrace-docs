@@ -48,7 +48,6 @@
 <p>Immutable dependency container used for pushing
 runtime resources to the continuation monad.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -59,10 +58,10 @@ runtime resources to the continuation monad.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '649', 649)" onmouseover="showTip(event, '649', 649)">
+          <code onmouseout="hideTip(event, '645', 645)" onmouseover="showTip(event, '645', 645)">
             Contains()
           </code>
-          <div class="tip" id="649">
+          <div class="tip" id="645">
             <strong>Signature:</strong> unit -&gt; bool<br />
                           <strong>Type parameters:</strong> 'TResource          </div>
         </td>
@@ -70,16 +69,15 @@ runtime resources to the continuation monad.</p>
           <p>Returns true iff registry instance contains resource of given type.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '650', 650)" onmouseover="showTip(event, '650', 650)">
+          <code onmouseout="hideTip(event, '646', 646)" onmouseover="showTip(event, '646', 646)">
             InstalledResources
           </code>
-          <div class="tip" id="650">
+          <div class="tip" id="646">
             <strong>Signature:</strong> string []<br />
                       </div>
         </td>
@@ -87,16 +85,16 @@ runtime resources to the continuation monad.</p>
           <p>Gets all resources currently registered with factory.</p>
 
 
-
+              <p>CompiledName: <code>get_InstalledResources</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '651', 651)" onmouseover="showTip(event, '651', 651)">
+          <code onmouseout="hideTip(event, '647', 647)" onmouseover="showTip(event, '647', 647)">
             Register(resource)
           </code>
-          <div class="tip" id="651">
+          <div class="tip" id="647">
             <strong>Signature:</strong> resource:&#39;TResource -&gt; ResourceRegistry<br />
                           <strong>Type parameters:</strong> 'TResource          </div>
         </td>
@@ -105,16 +103,15 @@ runtime resources to the continuation monad.</p>
 Any existing resources of the same type will be overwritten.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '652', 652)" onmouseover="showTip(event, '652', 652)">
+          <code onmouseout="hideTip(event, '648', 648)" onmouseover="showTip(event, '648', 648)">
             Remove()
           </code>
-          <div class="tip" id="652">
+          <div class="tip" id="648">
             <strong>Signature:</strong> unit -&gt; ResourceRegistry<br />
                           <strong>Type parameters:</strong> 'TResource          </div>
         </td>
@@ -122,16 +119,15 @@ Any existing resources of the same type will be overwritten.</p>
           <p>Creates a new resource registry by removing resource of given key.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '653', 653)" onmouseover="showTip(event, '653', 653)">
+          <code onmouseout="hideTip(event, '649', 649)" onmouseover="showTip(event, '649', 649)">
             Resolve()
           </code>
-          <div class="tip" id="653">
+          <div class="tip" id="649">
             <strong>Signature:</strong> unit -&gt; &#39;TResource<br />
                           <strong>Type parameters:</strong> 'TResource          </div>
         </td>
@@ -139,22 +135,20 @@ Any existing resources of the same type will be overwritten.</p>
           <p>Resolves resource of given type.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '654', 654)" onmouseover="showTip(event, '654', 654)">
+          <code onmouseout="hideTip(event, '650', 650)" onmouseover="showTip(event, '650', 650)">
             TryResolve()
           </code>
-          <div class="tip" id="654">
+          <div class="tip" id="650">
             <strong>Signature:</strong> unit -&gt; &#39;TResource option<br />
                           <strong>Type parameters:</strong> 'TResource          </div>
         </td>
         <td class="xmldoc">
           <p>Try Resolving resource of given type.</p>
-
 
 
         </td>
@@ -170,10 +164,10 @@ Any existing resources of the same type will be overwritten.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '655', 655)" onmouseover="showTip(event, '655', 655)">
+          <code onmouseout="hideTip(event, '651', 651)" onmouseover="showTip(event, '651', 651)">
             Combine(resources)
           </code>
-          <div class="tip" id="655">
+          <div class="tip" id="651">
             <strong>Signature:</strong> resources:seq&lt;ResourceRegistry&gt; -&gt; ResourceRegistry<br />
                       </div>
         </td>
@@ -181,16 +175,15 @@ Any existing resources of the same type will be overwritten.</p>
           <p>Combines two resource registries into one.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '656', 656)" onmouseover="showTip(event, '656', 656)">
+          <code onmouseout="hideTip(event, '652', 652)" onmouseover="showTip(event, '652', 652)">
             Combine(resources1, resources2)
           </code>
-          <div class="tip" id="656">
+          <div class="tip" id="652">
             <strong>Signature:</strong> (resources1:ResourceRegistry * resources2:ResourceRegistry) -&gt; ResourceRegistry<br />
                       </div>
         </td>
@@ -198,16 +191,15 @@ Any existing resources of the same type will be overwritten.</p>
           <p>Combines two resource registries into one.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '657', 657)" onmouseover="showTip(event, '657', 657)">
+          <code onmouseout="hideTip(event, '653', 653)" onmouseover="showTip(event, '653', 653)">
             Empty
           </code>
-          <div class="tip" id="657">
+          <div class="tip" id="653">
             <strong>Signature:</strong> ResourceRegistry<br />
                       </div>
         </td>
@@ -215,7 +207,7 @@ Any existing resources of the same type will be overwritten.</p>
           <p>Gets the empty resource container.</p>
 
 
-
+              <p>CompiledName: <code>get_Empty</code></p>
         </td>
       </tr>
     </tbody>

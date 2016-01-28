@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Internal cloud workflow combinators</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,16 +57,79 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '401', 401)" onmouseover="showTip(event, '401', 401)">
+          <code onmouseout="hideTip(event, '397', 397)" onmouseover="showTip(event, '397', 397)">
             FromContinuations(body)
           </code>
-          <div class="tip" id="401">
+          <div class="tip" id="397">
             <strong>Signature:</strong> (body:(ExecutionContext -&gt; Continuation&lt;&#39;T&gt; -&gt; unit)) -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a cloud workflow that captures the current execution context.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '398', 398)" onmouseover="showTip(event, '398', 398)">
+            GetExecutionContext()
+          </code>
+          <div class="tip" id="398">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ExecutionContext&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the execution context of current computation.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '399', 399)" onmouseover="showTip(event, '399', 399)">
+            GetResource()
+          </code>
+          <div class="tip" id="399">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;&#39;TResource&gt;<br />
+                          <strong>Type parameters:</strong> 'TResource          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets resource from current execution context.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '400', 400)" onmouseover="showTip(event, '400', 400)">
+            GetResourceRegistry()
+          </code>
+          <div class="tip" id="400">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ResourceRegistry&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the resource registry for current execution context.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '401', 401)" onmouseover="showTip(event, '401', 401)">
+            RunSynchronously(...)
+          </code>
+          <div class="tip" id="401">
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously await a locally executing workflow.</p>
 
 
         </td>
@@ -76,15 +138,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '402', 402)" onmouseover="showTip(event, '402', 402)">
-            GetExecutionContext()
+            Start(...)
           </code>
           <div class="tip" id="402">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ExecutionContext&gt;<br />
+            <strong>Signature:</strong> (workflow:Cloud&lt;unit&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Returns the execution context of current computation.</p>
-
+          <p>Starts provided cloud workflow in the thread pool.</p>
 
 
         </td>
@@ -93,15 +154,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '403', 403)" onmouseover="showTip(event, '403', 403)">
-            GetResource()
+            StartAsTask(...)
           </code>
           <div class="tip" id="403">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;&#39;TResource&gt;<br />
-                          <strong>Type parameters:</strong> 'TResource          </div>
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option * taskCreationOptions:TaskCreationOptions option) -&gt; Task&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Gets resource from current execution context.</p>
-
+          <p>Starts given workflow as a System.Threading.Task</p>
 
 
         </td>
@@ -110,15 +170,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '404', 404)" onmouseover="showTip(event, '404', 404)">
-            GetResourceRegistry()
+            StartImmediate(...)
           </code>
           <div class="tip" id="404">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;ResourceRegistry&gt;<br />
+            <strong>Signature:</strong> (workflow:Cloud&lt;unit&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Returns the resource registry for current execution context.</p>
-
+          <p>Starts provided cloud workflow in the current thread.</p>
 
 
         </td>
@@ -127,15 +186,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '405', 405)" onmouseover="showTip(event, '405', 405)">
-            RunSynchronously(...)
+            StartImmediateWithContinuations(...)
           </code>
           <div class="tip" id="405">
-            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; &#39;T<br />
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Synchronously await a locally executing workflow.</p>
-
+          <p>Starts a cloud workflow with given execution context in the current thread.</p>
 
 
         </td>
@@ -144,15 +202,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '406', 406)" onmouseover="showTip(event, '406', 406)">
-            Start(...)
+            StartImmediateWithContinuations(...)
           </code>
           <div class="tip" id="406">
-            <strong>Signature:</strong> (workflow:Cloud&lt;unit&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
-                      </div>
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * context:ExecutionContext) -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Starts provided cloud workflow in the thread pool.</p>
-
+          <p>Starts a cloud workflow with given execution context in the current thread.</p>
 
 
         </td>
@@ -161,15 +218,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '407', 407)" onmouseover="showTip(event, '407', 407)">
-            StartAsTask(...)
+            StartWithContinuations(...)
           </code>
           <div class="tip" id="407">
-            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option * taskCreationOptions:TaskCreationOptions option) -&gt; Task&lt;&#39;T&gt;<br />
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Starts given workflow as a System.Threading.Task</p>
-
+          <p>Starts a cloud workflow with given continuations and execution context in the thread pool.</p>
 
 
         </td>
@@ -178,15 +234,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '408', 408)" onmouseover="showTip(event, '408', 408)">
-            StartImmediate(...)
+            StartWithContinuations(...)
           </code>
           <div class="tip" id="408">
-            <strong>Signature:</strong> (workflow:Cloud&lt;unit&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
-                      </div>
+            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * context:ExecutionContext) -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Starts provided cloud workflow in the current thread.</p>
-
+          <p>Starts a cloud workflow with given continuations and execution context in the thread pool.</p>
 
 
         </td>
@@ -195,77 +250,9 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '409', 409)" onmouseover="showTip(event, '409', 409)">
-            StartImmediateWithContinuations(...)
-          </code>
-          <div class="tip" id="409">
-            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Starts a cloud workflow with given execution context in the current thread.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '410', 410)" onmouseover="showTip(event, '410', 410)">
-            StartImmediateWithContinuations(...)
-          </code>
-          <div class="tip" id="410">
-            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * context:ExecutionContext) -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Starts a cloud workflow with given execution context in the current thread.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '411', 411)" onmouseover="showTip(event, '411', 411)">
-            StartWithContinuations(...)
-          </code>
-          <div class="tip" id="411">
-            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Starts a cloud workflow with given continuations and execution context in the thread pool.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '412', 412)" onmouseover="showTip(event, '412', 412)">
-            StartWithContinuations(...)
-          </code>
-          <div class="tip" id="412">
-            <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * continuation:Continuation&lt;&#39;T&gt; * context:ExecutionContext) -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Starts a cloud workflow with given continuations and execution context in the thread pool.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '413', 413)" onmouseover="showTip(event, '413', 413)">
             SwitchToThreadPool()
           </code>
-          <div class="tip" id="413">
+          <div class="tip" id="409">
             <strong>Signature:</strong> unit -&gt; LocalCloud&lt;unit&gt;<br />
                       </div>
         </td>
@@ -274,16 +261,15 @@
 offloading the accumulated stack from the current thread.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '414', 414)" onmouseover="showTip(event, '414', 414)">
+          <code onmouseout="hideTip(event, '410', 410)" onmouseover="showTip(event, '410', 410)">
             ToAsync(...)
           </code>
-          <div class="tip" id="414">
+          <div class="tip" id="410">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * resources:ResourceRegistry option * cancellationToken:ICloudCancellationToken option) -&gt; Async&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -291,16 +277,15 @@ offloading the accumulated stack from the current thread.</p>
           <p>Wraps a cloud workflow into an asynchronous workflow.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '415', 415)" onmouseover="showTip(event, '415', 415)">
+          <code onmouseout="hideTip(event, '411', 411)" onmouseover="showTip(event, '411', 411)">
             TryGetResource()
           </code>
-          <div class="tip" id="415">
+          <div class="tip" id="411">
             <strong>Signature:</strong> unit -&gt; LocalCloud&lt;&#39;TResource option&gt;<br />
                           <strong>Type parameters:</strong> 'TResource          </div>
         </td>
@@ -308,16 +293,15 @@ offloading the accumulated stack from the current thread.</p>
           <p>Try Getting resource from current execution context.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '416', 416)" onmouseover="showTip(event, '416', 416)">
+          <code onmouseout="hideTip(event, '412', 412)" onmouseover="showTip(event, '412', 412)">
             WithAppendedStackTrace(...)
           </code>
-          <div class="tip" id="416">
+          <div class="tip" id="412">
             <strong>Signature:</strong> functionName:string -&gt; workflow:&#39;a -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'a, 'T          </div>
         </td>
@@ -325,16 +309,15 @@ offloading the accumulated stack from the current thread.</p>
           <p>Appends a function information entry to the symbolic stacktrace in the exception continuation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '417', 417)" onmouseover="showTip(event, '417', 417)">
+          <code onmouseout="hideTip(event, '413', 413)" onmouseover="showTip(event, '413', 413)">
             WithMappedContinuation(mapper workflow)
           </code>
-          <div class="tip" id="417">
+          <div class="tip" id="413">
             <strong>Signature:</strong> (mapper:(Continuation&lt;&#39;T&gt; -&gt; Continuation&lt;&#39;S&gt;)) -&gt; workflow:&#39;?8385 -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S, '?8385          </div>
         </td>
@@ -342,16 +325,15 @@ offloading the accumulated stack from the current thread.</p>
           <p>Wraps a workflow with a mapped continuation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '418', 418)" onmouseover="showTip(event, '418', 418)">
+          <code onmouseout="hideTip(event, '414', 414)" onmouseover="showTip(event, '414', 414)">
             WithNestedContext(...)
           </code>
-          <div class="tip" id="418">
+          <div class="tip" id="414">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * update:(ExecutionContext -&gt; ExecutionContext) * revert:(ExecutionContext -&gt; ExecutionContext)) -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -361,16 +343,15 @@ introduced using the update/revert functions.
 These must be serializable and exception safe.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '419', 419)" onmouseover="showTip(event, '419', 419)">
+          <code onmouseout="hideTip(event, '415', 415)" onmouseover="showTip(event, '415', 415)">
             WithNestedResource(...)
           </code>
-          <div class="tip" id="419">
+          <div class="tip" id="415">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * update:(&#39;TResource -&gt; &#39;TResource) * revert:(&#39;TResource -&gt; &#39;TResource)) -&gt; Cloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'TResource          </div>
         </td>
@@ -378,7 +359,6 @@ These must be serializable and exception safe.</p>
           <p>Runs provided workflow in a nested execution context that is
 introduced using the update/revert functions.
 These must be serializable and exception safe.</p>
-
 
 
         </td>

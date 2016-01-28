@@ -48,7 +48,6 @@
 <p>Contains static methods used for performing path
 operations in the cloud store.</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -59,16 +58,80 @@ operations in the cloud store.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '247', 247)" onmouseover="showTip(event, '247', 247)">
+          <code onmouseout="hideTip(event, '243', 243)" onmouseover="showTip(event, '243', 243)">
             Combine(paths)
           </code>
-          <div class="tip" id="247">
+          <div class="tip" id="243">
             <strong>Signature:</strong> (paths:string []) -&gt; LocalCloud&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Combines path fragments into a single path.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '244', 244)" onmouseover="showTip(event, '244', 244)">
+            DefaultDirectory
+          </code>
+          <div class="tip" id="244">
+            <strong>Signature:</strong> LocalCloud&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the default directory in use by the runtime.</p>
+
+
+              <p>CompiledName: <code>get_DefaultDirectory</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '245', 245)" onmouseover="showTip(event, '245', 245)">
+            GetDirectoryName(path)
+          </code>
+          <div class="tip" id="245">
+            <strong>Signature:</strong> path:string -&gt; LocalCloud&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the directory name for given path.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '246', 246)" onmouseover="showTip(event, '246', 246)">
+            GetFileName(path)
+          </code>
+          <div class="tip" id="246">
+            <strong>Signature:</strong> path:string -&gt; LocalCloud&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the file name for given path.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '247', 247)" onmouseover="showTip(event, '247', 247)">
+            GetFullPath(path)
+          </code>
+          <div class="tip" id="247">
+            <strong>Signature:</strong> path:string -&gt; LocalCloud&lt;string&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the absolute path for supplied path string.</p>
 
 
         </td>
@@ -77,15 +140,14 @@ operations in the cloud store.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '248', 248)" onmouseover="showTip(event, '248', 248)">
-            DefaultDirectory
+            GetRandomDirectoryName()
           </code>
           <div class="tip" id="248">
-            <strong>Signature:</strong> LocalCloud&lt;string&gt;<br />
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets the default directory in use by the runtime.</p>
-
+          <p>Generates a random, uniquely specified path to directory</p>
 
 
         </td>
@@ -94,15 +156,14 @@ operations in the cloud store.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '249', 249)" onmouseover="showTip(event, '249', 249)">
-            GetDirectoryName(path)
+            GetRandomFileName(container)
           </code>
           <div class="tip" id="249">
-            <strong>Signature:</strong> path:string -&gt; LocalCloud&lt;string&gt;<br />
+            <strong>Signature:</strong> (container:string option) -&gt; LocalCloud&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Returns the directory name for given path.</p>
-
+          <p>Creates a uniquely defined file path for given container.</p>
 
 
         </td>
@@ -111,77 +172,9 @@ operations in the cloud store.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '250', 250)" onmouseover="showTip(event, '250', 250)">
-            GetFileName(path)
-          </code>
-          <div class="tip" id="250">
-            <strong>Signature:</strong> path:string -&gt; LocalCloud&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Returns the file name for given path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '251', 251)" onmouseover="showTip(event, '251', 251)">
-            GetFullPath(path)
-          </code>
-          <div class="tip" id="251">
-            <strong>Signature:</strong> path:string -&gt; LocalCloud&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the absolute path for supplied path string.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '252', 252)" onmouseover="showTip(event, '252', 252)">
-            GetRandomDirectoryName()
-          </code>
-          <div class="tip" id="252">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Generates a random, uniquely specified path to directory</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '253', 253)" onmouseover="showTip(event, '253', 253)">
-            GetRandomFileName(container)
-          </code>
-          <div class="tip" id="253">
-            <strong>Signature:</strong> (container:string option) -&gt; LocalCloud&lt;string&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Creates a uniquely defined file path for given container.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '254', 254)" onmouseover="showTip(event, '254', 254)">
             IsCaseSensitive
           </code>
-          <div class="tip" id="254">
+          <div class="tip" id="250">
             <strong>Signature:</strong> LocalCloud&lt;bool&gt;<br />
                       </div>
         </td>
@@ -189,7 +182,7 @@ operations in the cloud store.</p>
           <p>Gets whether the current cloud file store is case sensitive.</p>
 
 
-
+              <p>CompiledName: <code>get_IsCaseSensitive</code></p>
         </td>
       </tr>
     </tbody>

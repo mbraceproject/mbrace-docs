@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Collection of Serialization utilities.</p>
 
-
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -58,15 +57,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '661', 661)" onmouseover="showTip(event, '661', 661)">
+          <code onmouseout="hideTip(event, '657', 657)" onmouseover="showTip(event, '657', 657)">
             new(serializer, textSerializer)
           </code>
-          <div class="tip" id="661">
+          <div class="tip" id="657">
             <strong>Signature:</strong> (serializer:ISerializer * textSerializer:ITextSerializer option) -&gt; SerializationClient<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>.ctor</code></p>
         </td>
       </tr>
     </tbody>
@@ -80,16 +80,78 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '662', 662)" onmouseover="showTip(event, '662', 662)">
+          <code onmouseout="hideTip(event, '658', 658)" onmouseover="showTip(event, '658', 658)">
             Clone(graph)
           </code>
-          <div class="tip" id="662">
+          <div class="tip" id="658">
             <strong>Signature:</strong> graph:&#39;T -&gt; &#39;T<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Creates an in-memory clone of supplied serializable object graph.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '659', 659)" onmouseover="showTip(event, '659', 659)">
+            ComputeObjectSize(graph)
+          </code>
+          <div class="tip" id="659">
+            <strong>Signature:</strong> graph:&#39;T -&gt; int64<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Quickly computes the size of a serializable object graph in bytes.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '660', 660)" onmouseover="showTip(event, '660', 660)">
+            Deserialize(stream, leaveOpen)
+          </code>
+          <div class="tip" id="660">
+            <strong>Signature:</strong> (stream:Stream * leaveOpen:bool option) -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deserializes provided object graph from underlying read stream.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '661', 661)" onmouseover="showTip(event, '661', 661)">
+            Id
+          </code>
+          <div class="tip" id="661">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+              <p>CompiledName: <code>get_Id</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '662', 662)" onmouseover="showTip(event, '662', 662)">
+            Pickle(graph)
+          </code>
+          <div class="tip" id="662">
+            <strong>Signature:</strong> graph:&#39;T -&gt; byte []<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Serializes provided object graph to byte array.</p>
 
 
         </td>
@@ -98,15 +160,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '663', 663)" onmouseover="showTip(event, '663', 663)">
-            ComputeObjectSize(graph)
+            PickleToString(graph)
           </code>
           <div class="tip" id="663">
-            <strong>Signature:</strong> graph:&#39;T -&gt; int64<br />
+            <strong>Signature:</strong> graph:&#39;T -&gt; string<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Quickly computes the size of a serializable object graph in bytes.</p>
-
+          <p>Serializes provided object graph to string.</p>
 
 
         </td>
@@ -115,15 +176,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '664', 664)" onmouseover="showTip(event, '664', 664)">
-            Deserialize(stream, leaveOpen)
+            Serialize(stream, graph, leaveOpen)
           </code>
           <div class="tip" id="664">
-            <strong>Signature:</strong> (stream:Stream * leaveOpen:bool option) -&gt; &#39;T<br />
+            <strong>Signature:</strong> (stream:Stream * graph:&#39;T * leaveOpen:bool option) -&gt; unit<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Deserializes provided object graph from underlying read stream.</p>
-
+          <p>Serializes provided object graph to underlying write stream.</p>
 
 
         </td>
@@ -132,29 +192,29 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '665', 665)" onmouseover="showTip(event, '665', 665)">
-            Id
+            Serializer
           </code>
           <div class="tip" id="665">
-            <strong>Signature:</strong> string<br />
+            <strong>Signature:</strong> ISerializer<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>get_Serializer</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '666', 666)" onmouseover="showTip(event, '666', 666)">
-            Pickle(graph)
+            TextDeserialize(source, leaveOpen)
           </code>
           <div class="tip" id="666">
-            <strong>Signature:</strong> graph:&#39;T -&gt; byte []<br />
+            <strong>Signature:</strong> (source:TextReader * leaveOpen:bool option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Serializes provided object graph to byte array.</p>
-
+          <p>Deserializes object graph from underlying text reader.</p>
 
 
         </td>
@@ -163,15 +223,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '667', 667)" onmouseover="showTip(event, '667', 667)">
-            PickleToString(graph)
+            TextSerialize(target, graph, leaveOpen)
           </code>
           <div class="tip" id="667">
-            <strong>Signature:</strong> graph:&#39;T -&gt; string<br />
+            <strong>Signature:</strong> (target:TextWriter * graph:&#39;T * leaveOpen:bool option) -&gt; unit<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Serializes provided object graph to string.</p>
-
+          <p>Serializes provided object graph to underlying text writer.</p>
 
 
         </td>
@@ -180,88 +239,24 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '668', 668)" onmouseover="showTip(event, '668', 668)">
-            Serialize(stream, graph, leaveOpen)
+            TextSerializer
           </code>
           <div class="tip" id="668">
-            <strong>Signature:</strong> (stream:Stream * graph:&#39;T * leaveOpen:bool option) -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'T          </div>
+            <strong>Signature:</strong> ITextSerializer option<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          <p>Serializes provided object graph to underlying write stream.</p>
-
-
-
+          
+              <p>CompiledName: <code>get_TextSerializer</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '669', 669)" onmouseover="showTip(event, '669', 669)">
-            Serializer
-          </code>
-          <div class="tip" id="669">
-            <strong>Signature:</strong> ISerializer<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '670', 670)" onmouseover="showTip(event, '670', 670)">
-            TextDeserialize(source, leaveOpen)
-          </code>
-          <div class="tip" id="670">
-            <strong>Signature:</strong> (source:TextReader * leaveOpen:bool option) -&gt; LocalCloud&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Deserializes object graph from underlying text reader.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '671', 671)" onmouseover="showTip(event, '671', 671)">
-            TextSerialize(target, graph, leaveOpen)
-          </code>
-          <div class="tip" id="671">
-            <strong>Signature:</strong> (target:TextWriter * graph:&#39;T * leaveOpen:bool option) -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Serializes provided object graph to underlying text writer.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '672', 672)" onmouseover="showTip(event, '672', 672)">
-            TextSerializer
-          </code>
-          <div class="tip" id="672">
-            <strong>Signature:</strong> ITextSerializer option<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '673', 673)" onmouseover="showTip(event, '673', 673)">
             UnPickle(pickle)
           </code>
-          <div class="tip" id="673">
+          <div class="tip" id="669">
             <strong>Signature:</strong> (pickle:byte []) -&gt; &#39;T<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -269,22 +264,20 @@
           <p>Deserializes object from given byte array pickle.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '674', 674)" onmouseover="showTip(event, '674', 674)">
+          <code onmouseout="hideTip(event, '670', 670)" onmouseover="showTip(event, '670', 670)">
             UnPickleOfString(pickle)
           </code>
-          <div class="tip" id="674">
+          <div class="tip" id="670">
             <strong>Signature:</strong> pickle:string -&gt; &#39;T<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Deserializes object from given string pickle.</p>
-
 
 
         </td>
@@ -300,16 +293,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '675', 675)" onmouseover="showTip(event, '675', 675)">
+          <code onmouseout="hideTip(event, '671', 671)" onmouseover="showTip(event, '671', 671)">
             Create(resources)
           </code>
-          <div class="tip" id="675">
+          <div class="tip" id="671">
             <strong>Signature:</strong> resources:ResourceRegistry -&gt; SerializationClient<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a Serializer client by resolving the local execution context.</p>
-
 
 
         </td>

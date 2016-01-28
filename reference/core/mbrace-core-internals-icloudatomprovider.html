@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Defines a factory for distributed atoms</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '546', 546)" onmouseover="showTip(event, '546', 546)">
+          <code onmouseout="hideTip(event, '542', 542)" onmouseover="showTip(event, '542', 542)">
             CreateAtom(container, atomId, initValue)
           </code>
-          <div class="tip" id="546">
+          <div class="tip" id="542">
             <strong>Signature:</strong> (container:string * atomId:string * initValue:&#39;T) -&gt; Async&lt;CloudAtom&lt;&#39;T&gt;&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -70,16 +69,15 @@
           <p>Creates a new atom instance with given initial value.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '547', 547)" onmouseover="showTip(event, '547', 547)">
+          <code onmouseout="hideTip(event, '543', 543)" onmouseover="showTip(event, '543', 543)">
             DefaultContainer
           </code>
-          <div class="tip" id="547">
+          <div class="tip" id="543">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,16 +86,16 @@
           <p>Gets the default container used by the atom provider</p>
 
 
-
+              <p>CompiledName: <code>get_DefaultContainer</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '548', 548)" onmouseover="showTip(event, '548', 548)">
+          <code onmouseout="hideTip(event, '544', 544)" onmouseover="showTip(event, '544', 544)">
             DisposeContainer(container)
           </code>
-          <div class="tip" id="548">
+          <div class="tip" id="544">
             <strong>Signature:</strong> container:string -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -106,16 +104,15 @@
           <p>Disposes all atoms in provided container</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '549', 549)" onmouseover="showTip(event, '549', 549)">
+          <code onmouseout="hideTip(event, '545', 545)" onmouseover="showTip(event, '545', 545)">
             GetAtomById(container, atomId)
           </code>
-          <div class="tip" id="549">
+          <div class="tip" id="545">
             <strong>Signature:</strong> (container:string * atomId:string) -&gt; Async&lt;CloudAtom&lt;&#39;T&gt;&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -124,16 +121,15 @@
           <p>Gets an already existing CloudAtom of specified identifiers and type.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '550', 550)" onmouseover="showTip(event, '550', 550)">
+          <code onmouseout="hideTip(event, '546', 546)" onmouseover="showTip(event, '546', 546)">
             GetRandomAtomIdentifier()
           </code>
-          <div class="tip" id="550">
+          <div class="tip" id="546">
             <strong>Signature:</strong> unit -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -142,16 +138,15 @@
           <p>Create a uniquely specified atom identifier.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '551', 551)" onmouseover="showTip(event, '551', 551)">
+          <code onmouseout="hideTip(event, '547', 547)" onmouseover="showTip(event, '547', 547)">
             GetRandomContainerName()
           </code>
-          <div class="tip" id="551">
+          <div class="tip" id="547">
             <strong>Signature:</strong> unit -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -160,16 +155,15 @@
           <p>Create a uniquely specified atom container name.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '552', 552)" onmouseover="showTip(event, '552', 552)">
+          <code onmouseout="hideTip(event, '548', 548)" onmouseover="showTip(event, '548', 548)">
             Id
           </code>
-          <div class="tip" id="552">
+          <div class="tip" id="548">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -178,16 +172,16 @@
           <p>Cloud atom identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '553', 553)" onmouseover="showTip(event, '553', 553)">
+          <code onmouseout="hideTip(event, '549', 549)" onmouseover="showTip(event, '549', 549)">
             IsSupportedValue(value)
           </code>
-          <div class="tip" id="553">
+          <div class="tip" id="549">
             <strong>Signature:</strong> value:&#39;T -&gt; bool<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -196,16 +190,15 @@
           <p>Checks if provided value is supported in atom instances.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '554', 554)" onmouseover="showTip(event, '554', 554)">
+          <code onmouseout="hideTip(event, '550', 550)" onmouseover="showTip(event, '550', 550)">
             Name
           </code>
-          <div class="tip" id="554">
+          <div class="tip" id="550">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -214,23 +207,22 @@
           <p>Implementation name</p>
 
 
-
+              <p>CompiledName: <code>get_Name</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '555', 555)" onmouseover="showTip(event, '555', 555)">
+          <code onmouseout="hideTip(event, '551', 551)" onmouseover="showTip(event, '551', 551)">
             WithDefaultContainer(container)
           </code>
-          <div class="tip" id="555">
+          <div class="tip" id="551">
             <strong>Signature:</strong> container:string -&gt; ICloudAtomProvider<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a copy of the atom provider with updated default container.</p>
-
 
 
         </td>

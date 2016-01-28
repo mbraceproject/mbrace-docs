@@ -48,7 +48,6 @@
 <p>Contains static methods used for performing
 directory operations in the cloud store.</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -59,16 +58,79 @@ directory operations in the cloud store.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '208', 208)" onmouseover="showTip(event, '208', 208)">
+          <code onmouseout="hideTip(event, '204', 204)" onmouseover="showTip(event, '204', 204)">
             Create(dirPath)
           </code>
-          <div class="tip" id="208">
+          <div class="tip" id="204">
             <strong>Signature:</strong> dirPath:string -&gt; LocalCloud&lt;CloudDirectoryInfo&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a new directory in store.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '205', 205)" onmouseover="showTip(event, '205', 205)">
+            Delete(dirPath, recursiveDelete)
+          </code>
+          <div class="tip" id="205">
+            <strong>Signature:</strong> (dirPath:string * recursiveDelete:bool option) -&gt; LocalCloud&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes directory from store.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '206', 206)" onmouseover="showTip(event, '206', 206)">
+            Enumerate(dirPath)
+          </code>
+          <div class="tip" id="206">
+            <strong>Signature:</strong> dirPath:string -&gt; LocalCloud&lt;CloudDirectoryInfo []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Enumerates all directories contained in path.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '207', 207)" onmouseover="showTip(event, '207', 207)">
+            Exists(dirPath)
+          </code>
+          <div class="tip" id="207">
+            <strong>Signature:</strong> dirPath:string -&gt; LocalCloud&lt;bool&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if directory exists in given path.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '208', 208)" onmouseover="showTip(event, '208', 208)">
+            GetInfo(dirPath, verify)
+          </code>
+          <div class="tip" id="208">
+            <strong>Signature:</strong> (dirPath:string * verify:bool option) -&gt; LocalCloud&lt;CloudDirectoryInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a CloudDirectoryInfo instance using given path.</p>
 
 
         </td>
@@ -77,83 +139,14 @@ directory operations in the cloud store.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '209', 209)" onmouseover="showTip(event, '209', 209)">
-            Delete(dirPath, recursiveDelete)
-          </code>
-          <div class="tip" id="209">
-            <strong>Signature:</strong> (dirPath:string * recursiveDelete:bool option) -&gt; LocalCloud&lt;unit&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Deletes directory from store.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '210', 210)" onmouseover="showTip(event, '210', 210)">
-            Enumerate(dirPath)
-          </code>
-          <div class="tip" id="210">
-            <strong>Signature:</strong> dirPath:string -&gt; LocalCloud&lt;CloudDirectoryInfo []&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Enumerates all directories contained in path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '211', 211)" onmouseover="showTip(event, '211', 211)">
-            Exists(dirPath)
-          </code>
-          <div class="tip" id="211">
-            <strong>Signature:</strong> dirPath:string -&gt; LocalCloud&lt;bool&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Checks if directory exists in given path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '212', 212)" onmouseover="showTip(event, '212', 212)">
-            GetInfo(dirPath, verify)
-          </code>
-          <div class="tip" id="212">
-            <strong>Signature:</strong> (dirPath:string * verify:bool option) -&gt; LocalCloud&lt;CloudDirectoryInfo&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Creates a CloudDirectoryInfo instance using given path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '213', 213)" onmouseover="showTip(event, '213', 213)">
             GetLastModifiedTime(dirPath)
           </code>
-          <div class="tip" id="213">
+          <div class="tip" id="209">
             <strong>Signature:</strong> dirPath:string -&gt; LocalCloud&lt;DateTimeOffset&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Gets the latest modified time for given directory.</p>
-
 
 
         </td>

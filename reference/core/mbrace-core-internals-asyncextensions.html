@@ -76,137 +76,81 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '8', 8)" onmouseover="showTip(event, '8', 8)">
-            Bind(f, g)
+            CorrectResult
           </code>
           <div class="tip" id="8">
-            <strong>Signature:</strong> (f:Task&lt;&#39;T&gt; * g:(&#39;T -&gt; Async&lt;&#39;S&gt;)) -&gt; Async&lt;&#39;S&gt;<br />
-                          <strong>Type parameters:</strong> 'T, 'S          </div>
+            <strong>Signature:</strong> &#39;TResult<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          
+          <p>Gets the result of given task so that in the event of exception
+the actual user exception is raised as opposed to being wrapped
+in a System.AggregateException</p>
+
+
+              <p>CompiledName: <code>Task`1.get_CorrectResult</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '9', 9)" onmouseover="showTip(event, '9', 9)">
-            Bind(f, g)
+            CorrectResult
           </code>
           <div class="tip" id="9">
-            <strong>Signature:</strong> (f:Task * g:(unit -&gt; Async&lt;&#39;S&gt;)) -&gt; Async&lt;&#39;S&gt;<br />
-                          <strong>Type parameters:</strong> 'S          </div>
+            <strong>Signature:</strong> &#39;TResult<br />
+                      </div>
         </td>
         <td class="xmldoc">
-          
+          <p>Gets the result of given task so that in the event of exception
+the actual user exception is raised as opposed to being wrapped
+in a System.AggregateException</p>
+
+
+              <p>CompiledName: <code>Task`1.get_CorrectResult</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '10', 10)" onmouseover="showTip(event, '10', 10)">
-            CorrectResult
+            InnerException
           </code>
           <div class="tip" id="10">
-            <strong>Signature:</strong> &#39;TResult<br />
+            <strong>Signature:</strong> exn<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets the result of given task so that in the event of exception
-the actual user exception is raised as opposed to being wrapped
-in a System.AggregateException</p>
+          <p>Gets the inner exception of the faulted task.</p>
 
 
-
+              <p>CompiledName: <code>Task.get_InnerException</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '11', 11)" onmouseover="showTip(event, '11', 11)">
-            CorrectResult
+            InnerException
           </code>
           <div class="tip" id="11">
-            <strong>Signature:</strong> &#39;TResult<br />
+            <strong>Signature:</strong> exn<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets the result of given task so that in the event of exception
-the actual user exception is raised as opposed to being wrapped
-in a System.AggregateException</p>
+          <p>Gets the inner exception of the faulted task.</p>
 
 
-
+              <p>CompiledName: <code>Task.get_InnerException</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '12', 12)" onmouseover="showTip(event, '12', 12)">
-            InnerException
-          </code>
-          <div class="tip" id="12">
-            <strong>Signature:</strong> exn<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the inner exception of the faulted task.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '13', 13)" onmouseover="showTip(event, '13', 13)">
-            InnerException
-          </code>
-          <div class="tip" id="13">
-            <strong>Signature:</strong> exn<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the inner exception of the faulted task.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '14', 14)" onmouseover="showTip(event, '14', 14)">
-            ReturnFrom(f)
-          </code>
-          <div class="tip" id="14">
-            <strong>Signature:</strong> f:Task&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '15', 15)" onmouseover="showTip(event, '15', 15)">
-            ReturnFrom(f)
-          </code>
-          <div class="tip" id="15">
-            <strong>Signature:</strong> f:Task -&gt; Async&lt;unit&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '16', 16)" onmouseover="showTip(event, '16', 16)">
             TryGetResult()
           </code>
-          <div class="tip" id="16">
+          <div class="tip" id="12">
             <strong>Signature:</strong> unit -&gt; &#39;TResult option<br />
                       </div>
         </td>
@@ -214,16 +158,16 @@ in a System.AggregateException</p>
           <p>Returns Some result if completed, None if pending, exception if faulted.</p>
 
 
-
+              <p>CompiledName: <code>Task`1.TryGetResult</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
+          <code onmouseout="hideTip(event, '13', 13)" onmouseover="showTip(event, '13', 13)">
             TryWithTimeout(timeoutMilliseconds)
           </code>
-          <div class="tip" id="17">
+          <div class="tip" id="13">
             <strong>Signature:</strong> timeoutMilliseconds:int -&gt; Task&lt;&#39;TResult option&gt;<br />
                       </div>
         </td>
@@ -231,16 +175,16 @@ in a System.AggregateException</p>
           <p>Create a new task that times out after a given amount of milliseconds.</p>
 
 
-
+              <p>CompiledName: <code>Task`1.TryWithTimeout</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
+          <code onmouseout="hideTip(event, '14', 14)" onmouseover="showTip(event, '14', 14)">
             WithTimeout(timeoutMilliseconds)
           </code>
-          <div class="tip" id="18">
+          <div class="tip" id="14">
             <strong>Signature:</strong> timeoutMilliseconds:int -&gt; Task&lt;&#39;TResult&gt;<br />
                       </div>
         </td>
@@ -248,7 +192,7 @@ in a System.AggregateException</p>
           <p>Create a new task that times out after a given amount of milliseconds.</p>
 
 
-
+              <p>CompiledName: <code>Task`1.WithTimeout</code></p>
         </td>
       </tr>
     </tbody>

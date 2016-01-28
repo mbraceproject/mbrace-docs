@@ -39,21 +39,16 @@
         <div class="span9" id="main">
           
 <h1><a name="Local-Cloud-Workflows" class="anchor" href="#Local-Cloud-Workflows">Local Cloud Workflows</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>In this tutorial we will be offering an description of local cloud workflows
 and how they can be useful in avoiding common errors when developing for MBrace.</p>
-
 <h2><a name="Motivation" class="anchor" href="#Motivation">Motivation</a></h2>
-
 <p>Cloud workflows are computations that often span multiple machines.
 This means variables in scope often need to be serialized and sent
 to a remote machine for resumption of the computation.
 This leads to a new class of potential errors, as illustrated below:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -70,9 +65,7 @@ This leads to a new class of potential errors, as illustrated below:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>which when run yields</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -83,10 +76,8 @@ uses non-serializable closures.
     ---&gt; Nessos.FsPickler.NonSerializableTypeException: Type 'FSI_0005+download@37-1' contains 
 non-serializable field of type 'System.Net.WebClient'.
 </code></pre></td></tr></table>
-
 <p>The obvious fix here is to remove the global <code>WebClient</code> instance, which is not serializable
 and replace it with localized instantiations:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -109,20 +100,16 @@ and replace it with localized instantiations:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The example however does illustrate a more general problem;
 suppose we have a black-box cloud computation:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="i">comp</span> <span class="o">:</span> <span class="i">Cloud</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">int</span><span class="o">&gt;</span>
 </code></pre></td>
 </tr>
 </table>
-
-<p>Dependending on the implementation, 
+<p>Dependending on the implementation,
 this could either introduce distribution:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -137,9 +124,7 @@ this could either introduce distribution:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>or no distribution at all:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -156,12 +141,10 @@ this could either introduce distribution:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The two computations carry identical types,
 yet their execution patterns are very different.
 This can often lead to unanticipated errors,
 for instance</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -182,27 +165,21 @@ for instance</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>which would fail with a runtime serialization error
 only if <code>comp</code> entails distribution.</p>
-
 <h2><a name="Local-Cloud-Workflows-1" class="anchor" href="#Local-Cloud-Workflows-1">Local Cloud Workflows</a></h2>
-
 <p>For the reasons outlined above, MBrace comes with <em>local</em> cloud workflows.
 These are a special type of cloud computation which are necessarily constrained
 to execute within a single worker. They can defined using the special <code>local</code> builder:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 43)" onmouseover="showTip(event, 'fs21', 43)" class="i">localWorkflow</span> <span class="o">:</span> <span class="i">LocalCloud</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs13', 44)" onmouseover="showTip(event, 'fs13', 44)" class="i">int</span><span class="o">&gt;</span> <span class="o">=</span> <span class="i">local</span> { <span class="k">return</span> <span class="n">42</span> }
 </code></pre></td>
 </tr>
 </table>
-
 <p>This creates workflows of type <code>LocalCloud&lt;'T&gt;</code>, which is a subtype of <code>Cloud&lt;'T&gt;</code>.
 Local workflows can be safely used in place of cloud workflows, however the opposite is not possible.
 In other words, the workflow below type checks:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -215,9 +192,7 @@ In other words, the workflow below type checks:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>However, attempting to distribute inside the body of a local workflow:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -232,9 +207,7 @@ In other words, the workflow below type checks:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>yields a compile-time error:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -245,12 +218,10 @@ In other words, the workflow below type checks:</p>
 but here has type
     Cloud&lt;int []&gt;
 </code></pre></td></tr></table>
-
 <p>In other words, local workflows provided a compile-time guarantee
 that their execution will <em>never</em> execute beyond the context of
 a single machine. This allows the MBrace library author to enforce
 a certain degree of sanity with respect to serialization:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -265,13 +236,10 @@ a certain degree of sanity with respect to serialization:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Applications" class="anchor" href="#Applications">Applications</a></h2>
-
 <p>The MBrace core APIs already make heavy use of local workflows;
 most store primitive operations are of type <code>LocalCloud&lt;'T&gt;</code> since
 they usually do not entail distribution:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -284,9 +252,7 @@ they usually do not entail distribution:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The same happens with many library implementations:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -301,36 +267,28 @@ they usually do not entail distribution:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this case, a distributed cloud computation is created given user-supplied computations
 that must be constrained to a single machine. This API restriction enables the library author
 to efficiently schedule computation across the cluster based on the assumption that user code
 will never escape the scope of a single machine per input.</p>
-
 <h2><a name="Gotchas" class="anchor" href="#Gotchas">Gotchas</a></h2>
-
 <p>It is important to clarify that even though local workflows do not introduce distribution
 <em>inside</em> their implementation, this does not imply that they are devoid of any serialization issues.
 Let's illustrate using a couple of examples. Running</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">local</span> { <span class="k">return</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 54)" onmouseover="showTip(event, 'fs1', 54)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 55)" onmouseover="showTip(event, 'fs10', 55)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 56)" onmouseover="showTip(event, 'fs11', 56)" class="i">WebClient</span>() } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs7', 57)" onmouseover="showTip(event, 'fs7', 57)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 58)" onmouseover="showTip(event, 'fs20', 58)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>fails with the error</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip"><code lang="bash">System.Runtime.Serialization.SerializationException: Cloud process returns non-serializable type 'System.Net.WebClient'.
     at MBrace.Runtime.Combinators.runStartAsCloudProcess@297.Invoke(Unit unitVar)
 </code></pre></td></tr></table>
-
 <p>This happens because the local computation returns result which cannot be serialized. Similarly</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -345,25 +303,19 @@ Let's illustrate using a couple of examples. Running</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>fails with the error</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip"><code lang="bash">System.Runtime.Serialization.SerializationException: Cloud process of type 'int' uses non-serializable closure. 
     ---&gt; Nessos.FsPickler.NonSerializableTypeException: Type 'FSI_0020+it@230-7' contains non-serializable field of type 'System.Net.WebClient'.
 </code></pre></td></tr></table>
-
 <p>Since its closure has been rendered nonserializable due to its containing an instance of type <code>WebClient</code>.</p>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned how to use local workflows to avoid common errors
 when developing in MBrace. Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

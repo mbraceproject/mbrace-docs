@@ -55,16 +55,79 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '176', 176)" onmouseover="showTip(event, '176', 176)">
+          <code onmouseout="hideTip(event, '172', 172)" onmouseover="showTip(event, '172', 172)">
             CreateRandomContainerName()
           </code>
-          <div class="tip" id="176">
+          <div class="tip" id="172">
             <strong>Signature:</strong> unit -&gt; LocalCloud&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Generates a unique container name.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '173', 173)" onmouseover="showTip(event, '173', 173)">
+            Decrement(atom)
+          </code>
+          <div class="tip" id="173">
+            <strong>Signature:</strong> atom:CloudAtom&lt;^T&gt; -&gt; LocalCloud&lt;^T&gt;<br />
+                          <strong>Type parameters:</strong> ^T, ^?7737          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Decrements a cloud counter by one.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '174', 174)" onmouseover="showTip(event, '174', 174)">
+            Delete(atom)
+          </code>
+          <div class="tip" id="174">
+            <strong>Signature:</strong> atom:CloudAtom&lt;&#39;T&gt; -&gt; LocalCloud&lt;unit&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes the provided atom instance from store.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '175', 175)" onmouseover="showTip(event, '175', 175)">
+            DeleteContainer(container)
+          </code>
+          <div class="tip" id="175">
+            <strong>Signature:</strong> container:string -&gt; LocalCloud&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes container and all its contained atoms.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '176', 176)" onmouseover="showTip(event, '176', 176)">
+            GetById(atomId, container)
+          </code>
+          <div class="tip" id="176">
+            <strong>Signature:</strong> (atomId:string * container:string option) -&gt; LocalCloud&lt;CloudAtom&lt;&#39;T&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Attempt to recover an existing atom instance by its unique identifier and type.</p>
 
 
         </td>
@@ -73,15 +136,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '177', 177)" onmouseover="showTip(event, '177', 177)">
-            Decrement(atom)
+            Increment(atom)
           </code>
           <div class="tip" id="177">
             <strong>Signature:</strong> atom:CloudAtom&lt;^T&gt; -&gt; LocalCloud&lt;^T&gt;<br />
-                          <strong>Type parameters:</strong> ^T, ^?7737          </div>
+                          <strong>Type parameters:</strong> ^T, ^?7734          </div>
         </td>
         <td class="xmldoc">
-          <p>Decrements a cloud counter by one.</p>
-
+          <p>Increments a cloud counter by one.</p>
 
 
         </td>
@@ -90,15 +152,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '178', 178)" onmouseover="showTip(event, '178', 178)">
-            Delete(atom)
+            IsSupportedValue(value)
           </code>
           <div class="tip" id="178">
-            <strong>Signature:</strong> atom:CloudAtom&lt;&#39;T&gt; -&gt; LocalCloud&lt;unit&gt;<br />
+            <strong>Signature:</strong> value:&#39;T -&gt; LocalCloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
-          <p>Deletes the provided atom instance from store.</p>
-
+          <p>Checks if value is supported by current table store.</p>
 
 
         </td>
@@ -107,83 +168,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '179', 179)" onmouseover="showTip(event, '179', 179)">
-            DeleteContainer(container)
-          </code>
-          <div class="tip" id="179">
-            <strong>Signature:</strong> container:string -&gt; LocalCloud&lt;unit&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Deletes container and all its contained atoms.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '180', 180)" onmouseover="showTip(event, '180', 180)">
-            GetById(atomId, container)
-          </code>
-          <div class="tip" id="180">
-            <strong>Signature:</strong> (atomId:string * container:string option) -&gt; LocalCloud&lt;CloudAtom&lt;&#39;T&gt;&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Attempt to recover an existing atom instance by its unique identifier and type.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '181', 181)" onmouseover="showTip(event, '181', 181)">
-            Increment(atom)
-          </code>
-          <div class="tip" id="181">
-            <strong>Signature:</strong> atom:CloudAtom&lt;^T&gt; -&gt; LocalCloud&lt;^T&gt;<br />
-                          <strong>Type parameters:</strong> ^T, ^?7734          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Increments a cloud counter by one.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '182', 182)" onmouseover="showTip(event, '182', 182)">
-            IsSupportedValue(value)
-          </code>
-          <div class="tip" id="182">
-            <strong>Signature:</strong> value:&#39;T -&gt; LocalCloud&lt;bool&gt;<br />
-                          <strong>Type parameters:</strong> 'T          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Checks if value is supported by current table store.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '183', 183)" onmouseover="showTip(event, '183', 183)">
             New(initial, atomId, container)
           </code>
-          <div class="tip" id="183">
+          <div class="tip" id="179">
             <strong>Signature:</strong> (initial:&#39;T * atomId:string option * container:string option) -&gt; LocalCloud&lt;CloudAtom&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a new cloud atom instance with given value.</p>
-
 
 
         </td>

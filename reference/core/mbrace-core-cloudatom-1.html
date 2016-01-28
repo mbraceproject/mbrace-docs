@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Represents a distributed, atomically updatable value reference</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '170', 170)" onmouseover="showTip(event, '170', 170)">
+          <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
             Container
           </code>
-          <div class="tip" id="170">
+          <div class="tip" id="166">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,16 +69,16 @@
           <p>Cloud atom container Id</p>
 
 
-
+              <p>CompiledName: <code>get_Container</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '171', 171)" onmouseover="showTip(event, '171', 171)">
+          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
             ForceAsync(value)
           </code>
-          <div class="tip" id="171">
+          <div class="tip" id="167">
             <strong>Signature:</strong> value:&#39;T -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,16 +87,15 @@
           <p>Forces a value on atom.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '172', 172)" onmouseover="showTip(event, '172', 172)">
+          <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
             GetValueAsync()
           </code>
-          <div class="tip" id="172">
+          <div class="tip" id="168">
             <strong>Signature:</strong> unit -&gt; Async&lt;&#39;T&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -106,16 +104,15 @@
           <p>Asynchronously gets the current value of the atom.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '173', 173)" onmouseover="showTip(event, '173', 173)">
+          <code onmouseout="hideTip(event, '169', 169)" onmouseover="showTip(event, '169', 169)">
             Id
           </code>
-          <div class="tip" id="173">
+          <div class="tip" id="169">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -124,16 +121,16 @@
           <p>Cloud atom identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '174', 174)" onmouseover="showTip(event, '174', 174)">
+          <code onmouseout="hideTip(event, '170', 170)" onmouseover="showTip(event, '170', 170)">
             TransactAsync(transaction, maxRetries)
           </code>
-          <div class="tip" id="174">
+          <div class="tip" id="170">
             <strong>Signature:</strong> (transaction:(&#39;T -&gt; &#39;R * &#39;T) * maxRetries:int option) -&gt; Async&lt;&#39;R&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -142,16 +139,15 @@
           <p>Atomically updates table entry of given id using updating function.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '175', 175)" onmouseover="showTip(event, '175', 175)">
+          <code onmouseout="hideTip(event, '171', 171)" onmouseover="showTip(event, '171', 171)">
             Value
           </code>
-          <div class="tip" id="175">
+          <div class="tip" id="171">
             <strong>Signature:</strong> &#39;T<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -160,7 +156,7 @@
           <p>Gets the current value of the atom.</p>
 
 
-
+              <p>CompiledName: <code>get_Value</code></p>
         </td>
       </tr>
     </tbody>

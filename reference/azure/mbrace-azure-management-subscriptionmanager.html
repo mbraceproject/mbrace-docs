@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Client object for managing MBrace Cloud Service deployments for user-suppplied Azure subscription</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,203 +57,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1716', 1716)" onmouseover="showTip(event, '1716', 1716)">
+          <code onmouseout="hideTip(event, '1727', 1727)" onmouseover="showTip(event, '1727', 1727)">
             AttachLogger(l)
           </code>
-          <div class="tip" id="1716">
+          <div class="tip" id="1727">
             <strong>Signature:</strong> l:ISystemLogger -&gt; IDisposable<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Attaches logger to the deployment manager instance</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1717', 1717)" onmouseover="showTip(event, '1717', 1717)">
-            DefaultRegion()
-          </code>
-          <div class="tip" id="1717">
-            <strong>Signature:</strong> unit -&gt; Region<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets or sets the default region used by the client instance</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1718', 1718)" onmouseover="showTip(event, '1718', 1718)">
-            DefaultRegion()
-          </code>
-          <div class="tip" id="1718">
-            <strong>Signature:</strong> unit -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets or sets the default region used by the client instance</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1719', 1719)" onmouseover="showTip(event, '1719', 1719)">
-            DeleteDeployment(...)
-          </code>
-          <div class="tip" id="1719">
-            <strong>Signature:</strong> (serviceName:string * deleteStorageAccount:bool option * deleteServiceBusAccount:bool option) -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Deletes deployment of given name.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1720', 1720)" onmouseover="showTip(event, '1720', 1720)">
-            DeleteDeploymentAsync(...)
-          </code>
-          <div class="tip" id="1720">
-            <strong>Signature:</strong> (serviceName:string * deleteStorageAccount:bool option * deleteServiceBusAccount:bool option) -&gt; Async&lt;unit&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously deletes deployment of given name.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1721', 1721)" onmouseover="showTip(event, '1721', 1721)">
-            GetDeployment(serviceName)
-          </code>
-          <div class="tip" id="1721">
-            <strong>Signature:</strong> serviceName:string -&gt; Deployment<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Fetches deployment of given service name</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1722', 1722)" onmouseover="showTip(event, '1722', 1722)">
-            GetDeploymentAsync(serviceName)
-          </code>
-          <div class="tip" id="1722">
-            <strong>Signature:</strong> serviceName:string -&gt; Async&lt;Deployment&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously fetches deployment of given service name</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1723', 1723)" onmouseover="showTip(event, '1723', 1723)">
-            GetDeployments()
-          </code>
-          <div class="tip" id="1723">
-            <strong>Signature:</strong> unit -&gt; Deployment []<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Fetches a list of all currently running deployments</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1724', 1724)" onmouseover="showTip(event, '1724', 1724)">
-            GetDeploymentsAsync()
-          </code>
-          <div class="tip" id="1724">
-            <strong>Signature:</strong> unit -&gt; Async&lt;Deployment []&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously fetches a list of all currently running deployments</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1725', 1725)" onmouseover="showTip(event, '1725', 1725)">
-            Provision(...)
-          </code>
-          <div class="tip" id="1725">
-            <strong>Signature:</strong> (vmCount:int * serviceName:string option * region:Region option * vmSize:VMSize option * mbraceVersion:string option * storageAccount:string option * serviceBusAccount:string option * cloudServicePackage:string option * clusterLabel:string option * enableDiagnostics:bool option * reuseAccounts:bool option) -&gt; Deployment<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Starts deployment of MBrace cloud service with supplied parameters.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1726', 1726)" onmouseover="showTip(event, '1726', 1726)">
-            ProvisionAsync(...)
-          </code>
-          <div class="tip" id="1726">
-            <strong>Signature:</strong> (vmCount:int * serviceName:string option * region:Region option * vmSize:VMSize option * mbraceVersion:string option * storageAccount:string option * serviceBusAccount:string option * cloudServicePackage:string option * clusterLabel:string option * enableDiagnostics:bool option * reuseAccounts:bool option) -&gt; Async&lt;Deployment&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously starts deployment of MBrace cloud service with supplied parameters.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1727', 1727)" onmouseover="showTip(event, '1727', 1727)">
-            ResizeDeployment(serviceName, vmCount)
-          </code>
-          <div class="tip" id="1727">
-            <strong>Signature:</strong> (serviceName:string * vmCount:int) -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously resizes deployment of given name to supplied instance count (scale out).</p>
-
 
 
         </td>
@@ -263,49 +74,48 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1728', 1728)" onmouseover="showTip(event, '1728', 1728)">
-            ResizeDeploymentAsync(...)
+            DefaultRegion()
           </code>
           <div class="tip" id="1728">
-            <strong>Signature:</strong> (serviceName:string * vmCount:int) -&gt; Async&lt;unit&gt;<br />
+            <strong>Signature:</strong> unit -&gt; Region<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously resizes deployment of given name to supplied instance count (scale out).</p>
+          <p>Gets or sets the default region used by the client instance</p>
 
 
-
+              <p>CompiledName: <code>set_DefaultRegion</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1729', 1729)" onmouseover="showTip(event, '1729', 1729)">
-            ServiceBus
+            DefaultRegion()
           </code>
           <div class="tip" id="1729">
-            <strong>Signature:</strong> ServiceBusManager<br />
+            <strong>Signature:</strong> unit -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Service Bus account management client</p>
+          <p>Gets or sets the default region used by the client instance</p>
 
 
-
+              <p>CompiledName: <code>get_DefaultRegion</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1730', 1730)" onmouseover="showTip(event, '1730', 1730)">
-            ShowDeployments()
+            DeleteDeployment(...)
           </code>
           <div class="tip" id="1730">
-            <strong>Signature:</strong> unit -&gt; unit<br />
+            <strong>Signature:</strong> (serviceName:string * deleteStorageAccount:bool option * deleteServiceBusAccount:bool option) -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Prints a report on deployments to stdout.</p>
-
+          <p>Deletes deployment of given name.</p>
 
 
         </td>
@@ -314,15 +124,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1731', 1731)" onmouseover="showTip(event, '1731', 1731)">
-            Storage
+            DeleteDeploymentAsync(...)
           </code>
           <div class="tip" id="1731">
-            <strong>Signature:</strong> StorageManager<br />
+            <strong>Signature:</strong> (serviceName:string * deleteStorageAccount:bool option * deleteServiceBusAccount:bool option) -&gt; Async&lt;unit&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Storage account management client</p>
-
+          <p>Asynchronously deletes deployment of given name.</p>
 
 
         </td>
@@ -331,15 +140,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1732', 1732)" onmouseover="showTip(event, '1732', 1732)">
-            SubscriptionId
+            GetDeployment(serviceName)
           </code>
           <div class="tip" id="1732">
-            <strong>Signature:</strong> string<br />
+            <strong>Signature:</strong> serviceName:string -&gt; Deployment<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Subscription identifier</p>
-
+          <p>Fetches deployment of given service name</p>
 
 
         </td>
@@ -348,9 +156,188 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1733', 1733)" onmouseover="showTip(event, '1733', 1733)">
-            SubscriptionName
+            GetDeploymentAsync(serviceName)
           </code>
           <div class="tip" id="1733">
+            <strong>Signature:</strong> serviceName:string -&gt; Async&lt;Deployment&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously fetches deployment of given service name</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1734', 1734)" onmouseover="showTip(event, '1734', 1734)">
+            GetDeployments()
+          </code>
+          <div class="tip" id="1734">
+            <strong>Signature:</strong> unit -&gt; Deployment []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Fetches a list of all currently running deployments</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1735', 1735)" onmouseover="showTip(event, '1735', 1735)">
+            GetDeploymentsAsync()
+          </code>
+          <div class="tip" id="1735">
+            <strong>Signature:</strong> unit -&gt; Async&lt;Deployment []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously fetches a list of all currently running deployments</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1736', 1736)" onmouseover="showTip(event, '1736', 1736)">
+            Provision(...)
+          </code>
+          <div class="tip" id="1736">
+            <strong>Signature:</strong> (vmCount:int * serviceName:string option * region:Region option * vmSize:VMSize option * mbraceVersion:string option * storageAccount:string option * serviceBusAccount:string option * cloudServicePackage:string option * clusterLabel:string option * enableDiagnostics:bool option * reuseAccounts:bool option) -&gt; Deployment<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Starts deployment of MBrace cloud service with supplied parameters.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1737', 1737)" onmouseover="showTip(event, '1737', 1737)">
+            ProvisionAsync(...)
+          </code>
+          <div class="tip" id="1737">
+            <strong>Signature:</strong> (vmCount:int * serviceName:string option * region:Region option * vmSize:VMSize option * mbraceVersion:string option * storageAccount:string option * serviceBusAccount:string option * cloudServicePackage:string option * clusterLabel:string option * enableDiagnostics:bool option * reuseAccounts:bool option) -&gt; Async&lt;Deployment&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously starts deployment of MBrace cloud service with supplied parameters.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1738', 1738)" onmouseover="showTip(event, '1738', 1738)">
+            ResizeDeployment(serviceName, vmCount)
+          </code>
+          <div class="tip" id="1738">
+            <strong>Signature:</strong> (serviceName:string * vmCount:int) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously resizes deployment of given name to supplied instance count (scale out).</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1739', 1739)" onmouseover="showTip(event, '1739', 1739)">
+            ResizeDeploymentAsync(...)
+          </code>
+          <div class="tip" id="1739">
+            <strong>Signature:</strong> (serviceName:string * vmCount:int) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously resizes deployment of given name to supplied instance count (scale out).</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1740', 1740)" onmouseover="showTip(event, '1740', 1740)">
+            ServiceBus
+          </code>
+          <div class="tip" id="1740">
+            <strong>Signature:</strong> ServiceBusManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Service Bus account management client</p>
+
+
+              <p>CompiledName: <code>get_ServiceBus</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1741', 1741)" onmouseover="showTip(event, '1741', 1741)">
+            ShowDeployments()
+          </code>
+          <div class="tip" id="1741">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Prints a report on deployments to stdout.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1742', 1742)" onmouseover="showTip(event, '1742', 1742)">
+            Storage
+          </code>
+          <div class="tip" id="1742">
+            <strong>Signature:</strong> StorageManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Storage account management client</p>
+
+
+              <p>CompiledName: <code>get_Storage</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1743', 1743)" onmouseover="showTip(event, '1743', 1743)">
+            SubscriptionId
+          </code>
+          <div class="tip" id="1743">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Subscription identifier</p>
+
+
+              <p>CompiledName: <code>get_SubscriptionId</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1744', 1744)" onmouseover="showTip(event, '1744', 1744)">
+            SubscriptionName
+          </code>
+          <div class="tip" id="1744">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
@@ -358,7 +345,7 @@
           <p>Subscription name</p>
 
 
-
+              <p>CompiledName: <code>get_SubscriptionName</code></p>
         </td>
       </tr>
     </tbody>
@@ -372,10 +359,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1734', 1734)" onmouseover="showTip(event, '1734', 1734)">
+          <code onmouseout="hideTip(event, '1745', 1745)" onmouseover="showTip(event, '1745', 1745)">
             Create(...)
           </code>
-          <div class="tip" id="1734">
+          <div class="tip" id="1745">
             <strong>Signature:</strong> (subscription:Subscription * defaultRegion:Region * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; SubscriptionManager<br />
                       </div>
         </td>
@@ -383,16 +370,15 @@
           <p>Creates a new subscription manager instance using supplied Azure subscription</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1735', 1735)" onmouseover="showTip(event, '1735', 1735)">
+          <code onmouseout="hideTip(event, '1746', 1746)" onmouseover="showTip(event, '1746', 1746)">
             FromPublishSettings(...)
           </code>
-          <div class="tip" id="1735">
+          <div class="tip" id="1746">
             <strong>Signature:</strong> (publishSettings:PublishSettings * defaultRegion:Region * subscriptionId:string option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; SubscriptionManager<br />
                       </div>
         </td>
@@ -400,22 +386,20 @@
           <p>Creates a new subscription manager instance using supplied set of Azure subscriptions</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1736', 1736)" onmouseover="showTip(event, '1736', 1736)">
+          <code onmouseout="hideTip(event, '1747', 1747)" onmouseover="showTip(event, '1747', 1747)">
             FromPublishSettingsFile(...)
           </code>
-          <div class="tip" id="1736">
+          <div class="tip" id="1747">
             <strong>Signature:</strong> (publishSettingsFile:string * defaultRegion:Region * subscriptionId:string option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; SubscriptionManager<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a new subscription manager instance using local Azure PublishSettings file.</p>
-
 
 
         </td>

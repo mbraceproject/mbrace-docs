@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Actor publication utilities</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,38 +57,40 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2252', 2252)" onmouseover="showTip(event, '2252', 2252)">
+          <code onmouseout="hideTip(event, '2263', 2263)" onmouseover="showTip(event, '2263', 2263)">
             Logger()
           </code>
-          <div class="tip" id="2252">
+          <div class="tip" id="2263">
             <strong>Signature:</strong> unit -&gt; ISystemLogger<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>set_Logger</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2253', 2253)" onmouseover="showTip(event, '2253', 2253)">
+          <code onmouseout="hideTip(event, '2264', 2264)" onmouseover="showTip(event, '2264', 2264)">
             Logger()
           </code>
-          <div class="tip" id="2253">
+          <div class="tip" id="2264">
             <strong>Signature:</strong> unit -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
           
+              <p>CompiledName: <code>get_Logger</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2254', 2254)" onmouseover="showTip(event, '2254', 2254)">
+          <code onmouseout="hideTip(event, '2265', 2265)" onmouseover="showTip(event, '2265', 2265)">
             Publish(actor, name)
           </code>
-          <div class="tip" id="2254">
+          <div class="tip" id="2265">
             <strong>Signature:</strong> (actor:Actor&lt;&#39;T&gt; * name:string option) -&gt; Actor&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -97,16 +98,15 @@
           <p>Publishes an actor instance to the default TCP protocol</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2255', 2255)" onmouseover="showTip(event, '2255', 2255)">
+          <code onmouseout="hideTip(event, '2266', 2266)" onmouseover="showTip(event, '2266', 2266)">
             SelfStateful(init behaviour)
           </code>
-          <div class="tip" id="2255">
+          <div class="tip" id="2266">
             <strong>Signature:</strong> init:&#39;State -&gt; (behaviour:(Actor&lt;&#39;T&gt; -&gt; &#39;State -&gt; &#39;T -&gt; Async&lt;&#39;State&gt;)) -&gt; Actor&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'State, 'T          </div>
         </td>
@@ -115,16 +115,15 @@
 Catches behaviour exceptions and retains original state.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2256', 2256)" onmouseover="showTip(event, '2256', 2256)">
+          <code onmouseout="hideTip(event, '2267', 2267)" onmouseover="showTip(event, '2267', 2267)">
             Stateful(init behaviour)
           </code>
-          <div class="tip" id="2256">
+          <div class="tip" id="2267">
             <strong>Signature:</strong> init:&#39;State -&gt; (behaviour:(&#39;State -&gt; &#39;T -&gt; Async&lt;&#39;State&gt;)) -&gt; Actor&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'State, 'T          </div>
         </td>
@@ -133,23 +132,21 @@ Catches behaviour exceptions and retains original state.</p>
 Catches behaviour exceptions and retains original state.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2257', 2257)" onmouseover="showTip(event, '2257', 2257)">
+          <code onmouseout="hideTip(event, '2268', 2268)" onmouseover="showTip(event, '2268', 2268)">
             Stateless(behaviour)
           </code>
-          <div class="tip" id="2257">
+          <div class="tip" id="2268">
             <strong>Signature:</strong> (behaviour:(&#39;T -&gt; Async&lt;unit&gt;)) -&gt; Actor&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Stateless actor behaviour combinator.
 Catches behaviour exceptions and retains original state.</p>
-
 
 
         </td>

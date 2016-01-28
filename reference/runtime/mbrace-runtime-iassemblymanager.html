@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Defines a Vagabond assembly manager</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1058', 1058)" onmouseover="showTip(event, '1058', 1058)">
+          <code onmouseout="hideTip(event, '1068', 1068)" onmouseover="showTip(event, '1068', 1068)">
             ComputeDependencies(graph)
           </code>
-          <div class="tip" id="1058">
+          <div class="tip" id="1068">
             <strong>Signature:</strong> graph:obj -&gt; VagabondAssembly []<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,16 +69,15 @@
           <p>Computes vagabond dependencies for provided object graph.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1059', 1059)" onmouseover="showTip(event, '1059', 1059)">
+          <code onmouseout="hideTip(event, '1069', 1069)" onmouseover="showTip(event, '1069', 1069)">
             DownloadAssemblies(ids)
           </code>
-          <div class="tip" id="1059">
+          <div class="tip" id="1069">
             <strong>Signature:</strong> ids:seq&lt;AssemblyId&gt; -&gt; Async&lt;VagabondAssembly []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,16 +86,15 @@
           <p>Downloads assemblies and data dependencies from runtime.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1060', 1060)" onmouseover="showTip(event, '1060', 1060)">
+          <code onmouseout="hideTip(event, '1070', 1070)" onmouseover="showTip(event, '1070', 1070)">
             LoadAssemblies(assemblies)
           </code>
-          <div class="tip" id="1060">
+          <div class="tip" id="1070">
             <strong>Signature:</strong> assemblies:seq&lt;VagabondAssembly&gt; -&gt; AssemblyLoadInfo []<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -106,16 +103,15 @@
           <p>Loads provided vagabond assemblies to current application domain.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1061', 1061)" onmouseover="showTip(event, '1061', 1061)">
+          <code onmouseout="hideTip(event, '1071', 1071)" onmouseover="showTip(event, '1071', 1071)">
             NativeDependencies
           </code>
-          <div class="tip" id="1061">
+          <div class="tip" id="1071">
             <strong>Signature:</strong> VagabondAssembly []<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -124,16 +120,16 @@
           <p>Gets native dependencies for assembly</p>
 
 
-
+              <p>CompiledName: <code>get_NativeDependencies</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1062', 1062)" onmouseover="showTip(event, '1062', 1062)">
+          <code onmouseout="hideTip(event, '1072', 1072)" onmouseover="showTip(event, '1072', 1072)">
             RegisterNativeDependency(path)
           </code>
-          <div class="tip" id="1062">
+          <div class="tip" id="1072">
             <strong>Signature:</strong> path:string -&gt; VagabondAssembly<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -142,23 +138,21 @@
           <p>Registers a native dependency for instance.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1063', 1063)" onmouseover="showTip(event, '1063', 1063)">
+          <code onmouseout="hideTip(event, '1073', 1073)" onmouseover="showTip(event, '1073', 1073)">
             UploadAssemblies(assemblies)
           </code>
-          <div class="tip" id="1063">
+          <div class="tip" id="1073">
             <strong>Signature:</strong> assemblies:seq&lt;VagabondAssembly&gt; -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Uploads assemblies and data dependencies to runtime.</p>
-
 
 
         </td>

@@ -39,19 +39,14 @@
         <div class="span9" id="main">
           
 <h1><a name="Cloud-Gotchas" class="anchor" href="#Cloud-Gotchas">Cloud Gotchas</a></h1>
-
 <p>This chapter explores more advanced topics of MBrace and the cloud.
 In particular, we will look at common misconceptions and errors that occur
 when programming in MBrace.</p>
-
 <p>Follow the instructions and complete the assignments described below.</p>
-
 <h2><a name="Local-vs-Remote-execution" class="anchor" href="#Local-vs-Remote-execution">Local vs. Remote execution</a></h2>
-
 <p>MBrace makes it possible to execute cloud workflows in the local process
 just as if they were asynchronous workflows: parallelism is achieved using the local threadpool.
 This can be done using the <code>cluster.Runlocally()</code> method:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -60,22 +55,17 @@ This can be done using the <code>cluster.Runlocally()</code> method:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>As demonstrated above, local versus remote execution comes with minute differences w.r.t.
 to the computed result as well as observed side-effects.</p>
-
-<p>Let's try a simple example. Just by looking at the example below, 
+<p>Let's try a simple example. Just by looking at the example below,
 can you guess what the difference will be when run locally as opposed to remotely?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">cloud</span> { <span class="k">let</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">printfn</span> <span class="s">&quot;I am a side-effect!&quot;</span> <span class="k">in</span> <span class="k">return</span> <span class="n">42</span> }
 </code></pre></td>
 </tr>
 </table>
-
 <p>While the above is a mostly harmless example, what can be said about the example below?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -92,14 +82,10 @@ can you guess what the difference will be when run locally as opposed to remotel
 </code></pre></td>
 </tr>
 </table>
-
 <p>Why does the error happen? Can you suggest a way the above could be fixed?</p>
-
 <h2><a name="Cloud-workflows-and-serialization-I" class="anchor" href="#Cloud-workflows-and-serialization-I">Cloud workflows and serialization I</a></h2>
-
 <p>It is often the case that our code relies on objects that are not serializable.
 But what happens when this code happens to be running in the cloud?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -114,23 +100,17 @@ But what happens when this code happens to be running in the cloud?</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>What will happen if we attempt to execute the snippet above?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs7', 44)" onmouseover="showTip(event, 'fs7', 44)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 45)" onmouseover="showTip(event, 'fs12', 45)" class="f">Run</span>(<span onmouseout="hideTip(event, 'fs22', 46)" onmouseover="showTip(event, 'fs22', 46)" class="i">downloader</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>Assingment: can you rewrite the snippet above so that it no longer fails?
 Tip: can you detect what segments of the code entail transition to a different machine?</p>
-
 <h2><a name="Cloud-workflows-and-serialization-II" class="anchor" href="#Cloud-workflows-and-serialization-II">Cloud workflows and serialization II</a></h2>
-
 <p>Let us now consider the following type implementation:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -147,20 +127,15 @@ Tip: can you detect what segments of the code entail transition to a different m
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you predict what will happen if we run the following line?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs25', 56)" onmouseover="showTip(event, 'fs25', 56)" class="t">Session</span>()<span class="o">.</span><span class="f">Increment</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you fix the problem only by changing the Increment() implementation?</p>
-
 <p>Now, let's try the following example:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -177,13 +152,9 @@ Tip: can you detect what segments of the code entail transition to a different m
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you explain why the behaviour of the above differs from the original example?</p>
-
 <h2><a name="Cloud-workflows-and-object-identity" class="anchor" href="#Cloud-workflows-and-object-identity">Cloud workflows and object identity</a></h2>
-
 <p>Consider the following snippet:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -198,9 +169,7 @@ Tip: can you detect what segments of the code entail transition to a different m
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you guess its result?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -209,13 +178,9 @@ Tip: can you detect what segments of the code entail transition to a different m
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you explain why this behaviour happens?</p>
-
 <h2><a name="Cloud-workflows-and-mutation" class="anchor" href="#Cloud-workflows-and-mutation">Cloud workflows and mutation</a></h2>
-
 <p>Consider the following sample:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -230,9 +195,7 @@ Tip: can you detect what segments of the code entail transition to a different m
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you guess its result?</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -241,16 +204,12 @@ Tip: can you detect what segments of the code entail transition to a different m
 </code></pre></td>
 </tr>
 </table>
-
 <p>Can you explain why this behaviour happens?</p>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned how to reason about exceptions and faults in MBrace.
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

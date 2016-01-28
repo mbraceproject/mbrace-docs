@@ -39,13 +39,10 @@
         <div class="span9" id="main">
           
 <h1><a name="Example-Using-MBrace-for-image-processing" class="anchor" href="#Example-Using-MBrace-for-image-processing">Example: Using MBrace for image processing</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>In this tutorial, you use the AForge (you can install AForge from Nuget) to turn color images into gray ones by applying a gray filter.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -66,9 +63,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you define a method to download an image from a url, and return a stream containing the downloaded image.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -83,9 +78,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you create a method that turns the downloaded color image into a gray image by applying an AForge filter, and then uploads the gray image to cloud storage.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -122,9 +115,7 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>Last, you perform parallel downloading and image processing in the MBrace cluster.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -145,10 +136,8 @@
 </code></pre></td>
 </tr>
 </table>
-
 <p>The results are a set of cloud storage file paths for the generated images.  You can look these up in your
 cloud storage account browser.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -157,12 +146,10 @@ cloud storage account browser.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this tutorial, you've learned how to use the AForge image processing library to turn color images to gray ones in MBrace.
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

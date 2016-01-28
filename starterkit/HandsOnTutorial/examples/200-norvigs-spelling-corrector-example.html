@@ -39,18 +39,14 @@
         <div class="span9" id="main">
           
 <h1><a name="Example-Training-in-the-Cloud" class="anchor" href="#Example-Training-in-the-Cloud">Example: Training in the Cloud</a></h1>
-
 <p>This example demonstrates Norvig's Spelling Corrector (<a href="http://norvig.com/spell-correct.html).
 It">http://norvig.com/spell-correct.html).
 It</a> is a prototypical workflow for training and learning in the cloud. You use the cloud to extract statistical
 information from a body of text. The statistical summary is used locally in your client application.</p>
-
 <blockquote>
-  <p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This example is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <h2><a name="Part-1-Extract-Statistics-in-the-Cloud" class="anchor" href="#Part-1-Extract-Statistics-in-the-Cloud">Part 1 - Extract Statistics in the Cloud</a></h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -65,10 +61,8 @@ information from a body of text. The statistical summary is used locally in your
 </code></pre></td>
 </tr>
 </table>
-
-<p>Step 1: download text file from source, 
+<p>Step 1: download text file from source,
 saving it to blob storage chunked into smaller files of 10000 lines each.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -145,10 +139,8 @@ saving it to blob storage chunked into smaller files of 10000 lines each.</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>In the second step, use cloud data flow to perform a parallel word 
+<p>In the second step, use cloud data flow to perform a parallel word
 frequency count on the stored text.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -185,16 +177,12 @@ frequency count on the stored text.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Part-2-Use-the-Frequency-Counts-in-our-Application" class="anchor" href="#Part-2-Use-the-Frequency-Counts-in-our-Application">Part 2 - Use the Frequency Counts in our Application</a></h2>
-
 <p>In the final step, use the calculated frequency counts to compute suggested spelling corrections in your client.
 At this point, you've finished using the cluster and no longer need it.<br />
 We have the computed the frequency table, all the rest of this example is run locally.</p>
-
 <p>The statistics could be saved to disk for use in an application. We will use
 them directly in the client.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -299,12 +287,10 @@ them directly in the client.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this example, you've seen how cloud tasks can be used to extract statistical information returned to the client.
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

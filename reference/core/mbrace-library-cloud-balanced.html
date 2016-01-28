@@ -46,12 +46,11 @@
   <span>Parent Module: <a href="mbrace-library-cloud.html">Cloud</a></span>
 </p>
 <div class="xmldoc">
-<p>Set of parallel collection combinators that balance 
-input data across the cluster according to worker processing capacities. 
+<p>Set of parallel collection combinators that balance
+input data across the cluster according to worker processing capacities.
 Designed to minimize runtime overhead by bundling inputs in single work items per worker,
 they also utilize the multicore capacity of every worker machine.
 It is assumed here that all inputs are homogeneous in terms of computation workloads.</p>
-
 
 </div>
 
@@ -66,10 +65,10 @@ It is assumed here that all inputs are homogeneous in terms of computation workl
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
+          <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
             choose(chooser source)
           </code>
-          <div class="tip" id="49">
+          <div class="tip" id="45">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;S option) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -78,16 +77,15 @@ It is assumed here that all inputs are homogeneous in terms of computation workl
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
+          <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
             chooseLocal(chooser source)
           </code>
-          <div class="tip" id="50">
+          <div class="tip" id="46">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -96,16 +94,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+          <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
             collect(collector source)
           </code>
-          <div class="tip" id="51">
+          <div class="tip" id="47">
             <strong>Signature:</strong> collector:(&#39;T -&gt; &#39;?7577) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, '?7577, 'S          </div>
         </td>
@@ -114,16 +111,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '52', 52)" onmouseover="showTip(event, '52', 52)">
+          <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
             collectLocal(collector source)
           </code>
-          <div class="tip" id="52">
+          <div class="tip" id="48">
             <strong>Signature:</strong> collector:(&#39;T -&gt; LocalCloud&lt;&#39;?7573&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, '?7573, 'S          </div>
         </td>
@@ -132,16 +128,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '53', 53)" onmouseover="showTip(event, '53', 53)">
+          <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
             exists(predicate source)
           </code>
-          <div class="tip" id="53">
+          <div class="tip" id="49">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -151,16 +146,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '54', 54)" onmouseover="showTip(event, '54', 54)">
+          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
             existsLocal(predicate source)
           </code>
-          <div class="tip" id="54">
+          <div class="tip" id="50">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -170,16 +164,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
+          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
             filter(predicate source)
           </code>
-          <div class="tip" id="55">
+          <div class="tip" id="51">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -188,16 +181,15 @@ while actively cancelling all pending computation.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
+          <code onmouseout="hideTip(event, '52', 52)" onmouseover="showTip(event, '52', 52)">
             filterLocal(predicate source)
           </code>
-          <div class="tip" id="56">
+          <div class="tip" id="52">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T []&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -206,16 +198,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
+          <code onmouseout="hideTip(event, '53', 53)" onmouseover="showTip(event, '53', 53)">
             fold(folder reducer init source)
           </code>
-          <div class="tip" id="57">
+          <div class="tip" id="53">
             <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; init:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
                           <strong>Type parameters:</strong> 'State, 'T          </div>
         </td>
@@ -225,16 +216,15 @@ and then combines the intermediate results. Inputs are balanced across the
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
+          <code onmouseout="hideTip(event, '54', 54)" onmouseover="showTip(event, '54', 54)">
             foldBy(...)
           </code>
-          <div class="tip" id="58">
+          <div class="tip" id="54">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; folder:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; &#39;State) -&gt; init:(&#39;Key -&gt; &#39;State) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;(&#39;Key * &#39;State) []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'State          </div>
         </td>
@@ -244,16 +234,15 @@ and then combines the intermediate results. Inputs are balanced across the
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '59', 59)" onmouseover="showTip(event, '59', 59)">
+          <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
             foldByLocal(...)
           </code>
-          <div class="tip" id="59">
+          <div class="tip" id="55">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; folder:(&#39;State -&gt; &#39;T -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; init:(&#39;Key -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;(&#39;Key * &#39;State) []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key, 'State          </div>
         </td>
@@ -263,16 +252,15 @@ and then combines the intermediate results. Inputs are balanced across the
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '60', 60)" onmouseover="showTip(event, '60', 60)">
+          <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
             foldLocal(folder reducer init source)
           </code>
-          <div class="tip" id="60">
+          <div class="tip" id="56">
             <strong>Signature:</strong> folder:(&#39;State -&gt; &#39;T -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; reducer:(&#39;State -&gt; &#39;State -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; init:&#39;State -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
                           <strong>Type parameters:</strong> 'State, 'T          </div>
         </td>
@@ -282,16 +270,15 @@ and then combines the intermediate results. Inputs are balanced across the
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '61', 61)" onmouseover="showTip(event, '61', 61)">
+          <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
             forall(predicate source)
           </code>
-          <div class="tip" id="61">
+          <div class="tip" id="57">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -301,16 +288,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '62', 62)" onmouseover="showTip(event, '62', 62)">
+          <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
             forallLocal(predicate source)
           </code>
-          <div class="tip" id="62">
+          <div class="tip" id="58">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;bool&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -320,16 +306,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '63', 63)" onmouseover="showTip(event, '63', 63)">
+          <code onmouseout="hideTip(event, '59', 59)" onmouseover="showTip(event, '59', 59)">
             groupBy(projection source)
           </code>
-          <div class="tip" id="63">
+          <div class="tip" id="59">
             <strong>Signature:</strong> projection:(&#39;T -&gt; &#39;Key) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;(&#39;Key * &#39;T []) []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'Key          </div>
         </td>
@@ -338,16 +323,15 @@ while actively cancelling all pending computation.</p>
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '64', 64)" onmouseover="showTip(event, '64', 64)">
+          <code onmouseout="hideTip(event, '60', 60)" onmouseover="showTip(event, '60', 60)">
             iterLocal(body source)
           </code>
-          <div class="tip" id="64">
+          <div class="tip" id="60">
             <strong>Signature:</strong> body:(&#39;T -&gt; LocalCloud&lt;unit&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;unit&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -356,16 +340,15 @@ cluster according to multicore capacity then intermediate results are succesivel
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '65', 65)" onmouseover="showTip(event, '65', 65)">
+          <code onmouseout="hideTip(event, '61', 61)" onmouseover="showTip(event, '61', 61)">
             map(mapper source)
           </code>
-          <div class="tip" id="65">
+          <div class="tip" id="61">
             <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;S) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -374,16 +357,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '66', 66)" onmouseover="showTip(event, '66', 66)">
+          <code onmouseout="hideTip(event, '62', 62)" onmouseover="showTip(event, '62', 62)">
             mapLocal(mapper source)
           </code>
-          <div class="tip" id="66">
+          <div class="tip" id="62">
             <strong>Signature:</strong> mapper:(&#39;T -&gt; LocalCloud&lt;&#39;S&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S []&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -392,16 +374,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '67', 67)" onmouseover="showTip(event, '67', 67)">
+          <code onmouseout="hideTip(event, '63', 63)" onmouseover="showTip(event, '63', 63)">
             mapReduce(mapper reducer init source)
           </code>
-          <div class="tip" id="67">
+          <div class="tip" id="63">
             <strong>Signature:</strong> mapper:(&#39;T -&gt; &#39;R) -&gt; reducer:(&#39;R -&gt; &#39;R -&gt; &#39;R) -&gt; init:&#39;R -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'R          </div>
         </td>
@@ -410,16 +391,15 @@ cluster according to multicore capacity.</p>
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '68', 68)" onmouseover="showTip(event, '68', 68)">
+          <code onmouseout="hideTip(event, '64', 64)" onmouseover="showTip(event, '64', 64)">
             mapReduceLocal(...)
           </code>
-          <div class="tip" id="68">
+          <div class="tip" id="64">
             <strong>Signature:</strong> mapper:(&#39;T -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; reducer:(&#39;R -&gt; &#39;R -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; init:&#39;R -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;R&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'R          </div>
         </td>
@@ -428,16 +408,15 @@ cluster according to multicore capacity then intermediate results are succesivel
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '69', 69)" onmouseover="showTip(event, '69', 69)">
+          <code onmouseout="hideTip(event, '65', 65)" onmouseover="showTip(event, '65', 65)">
             reduceCombine(reducer combiner source)
           </code>
-          <div class="tip" id="69">
+          <div class="tip" id="65">
             <strong>Signature:</strong> reducer:(&#39;T [] -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; combiner:(&#39;State [] -&gt; LocalCloud&lt;&#39;State&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;State&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'State          </div>
         </td>
@@ -446,16 +425,15 @@ cluster according to multicore capacity then intermediate results are succesivel
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '70', 70)" onmouseover="showTip(event, '70', 70)">
+          <code onmouseout="hideTip(event, '66', 66)" onmouseover="showTip(event, '66', 66)">
             search(chooser source)
           </code>
-          <div class="tip" id="70">
+          <div class="tip" id="66">
             <strong>Signature:</strong> chooser:(&#39;T [] -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -465,16 +443,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '71', 71)" onmouseover="showTip(event, '71', 71)">
+          <code onmouseout="hideTip(event, '67', 67)" onmouseover="showTip(event, '67', 67)">
             sumBy(projection sources)
           </code>
-          <div class="tip" id="71">
+          <div class="tip" id="67">
             <strong>Signature:</strong> projection:(&#39;T -&gt; ^S) -&gt; sources:seq&lt;&#39;T&gt; -&gt; Cloud&lt;^S&gt;<br />
                           <strong>Type parameters:</strong> 'T, ^S          </div>
         </td>
@@ -483,16 +460,15 @@ while actively cancelling all pending computation.</p>
 cluster according to multicore capacity then intermediate results are succesively combined.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '72', 72)" onmouseover="showTip(event, '72', 72)">
+          <code onmouseout="hideTip(event, '68', 68)" onmouseover="showTip(event, '68', 68)">
             tryFind(predicate source)
           </code>
-          <div class="tip" id="72">
+          <div class="tip" id="68">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -502,16 +478,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
+          <code onmouseout="hideTip(event, '69', 69)" onmouseover="showTip(event, '69', 69)">
             tryFindLocal(predicate source)
           </code>
-          <div class="tip" id="73">
+          <div class="tip" id="69">
             <strong>Signature:</strong> predicate:(&#39;T -&gt; LocalCloud&lt;bool&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;T option&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -521,16 +496,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
+          <code onmouseout="hideTip(event, '70', 70)" onmouseover="showTip(event, '70', 70)">
             tryPick(chooser source)
           </code>
-          <div class="tip" id="74">
+          <div class="tip" id="70">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; &#39;S option) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -540,16 +514,15 @@ clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
+          <code onmouseout="hideTip(event, '71', 71)" onmouseover="showTip(event, '71', 71)">
             tryPickLocal(chooser source)
           </code>
-          <div class="tip" id="75">
+          <div class="tip" id="71">
             <strong>Signature:</strong> chooser:(&#39;T -&gt; LocalCloud&lt;&#39;S option&gt;) -&gt; source:seq&lt;&#39;T&gt; -&gt; Cloud&lt;&#39;S option&gt;<br />
                           <strong>Type parameters:</strong> 'T, 'S          </div>
         </td>
@@ -557,7 +530,6 @@ while actively cancelling all pending computation.</p>
           <p>Distributed tryPick combinator. Balances inputs across
 clusters returning immediate result once a positive result is found,
 while actively cancelling all pending computation.</p>
-
 
 
         </td>

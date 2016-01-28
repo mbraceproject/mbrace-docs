@@ -39,27 +39,20 @@
         <div class="span9" id="main">
           
 <h1><a name="Using-MBrace-with-a-Locally-Simulated-Cluster" class="anchor" href="#Using-MBrace-with-a-Locally-Simulated-Cluster">Using MBrace with a Locally Simulated Cluster</a></h1>
-
 <p>To use a locally simulated cluster,</p>
-
 <ol>
 <li><a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md">Download or clone the starter pack</a>.</li>
 <li>Build the solution to get the required packages.</li>
 <li>Open the first tutorial script and to use MBrace programming with your simulated cluster.</li>
 </ol>
-
 <p>The scripts follow the tutorials in the <a href="programming-model.html">Core Programming Model</a>.</p>
-
 <p>The locally simulated cloud fabric is called "MBrace.Thespian".  This utilizes the multi-core capabillities of your
 machine and is independent of any particular cloud provider, but supports the
 same programming model as MBrace.Azure and other MBrace implementations.  This lets
 you learn the MBrace cloud programming model in a provider-independent way.</p>
-
 <h2><a name="Initializing-Thespian-Manually" class="anchor" href="#Initializing-Thespian-Manually">Initializing Thespian Manually</a></h2>
-
 <p>Your cluster workers will be created automaticaly when using the scripts in the starter pack. You can also
 initialize manually (e.g. from an application) as follows:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -74,7 +67,6 @@ initialize manually (e.g. from an application) as follows:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>You can create a multi-machine cluster using instances of <code>ThespianWorker</code> and <code>InitOnWorker</code>. This
 is not covered in this tutorial.</p>
 

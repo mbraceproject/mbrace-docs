@@ -39,19 +39,14 @@
         <div class="span9" id="main">
           
 <h1><a name="Creating-and-Using-Cloud-Files" class="anchor" href="#Creating-and-Using-Cloud-Files">Creating and Using Cloud Files</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
-<p>MBrace clusters have a cloud file system mapped to the corresponding cloud fabric. This can be 
+<p>MBrace clusters have a cloud file system mapped to the corresponding cloud fabric. This can be
 used like a distributed file system such as HDFS.</p>
-
 <h2><a name="Accessing-the-Cloud-File-System-from-F-scripts" class="anchor" href="#Accessing-the-Cloud-File-System-from-F-scripts">Accessing the Cloud File System from F# scripts</a></h2>
-
-<p>First let's define and use some Unix-like file functions to access the cloud file system 
+<p>First let's define and use some Unix-like file functions to access the cloud file system
 from your F# client script. (Using these is optional: you can also use the MBrace API directly).</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -128,9 +123,7 @@ from your F# client script. (Using these is optional: you can also use the MBrac
 </code></pre></td>
 </tr>
 </table>
-
 <p>You now use these functions to create directories and files:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -147,9 +140,7 @@ from your F# client script. (Using these is optional: you can also use the MBrac
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now check you've created the files correctly:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -158,23 +149,17 @@ from your F# client script. (Using these is optional: you can also use the MBrac
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now remove the directory of data:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs31', 221)" onmouseover="showTip(event, 'fs31', 221)" class="f">rmdirRec</span> (<span onmouseout="hideTip(event, 'fs12', 222)" onmouseover="showTip(event, 'fs12', 222)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Progammatic-upload-of-data-as-part-of-cloud-workflows" class="anchor" href="#Progammatic-upload-of-data-as-part-of-cloud-workflows">Progammatic upload of data as part of cloud workflows</a></h2>
-
 <p>The Unix-like abbreviations from the previous section are for use from your client scripts.
 You can also use the MBrace cloud file API directly from cloud workflows.</p>
-
 <p>First, crete a local temp file.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -197,28 +182,22 @@ You can also use the MBrace cloud file API directly from cloud workflows.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you upload the created file to the tmp container in cloud storage. The tmp container
 will be created if it does not exist.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs68', 159)" onmouseover="showTip(event, 'fs68', 159)" class="i">cloudFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 160)" onmouseover="showTip(event, 'fs9', 160)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 161)" onmouseover="showTip(event, 'fs20', 161)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs69', 162)" onmouseover="showTip(event, 'fs69', 162)" class="f">Upload</span>(<span onmouseout="hideTip(event, 'fs54', 163)" onmouseover="showTip(event, 'fs54', 163)" class="i">localTmpFile</span>, <span onmouseout="hideTip(event, 'fs64', 164)" onmouseover="showTip(event, 'fs64', 164)" class="f">sprintf</span> <span class="s">&quot;tmp/</span><span class="pf">%s</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs55', 165)" onmouseover="showTip(event, 'fs55', 165)" class="t">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs70', 166)" onmouseover="showTip(event, 'fs70', 166)" class="f">GetFileName</span> <span onmouseout="hideTip(event, 'fs54', 167)" onmouseover="showTip(event, 'fs54', 167)" class="i">localTmpFile</span>))     
 </code></pre></td>
 </tr>
 </table>
-
 <p>After uploading the file, you remove the local file.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs66', 168)" onmouseover="showTip(event, 'fs66', 168)" class="t">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs71', 169)" onmouseover="showTip(event, 'fs71', 169)" class="f">Delete</span> <span onmouseout="hideTip(event, 'fs54', 170)" onmouseover="showTip(event, 'fs54', 170)" class="i">localTmpFile</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now process the file in the MBrace cluster. This cloud expression runs in the MBrace cluster.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -237,14 +216,10 @@ will be created if it does not exist.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Using-multiple-cloud-files-as-input-to-distributed-cloud-flows" class="anchor" href="#Using-multiple-cloud-files-as-input-to-distributed-cloud-flows">Using multiple cloud files as input to distributed cloud flows</a></h2>
-
-<p>Processing one small file in the cloud is not of much use.  However multiple, large cloud files can 
+<p>Processing one small file in the cloud is not of much use.  However multiple, large cloud files can
 be used as inputs to distributed cloud flows in a similar way to map-reduce jobs in Hadoop.</p>
-
 <p>Next you generate a collection of 100 cloud files and process them using a distributed cloud flow.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -283,10 +258,8 @@ be used as inputs to distributed cloud flows in a similar way to map-reduce jobs
 </code></pre></td>
 </tr>
 </table>
-
-<p>A collection of cloud files can be used as input to a cloud parallel data flow, summing 
+<p>A collection of cloud files can be used as input to a cloud parallel data flow, summing
 the third column of each line of each file in a distributed way.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -303,24 +276,19 @@ the third column of each line of each file in a distributed way.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Cleanup the cloud data</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs31', 221)" onmouseover="showTip(event, 'fs31', 221)" class="f">rmdirRec</span> (<span onmouseout="hideTip(event, 'fs12', 222)" onmouseover="showTip(event, 'fs12', 222)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned how to use cloud files, from some simple Unix-like
 operations to using multiple cloud files as partitioned inputs into CloudFlow programming.
 Continue with further samples to learn more about the MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

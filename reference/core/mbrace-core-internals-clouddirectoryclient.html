@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Collection of file store operations</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,16 +57,79 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '441', 441)" onmouseover="showTip(event, '441', 441)">
+          <code onmouseout="hideTip(event, '437', 437)" onmouseover="showTip(event, '437', 437)">
             Create(dirPath)
           </code>
-          <div class="tip" id="441">
+          <div class="tip" id="437">
             <strong>Signature:</strong> dirPath:string -&gt; CloudDirectoryInfo<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a new directory in store.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '438', 438)" onmouseover="showTip(event, '438', 438)">
+            CreateAsync(dirPath)
+          </code>
+          <div class="tip" id="438">
+            <strong>Signature:</strong> dirPath:string -&gt; Async&lt;CloudDirectoryInfo&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new directory in store.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '439', 439)" onmouseover="showTip(event, '439', 439)">
+            Delete(dirPath, recursiveDelete)
+          </code>
+          <div class="tip" id="439">
+            <strong>Signature:</strong> (dirPath:string * recursiveDelete:bool option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes directory from store.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '440', 440)" onmouseover="showTip(event, '440', 440)">
+            DeleteAsync(dirPath, recursiveDelete)
+          </code>
+          <div class="tip" id="440">
+            <strong>Signature:</strong> (dirPath:string * recursiveDelete:bool option) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Deletes directory from store.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '441', 441)" onmouseover="showTip(event, '441', 441)">
+            Enumerate(dirPath)
+          </code>
+          <div class="tip" id="441">
+            <strong>Signature:</strong> dirPath:string -&gt; CloudDirectoryInfo []<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Enumerates all directories contained in path.</p>
 
 
         </td>
@@ -76,15 +138,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '442', 442)" onmouseover="showTip(event, '442', 442)">
-            CreateAsync(dirPath)
+            EnumerateAsync(dirPath)
           </code>
           <div class="tip" id="442">
-            <strong>Signature:</strong> dirPath:string -&gt; Async&lt;CloudDirectoryInfo&gt;<br />
+            <strong>Signature:</strong> dirPath:string -&gt; Async&lt;CloudDirectoryInfo []&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Creates a new directory in store.</p>
-
+          <p>Enumerates all directories contained in path.</p>
 
 
         </td>
@@ -93,15 +154,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '443', 443)" onmouseover="showTip(event, '443', 443)">
-            Delete(dirPath, recursiveDelete)
+            Exists(dirPath)
           </code>
           <div class="tip" id="443">
-            <strong>Signature:</strong> (dirPath:string * recursiveDelete:bool option) -&gt; unit<br />
+            <strong>Signature:</strong> dirPath:string -&gt; bool<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Deletes directory from store.</p>
-
+          <p>Checks if directory exists in given path</p>
 
 
         </td>
@@ -110,83 +170,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '444', 444)" onmouseover="showTip(event, '444', 444)">
-            DeleteAsync(dirPath, recursiveDelete)
-          </code>
-          <div class="tip" id="444">
-            <strong>Signature:</strong> (dirPath:string * recursiveDelete:bool option) -&gt; Async&lt;unit&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Deletes directory from store.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '445', 445)" onmouseover="showTip(event, '445', 445)">
-            Enumerate(dirPath)
-          </code>
-          <div class="tip" id="445">
-            <strong>Signature:</strong> dirPath:string -&gt; CloudDirectoryInfo []<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Enumerates all directories contained in path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '446', 446)" onmouseover="showTip(event, '446', 446)">
-            EnumerateAsync(dirPath)
-          </code>
-          <div class="tip" id="446">
-            <strong>Signature:</strong> dirPath:string -&gt; Async&lt;CloudDirectoryInfo []&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Enumerates all directories contained in path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '447', 447)" onmouseover="showTip(event, '447', 447)">
-            Exists(dirPath)
-          </code>
-          <div class="tip" id="447">
-            <strong>Signature:</strong> dirPath:string -&gt; bool<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Checks if directory exists in given path</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '448', 448)" onmouseover="showTip(event, '448', 448)">
             ExistsAsync(dirPath)
           </code>
-          <div class="tip" id="448">
+          <div class="tip" id="444">
             <strong>Signature:</strong> dirPath:string -&gt; Async&lt;bool&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Checks if directory path exists in given path.</p>
-
 
 
         </td>

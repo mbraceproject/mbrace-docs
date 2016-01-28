@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>C# friendly wrapper functions for F# lambdas</p>
 
-
 </div>
   <h3>Static members</h3>
   <table class="table table-bordered member-list">
@@ -58,12 +57,68 @@
       <tr>
         <td class="member-name">
 
+          <code onmouseout="hideTip(event, '675', 675)" onmouseover="showTip(event, '675', 675)">
+            Create(func)
+          </code>
+          <div class="tip" id="675">
+            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '676', 676)" onmouseover="showTip(event, '676', 676)">
+            Create(func)
+          </code>
+          <div class="tip" id="676">
+            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '677', 677)" onmouseover="showTip(event, '677', 677)">
+            Create(func)
+          </code>
+          <div class="tip" id="677">
+            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a, 'b          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '678', 678)" onmouseover="showTip(event, '678', 678)">
+            Create(func)
+          </code>
+          <div class="tip" id="678">
+            <strong>Signature:</strong> func:Action&lt;&#39;a&gt; -&gt; &#39;a -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
           <code onmouseout="hideTip(event, '679', 679)" onmouseover="showTip(event, '679', 679)">
             Create(func)
           </code>
           <div class="tip" id="679">
-            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
+            <strong>Signature:</strong> func:Action -&gt; unit -&gt; unit<br />
+                      </div>
         </td>
         <td class="xmldoc">
           
@@ -76,8 +131,8 @@
             Create(func)
           </code>
           <div class="tip" id="680">
-            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
+            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d,&#39;e&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e          </div>
         </td>
         <td class="xmldoc">
           
@@ -90,8 +145,8 @@
             Create(func)
           </code>
           <div class="tip" id="681">
-            <strong>Signature:</strong> func:Action&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'a, 'b          </div>
+            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
         </td>
         <td class="xmldoc">
           
@@ -104,8 +159,8 @@
             Create(func)
           </code>
           <div class="tip" id="682">
-            <strong>Signature:</strong> func:Action&lt;&#39;a&gt; -&gt; &#39;a -&gt; unit<br />
-                          <strong>Type parameters:</strong> 'a          </div>
+            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
         </td>
         <td class="xmldoc">
           
@@ -118,8 +173,8 @@
             Create(func)
           </code>
           <div class="tip" id="683">
-            <strong>Signature:</strong> func:Action -&gt; unit -&gt; unit<br />
-                      </div>
+            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b<br />
+                          <strong>Type parameters:</strong> 'a, 'b          </div>
         </td>
         <td class="xmldoc">
           
@@ -132,8 +187,8 @@
             Create(func)
           </code>
           <div class="tip" id="684">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d,&#39;e&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d -&gt; &#39;e<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd, 'e          </div>
+            <strong>Signature:</strong> func:Func&lt;&#39;a&gt; -&gt; unit -&gt; &#39;a<br />
+                          <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
           
@@ -146,62 +201,6 @@
             Create(func)
           </code>
           <div class="tip" id="685">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c,&#39;d&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c -&gt; &#39;d<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'd          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '686', 686)" onmouseover="showTip(event, '686', 686)">
-            Create(func)
-          </code>
-          <div class="tip" id="686">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; &#39;a -&gt; &#39;b -&gt; &#39;c<br />
-                          <strong>Type parameters:</strong> 'a, 'b, 'c          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '687', 687)" onmouseover="showTip(event, '687', 687)">
-            Create(func)
-          </code>
-          <div class="tip" id="687">
-            <strong>Signature:</strong> func:Func&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b<br />
-                          <strong>Type parameters:</strong> 'a, 'b          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '688', 688)" onmouseover="showTip(event, '688', 688)">
-            Create(func)
-          </code>
-          <div class="tip" id="688">
-            <strong>Signature:</strong> func:Func&lt;&#39;a&gt; -&gt; unit -&gt; &#39;a<br />
-                          <strong>Type parameters:</strong> 'a          </div>
-        </td>
-        <td class="xmldoc">
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '689', 689)" onmouseover="showTip(event, '689', 689)">
-            Create(func)
-          </code>
-          <div class="tip" id="689">
             <strong>Signature:</strong> func:Converter&lt;&#39;a,&#39;b&gt; -&gt; &#39;a -&gt; &#39;b<br />
                           <strong>Type parameters:</strong> 'a, 'b          </div>
         </td>

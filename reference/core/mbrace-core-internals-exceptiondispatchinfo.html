@@ -48,7 +48,6 @@
 <p>Replacement for System.Runtime.ExceptionServices.ExceptionDispatchInfo
 that is serializable and permits symbolic appending to stacktrace</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -59,10 +58,10 @@ that is serializable and permits symbolic appending to stacktrace</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '538', 538)" onmouseover="showTip(event, '538', 538)">
+          <code onmouseout="hideTip(event, '534', 534)" onmouseover="showTip(event, '534', 534)">
             AppendToStackTrace(lines)
           </code>
-          <div class="tip" id="538">
+          <div class="tip" id="534">
             <strong>Signature:</strong> lines:seq&lt;string&gt; -&gt; ExceptionDispatchInfo<br />
                       </div>
         </td>
@@ -70,16 +69,15 @@ that is serializable and permits symbolic appending to stacktrace</p>
           <p>Creates a new ExceptionDispatchInfo instance with line appended to stacktrace.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '539', 539)" onmouseover="showTip(event, '539', 539)">
+          <code onmouseout="hideTip(event, '535', 535)" onmouseover="showTip(event, '535', 535)">
             AppendToStackTrace(line)
           </code>
-          <div class="tip" id="539">
+          <div class="tip" id="535">
             <strong>Signature:</strong> line:string -&gt; ExceptionDispatchInfo<br />
                       </div>
         </td>
@@ -87,16 +85,15 @@ that is serializable and permits symbolic appending to stacktrace</p>
           <p>Creates a new ExceptionDispatchInfo instance with line appended to stacktrace.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '540', 540)" onmouseover="showTip(event, '540', 540)">
+          <code onmouseout="hideTip(event, '536', 536)" onmouseover="showTip(event, '536', 536)">
             IsFaultException
           </code>
-          <div class="tip" id="540">
+          <div class="tip" id="536">
             <strong>Signature:</strong> bool<br />
                       </div>
         </td>
@@ -104,23 +101,22 @@ that is serializable and permits symbolic appending to stacktrace</p>
           <p>Gets whether ExceptionDispatchInfo encapsulates a fault exception</p>
 
 
-
+              <p>CompiledName: <code>get_IsFaultException</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '541', 541)" onmouseover="showTip(event, '541', 541)">
+          <code onmouseout="hideTip(event, '537', 537)" onmouseover="showTip(event, '537', 537)">
             Reify(useSeparator, prepareForRaise)
           </code>
-          <div class="tip" id="541">
+          <div class="tip" id="537">
             <strong>Signature:</strong> (useSeparator:bool option * prepareForRaise:bool option) -&gt; exn<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Returns contained exception with restored stacktrace state.
 This operation mutates exception contents, so should be used with care.</p>
-
 
 
         </td>
@@ -136,16 +132,15 @@ This operation mutates exception contents, so should be used with care.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '542', 542)" onmouseover="showTip(event, '542', 542)">
+          <code onmouseout="hideTip(event, '538', 538)" onmouseover="showTip(event, '538', 538)">
             Capture(exn, isFaultException)
           </code>
-          <div class="tip" id="542">
+          <div class="tip" id="538">
             <strong>Signature:</strong> (exn:exn * isFaultException:bool option) -&gt; ExceptionDispatchInfo<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Captures the provided exception stacktrace into an ExceptionDispatchInfo instance.</p>
-
 
 
         </td>

@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Collection of path-related file store methods.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,16 +57,80 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '499', 499)" onmouseover="showTip(event, '499', 499)">
+          <code onmouseout="hideTip(event, '495', 495)" onmouseover="showTip(event, '495', 495)">
             Combine(paths)
           </code>
-          <div class="tip" id="499">
+          <div class="tip" id="495">
             <strong>Signature:</strong> (paths:string []) -&gt; string<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Combines an array of paths into a path.</p>
 
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '496', 496)" onmouseover="showTip(event, '496', 496)">
+            DefaultDirectory
+          </code>
+          <div class="tip" id="496">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Default store directory used by store configuration.</p>
+
+
+              <p>CompiledName: <code>get_DefaultDirectory</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '497', 497)" onmouseover="showTip(event, '497', 497)">
+            GetDirectoryName(path)
+          </code>
+          <div class="tip" id="497">
+            <strong>Signature:</strong> path:string -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the directory name for given path.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '498', 498)" onmouseover="showTip(event, '498', 498)">
+            GetFileName(path)
+          </code>
+          <div class="tip" id="498">
+            <strong>Signature:</strong> path:string -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the file name for given path.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '499', 499)" onmouseover="showTip(event, '499', 499)">
+            GetFullPath(path)
+          </code>
+          <div class="tip" id="499">
+            <strong>Signature:</strong> path:string -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the full path of supplied input.</p>
 
 
         </td>
@@ -76,15 +139,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '500', 500)" onmouseover="showTip(event, '500', 500)">
-            DefaultDirectory
+            GetRandomDirectoryName()
           </code>
           <div class="tip" id="500">
-            <strong>Signature:</strong> string<br />
+            <strong>Signature:</strong> unit -&gt; string<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Default store directory used by store configuration.</p>
-
+          <p>Generates a random, uniquely specified path to directory</p>
 
 
         </td>
@@ -93,15 +155,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '501', 501)" onmouseover="showTip(event, '501', 501)">
-            GetDirectoryName(path)
+            GetRandomFilePath(container)
           </code>
           <div class="tip" id="501">
-            <strong>Signature:</strong> path:string -&gt; string<br />
+            <strong>Signature:</strong> (container:string option) -&gt; string<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Returns the directory name for given path.</p>
-
+          <p>Creates a uniquely defined file path for given container.</p>
 
 
         </td>
@@ -110,77 +171,9 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '502', 502)" onmouseover="showTip(event, '502', 502)">
-            GetFileName(path)
-          </code>
-          <div class="tip" id="502">
-            <strong>Signature:</strong> path:string -&gt; string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Returns the file name for given path.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '503', 503)" onmouseover="showTip(event, '503', 503)">
-            GetFullPath(path)
-          </code>
-          <div class="tip" id="503">
-            <strong>Signature:</strong> path:string -&gt; string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the full path of supplied input.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '504', 504)" onmouseover="showTip(event, '504', 504)">
-            GetRandomDirectoryName()
-          </code>
-          <div class="tip" id="504">
-            <strong>Signature:</strong> unit -&gt; string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Generates a random, uniquely specified path to directory</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '505', 505)" onmouseover="showTip(event, '505', 505)">
-            GetRandomFilePath(container)
-          </code>
-          <div class="tip" id="505">
-            <strong>Signature:</strong> (container:string option) -&gt; string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Creates a uniquely defined file path for given container.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '506', 506)" onmouseover="showTip(event, '506', 506)">
             IsCaseSensitive
           </code>
-          <div class="tip" id="506">
+          <div class="tip" id="502">
             <strong>Signature:</strong> bool<br />
                       </div>
         </td>
@@ -188,16 +181,16 @@
           <p>Gets whether the store instance uses case sensitive paths.</p>
 
 
-
+              <p>CompiledName: <code>get_IsCaseSensitive</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '507', 507)" onmouseover="showTip(event, '507', 507)">
+          <code onmouseout="hideTip(event, '503', 503)" onmouseover="showTip(event, '503', 503)">
             RootDirectory
           </code>
-          <div class="tip" id="507">
+          <div class="tip" id="503">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
@@ -205,7 +198,7 @@
           <p>Gets the root directory used by the store instance.</p>
 
 
-
+              <p>CompiledName: <code>get_RootDirectory</code></p>
         </td>
       </tr>
     </tbody>

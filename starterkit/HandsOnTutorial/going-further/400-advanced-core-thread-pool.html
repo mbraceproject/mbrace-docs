@@ -39,10 +39,8 @@
         <div class="span9" id="main">
           
 <h1><a name="Running-MBrace-workflows-in-the-Thread-Pool" class="anchor" href="#Running-MBrace-workflows-in-the-Thread-Pool">Running MBrace workflows in the Thread Pool</a></h1>
-
 <p>It is possible to run and test your MBrace workflows using the local thread pool.
 To do this, you will need to reference <a href="https://www.nuget.org/packages/MBrace.Runtime">MBrace.Runtime</a> library.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -57,9 +55,7 @@ To do this, you will need to reference <a href="https://www.nuget.org/packages/M
 </code></pre></td>
 </tr>
 </table>
-
 <p>The thread pool runtime can be used to test arbitrary cloud code in the confines of your current process:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -80,41 +76,34 @@ To do this, you will need to reference <a href="https://www.nuget.org/packages/M
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Emulating-distribution" class="anchor" href="#Emulating-distribution">Emulating distribution</a></h2>
-
 <p>By default, the thread pool runtime uses the expected async semantics, i.e. everything runs in shared memory.
 However, when debugging cloud applications it is often useful to emulate conditions particular to distribution.
 In the thread pool runtime this can be done by overriding the <code>MemoryEmulation</code> parameter, which is an enumeration
 with three possible values:</p>
-
 <ol>
 <li>Shared: the default async semantics, values passed to child workflows are shared among worker threads.</li>
-<li><p>EnsureSerializable: values passed to child workflows are shared among worker threads, however checks are made
-at runtime to ensure that closures are serializable.</p></li>
-<li><p>Copied: values are passed to child workflows as cloned copies, ensuring proper emulation of distribution semantics.</p></li>
+<li>
+<p>EnsureSerializable: values passed to child workflows are shared among worker threads, however checks are made
+at runtime to ensure that closures are serializable.</p>
+</li>
+<li>Copied: values are passed to child workflows as cloned copies, ensuring proper emulation of distribution semantics.</li>
 </ol>
-
 <p>Let's highlight the differences using a couple of examples:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">example1</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">WebClient</span>() }
 </code></pre></td>
 </tr>
 </table>
-
 <p>Running <code>example1</code> with the default shared semantics produces no error</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs11', 35)" onmouseover="showTip(event, 'fs11', 35)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 36)" onmouseover="showTip(event, 'fs14', 36)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs19', 37)" onmouseover="showTip(event, 'fs19', 37)" class="i">example1</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Shared</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>however attempting to do the same with either of the other two options</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -123,16 +112,10 @@ at runtime to ensure that closures are serializable.</p></li>
 </code></pre></td>
 </tr>
 </table>
-
 <p>produces the error:</p>
-
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-</pre></td>
-<td class="snippet"><pre class="fssnip"><code lang="System.Runtime.Serialization.SerializationException:">
-which is precisely what would happen if we were to run the computation in a distributed MBrace cluster. 
-Consider now the following example</code></pre></td></tr></table>
-
+<p><code>System.Runtime.Serialization.SerializationException: Cloud process returns non-serializable type 'System.Net.WebClient'.</code></p>
+<p>which is precisely what would happen if we were to run the computation in a distributed MBrace cluster.
+Consider now the following example</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -149,9 +132,7 @@ Consider now the following example</code></pre></td></tr></table>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Running the example using <code>Shared</code> and <code>EnsureSerializable</code> emulation modes produces the same expected result (100):</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -160,46 +141,35 @@ Consider now the following example</code></pre></td></tr></table>
 </code></pre></td>
 </tr>
 </table>
-
 <p>However, using <code>Copied</code> produces a wholly different output (0):</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs11', 59)" onmouseover="showTip(event, 'fs11', 59)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 60)" onmouseover="showTip(event, 'fs14', 60)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs23', 61)" onmouseover="showTip(event, 'fs23', 61)" class="i">example2</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Copied</span>)
 </code></pre></td>
 </tr>
 </table>
-
-<p>This is entirely consistent with the behaviour of the workflow in the cloud, 
+<p>This is entirely consistent with the behaviour of the workflow in the cloud,
 since each child work item will be performing the increment operation in a copy of the value.</p>
-
 <h2><a name="Testing-MBrace-code-locally-before-deploying" class="anchor" href="#Testing-MBrace-code-locally-before-deploying">Testing MBrace code locally before deploying</a></h2>
-
 <p>When working with a distributed MBrace cluster, it is easy to test your code locally before deploying
 using the companion ThreadPool runtime available to every MBrace client instance:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 62)" onmouseover="showTip(event, 'fs6', 62)" class="i">someDistributedCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 63)" onmouseover="showTip(event, 'fs29', 63)" class="f">RunLocally</span>(<span onmouseout="hideTip(event, 'fs23', 64)" onmouseover="showTip(event, 'fs23', 64)" class="i">example2</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Copied</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>When we are certain that everything works fine in the local process, we can confidently deploy as usual</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 65)" onmouseover="showTip(event, 'fs6', 65)" class="i">someDistributedCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 66)" onmouseover="showTip(event, 'fs30', 66)" class="f">CreateProcess</span>(<span onmouseout="hideTip(event, 'fs23', 67)" onmouseover="showTip(event, 'fs23', 67)" class="i">example2</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Gotchas" class="anchor" href="#Gotchas">Gotchas</a></h2>
-
 <p>It should always be kept in mind that thread pool emulation does not sufficiently reproduce all
-fine semantics variations that occur when executing the same workflow in the cloud. 
+fine semantics variations that occur when executing the same workflow in the cloud.
 The simplest example are side-effects:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -214,9 +184,7 @@ The simplest example are side-effects:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>In general, side effects affecting global state behave differently in the local as opposed to the distributed setting:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -253,14 +221,11 @@ The simplest example are side-effects:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
-<p>In this tutorial, you've learned about <code>MBrace.ThreadPool</code> as ways of executing and testing 
+<p>In this tutorial, you've learned about <code>MBrace.ThreadPool</code> as ways of executing and testing
 cloud workflows using the thread pool of your local client process.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

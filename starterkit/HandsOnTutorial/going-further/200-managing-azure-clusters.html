@@ -39,18 +39,15 @@
         <div class="span9" id="main">
           
 <h1><a name="managing-your-MBrace-Azure-clusters-using-F-interactive" class="anchor" href="#managing-your-MBrace-Azure-clusters-using-F-interactive">managing your MBrace.Azure clusters using F# interactive</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.
 If using a locally simulated cluster you can ignore this tutorial.</p>
 </blockquote>
-
 <p>In this tutorial you learn how you can use the <a href="https://www.nuget.org/packages/MBrace.Azure">MBrace.Azure.Management</a> library
 to provision, monitor and scale an MBrace cluster using Visual Studio and F# Interactive. In order to proceed, you will need
-to <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">sign up</a> for an Azure subscription. Once signed up, 
-<a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>, which contains 
+to <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">sign up</a> for an Azure subscription. Once signed up,
+<a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>, which contains
 all authentication information necessary to manage your Azure subscription(s).</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -59,18 +56,14 @@ all authentication information necessary to manage your Azure subscription(s).</
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, read your publish settings file by calling</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">pubSettings</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="t">PublishSettings</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="f">ParseFile</span> <span onmouseout="hideTip(event, 'fs5', 14)" onmouseover="showTip(event, 'fs5', 14)" class="i">pubSettingsFile</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Yielding</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -79,49 +72,38 @@ all authentication information necessary to manage your Azure subscription(s).</
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now we can select our subscription of preference</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">subscription</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 16)" onmouseover="showTip(event, 'fs8', 16)" class="i">pubSettings</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="f">GetSubscriptionById</span> <span class="s">&quot;Azure Free Trial&quot;</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Select your prefered Azure region. This specifies the default Azure data center to be used for your deployments.
 Choosing a data center close to your location is recommended.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">myRegion</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="i">North_Europe</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Let's now instantiate our subscription manager instance</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="i">manager</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">SubscriptionManager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="f">Create</span>(<span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="i">subscription</span>, <span onmouseout="hideTip(event, 'fs13', 25)" onmouseover="showTip(event, 'fs13', 25)" class="i">myRegion</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>You now provision an MBrace cluster as follows:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 26)" onmouseover="showTip(event, 'fs19', 26)" class="i">deployment</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 28)" onmouseover="showTip(event, 'fs20', 28)" class="f">Provision</span>(<span class="i">serviceName</span> <span class="o">=</span> <span class="s">&quot;mbracetest&quot;</span>, <span class="i">vmCount</span> <span class="o">=</span> <span class="n">4</span>, <span class="i">vmSize</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 29)" onmouseover="showTip(event, 'fs21', 29)" class="t">VMSize</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 30)" onmouseover="showTip(event, 'fs22', 30)" class="i">A3</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>This will provision a 4-worker MBrace cluster of Large (A3) instances
 Provisioning can take some time (approximately 5 minutes).</p>
-
 <p>If you have already provisioned a cluster, reconnect to it using the following:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -132,9 +114,7 @@ Provisioning can take some time (approximately 5 minutes).</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>To reconnect to a cluster when you don't have access to a pubsettings file, use:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -147,18 +127,14 @@ Provisioning can take some time (approximately 5 minutes).</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>You can track the status of the cluster as follows:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 32)" onmouseover="showTip(event, 'fs23', 32)" class="f">ShowInfo</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>Which yields</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -173,83 +149,64 @@ Provisioning can take some time (approximately 5 minutes).</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Finally, when deployment has completed we can easily obtain a cluster instance by typing</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 33)" onmouseover="showTip(event, 'fs24', 33)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 34)" onmouseover="showTip(event, 'fs25', 34)" class="t">AzureCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 35)" onmouseover="showTip(event, 'fs26', 35)" class="f">Connect</span> <span onmouseout="hideTip(event, 'fs19', 36)" onmouseover="showTip(event, 'fs19', 36)" class="i">deployment</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>and submit our first computation to the cluster</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Cloud</span><span class="o">.</span><span class="i">CurrentWorker</span> <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">ParallelEverywhere</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 37)" onmouseover="showTip(event, 'fs24', 37)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 38)" onmouseover="showTip(event, 'fs27', 38)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Resizing the cluster is as simple as calling</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 40)" onmouseover="showTip(event, 'fs28', 40)" class="f">Resize</span>(<span class="i">vmCount</span> <span class="o">=</span> <span class="n">20</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>When done, it's always a good idea to dispose of our deployment</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs19', 41)" onmouseover="showTip(event, 'fs19', 41)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 42)" onmouseover="showTip(event, 'fs29', 42)" class="f">Delete</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Managing-storage-accounts" class="anchor" href="#Managing-storage-accounts">Managing storage accounts</a></h2>
-
 <p>The subscription object can be used to manage Azure storage accounts</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 43)" onmouseover="showTip(event, 'fs30', 43)" class="i">newAccount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 44)" onmouseover="showTip(event, 'fs16', 44)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 45)" onmouseover="showTip(event, 'fs31', 45)" class="i">Storage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 46)" onmouseover="showTip(event, 'fs32', 46)" class="f">CreateAccount</span>(<span class="i">accountName</span> <span class="o">=</span> <span class="s">&quot;mynewaccount&quot;</span>, <span class="i">region</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 47)" onmouseover="showTip(event, 'fs14', 47)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 48)" onmouseover="showTip(event, 'fs33', 48)" class="i">Southeast_Asia</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>or it can be used to retrieve already existing accounts</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 49)" onmouseover="showTip(event, 'fs34', 49)" class="i">existingAccount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 50)" onmouseover="showTip(event, 'fs16', 50)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 51)" onmouseover="showTip(event, 'fs31', 51)" class="i">Storage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 52)" onmouseover="showTip(event, 'fs35', 52)" class="f">GetAccount</span>(<span class="i">accountName</span> <span class="o">=</span> <span class="s">&quot;existingaccount&quot;</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>which can be used in subsequent cluster deployments</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 53)" onmouseover="showTip(event, 'fs36', 53)" class="i">deployment&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 54)" onmouseover="showTip(event, 'fs16', 54)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 55)" onmouseover="showTip(event, 'fs20', 55)" class="f">Provision</span>(<span class="i">vmCount</span> <span class="o">=</span> <span class="n">10</span>, <span class="i">region</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 56)" onmouseover="showTip(event, 'fs14', 56)" class="t">Region</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 57)" onmouseover="showTip(event, 'fs33', 57)" class="i">Southeast_Asia</span>, <span class="i">storageAccount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs30', 58)" onmouseover="showTip(event, 'fs30', 58)" class="i">newAccount</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 59)" onmouseover="showTip(event, 'fs37', 59)" class="i">AccountName</span>)
 </code></pre></td>
 </tr>
 </table>
-
 <p>A list of all accounts can be viewed by writing</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs16', 60)" onmouseover="showTip(event, 'fs16', 60)" class="i">manager</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 61)" onmouseover="showTip(event, 'fs31', 61)" class="i">Storage</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 62)" onmouseover="showTip(event, 'fs38', 62)" class="f">ShowAccounts</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>Yielding</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -266,9 +223,7 @@ Provisioning can take some time (approximately 5 minutes).</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned about MBrace.Azure.Management and how it can be used to deploy and manage MBrace clusters running on Azure.</p>
 
 <div class="tip" id="fs1">namespace MBrace</div>

@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Serialization abstraction</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '633', 633)" onmouseover="showTip(event, '633', 633)">
+          <code onmouseout="hideTip(event, '629', 629)" onmouseover="showTip(event, '629', 629)">
             Clone(graph)
           </code>
-          <div class="tip" id="633">
+          <div class="tip" id="629">
             <strong>Signature:</strong> graph:&#39;T -&gt; &#39;T<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -70,16 +69,15 @@
           <p>Creates a cloned copy of a serializable object graph.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '634', 634)" onmouseover="showTip(event, '634', 634)">
+          <code onmouseout="hideTip(event, '630', 630)" onmouseover="showTip(event, '630', 630)">
             ComputeObjectSize(graph)
           </code>
-          <div class="tip" id="634">
+          <div class="tip" id="630">
             <strong>Signature:</strong> graph:&#39;T -&gt; int64<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -88,16 +86,15 @@
           <p>Computes serialization size of provided object graph in bytes.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '635', 635)" onmouseover="showTip(event, '635', 635)">
+          <code onmouseout="hideTip(event, '631', 631)" onmouseover="showTip(event, '631', 631)">
             Deserialize(source, leaveOpen)
           </code>
-          <div class="tip" id="635">
+          <div class="tip" id="631">
             <strong>Signature:</strong> (source:Stream * leaveOpen:bool) -&gt; &#39;T<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -106,16 +103,15 @@
           <p>Deserializes a value from stream.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '636', 636)" onmouseover="showTip(event, '636', 636)">
+          <code onmouseout="hideTip(event, '632', 632)" onmouseover="showTip(event, '632', 632)">
             Id
           </code>
-          <div class="tip" id="636">
+          <div class="tip" id="632">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -124,16 +120,16 @@
           <p>Serializer identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '637', 637)" onmouseover="showTip(event, '637', 637)">
+          <code onmouseout="hideTip(event, '633', 633)" onmouseover="showTip(event, '633', 633)">
             IsSerializable(value)
           </code>
-          <div class="tip" id="637">
+          <div class="tip" id="633">
             <strong>Signature:</strong> value:&#39;T -&gt; bool<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -142,16 +138,15 @@
           <p>Checks if supplied value can be serialized.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '638', 638)" onmouseover="showTip(event, '638', 638)">
+          <code onmouseout="hideTip(event, '634', 634)" onmouseover="showTip(event, '634', 634)">
             SeqDeserialize(source, leaveOpen)
           </code>
-          <div class="tip" id="638">
+          <div class="tip" id="634">
             <strong>Signature:</strong> (source:Stream * leaveOpen:bool) -&gt; seq&lt;&#39;T&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -160,16 +155,15 @@
           <p>Lazily deserialize a sequence from stream.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '639', 639)" onmouseover="showTip(event, '639', 639)">
+          <code onmouseout="hideTip(event, '635', 635)" onmouseover="showTip(event, '635', 635)">
             SeqSerialize(target, values, leaveOpen)
           </code>
-          <div class="tip" id="639">
+          <div class="tip" id="635">
             <strong>Signature:</strong> (target:Stream * values:seq&lt;&#39;T&gt; * leaveOpen:bool) -&gt; int<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -178,23 +172,21 @@
           <p>Lazily serializes a sequence to stream.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '640', 640)" onmouseover="showTip(event, '640', 640)">
+          <code onmouseout="hideTip(event, '636', 636)" onmouseover="showTip(event, '636', 636)">
             Serialize(target, value, leaveOpen)
           </code>
-          <div class="tip" id="640">
+          <div class="tip" id="636">
             <strong>Signature:</strong> (target:Stream * value:&#39;T * leaveOpen:bool) -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Serializes a value to stream.</p>
-
 
 
         </td>

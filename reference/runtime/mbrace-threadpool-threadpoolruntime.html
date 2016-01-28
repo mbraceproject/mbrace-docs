@@ -48,7 +48,6 @@
 <p>Defines an MBrace thread pool runtime instance that is capable of
 executing cloud workflows in the thread pool of the current process.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -59,28 +58,28 @@ executing cloud workflows in the thread pool of the current process.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1451', 1451)" onmouseover="showTip(event, '1451', 1451)">
+          <code onmouseout="hideTip(event, '1461', 1461)" onmouseover="showTip(event, '1461', 1461)">
             MemoryEmulation
           </code>
-          <div class="tip" id="1451">
+          <div class="tip" id="1461">
             <strong>Signature:</strong> MemoryEmulation<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets the default memory emulation mode used 
+          <p>Gets the default memory emulation mode used
 in parallelism/store operations.</p>
 
 
-
+              <p>CompiledName: <code>get_MemoryEmulation</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1452', 1452)" onmouseover="showTip(event, '1452', 1452)">
+          <code onmouseout="hideTip(event, '1462', 1462)" onmouseover="showTip(event, '1462', 1462)">
             Resources
           </code>
-          <div class="tip" id="1452">
+          <div class="tip" id="1462">
             <strong>Signature:</strong> ResourceRegistry<br />
                       </div>
         </td>
@@ -88,16 +87,16 @@ in parallelism/store operations.</p>
           <p>Gets the ResourceRegistry used by the client instance</p>
 
 
-
+              <p>CompiledName: <code>get_Resources</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1453', 1453)" onmouseover="showTip(event, '1453', 1453)">
+          <code onmouseout="hideTip(event, '1463', 1463)" onmouseover="showTip(event, '1463', 1463)">
             RunSynchronously(...)
           </code>
-          <div class="tip" id="1453">
+          <div class="tip" id="1463">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * cancellationToken:CancellationToken * memoryEmulation:MemoryEmulation option * logger:ICloudLogger option * resources:ResourceRegistry option) -&gt; &#39;T<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -106,16 +105,15 @@ in parallelism/store operations.</p>
 provided by the thread pool of the current process.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1454', 1454)" onmouseover="showTip(event, '1454', 1454)">
+          <code onmouseout="hideTip(event, '1464', 1464)" onmouseover="showTip(event, '1464', 1464)">
             RunSynchronously(...)
           </code>
-          <div class="tip" id="1454">
+          <div class="tip" id="1464">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * cancellationToken:ICloudCancellationToken option * memoryEmulation:MemoryEmulation option * logger:ICloudLogger option * resources:ResourceRegistry option) -&gt; &#39;T<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -124,16 +122,15 @@ provided by the thread pool of the current process.</p>
 provided by the thread pool of the current process.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1455', 1455)" onmouseover="showTip(event, '1455', 1455)">
+          <code onmouseout="hideTip(event, '1465', 1465)" onmouseover="showTip(event, '1465', 1465)">
             StartAsTask(...)
           </code>
-          <div class="tip" id="1455">
+          <div class="tip" id="1465">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * cancellationToken:CancellationToken * memoryEmulation:MemoryEmulation option * logger:ICloudLogger option * resources:ResourceRegistry option) -&gt; ThreadPoolProcess&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -142,16 +139,15 @@ provided by the thread pool of the current process.</p>
 provided by the thread pool of the current process.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1456', 1456)" onmouseover="showTip(event, '1456', 1456)">
+          <code onmouseout="hideTip(event, '1466', 1466)" onmouseover="showTip(event, '1466', 1466)">
             StartAsTask(...)
           </code>
-          <div class="tip" id="1456">
+          <div class="tip" id="1466">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * cancellationToken:ICloudCancellationToken option * memoryEmulation:MemoryEmulation option * logger:ICloudLogger option * resources:ResourceRegistry option) -&gt; ThreadPoolProcess&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -160,23 +156,21 @@ provided by the thread pool of the current process.</p>
 provided by the thread pool of the current process.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1457', 1457)" onmouseover="showTip(event, '1457', 1457)">
+          <code onmouseout="hideTip(event, '1467', 1467)" onmouseover="showTip(event, '1467', 1467)">
             ToAsync(...)
           </code>
-          <div class="tip" id="1457">
+          <div class="tip" id="1467">
             <strong>Signature:</strong> (workflow:Cloud&lt;&#39;T&gt; * memoryEmulation:MemoryEmulation option * logger:ICloudLogger option * resources:ResourceRegistry option) -&gt; Async&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Converts a cloud computation to an asynchronous workflow executed using parallelism
 provided by the thread pool of the current process.</p>
-
 
 
         </td>
@@ -192,10 +186,10 @@ provided by the thread pool of the current process.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1458', 1458)" onmouseover="showTip(event, '1458', 1458)">
+          <code onmouseout="hideTip(event, '1468', 1468)" onmouseover="showTip(event, '1468', 1468)">
             Create(...)
           </code>
-          <div class="tip" id="1458">
+          <div class="tip" id="1468">
             <strong>Signature:</strong> (logger:ICloudLogger option * memoryEmulation:MemoryEmulation option * fileStore:ICloudFileStore option * serializer:ISerializer option * textSerializer:ITextSerializer option * valueProvider:ICloudValueProvider option * atomProvider:ICloudAtomProvider option * queueProvider:ICloudQueueProvider option * dictionaryProvider:ICloudDictionaryProvider option * resources:ResourceRegistry option) -&gt; ThreadPoolRuntime<br />
                       </div>
         </td>
@@ -203,16 +197,15 @@ provided by the thread pool of the current process.</p>
           <p>Creates a ThreadPool runtime instance using provided resource components.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1459', 1459)" onmouseover="showTip(event, '1459', 1459)">
+          <code onmouseout="hideTip(event, '1469', 1469)" onmouseover="showTip(event, '1469', 1469)">
             CreateCancellationToken(sysToken)
           </code>
-          <div class="tip" id="1459">
+          <div class="tip" id="1469">
             <strong>Signature:</strong> sysToken:CancellationToken -&gt; ThreadPoolCancellationToken<br />
                       </div>
         </td>
@@ -220,16 +213,15 @@ provided by the thread pool of the current process.</p>
           <p>Creates a thread pool cancellation token wrapper to a System.Threading.CancellationToken</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1460', 1460)" onmouseover="showTip(event, '1460', 1460)">
+          <code onmouseout="hideTip(event, '1470', 1470)" onmouseover="showTip(event, '1470', 1470)">
             CreateCancellationToken(canceled)
           </code>
-          <div class="tip" id="1460">
+          <div class="tip" id="1470">
             <strong>Signature:</strong> (canceled:bool option) -&gt; ThreadPoolCancellationToken<br />
                       </div>
         </td>
@@ -237,16 +229,15 @@ provided by the thread pool of the current process.</p>
           <p>Creates a fresh thread pool cancellation token.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1461', 1461)" onmouseover="showTip(event, '1461', 1461)">
+          <code onmouseout="hideTip(event, '1471', 1471)" onmouseover="showTip(event, '1471', 1471)">
             CreateCancellationTokenSource()
           </code>
-          <div class="tip" id="1461">
+          <div class="tip" id="1471">
             <strong>Signature:</strong> unit -&gt; ICloudCancellationTokenSource<br />
                       </div>
         </td>
@@ -254,22 +245,20 @@ provided by the thread pool of the current process.</p>
           <p>Creates a new thread pool cancellation token source instance.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1462', 1462)" onmouseover="showTip(event, '1462', 1462)">
+          <code onmouseout="hideTip(event, '1472', 1472)" onmouseover="showTip(event, '1472', 1472)">
             CreateLinkedCancellationTokenSource(...)
           </code>
-          <div class="tip" id="1462">
-            <strong>Signature:</strong> parents:seq&lt;&#39;?38964&gt; -&gt; ThreadPoolCancellationTokenSource<br />
-                          <strong>Type parameters:</strong> '?38964          </div>
+          <div class="tip" id="1472">
+            <strong>Signature:</strong> parents:seq&lt;&#39;?39072&gt; -&gt; ThreadPoolCancellationTokenSource<br />
+                          <strong>Type parameters:</strong> '?39072          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a thread pool cancellation token source linked to a collection of parent tokens.</p>
-
 
 
         </td>

@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Windows Azure Cluster management client. Provides methods for management, execution and debugging of MBrace processes in Azure.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1532', 1532)" onmouseover="showTip(event, '1532', 1532)">
+          <code onmouseout="hideTip(event, '1543', 1543)" onmouseover="showTip(event, '1543', 1543)">
             AttachLocalWorker(...)
           </code>
-          <div class="tip" id="1532">
+          <div class="tip" id="1543">
             <strong>Signature:</strong> (workerId:string option * workingDirectory:string option * maxWorkItems:int option * logFile:string option * logLevel:LogLevel option * quiet:bool option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
                       </div>
         </td>
@@ -69,16 +68,15 @@
           <p>Spawns a worker instance in the local machine, subscribed to the current cluster configuration.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1533', 1533)" onmouseover="showTip(event, '1533', 1533)">
+          <code onmouseout="hideTip(event, '1544', 1544)" onmouseover="showTip(event, '1544', 1544)">
             AttachLocalWorkers(...)
           </code>
-          <div class="tip" id="1533">
+          <div class="tip" id="1544">
             <strong>Signature:</strong> (workerCount:int * maxWorkItems:int option * logLevel:LogLevel option * quiet:bool option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
                       </div>
         </td>
@@ -86,16 +84,15 @@
           <p>Spawns worker instances in the local machine, subscribed to the current cluster configuration.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1534', 1534)" onmouseover="showTip(event, '1534', 1534)">
+          <code onmouseout="hideTip(event, '1545', 1545)" onmouseover="showTip(event, '1545', 1545)">
             Configuration
           </code>
-          <div class="tip" id="1534">
+          <div class="tip" id="1545">
             <strong>Signature:</strong> Configuration<br />
                       </div>
         </td>
@@ -103,16 +100,16 @@
           <p>Gets a copy of the configuration object used for the runtime</p>
 
 
-
+              <p>CompiledName: <code>get_Configuration</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1535', 1535)" onmouseover="showTip(event, '1535', 1535)">
+          <code onmouseout="hideTip(event, '1546', 1546)" onmouseover="showTip(event, '1546', 1546)">
             CullNonResponsiveWorkers(...)
           </code>
-          <div class="tip" id="1535">
+          <div class="tip" id="1546">
             <strong>Signature:</strong> heartbeatThreshold:TimeSpan -&gt; unit<br />
                       </div>
         </td>
@@ -121,16 +118,15 @@
 for a duration larger than the supplied threshold parameter.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1536', 1536)" onmouseover="showTip(event, '1536', 1536)">
+          <code onmouseout="hideTip(event, '1547', 1547)" onmouseover="showTip(event, '1547', 1547)">
             CullNonResponsiveWorkersAsync(...)
           </code>
-          <div class="tip" id="1536">
+          <div class="tip" id="1547">
             <strong>Signature:</strong> heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />
                       </div>
         </td>
@@ -139,16 +135,15 @@ for a duration larger than the supplied threshold parameter.</p>
 for a duration larger than the supplied threshold parameter.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1537', 1537)" onmouseover="showTip(event, '1537', 1537)">
+          <code onmouseout="hideTip(event, '1548', 1548)" onmouseover="showTip(event, '1548', 1548)">
             Hash
           </code>
-          <div class="tip" id="1537">
+          <div class="tip" id="1548">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
@@ -156,16 +151,16 @@ for a duration larger than the supplied threshold parameter.</p>
           <p>Cluster configuration hash identifier</p>
 
 
-
+              <p>CompiledName: <code>get_Hash</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1538', 1538)" onmouseover="showTip(event, '1538', 1538)">
+          <code onmouseout="hideTip(event, '1549', 1549)" onmouseover="showTip(event, '1549', 1549)">
             KillAllLocalWorkers()
           </code>
-          <div class="tip" id="1538">
+          <div class="tip" id="1549">
             <strong>Signature:</strong> unit -&gt; unit<br />
                       </div>
         </td>
@@ -173,16 +168,15 @@ for a duration larger than the supplied threshold parameter.</p>
           <p>Kills all worker processes of the cluster that are running on the local machine.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1539', 1539)" onmouseover="showTip(event, '1539', 1539)">
+          <code onmouseout="hideTip(event, '1550', 1550)" onmouseover="showTip(event, '1550', 1550)">
             KillLocalWorker(worker)
           </code>
-          <div class="tip" id="1539">
+          <div class="tip" id="1550">
             <strong>Signature:</strong> worker:IWorkerRef -&gt; bool<br />
                       </div>
         </td>
@@ -191,16 +185,15 @@ for a duration larger than the supplied threshold parameter.</p>
 Returns true if successful, false if local worker not found.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1540', 1540)" onmouseover="showTip(event, '1540', 1540)">
+          <code onmouseout="hideTip(event, '1551', 1551)" onmouseover="showTip(event, '1551', 1551)">
             Reset(...)
           </code>
-          <div class="tip" id="1540">
+          <div class="tip" id="1551">
             <strong>Signature:</strong> (deleteQueues:bool option * deleteRuntimeState:bool option * deleteLogs:bool option * deleteUserData:bool option * deleteAssemblyData:bool option * force:bool option * reactivate:bool option) -&gt; unit<br />
                       </div>
         </td>
@@ -210,16 +203,15 @@ Using 'Reset' may cause unexpected behavior in clients and workers.
 Workers should be restarted manually.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1541', 1541)" onmouseover="showTip(event, '1541', 1541)">
+          <code onmouseout="hideTip(event, '1552', 1552)" onmouseover="showTip(event, '1552', 1552)">
             ResetAsync(...)
           </code>
-          <div class="tip" id="1541">
+          <div class="tip" id="1552">
             <strong>Signature:</strong> (deleteQueues:bool option * deleteRuntimeState:bool option * deleteLogs:bool option * deleteUserData:bool option * deleteAssemblyData:bool option * force:bool option * reactivate:bool option) -&gt; Async&lt;unit&gt;<br />
                       </div>
         </td>
@@ -229,16 +221,15 @@ Using 'Reset' may cause unexpected behavior in clients and workers.
 Workers should be restarted manually.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1542', 1542)" onmouseover="showTip(event, '1542', 1542)">
+          <code onmouseout="hideTip(event, '1553', 1553)" onmouseover="showTip(event, '1553', 1553)">
             ServiceBusAccount
           </code>
-          <div class="tip" id="1542">
+          <div class="tip" id="1553">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
@@ -246,16 +237,16 @@ Workers should be restarted manually.</p>
           <p>Gets the Azure service bus account name used by the cluster</p>
 
 
-
+              <p>CompiledName: <code>get_ServiceBusAccount</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1543', 1543)" onmouseover="showTip(event, '1543', 1543)">
+          <code onmouseout="hideTip(event, '1554', 1554)" onmouseover="showTip(event, '1554', 1554)">
             StorageAccount
           </code>
-          <div class="tip" id="1543">
+          <div class="tip" id="1554">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
@@ -263,7 +254,7 @@ Workers should be restarted manually.</p>
           <p>Gets the Azure storage account name used by the cluster</p>
 
 
-
+              <p>CompiledName: <code>get_StorageAccount</code></p>
         </td>
       </tr>
     </tbody>
@@ -277,10 +268,10 @@ Workers should be restarted manually.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1544', 1544)" onmouseover="showTip(event, '1544', 1544)">
+          <code onmouseout="hideTip(event, '1555', 1555)" onmouseover="showTip(event, '1555', 1555)">
             Connect(...)
           </code>
-          <div class="tip" id="1544">
+          <div class="tip" id="1555">
             <strong>Signature:</strong> (storageConnectionString:string * serviceBusConnectionString:string * clientId:string option * faultPolicy:FaultPolicy option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; AzureCluster<br />
                       </div>
         </td>
@@ -289,16 +280,15 @@ Workers should be restarted manually.</p>
 If successful returns a management handle object to the cluster.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1545', 1545)" onmouseover="showTip(event, '1545', 1545)">
+          <code onmouseout="hideTip(event, '1556', 1556)" onmouseover="showTip(event, '1556', 1556)">
             Connect(...)
           </code>
-          <div class="tip" id="1545">
+          <div class="tip" id="1556">
             <strong>Signature:</strong> (config:Configuration * clientId:string option * faultPolicy:FaultPolicy option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; AzureCluster<br />
                       </div>
         </td>
@@ -307,16 +297,15 @@ If successful returns a management handle object to the cluster.</p>
 If successful returns a management handle object to the cluster.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1546', 1546)" onmouseover="showTip(event, '1546', 1546)">
+          <code onmouseout="hideTip(event, '1557', 1557)" onmouseover="showTip(event, '1557', 1557)">
             ConnectAsync(...)
           </code>
-          <div class="tip" id="1546">
+          <div class="tip" id="1557">
             <strong>Signature:</strong> (config:Configuration * clientId:string option * faultPolicy:FaultPolicy option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; Async&lt;AzureCluster&gt;<br />
                       </div>
         </td>
@@ -325,22 +314,20 @@ If successful returns a management handle object to the cluster.</p>
 If successful returns a management handle object to the cluster.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1547', 1547)" onmouseover="showTip(event, '1547', 1547)">
+          <code onmouseout="hideTip(event, '1558', 1558)" onmouseover="showTip(event, '1558', 1558)">
             InitOnCurrentMachine(...)
           </code>
-          <div class="tip" id="1547">
+          <div class="tip" id="1558">
             <strong>Signature:</strong> (config:Configuration * workerCount:int * clientId:string option * faultPolicy:FaultPolicy option * maxWorkItems:int option * logger:ISystemLogger option * quiet:bool option * logLevel:LogLevel option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; AzureCluster<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Initialize a new local runtime instance with supplied worker count and return a handle.</p>
-
 
 
         </td>

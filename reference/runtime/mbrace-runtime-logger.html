@@ -58,10 +58,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '901', 901)" onmouseover="showTip(event, '901', 901)">
+          <code onmouseout="hideTip(event, '897', 897)" onmouseover="showTip(event, '897', 897)">
             filter(filterF target)
           </code>
-          <div class="tip" id="901">
+          <div class="tip" id="897">
             <strong>Signature:</strong> filterF:(SystemLogEntry -&gt; bool) -&gt; target:ISystemLogger -&gt; ISystemLogger<br />
                       </div>
         </td>
@@ -70,16 +70,15 @@
 to supplied predicate.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '902', 902)" onmouseover="showTip(event, '902', 902)">
+          <code onmouseout="hideTip(event, '898', 898)" onmouseover="showTip(event, '898', 898)">
             filterLogLevel(maxLogLevel target)
           </code>
-          <div class="tip" id="902">
+          <div class="tip" id="898">
             <strong>Signature:</strong> maxLogLevel:LogLevel -&gt; target:ISystemLogger -&gt; ISystemLogger<br />
                       </div>
         </td>
@@ -88,6 +87,69 @@ to supplied predicate.</p>
 to supplied log level.</p>
 
 
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '899', 899)" onmouseover="showTip(event, '899', 899)">
+            log(logger level message)
+          </code>
+          <div class="tip" id="899">
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; level:LogLevel -&gt; message:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Logs a new entry with provided level using the current date time</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '900', 900)" onmouseover="showTip(event, '900', 900)">
+            logCritical(logger message)
+          </code>
+          <div class="tip" id="900">
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Logs critical error message with current time</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '901', 901)" onmouseover="showTip(event, '901', 901)">
+            logError(logger message)
+          </code>
+          <div class="tip" id="901">
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Logs error message with current time</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '902', 902)" onmouseover="showTip(event, '902', 902)">
+            logF(logger level fmt)
+          </code>
+          <div class="tip" id="902">
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; level:LogLevel -&gt; fmt:StringFormat&lt;&#39;?40725,unit&gt; -&gt; &#39;?40725<br />
+                          <strong>Type parameters:</strong> '?40725          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Logs a new entry with provided level and formatted message</p>
+
 
         </td>
       </tr>
@@ -95,15 +157,14 @@ to supplied log level.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '903', 903)" onmouseover="showTip(event, '903', 903)">
-            log(logger level message)
+            logInfo(logger message)
           </code>
           <div class="tip" id="903">
-            <strong>Signature:</strong> logger:ISystemLogger -&gt; level:LogLevel -&gt; message:string -&gt; unit<br />
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Logs a new entry with provided level using the current date time</p>
-
+          <p>Logs information message with current time</p>
 
 
         </td>
@@ -112,15 +173,14 @@ to supplied log level.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '904', 904)" onmouseover="showTip(event, '904', 904)">
-            logCritical(logger message)
+            logWarning(logger message)
           </code>
           <div class="tip" id="904">
             <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Logs critical error message with current time</p>
-
+          <p>Logs warning message with current time</p>
 
 
         </td>
@@ -129,83 +189,14 @@ to supplied log level.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '905', 905)" onmouseover="showTip(event, '905', 905)">
-            logError(logger message)
-          </code>
-          <div class="tip" id="905">
-            <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Logs error message with current time</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '906', 906)" onmouseover="showTip(event, '906', 906)">
-            logF(logger level fmt)
-          </code>
-          <div class="tip" id="906">
-            <strong>Signature:</strong> logger:ISystemLogger -&gt; level:LogLevel -&gt; fmt:StringFormat&lt;&#39;?40617,unit&gt; -&gt; &#39;?40617<br />
-                          <strong>Type parameters:</strong> '?40617          </div>
-        </td>
-        <td class="xmldoc">
-          <p>Logs a new entry with provided level and formatted message</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '907', 907)" onmouseover="showTip(event, '907', 907)">
-            logInfo(logger message)
-          </code>
-          <div class="tip" id="907">
-            <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Logs information message with current time</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '908', 908)" onmouseover="showTip(event, '908', 908)">
-            logWarning(logger message)
-          </code>
-          <div class="tip" id="908">
-            <strong>Signature:</strong> logger:ISystemLogger -&gt; message:string -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Logs warning message with current time</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '909', 909)" onmouseover="showTip(event, '909', 909)">
             logWithException(...)
           </code>
-          <div class="tip" id="909">
+          <div class="tip" id="905">
             <strong>Signature:</strong> logger:ISystemLogger -&gt; level:LogLevel -&gt; exn:exn -&gt; message:string -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Logs a new entry with provided level and exception using the current date time</p>
-
 
 
         </td>

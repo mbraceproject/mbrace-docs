@@ -39,19 +39,15 @@
         <div class="span9" id="main">
           
 <h1><a name="Introduction-to-Data-Parallel-Cloud-Flows" class="anchor" href="#Introduction-to-Data-Parallel-Cloud-Flows">Introduction to Data Parallel Cloud Flows</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>You now learn the CloudFlow programming model, for cloud-scheduled
 parallel data flow tasks.  This model is similar to Hadoop and Spark.</p>
-
-<p>CloudFlow.ofArray partitions the input array based on the number of 
+<p>CloudFlow.ofArray partitions the input array based on the number of
 available workers.  The parts of the array are then fed into cloud tasks
 implementing the map and filter stages.  The final 'countBy' stage is
 implemented by a final cloud task.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -76,41 +72,31 @@ implemented by a final cloud task.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, check the progress of your job.</p>
-
 <blockquote>
-  <p>Note: the number of cloud tasks involved, which should be the number of workers * 2.  This indicates
+<p>Note: the number of cloud tasks involved, which should be the number of workers * 2.  This indicates
 the input array has been partitioned and the work carried out in a distributed way.</p>
 </blockquote>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs10', 32)" onmouseover="showTip(event, 'fs10', 32)" class="i">streamComputationTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 33)" onmouseover="showTip(event, 'fs19', 33)" class="f">ShowInfo</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, await the result</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs10', 34)" onmouseover="showTip(event, 'fs10', 34)" class="i">streamComputationTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 35)" onmouseover="showTip(event, 'fs20', 35)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Data parallel cloud flows can be used for all sorts of things.
 Later, you will see how to source the inputs to the data flow from
 a collection of cloud files, or from a partitioned cloud vector.</p>
-
 <h2><a name="Changing-the-degree-of-parallelism" class="anchor" href="#Changing-the-degree-of-parallelism">Changing the degree of parallelism</a></h2>
-
 <p>The default is to partition the input array between all available workers.</p>
-
 <p>You can also use CloudFlow.withDegreeOfParallelism to specify the degree
 of partitioning of the stream at any point in the pipeline.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -147,14 +133,11 @@ of partitioning of the stream at any point in the pipeline.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Persisting-intermediate-results-to-cloud-storage" class="anchor" href="#Persisting-intermediate-results-to-cloud-storage">Persisting intermediate results to cloud storage</a></h2>
-
 <p>Results of a flow computation can be persisted to store by terminating
-with a call to CloudFlow.persist/persistaCached. 
+with a call to CloudFlow.persist/persistaCached.
 This creates a PersistedCloudFlow instance that can be reused without
 performing recomputations of the original flow.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -179,16 +162,13 @@ performing recomputations of the original flow.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned the basics of the CloudFlow programming
-model, a powerful data-flow model for scalable pipelines of data. 
+model, a powerful data-flow model for scalable pipelines of data.
 Continue with further samples to learn more about the
 MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 

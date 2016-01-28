@@ -39,36 +39,28 @@
         <div class="span9" id="main">
           
 <h1><a name="Your-First-Hello-World-Computation-with-MBrace" class="anchor" href="#Your-First-Hello-World-Computation-with-MBrace">Your First 'Hello World' Computation with MBrace</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>A guide to creating a cluster is <a href="http://www.mbrace.io/#try">here</a>.</p>
-
 <p>Start F# Interactive in your editor.  Highlight the text below and press "Alt-Enter" (Visual Studio) or the other
 appropriate execution command for your editor. This connects to the cluster.  If you are using a locally simulated
 cluster it also creates the cluster.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="f">GetCluster</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, get details of the workers in your cluster. Again, highlight the text below and
 execute it in your scripting client:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="f">ShowWorkers</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>Now execute your first cloud workflow, returning a handle to the running job:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -79,29 +71,23 @@ execute it in your scripting client:</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>This submits a task to the cluster. To get details for the task, execute the 
+<p>This submits a task to the cluster. To get details for the task, execute the
 following in your scripting client:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">task</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="f">ShowInfo</span>()
 </code></pre></td>
 </tr>
 </table>
-
-<p>Your task is likely complete by now.  To get the result returned by your 
+<p>Your task is likely complete by now.  To get the result returned by your
 task, execute the following in your scripting client:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">text</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 19)" onmouseover="showTip(event, 'fs10', 19)" class="i">task</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="i">Result</span>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Alternatively we can do this all in one line:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -112,11 +98,9 @@ task, execute the following in your scripting client:</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>To check that you are running in the cloud, compare a workflow running locally 
+<p>To check that you are running in the cloud, compare a workflow running locally
 with one using cloud execution. (Note, if using an MBrace.Thespian locally simulated
 cluster, these will be identical.)</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -135,33 +119,26 @@ cluster, these will be identical.)</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Controlling-the-Cluster" class="anchor" href="#Controlling-the-Cluster">Controlling the Cluster</a></h2>
-
 <p>To view the history of processes, execute the following line from your scriptin</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 36)" onmouseover="showTip(event, 'fs6', 36)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="f">ShowProcesses</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <p>In case you run into trouble, you can clear all process records in the cluster
 by executing the following from your scripting client:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 38)" onmouseover="showTip(event, 'fs6', 38)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 39)" onmouseover="showTip(event, 'fs24', 39)" class="f">ClearAllProcesses</span>()
 </code></pre></td>
 </tr>
 </table>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
-
 <p>*</p>
 
 <div class="tip" id="fs1">namespace System</div>

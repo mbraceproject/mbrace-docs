@@ -48,7 +48,6 @@
 <p>Provides utility methods for persisting .NET objects to files in the cloud store.
 Can be safely serialized.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -59,10 +58,10 @@ Can be safely serialized.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1276', 1276)" onmouseover="showTip(event, '1276', 1276)">
+          <code onmouseout="hideTip(event, '1286', 1286)" onmouseover="showTip(event, '1286', 1286)">
             CreatePickleOrFileAsync(...)
           </code>
-          <div class="tip" id="1276">
+          <div class="tip" id="1286">
             <strong>Signature:</strong> (value:&#39;T * fileName:string * persistThreshold:int64 option) -&gt; Async&lt;PickleOrFile&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -70,16 +69,15 @@ Can be safely serialized.</p>
           <p>Creates an entity that is either persisted as file or encapsulated in entity, depending on provided size threshold.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1277', 1277)" onmouseover="showTip(event, '1277', 1277)">
+          <code onmouseout="hideTip(event, '1287', 1287)" onmouseover="showTip(event, '1287', 1287)">
             PeristSequenceAsync(...)
           </code>
-          <div class="tip" id="1277">
+          <div class="tip" id="1287">
             <strong>Signature:</strong> (values:seq&lt;&#39;T&gt; * fileName:string * serializer:ISerializer option) -&gt; Async&lt;PersistedSequence&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -87,16 +85,15 @@ Can be safely serialized.</p>
           <p>Asynchronously persists provided sequence to file of given name.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1278', 1278)" onmouseover="showTip(event, '1278', 1278)">
+          <code onmouseout="hideTip(event, '1288', 1288)" onmouseover="showTip(event, '1288', 1288)">
             PersistValueAsync(value, fileName)
           </code>
-          <div class="tip" id="1278">
+          <div class="tip" id="1288">
             <strong>Signature:</strong> (value:&#39;T * fileName:string) -&gt; Async&lt;PersistedValue&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -104,16 +101,15 @@ Can be safely serialized.</p>
           <p>Asynchronously persists provided value to file of given name.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1279', 1279)" onmouseover="showTip(event, '1279', 1279)">
+          <code onmouseout="hideTip(event, '1289', 1289)" onmouseover="showTip(event, '1289', 1289)">
             ReadPickleOrFileAsync(pof)
           </code>
-          <div class="tip" id="1279">
+          <div class="tip" id="1289">
             <strong>Signature:</strong> pof:PickleOrFile&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -121,16 +117,15 @@ Can be safely serialized.</p>
           <p>Asynchronously reads the contents of provided PickleOrFile.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1280', 1280)" onmouseover="showTip(event, '1280', 1280)">
+          <code onmouseout="hideTip(event, '1290', 1290)" onmouseover="showTip(event, '1290', 1290)">
             TryGetPersistedSequenceByFileName(...)
           </code>
-          <div class="tip" id="1280">
+          <div class="tip" id="1290">
             <strong>Signature:</strong> fileName:string -&gt; Async&lt;PersistedSequence&lt;&#39;T&gt; option&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -138,22 +133,20 @@ Can be safely serialized.</p>
           <p>Asynchronously attempt to get a persisted sequence by given type and fileName.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1281', 1281)" onmouseover="showTip(event, '1281', 1281)">
+          <code onmouseout="hideTip(event, '1291', 1291)" onmouseover="showTip(event, '1291', 1291)">
             TryGetPersistedValueByFileName(fileName)
           </code>
-          <div class="tip" id="1281">
+          <div class="tip" id="1291">
             <strong>Signature:</strong> fileName:string -&gt; Async&lt;PersistedValue&lt;&#39;T&gt; option&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously attempt to get a persisted value by given type and fileName.</p>
-
 
 
         </td>
@@ -169,16 +162,15 @@ Can be safely serialized.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1282', 1282)" onmouseover="showTip(event, '1282', 1282)">
+          <code onmouseout="hideTip(event, '1292', 1292)" onmouseover="showTip(event, '1292', 1292)">
             Create(...)
           </code>
-          <div class="tip" id="1282">
+          <div class="tip" id="1292">
             <strong>Signature:</strong> (fileStore:ICloudFileStore * serializer:ISerializer * persistThreshold:int64) -&gt; PersistedValueManager<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a new persisted value manager with supplied configuration.</p>
-
 
 
         </td>

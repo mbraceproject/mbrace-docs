@@ -39,14 +39,11 @@
         <div class="span9" id="main">
           
 <h1><a name="Programming-model" class="anchor" href="#Programming-model">Programming model</a></h1>
-
 <p>The MBrace programming model is a language-integrated cloud programming DSL for use from F#.
-It offers a concise and elegant programming model which extends F# asynchronous workflows 
+It offers a concise and elegant programming model which extends F# asynchronous workflows
 to the domain of distributed cloud computation.</p>
-
 <p>The following tutorials demonstrate different aspects of the core programming model.  All the tutorials and samples
 can be found in the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a></p>
-
 <ul>
 <li><a href="starterkit/HandsOnTutorial/1-hello-world.html">Hello World with MBrace</a></li>
 <li><a href="starterkit/HandsOnTutorial/2-cloud-parallel.html">Introduction to cloud combinators</a></li>
@@ -61,49 +58,39 @@ can be found in the <a href="https://github.com/mbraceproject/MBrace.StarterKit"
 <li><a href="starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html">Using cloud key/value storage</a></li>
 <li><a href="starterkit/HandsOnTutorial/0-provision-azure-cluster.html">Provisioning MBrace clusters on Azure</a></li>
 </ul>
-
 <p>Examples:</p>
-
 <ul>
-<li><a href="starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html">Example: Using Data Parallel Cloud Flows and F# Type Providers for House Prices</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-image-processing-example.html">Example: Distributed Image Processing</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html">Example: KMeans Clustering with Incremental Notifications</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html">Example: Incremental Stock Trading Analysis</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html">Example: Extracting Statistics for a Spelling Corrector</a></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html">Example: Using Data Parallel Cloud Flows and F# Type Providers for House Prices</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-image-processing-example.html">Example: Distributed Image Processing</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html">Example: KMeans Clustering with Incremental Notifications</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html">Example: Incremental Stock Trading Analysis</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html">Example: Extracting Statistics for a Spelling Corrector</a></p></li>
 <li><p><a href="starterkit/HandsOnTutorial/examples/200-using-r-provider.html">Example: Using the R type provider with MBrace</a></p></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html">Example: Parallel Web Download</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-wordcount-example.html">Example: Word Count</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-monte-carlo-pi-approximation-example.html">Example: Monte Carlo Pi Approximation</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html">Example: Extracting Statistics for a Spelling Corrector</a></li>
-<li><a href="starterkit/HandsOnTutorial/examples/200-knn-digit-recognizer-example.html">Example: KNN Digit Recognizer</a></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html">Example: Parallel Web Download</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-wordcount-example.html">Example: Word Count</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-monte-carlo-pi-approximation-example.html">Example: Monte Carlo Pi Approximation</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html">Example: Extracting Statistics for a Spelling Corrector</a></p></li>
+<li><p><a href="starterkit/HandsOnTutorial/examples/200-knn-digit-recognizer-example.html">Example: KNN Digit Recognizer</a></p></li>
 </ul>
-
 <p>More Techniques:</p>
-
 <ul>
 <li><a href="starterkit/HandsOnTutorial/examples/200-launching-python-example.html">Launching Python and Other Executables</a></li>
 <li><a href="starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html">Prototyping a WebServer to Control Your Cluster</a></li>
 <li><a href="starterkit/HandsOnTutorial/going-further/400-advanced-core-thread-pool.html">Running MBrace in the Local Machine Thread Pool</a></li>
 <li><a href="starterkit/HandsOnTutorial/going-further/400-cloud-gotchas.html">Cloud Gotchas</a></li>
 </ul>
-
 <p>What follows is a general overview.</p>
-
 <h2><a name="Cloud-Workflows" class="anchor" href="#Cloud-Workflows">Cloud Workflows</a></h2>
-
 <p>In MBrace, the unit of computation is a <em>cloud workflow</em>:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">myFirstCloudWorkflow</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span class="n">42</span> }
 </code></pre></td>
 </tr>
 </table>
-
 <p>Cloud workflows generate objects of type <code>Cloud&lt;'T&gt;</code>, which denote a delayed computation
 that once executed will yield a result of type <code>'T</code>. Cloud workflows are language-integrated
 and can freely intertwine with native code.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -116,9 +103,7 @@ and can freely intertwine with native code.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Simple cloud computations can be composed into larger ones using the <code>let!</code> keyword:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -139,14 +124,11 @@ and can freely intertwine with native code.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>This creates bindings to the first and second workflows respectively,
 to be consumed by the continuations of the main computation.
 Once executed, this will sequentually perform the computations in <code>first</code>
 and <code>second</code>, resuming once the latter has completed.</p>
-
 <p>For loops and while loops are possible:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -169,9 +151,7 @@ and <code>second</code>, resuming once the latter has completed.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>MBrace workflows also integrate with exception handling:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -190,9 +170,7 @@ and <code>second</code>, resuming once the latter has completed.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Asynchronous workflows can be embedded into cloud workflows:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -221,16 +199,12 @@ and <code>second</code>, resuming once the latter has completed.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Parallelism-Combinators" class="anchor" href="#Parallelism-Combinators">Parallelism Combinators</a></h2>
-
 <p>Cloud workflows as discussed so far enable asynchronous
 computation but do not suffice in describing parallelism and distribution.
 To control this, MBrace uses a collection of primitive combinators that act on
 the distribution/parallelism semantics of execution in cloud workflows.</p>
-
 <p>The previous example could be altered so that downloading happens in parallel:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -259,9 +233,7 @@ the distribution/parallelism semantics of execution in cloud workflows.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Here is a second example of <code>Cloud.Parallel</code>:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -278,11 +250,8 @@ the distribution/parallelism semantics of execution in cloud workflows.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h3><a name="Exception-handling-in-workflows" class="anchor" href="#Exception-handling-in-workflows">Exception handling in workflows</a></h3>
-
 <p>For exception handling, consider the workflow:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -321,33 +290,26 @@ the distribution/parallelism semantics of execution in cloud workflows.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>In this case, one of the child computations will fail on account of
 an invalid url, creating an exception. In general, uncaught exceptions
 bubble up through <code>Cloud.Parallel</code> triggering cancellation of all
 outstanding child computations (just like <code>Async.Parallel</code>).</p>
-
 <p>The exception handling clause will almost certainly be executed in a different machine than the one
 in which it was originally thrown. This is due to the cloud workflow, which allows
 exceptions, environments, closures to be passed around worker machines
 in a largely transparent manner.</p>
-
 <h2><a name="Non-deterministic-parallelism" class="anchor" href="#Non-deterministic-parallelism">Non-deterministic parallelism</a></h2>
-
 <p>MBrace provides the <code>Cloud.Choice</code> combinator that utilizes
 parallelism for non-deterministic algorithms.
 Cloud workflows of type <code>Cloud&lt;'T option&gt;</code> are said to be non-deterministic
-in the sense that their return type indicates either success with <code>Some</code> result 
+in the sense that their return type indicates either success with <code>Some</code> result
 or a negative answer with <code>None</code>.</p>
-
 <p><code>Cloud.Choice</code> combines a collection of arbitrary nondeterministic computations
 into one in which everything executes in parallel: it either returns <code>Some</code> result
 whenever a child happens to complete with <code>Some</code> result (cancelling all pending jobs)
 or <code>None</code> when all children have completed with <code>None</code>. It can be thought of as
 a distributed equivalent to the <code>Seq.tryPick</code> function found in the F# core library.</p>
-
 <p>The following example defines a distributed search function based on <code>Cloud.Choice</code>:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -370,11 +332,8 @@ a distributed equivalent to the <code>Seq.tryPick</code> function found in the F
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Composing-distributed-workflows" class="anchor" href="#Composing-distributed-workflows">Composing distributed workflows</a></h2>
-
 <p>Recursive and higher-order composition of cloud workflows is possible:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -395,30 +354,22 @@ a distributed equivalent to the <code>Seq.tryPick</code> function found in the F
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Distributed-Data" class="anchor" href="#Distributed-Data">Distributed Data</a></h2>
-
-<p>Cloud workflows offer a programming model for distributed computation. 
+<p>Cloud workflows offer a programming model for distributed computation.
 But what happens when it comes to data?</p>
-
-<p>Small-to-medium-scale data can be transported implicitly as part of a 
-cloud computation. This offers a limited (though extremely convenient) form of 
+<p>Small-to-medium-scale data can be transported implicitly as part of a
+cloud computation. This offers a limited (though extremely convenient) form of
 data distribution. However, it will not scale to all needs, particularly computations
 involving gigabytes of data.</p>
-
 <p>MBrace offers a range of mechanisms for managing
-large-scale data in a more global and massive scale. These provide an essential decoupling 
+large-scale data in a more global and massive scale. These provide an essential decoupling
 between distributed computation and distributed data.</p>
-
 <p>See also this <a href="https://github.com/mbraceproject/MBrace.Design/blob/master/DataAbstractions.md">summary of the MBrace abstractions for cloud data</a>.</p>
-
 <h3><a name="Cloud-Values" class="anchor" href="#Cloud-Values">Cloud Values</a></h3>
-
-<p>The mbrace programming model offers access to persistable and cacheable distributed data 
-entities known as cloud values. Cloud values very much resemble immutable data values found in 
-F# but are stored in persisted cloud storage. The following workflow stores the downloaded 
+<p>The mbrace programming model offers access to persistable and cacheable distributed data
+entities known as cloud values. Cloud values very much resemble immutable data values found in
+F# but are stored in persisted cloud storage. The following workflow stores the downloaded
 content of a web page and returns a cloud value to it:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -439,9 +390,7 @@ content of a web page and returns a cloud value to it:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Dereferencing a cloud value can be done by getting its <code>.Value</code> property:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -454,9 +403,7 @@ content of a web page and returns a cloud value to it:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>It is possible to define explicitly specify the StorageLevel used for the specific CloudValue instance:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -471,15 +418,11 @@ content of a web page and returns a cloud value to it:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>This indicates the cloud value should be persisted using both disk storage and in-memory
 for dereferencing worker instances.</p>
-
 <h3><a name="Example-Defining-a-MapReduce-workflow" class="anchor" href="#Example-Defining-a-MapReduce-workflow">Example: Defining a MapReduce workflow</a></h3>
-
 <p>Cloud worklows in conjunctions with parallel combinators can be used
 to articulate MapReduce-like workflows. A simplistic version follows:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -512,20 +455,15 @@ to articulate MapReduce-like workflows. A simplistic version follows:</p>
 </code></pre></td>
 </tr>
 </table>
-
-<p>The workflow follows a divide-and-conquer approach, 
-recursively partitioning input data until trivial cases are met. 
+<p>The workflow follows a divide-and-conquer approach,
+recursively partitioning input data until trivial cases are met.
 Recursive calls are passed through <code>Cloud.Parallel</code>,
 thus achieving the effect of distributed parallelism.</p>
-
 <p>This is a naive conception of mapReduce, as it does not enable data parallelism nor does it take into account cluster granularity.</p>
-
 <h3><a name="Cloud-Files" class="anchor" href="#Cloud-Files">Cloud Files</a></h3>
-
-<p>Like cloud values, sequences and vectors, CloudFile is an immutable storage primitive 
-that a references a file saved in the global store. 
+<p>Like cloud values, sequences and vectors, CloudFile is an immutable storage primitive
+that a references a file saved in the global store.
 In other words, it is an interface for storing or accessing binary blobs in the runtime.</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -572,19 +510,14 @@ In other words, it is an interface for storing or accessing binary blobs in the 
 </code></pre></td>
 </tr>
 </table>
-
 <h3><a name="Mutable-cloud-values-CloudAtom" class="anchor" href="#Mutable-cloud-values-CloudAtom">Mutable cloud values (CloudAtom)</a></h3>
-
 <p>The <code>CloudAtom</code> primitive is, like <code>CloudValue</code>, a reference to data stored in the underlying cloud service.
 However, CloudAtoms are mutable. The value of a cloud atom can be updated and, as a result,
-its values are never cached. Mutable cloud values can be updated transactionally using the 
+its values are never cached. Mutable cloud values can be updated transactionally using the
 <code>CloudAtom.Transact</code> methods or forcibly using the <code>CloudAtom.Force</code> method.</p>
-
-<p>The CloudAtom is a powerful primitive that can be used to create runtime-wide synchronization 
+<p>The CloudAtom is a powerful primitive that can be used to create runtime-wide synchronization
 mechanisms like locks, semaphores, etc.</p>
-
 <p>The following demonstrates simple use of the cloud atom:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -607,11 +540,8 @@ mechanisms like locks, semaphores, etc.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The snippet will return a result of either 1 or 2, depending on which update operation was run last.</p>
-
 <p>The following snippet implements an transactionally incrementing function acting on a cloud atom:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -622,10 +552,8 @@ mechanisms like locks, semaphores, etc.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Other-Primitives" class="anchor" href="#Other-Primitives">Other Primitives</a></h2>
-
-<p>For more information and examples on the programming model, please refer to the 
+<p>For more information and examples on the programming model, please refer to the
 <a href="reference/index.html">API Reference</a>.</p>
 
 <div class="tip" id="fs1">namespace MBrace</div>

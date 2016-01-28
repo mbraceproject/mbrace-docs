@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Represents a cloud computation that is being executed in the cluster.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '986', 986)" onmouseover="showTip(event, '986', 986)">
+          <code onmouseout="hideTip(event, '996', 996)" onmouseover="showTip(event, '996', 996)">
             ActiveWorkItems
           </code>
-          <div class="tip" id="986">
+          <div class="tip" id="996">
             <strong>Signature:</strong> int<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,202 +69,22 @@
           <p>Active number of work items related to the process.</p>
 
 
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '987', 987)" onmouseover="showTip(event, '987', 987)">
-            add_Logs(arg1)
-          </code>
-          <div class="tip" id="987">
-            <strong>Signature:</strong> Handler&lt;CloudLogEntry&gt; -&gt; unit<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Cloud process cloud logs observable</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '988', 988)" onmouseover="showTip(event, '988', 988)">
-            AwaitResultBoxed(timeoutMilliseconds)
-          </code>
-          <div class="tip" id="988">
-            <strong>Signature:</strong> (timeoutMilliseconds:int option) -&gt; Async&lt;obj&gt;<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously awaits boxed result of given cloud process.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '989', 989)" onmouseover="showTip(event, '989', 989)">
-            Cancel()
-          </code>
-          <div class="tip" id="989">
-            <strong>Signature:</strong> unit -&gt; unit<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Cancels execution of given process</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '990', 990)" onmouseover="showTip(event, '990', 990)">
-            CancellationToken
-          </code>
-          <div class="tip" id="990">
-            <strong>Signature:</strong> ICloudCancellationToken<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets the parent cancellation token for the cloud process</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '991', 991)" onmouseover="showTip(event, '991', 991)">
-            CompletedWorkItems
-          </code>
-          <div class="tip" id="991">
-            <strong>Signature:</strong> int<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Number of work items that have been completed for process.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '992', 992)" onmouseover="showTip(event, '992', 992)">
-            CompletionTime
-          </code>
-          <div class="tip" id="992">
-            <strong>Signature:</strong> DateTimeOffset option<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>DateTime of cloud process completion</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '993', 993)" onmouseover="showTip(event, '993', 993)">
-            ExecutionTime
-          </code>
-          <div class="tip" id="993">
-            <strong>Signature:</strong> TimeSpan option<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>TimeSpan of executing process.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '994', 994)" onmouseover="showTip(event, '994', 994)">
-            FaultedWorkItems
-          </code>
-          <div class="tip" id="994">
-            <strong>Signature:</strong> int<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Number of faults encountered while executing work items for process.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '995', 995)" onmouseover="showTip(event, '995', 995)">
-            GetInfo()
-          </code>
-          <div class="tip" id="995">
-            <strong>Signature:</strong> unit -&gt; string<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets a printed report on the current process status</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '996', 996)" onmouseover="showTip(event, '996', 996)">
-            GetLogs(filter)
-          </code>
-          <div class="tip" id="996">
-            <strong>Signature:</strong> (filter:(CloudLogEntry -&gt; bool) option) -&gt; CloudLogEntry []<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously fetches log all log entries generated by given cloud process.</p>
-
-
-
+              <p>CompiledName: <code>get_ActiveWorkItems</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '997', 997)" onmouseover="showTip(event, '997', 997)">
-            GetLogsAsync(filter)
+            add_Logs(arg1)
           </code>
           <div class="tip" id="997">
-            <strong>Signature:</strong> (filter:(CloudLogEntry -&gt; bool) option) -&gt; Async&lt;CloudLogEntry []&gt;<br />
+            <strong>Signature:</strong> Handler&lt;CloudLogEntry&gt; -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously fetches log all log entries generated by given cloud process.</p>
-
+          <p>Cloud process cloud logs observable</p>
 
 
         </td>
@@ -274,16 +93,15 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '998', 998)" onmouseover="showTip(event, '998', 998)">
-            Id
+            AwaitResultBoxed(timeoutMilliseconds)
           </code>
           <div class="tip" id="998">
-            <strong>Signature:</strong> string<br />
+            <strong>Signature:</strong> (timeoutMilliseconds:int option) -&gt; Async&lt;obj&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Cloud process identifier</p>
-
+          <p>Asynchronously awaits boxed result of given cloud process.</p>
 
 
         </td>
@@ -292,16 +110,15 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '999', 999)" onmouseover="showTip(event, '999', 999)">
-            Logs
+            Cancel()
           </code>
           <div class="tip" id="999">
-            <strong>Signature:</strong> IEvent&lt;CloudLogEntry&gt;<br />
+            <strong>Signature:</strong> unit -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Cloud process cloud logs observable</p>
-
+          <p>Cancels execution of given process</p>
 
 
         </td>
@@ -310,105 +127,105 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1000', 1000)" onmouseover="showTip(event, '1000', 1000)">
-            Name
+            CancellationToken
           </code>
           <div class="tip" id="1000">
-            <strong>Signature:</strong> string option<br />
+            <strong>Signature:</strong> ICloudCancellationToken<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Cloud process user-supplied name</p>
+          <p>Gets the parent cancellation token for the cloud process</p>
 
 
-
+              <p>CompiledName: <code>get_CancellationToken</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1001', 1001)" onmouseover="showTip(event, '1001', 1001)">
-            remove_Logs(arg1)
+            CompletedWorkItems
           </code>
           <div class="tip" id="1001">
-            <strong>Signature:</strong> Handler&lt;CloudLogEntry&gt; -&gt; unit<br />
+            <strong>Signature:</strong> int<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Cloud process cloud logs observable</p>
+          <p>Number of work items that have been completed for process.</p>
 
 
-
+              <p>CompiledName: <code>get_CompletedWorkItems</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1002', 1002)" onmouseover="showTip(event, '1002', 1002)">
-            ResultBoxed
+            CompletionTime
           </code>
           <div class="tip" id="1002">
-            <strong>Signature:</strong> obj<br />
+            <strong>Signature:</strong> DateTimeOffset option<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Awaits the boxed result of the process.</p>
+          <p>DateTime of cloud process completion</p>
 
 
-
+              <p>CompiledName: <code>get_CompletionTime</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1003', 1003)" onmouseover="showTip(event, '1003', 1003)">
-            ShowInfo()
+            ExecutionTime
           </code>
           <div class="tip" id="1003">
-            <strong>Signature:</strong> unit -&gt; unit<br />
+            <strong>Signature:</strong> TimeSpan option<br />
+              <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Prints a report on the current process status to stdout</p>
+          <p>TimeSpan of executing process.</p>
 
 
-
+              <p>CompiledName: <code>get_ExecutionTime</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1004', 1004)" onmouseover="showTip(event, '1004', 1004)">
-            ShowLogs(filter)
+            FaultedWorkItems
           </code>
           <div class="tip" id="1004">
-            <strong>Signature:</strong> (filter:(CloudLogEntry -&gt; bool) option) -&gt; unit<br />
+            <strong>Signature:</strong> int<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously fetches log all log entries generated by given cloud process.</p>
+          <p>Number of faults encountered while executing work items for process.</p>
 
 
-
+              <p>CompiledName: <code>get_FaultedWorkItems</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1005', 1005)" onmouseover="showTip(event, '1005', 1005)">
-            StartTime
+            GetInfo()
           </code>
           <div class="tip" id="1005">
-            <strong>Signature:</strong> DateTimeOffset option<br />
+            <strong>Signature:</strong> unit -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Date of process execution start.</p>
-
+          <p>Gets a printed report on the current process status</p>
 
 
         </td>
@@ -417,16 +234,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1006', 1006)" onmouseover="showTip(event, '1006', 1006)">
-            Status
+            GetLogs(filter)
           </code>
           <div class="tip" id="1006">
-            <strong>Signature:</strong> CloudProcessStatus<br />
-              <strong>Modifiers:</strong> abstract<br />
+            <strong>Signature:</strong> (filter:(CloudLogEntry -&gt; bool) option) -&gt; CloudLogEntry []<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Process execution status.</p>
-
+          <p>Asynchronously fetches log all log entries generated by given cloud process.</p>
 
 
         </td>
@@ -435,16 +250,15 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1007', 1007)" onmouseover="showTip(event, '1007', 1007)">
-            TotalWorkItems
+            GetLogsAsync(filter)
           </code>
           <div class="tip" id="1007">
-            <strong>Signature:</strong> int<br />
+            <strong>Signature:</strong> (filter:(CloudLogEntry -&gt; bool) option) -&gt; Async&lt;CloudLogEntry []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Total number of work items related to the process.</p>
-
+          <p>Asynchronously fetches log all log entries generated by given cloud process.</p>
 
 
         </td>
@@ -453,9 +267,185 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1008', 1008)" onmouseover="showTip(event, '1008', 1008)">
-            TryGetResultBoxed()
+            Id
           </code>
           <div class="tip" id="1008">
+            <strong>Signature:</strong> string<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cloud process identifier</p>
+
+
+              <p>CompiledName: <code>get_Id</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1009', 1009)" onmouseover="showTip(event, '1009', 1009)">
+            Logs
+          </code>
+          <div class="tip" id="1009">
+            <strong>Signature:</strong> IEvent&lt;CloudLogEntry&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cloud process cloud logs observable</p>
+
+
+              <p>CompiledName: <code>get_Logs</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1010', 1010)" onmouseover="showTip(event, '1010', 1010)">
+            Name
+          </code>
+          <div class="tip" id="1010">
+            <strong>Signature:</strong> string option<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cloud process user-supplied name</p>
+
+
+              <p>CompiledName: <code>get_Name</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1011', 1011)" onmouseover="showTip(event, '1011', 1011)">
+            remove_Logs(arg1)
+          </code>
+          <div class="tip" id="1011">
+            <strong>Signature:</strong> Handler&lt;CloudLogEntry&gt; -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cloud process cloud logs observable</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1012', 1012)" onmouseover="showTip(event, '1012', 1012)">
+            ResultBoxed
+          </code>
+          <div class="tip" id="1012">
+            <strong>Signature:</strong> obj<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Awaits the boxed result of the process.</p>
+
+
+              <p>CompiledName: <code>get_ResultBoxed</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1013', 1013)" onmouseover="showTip(event, '1013', 1013)">
+            ShowInfo()
+          </code>
+          <div class="tip" id="1013">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Prints a report on the current process status to stdout</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1014', 1014)" onmouseover="showTip(event, '1014', 1014)">
+            ShowLogs(filter)
+          </code>
+          <div class="tip" id="1014">
+            <strong>Signature:</strong> (filter:(CloudLogEntry -&gt; bool) option) -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously fetches log all log entries generated by given cloud process.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1015', 1015)" onmouseover="showTip(event, '1015', 1015)">
+            StartTime
+          </code>
+          <div class="tip" id="1015">
+            <strong>Signature:</strong> DateTimeOffset option<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Date of process execution start.</p>
+
+
+              <p>CompiledName: <code>get_StartTime</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1016', 1016)" onmouseover="showTip(event, '1016', 1016)">
+            Status
+          </code>
+          <div class="tip" id="1016">
+            <strong>Signature:</strong> CloudProcessStatus<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Process execution status.</p>
+
+
+              <p>CompiledName: <code>get_Status</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1017', 1017)" onmouseover="showTip(event, '1017', 1017)">
+            TotalWorkItems
+          </code>
+          <div class="tip" id="1017">
+            <strong>Signature:</strong> int<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Total number of work items related to the process.</p>
+
+
+              <p>CompiledName: <code>get_TotalWorkItems</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1018', 1018)" onmouseover="showTip(event, '1018', 1018)">
+            TryGetResultBoxed()
+          </code>
+          <div class="tip" id="1018">
             <strong>Signature:</strong> unit -&gt; Async&lt;obj option&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -464,16 +454,15 @@
           <p>Return the result if available or None if not available.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1009', 1009)" onmouseover="showTip(event, '1009', 1009)">
+          <code onmouseout="hideTip(event, '1019', 1019)" onmouseover="showTip(event, '1019', 1019)">
             Type
           </code>
-          <div class="tip" id="1009">
+          <div class="tip" id="1019">
             <strong>Signature:</strong> Type<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -482,23 +471,22 @@
           <p>Process return type</p>
 
 
-
+              <p>CompiledName: <code>get_Type</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1010', 1010)" onmouseover="showTip(event, '1010', 1010)">
+          <code onmouseout="hideTip(event, '1020', 1020)" onmouseover="showTip(event, '1020', 1020)">
             WaitAsync(timeoutMilliseconds)
           </code>
-          <div class="tip" id="1010">
+          <div class="tip" id="1020">
             <strong>Signature:</strong> (timeoutMilliseconds:int option) -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously waits until process has completed</p>
-
 
 
         </td>

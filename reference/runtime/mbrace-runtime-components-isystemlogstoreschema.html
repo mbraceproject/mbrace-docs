@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Creates a schema for writing and fetching system log files for specific workers</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1273', 1273)" onmouseover="showTip(event, '1273', 1273)">
+          <code onmouseout="hideTip(event, '1283', 1283)" onmouseover="showTip(event, '1283', 1283)">
             GetLogFilePath(worker)
           </code>
-          <div class="tip" id="1273">
+          <div class="tip" id="1283">
             <strong>Signature:</strong> worker:IWorkerId -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -70,16 +69,15 @@
           <p>Creates a path to a log file for supplied WorkerId and incremental index.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1274', 1274)" onmouseover="showTip(event, '1274', 1274)">
+          <code onmouseout="hideTip(event, '1284', 1284)" onmouseover="showTip(event, '1284', 1284)">
             GetLogFiles()
           </code>
-          <div class="tip" id="1274">
+          <div class="tip" id="1284">
             <strong>Signature:</strong> unit -&gt; Async&lt;string []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -88,23 +86,21 @@
           <p>Gets all log files that have been persisted to store.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1275', 1275)" onmouseover="showTip(event, '1275', 1275)">
+          <code onmouseout="hideTip(event, '1285', 1285)" onmouseover="showTip(event, '1285', 1285)">
             GetWorkerLogFiles(workerId)
           </code>
-          <div class="tip" id="1275">
+          <div class="tip" id="1285">
             <strong>Signature:</strong> workerId:IWorkerId -&gt; Async&lt;string []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Gets all log files that have been persisted to store by given task identifier.</p>
-
 
 
         </td>

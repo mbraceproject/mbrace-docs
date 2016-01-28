@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Cloud Value provider implementation.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '603', 603)" onmouseover="showTip(event, '603', 603)">
+          <code onmouseout="hideTip(event, '599', 599)" onmouseover="showTip(event, '599', 599)">
             CreateCloudArrayPartitioned(...)
           </code>
-          <div class="tip" id="603">
+          <div class="tip" id="599">
             <strong>Signature:</strong> (sequence:seq&lt;&#39;T&gt; * partitionThreshold:int64 * storageLevel:StorageLevel) -&gt; Async&lt;CloudArray&lt;&#39;T&gt; []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -71,16 +70,15 @@
 according to size in bytes.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '604', 604)" onmouseover="showTip(event, '604', 604)">
+          <code onmouseout="hideTip(event, '600', 600)" onmouseover="showTip(event, '600', 600)">
             CreateCloudValue(payload, storageLevel)
           </code>
-          <div class="tip" id="604">
+          <div class="tip" id="600">
             <strong>Signature:</strong> (payload:&#39;T * storageLevel:StorageLevel) -&gt; Async&lt;CloudValue&lt;&#39;T&gt;&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -89,16 +87,15 @@ according to size in bytes.</p>
           <p>Initializes a CloudValue with supplied payload.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '605', 605)" onmouseover="showTip(event, '605', 605)">
+          <code onmouseout="hideTip(event, '601', 601)" onmouseover="showTip(event, '601', 601)">
             DefaultStorageLevel
           </code>
-          <div class="tip" id="605">
+          <div class="tip" id="601">
             <strong>Signature:</strong> StorageLevel<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -107,16 +104,16 @@ according to size in bytes.</p>
           <p>Default Storage level used by Cloud Value implementation.</p>
 
 
-
+              <p>CompiledName: <code>get_DefaultStorageLevel</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '606', 606)" onmouseover="showTip(event, '606', 606)">
+          <code onmouseout="hideTip(event, '602', 602)" onmouseover="showTip(event, '602', 602)">
             Dispose(value)
           </code>
-          <div class="tip" id="606">
+          <div class="tip" id="602">
             <strong>Signature:</strong> value:ICloudValue -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -125,16 +122,15 @@ according to size in bytes.</p>
           <p>Asynchronously disposes value from caching context.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '607', 607)" onmouseover="showTip(event, '607', 607)">
+          <code onmouseout="hideTip(event, '603', 603)" onmouseover="showTip(event, '603', 603)">
             DisposeAllValues()
           </code>
-          <div class="tip" id="607">
+          <div class="tip" id="603">
             <strong>Signature:</strong> unit -&gt; Async&lt;unit&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -143,16 +139,15 @@ according to size in bytes.</p>
           <p>Asynchronously disposes all values from caching context.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '608', 608)" onmouseover="showTip(event, '608', 608)">
+          <code onmouseout="hideTip(event, '604', 604)" onmouseover="showTip(event, '604', 604)">
             GetAllCloudValues()
           </code>
-          <div class="tip" id="608">
+          <div class="tip" id="604">
             <strong>Signature:</strong> unit -&gt; Async&lt;ICloudValue []&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -161,16 +156,15 @@ according to size in bytes.</p>
           <p>Gets all cloud value references defined in instance.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '609', 609)" onmouseover="showTip(event, '609', 609)">
+          <code onmouseout="hideTip(event, '605', 605)" onmouseover="showTip(event, '605', 605)">
             GetCloudValueId(value)
           </code>
-          <div class="tip" id="609">
+          <div class="tip" id="605">
             <strong>Signature:</strong> value:&#39;T -&gt; string<br />
               <strong>Modifiers:</strong> abstract<br />
                           <strong>Type parameters:</strong> 'T          </div>
@@ -180,16 +174,15 @@ according to size in bytes.</p>
 without creating a new CloudValue instance.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '610', 610)" onmouseover="showTip(event, '610', 610)">
+          <code onmouseout="hideTip(event, '606', 606)" onmouseover="showTip(event, '606', 606)">
             Id
           </code>
-          <div class="tip" id="610">
+          <div class="tip" id="606">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -198,16 +191,16 @@ without creating a new CloudValue instance.</p>
           <p>CloudValue implementation instance identifier.</p>
 
 
-
+              <p>CompiledName: <code>get_Id</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '611', 611)" onmouseover="showTip(event, '611', 611)">
+          <code onmouseout="hideTip(event, '607', 607)" onmouseover="showTip(event, '607', 607)">
             IsSupportedStorageLevel(level)
           </code>
-          <div class="tip" id="611">
+          <div class="tip" id="607">
             <strong>Signature:</strong> level:StorageLevel -&gt; bool<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -216,16 +209,15 @@ without creating a new CloudValue instance.</p>
           <p>Checks if provided storage level is supported by implementation.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '612', 612)" onmouseover="showTip(event, '612', 612)">
+          <code onmouseout="hideTip(event, '608', 608)" onmouseover="showTip(event, '608', 608)">
             Name
           </code>
-          <div class="tip" id="612">
+          <div class="tip" id="608">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
@@ -234,23 +226,22 @@ without creating a new CloudValue instance.</p>
           <p>Implementation name.</p>
 
 
-
+              <p>CompiledName: <code>get_Name</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '613', 613)" onmouseover="showTip(event, '613', 613)">
+          <code onmouseout="hideTip(event, '609', 609)" onmouseover="showTip(event, '609', 609)">
             TryGetCloudValueById(id)
           </code>
-          <div class="tip" id="613">
+          <div class="tip" id="609">
             <strong>Signature:</strong> id:string -&gt; Async&lt;ICloudValue option&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Try getting a created CloudValue by supplied id.</p>
-
 
 
         </td>

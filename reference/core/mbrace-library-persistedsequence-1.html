@@ -47,7 +47,6 @@
 <div class="xmldoc">
 <p>Ordered, immutable collection of values persisted in a single cloud file.</p>
 
-
 </div>
   <h3>Record Fields</h3>
   <table class="table table-bordered member-list">
@@ -58,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '707', 707)" onmouseover="showTip(event, '707', 707)">
+          <code onmouseout="hideTip(event, '703', 703)" onmouseover="showTip(event, '703', 703)">
             count
           </code>
-          <div class="tip" id="707">
+          <div class="tip" id="703">
             <strong>Signature:</strong> int64 option<br />
               <strong>Modifiers:</strong> mutable<br />
                       </div>
@@ -73,10 +72,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '708', 708)" onmouseover="showTip(event, '708', 708)">
+          <code onmouseout="hideTip(event, '704', 704)" onmouseover="showTip(event, '704', 704)">
             deserializer
           </code>
-          <div class="tip" id="708">
+          <div class="tip" id="704">
             <strong>Signature:</strong> Stream -&gt; seq&lt;&#39;T&gt;<br />
               <strong>Modifiers:</strong> mutable<br />
                       </div>
@@ -88,10 +87,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '709', 709)" onmouseover="showTip(event, '709', 709)">
+          <code onmouseout="hideTip(event, '705', 705)" onmouseover="showTip(event, '705', 705)">
             etag
           </code>
-          <div class="tip" id="709">
+          <div class="tip" id="705">
             <strong>Signature:</strong> ETag<br />
               <strong>Modifiers:</strong> mutable<br />
                       </div>
@@ -103,10 +102,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '710', 710)" onmouseover="showTip(event, '710', 710)">
+          <code onmouseout="hideTip(event, '706', 706)" onmouseover="showTip(event, '706', 706)">
             path
           </code>
-          <div class="tip" id="710">
+          <div class="tip" id="706">
             <strong>Signature:</strong> string<br />
               <strong>Modifiers:</strong> mutable<br />
                       </div>
@@ -118,10 +117,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '711', 711)" onmouseover="showTip(event, '711', 711)">
+          <code onmouseout="hideTip(event, '707', 707)" onmouseover="showTip(event, '707', 707)">
             store
           </code>
-          <div class="tip" id="711">
+          <div class="tip" id="707">
             <strong>Signature:</strong> ICloudFileStore<br />
               <strong>Modifiers:</strong> mutable<br />
                       </div>
@@ -141,16 +140,81 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '712', 712)" onmouseover="showTip(event, '712', 712)">
+          <code onmouseout="hideTip(event, '708', 708)" onmouseover="showTip(event, '708', 708)">
             Count
           </code>
-          <div class="tip" id="712">
+          <div class="tip" id="708">
             <strong>Signature:</strong> int64<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Gets Cloud sequence element count</p>
 
+
+              <p>CompiledName: <code>get_Count</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '709', 709)" onmouseover="showTip(event, '709', 709)">
+            ETag
+          </code>
+          <div class="tip" id="709">
+            <strong>Signature:</strong> ETag<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>ETag of persisted sequence instance.</p>
+
+
+              <p>CompiledName: <code>get_ETag</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '710', 710)" onmouseover="showTip(event, '710', 710)">
+            GetCount()
+          </code>
+          <div class="tip" id="710">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;int64&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets persisted sequence element count</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '711', 711)" onmouseover="showTip(event, '711', 711)">
+            GetCountAsync()
+          </code>
+          <div class="tip" id="711">
+            <strong>Signature:</strong> unit -&gt; Async&lt;int64&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously gets persisted sequence element count</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '712', 712)" onmouseover="showTip(event, '712', 712)">
+            GetSize()
+          </code>
+          <div class="tip" id="712">
+            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;int64&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets underlying sequence size in bytes</p>
 
 
         </td>
@@ -159,15 +223,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '713', 713)" onmouseover="showTip(event, '713', 713)">
-            ETag
+            GetSizeAsync()
           </code>
           <div class="tip" id="713">
-            <strong>Signature:</strong> ETag<br />
+            <strong>Signature:</strong> unit -&gt; Async&lt;int64&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>ETag of persisted sequence instance.</p>
-
+          <p>Asynchronously gets underlying sequence size in bytes</p>
 
 
         </td>
@@ -176,49 +239,48 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '714', 714)" onmouseover="showTip(event, '714', 714)">
-            GetCount()
+            Path
           </code>
           <div class="tip" id="714">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;int64&gt;<br />
+            <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets persisted sequence element count</p>
+          <p>Path to Cloud sequence in store.</p>
 
 
-
+              <p>CompiledName: <code>get_Path</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '715', 715)" onmouseover="showTip(event, '715', 715)">
-            GetCountAsync()
+            Size
           </code>
           <div class="tip" id="715">
-            <strong>Signature:</strong> unit -&gt; Async&lt;int64&gt;<br />
+            <strong>Signature:</strong> int64<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously gets persisted sequence element count</p>
+          <p>Gets underlying sequence size in bytes</p>
 
 
-
+              <p>CompiledName: <code>get_Size</code></p>
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '716', 716)" onmouseover="showTip(event, '716', 716)">
-            GetSize()
+            ToArray()
           </code>
           <div class="tip" id="716">
-            <strong>Signature:</strong> unit -&gt; LocalCloud&lt;int64&gt;<br />
+            <strong>Signature:</strong> unit -&gt; &#39;T []<br />
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Gets underlying sequence size in bytes</p>
-
+          <p>Fetches all elements of the cloud sequence and returns them as a local array.</p>
 
 
         </td>
@@ -227,83 +289,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '717', 717)" onmouseover="showTip(event, '717', 717)">
-            GetSizeAsync()
-          </code>
-          <div class="tip" id="717">
-            <strong>Signature:</strong> unit -&gt; Async&lt;int64&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously gets underlying sequence size in bytes</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '718', 718)" onmouseover="showTip(event, '718', 718)">
-            Path
-          </code>
-          <div class="tip" id="718">
-            <strong>Signature:</strong> string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Path to Cloud sequence in store.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '719', 719)" onmouseover="showTip(event, '719', 719)">
-            Size
-          </code>
-          <div class="tip" id="719">
-            <strong>Signature:</strong> int64<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Gets underlying sequence size in bytes</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '720', 720)" onmouseover="showTip(event, '720', 720)">
-            ToArray()
-          </code>
-          <div class="tip" id="720">
-            <strong>Signature:</strong> unit -&gt; &#39;T []<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Fetches all elements of the cloud sequence and returns them as a local array.</p>
-
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '721', 721)" onmouseover="showTip(event, '721', 721)">
             ToArrayAsync()
           </code>
-          <div class="tip" id="721">
+          <div class="tip" id="717">
             <strong>Signature:</strong> unit -&gt; Async&lt;&#39;T []&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Asynchronously fetches all elements of the cloud sequence and returns them as a local array.</p>
-
 
 
         </td>

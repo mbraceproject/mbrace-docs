@@ -48,7 +48,6 @@
 <p>Management object used for optimizing large closures using CloudValue and Vagabond.
 Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfiguration object instead.</p>
 
-
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -59,10 +58,10 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1266', 1266)" onmouseover="showTip(event, '1266', 1266)">
+          <code onmouseout="hideTip(event, '1276', 1276)" onmouseover="showTip(event, '1276', 1276)">
             SiftClosure(value, allowNewSifts)
           </code>
-          <div class="tip" id="1266">
+          <div class="tip" id="1276">
             <strong>Signature:</strong> (value:&#39;T * allowNewSifts:bool) -&gt; Async&lt;SiftedClosure&lt;&#39;T&gt;&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
@@ -70,22 +69,20 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
           <p>Creates a sifted closure for given value if necessary.</p>
 
 
-
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1267', 1267)" onmouseover="showTip(event, '1267', 1267)">
+          <code onmouseout="hideTip(event, '1277', 1277)" onmouseover="showTip(event, '1277', 1277)">
             UnSiftClosure(siftedClosure)
           </code>
-          <div class="tip" id="1267">
+          <div class="tip" id="1277">
             <strong>Signature:</strong> siftedClosure:SiftedClosure&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;<br />
                           <strong>Type parameters:</strong> 'T          </div>
         </td>
         <td class="xmldoc">
           <p>Recovers the original closure by substituting sifted values in the local context.</p>
-
 
 
         </td>
@@ -101,16 +98,15 @@ Type is <em>not</em> serializable, transfer using the StoreAssemblyManagerConfig
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1268', 1268)" onmouseover="showTip(event, '1268', 1268)">
+          <code onmouseout="hideTip(event, '1278', 1278)" onmouseover="showTip(event, '1278', 1278)">
             Create(configuration, localLogger)
           </code>
-          <div class="tip" id="1268">
+          <div class="tip" id="1278">
             <strong>Signature:</strong> (configuration:ClosureSiftConfiguration * localLogger:ISystemLogger option) -&gt; ClosureSiftManager<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a local ClosureSiftManager instance with provided configuration object.</p>
-
 
 
         </td>

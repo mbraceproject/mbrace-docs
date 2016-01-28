@@ -39,22 +39,17 @@
         <div class="span9" id="main">
           
 <h1><a name="Introduction-to-CPU-intensive-Cloud-Parallelism" class="anchor" href="#Introduction-to-CPU-intensive-Cloud-Parallelism">Introduction to CPU-intensive Cloud Parallelism</a></h1>
-
 <blockquote>
-  <p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
 </blockquote>
-
 <p>In this tutorial you learn how to perform CPU-intensive cloud-parallel workload on your MBrace cluster.
 The work will be computing prime numbers, though you can easily replace this with any code
 of your own.</p>
-
-<p>First, you run some work on your local machine (single-threaded). Performance will depend 
+<p>First, you run some work on your local machine (single-threaded). Performance will depend
 on the spec of your machine.</p>
-
 <blockquote>
-  <p>Note that it is possible that your client scripting machine is more efficient than each individual machine in the cluster.</p>
+<p>Note that it is possible that your client scripting machine is more efficient than each individual machine in the cluster.</p>
 </blockquote>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -67,10 +62,8 @@ on the spec of your machine.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Next, you run the work on the cluster, on multiple workers. This exploits the
-    the multiple machines (workers) in the cluster.</p>
-
+the multiple machines (workers) in the cluster.</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -103,13 +96,9 @@ on the spec of your machine.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Starting-multiple-jobs" class="anchor" href="#Starting-multiple-jobs">Starting multiple jobs</a></h2>
-
 <p>The previous example used <code>Cloud.Parallel</code> to compose jobs into one combined job.</p>
-
 <p>Alternatively, you could have started 30 independent jobs.  This can be handy if you want to track each one independently:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -134,9 +123,7 @@ on the spec of your machine.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>For example, you might want to track the exectuion time of each job:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -145,12 +132,9 @@ on the spec of your machine.</p>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Tracking-and-controlling-job-failures" class="anchor" href="#Tracking-and-controlling-job-failures">Tracking and controlling job failures</a></h2>
-
 <p>Jobs can fail for all sorts of reasons, normally by raising exceptions. For example, let's
 simulate this by injecting failures into our jobs:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -175,9 +159,7 @@ simulate this by injecting failures into our jobs:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>If you now attempt to access the results of the job, you will get the exception propagated back to your client scripting session:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -188,9 +170,7 @@ simulate this by injecting failures into our jobs:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>When this happens, it is useful to protect your jobs by a wrapper that captures information about the failing work:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -237,9 +217,7 @@ simulate this by injecting failures into our jobs:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>The results will now show the success and failure of each job:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -266,24 +244,19 @@ simulate this by injecting failures into our jobs:</p>
 </code></pre></td>
 </tr>
 </table>
-
 <p>You can then re-create adjusted versions of failing jobs and re-run them:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs28', 104)" onmouseover="showTip(event, 'fs28', 104)" class="f">makeJob</span> <span class="n">8</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 105)" onmouseover="showTip(event, 'fs6', 105)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 106)" onmouseover="showTip(event, 'fs49', 106)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
-
 <h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
-
 <p>In this tutorial, you've learned how to do simple CPU-intensive work
 using MBrace.Azure. Continue with further samples to learn more about the
 MBrace programming model.</p>
-
 <blockquote>
-  <p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced 
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
 by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
 </blockquote>
 
