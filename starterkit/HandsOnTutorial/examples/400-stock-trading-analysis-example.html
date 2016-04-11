@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Creating an Incremental Stock Analysis
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Creating-an-Incremental-Stock-Analysis" class="anchor" href="#Creating-an-Incremental-Stock-Analysis">Creating an Incremental Stock Analysis</a></h1>
+<p>This example shows how to create a stock trading simulator.</p>
+<p>First, setup the CSV type provider to read a list of stocks in a strongly typed way:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">[&lt;<span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="t">Literal</span>&gt;]
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="i">stockDataPath</span> <span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span> <span class="o">+</span> <span class="s">&quot;/../../data/stock-data.csv&quot;</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="t">Stocks</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="t">CsvProvider</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">stockDataPath</span><span class="o">&gt;</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Load the list of stocks. This is relatively small data, so we can read it locally.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 18)" onmouseover="showTip(event, 'fs15', 18)" class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="t">Stocks</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="f">Load</span>(<span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">stockDataPath</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>Next, define a type that represents stock trading data:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="t">StockInfo</span> <span class="o">=</span> {
+    <span onmouseout="hideTip(event, 'fs18', 23)" onmouseover="showTip(event, 'fs18', 23)" class="i">Symbol</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs19', 24)" onmouseover="showTip(event, 'fs19', 24)" class="t">string</span>
+    <span onmouseout="hideTip(event, 'fs20', 25)" onmouseover="showTip(event, 'fs20', 25)" class="i">Price</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 26)" onmouseover="showTip(event, 'fs21', 26)" class="t">double</span>
+    <span onmouseout="hideTip(event, 'fs22', 27)" onmouseover="showTip(event, 'fs22', 27)" class="i">Volume</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 28)" onmouseover="showTip(event, 'fs21', 28)" class="t">double</span>
+}
+</code></pre></td>
+</tr>
+</table>
+<p>Next, you extract some essential information from the list of stocks.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 29)" onmouseover="showTip(event, 'fs23', 29)" class="i">stockInfo</span> <span class="o">=</span> 
+    [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs24', 30)" onmouseover="showTip(event, 'fs24', 30)" class="i">row</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs15', 31)" onmouseover="showTip(event, 'fs15', 31)" class="i">data</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 32)" onmouseover="showTip(event, 'fs25', 32)" class="i">Rows</span> <span class="k">do</span>
+        <span class="k">yield</span> { <span class="i">Symbol</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs24', 33)" onmouseover="showTip(event, 'fs24', 33)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 34)" onmouseover="showTip(event, 'fs26', 34)" class="i">Symbol</span>; <span class="i">Price</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs21', 35)" onmouseover="showTip(event, 'fs21', 35)" class="f">double</span> <span onmouseout="hideTip(event, 'fs24', 36)" onmouseover="showTip(event, 'fs24', 36)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 37)" onmouseover="showTip(event, 'fs27', 37)" class="i">Price</span>; <span class="i">Volume</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs21', 38)" onmouseover="showTip(event, 'fs21', 38)" class="f">double</span> <span onmouseout="hideTip(event, 'fs24', 39)" onmouseover="showTip(event, 'fs24', 39)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 40)" onmouseover="showTip(event, 'fs28', 40)" class="i">Volume</span>; }
+    |] 
+
+<span class="c">// Record for a single data package from the trading API.</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs29', 41)" onmouseover="showTip(event, 'fs29', 41)" class="t">MarketDataPackage</span> <span class="o">=</span> {    
+    <span onmouseout="hideTip(event, 'fs30', 42)" onmouseover="showTip(event, 'fs30', 42)" class="i">Symbol</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs19', 43)" onmouseover="showTip(event, 'fs19', 43)" class="t">string</span>
+    <span onmouseout="hideTip(event, 'fs31', 44)" onmouseover="showTip(event, 'fs31', 44)" class="i">Price</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 45)" onmouseover="showTip(event, 'fs21', 45)" class="t">double</span>
+    <span onmouseout="hideTip(event, 'fs32', 46)" onmouseover="showTip(event, 'fs32', 46)" class="i">Volume</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="t">double</span>
+    <span onmouseout="hideTip(event, 'fs33', 48)" onmouseover="showTip(event, 'fs33', 48)" class="i">Asks</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 49)" onmouseover="showTip(event, 'fs21', 49)" class="t">double</span>[]
+    <span onmouseout="hideTip(event, 'fs34', 50)" onmouseover="showTip(event, 'fs34', 50)" class="i">Bids</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs21', 51)" onmouseover="showTip(event, 'fs21', 51)" class="t">double</span>[]
+}
+</code></pre></td>
+</tr>
+</table>
+<p>Next, define a function to generate simulated market data at a one timestamp based
+on the input list of stocks and their average prices:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 52)" onmouseover="showTip(event, 'fs35', 52)" class="f">SimulateMarketSlice</span> (<span onmouseout="hideTip(event, 'fs36', 53)" onmouseover="showTip(event, 'fs36', 53)" class="i">stockInfo</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs17', 54)" onmouseover="showTip(event, 'fs17', 54)" class="t">StockInfo</span>[]) <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 55)" onmouseover="showTip(event, 'fs37', 55)" class="i">r</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs38', 56)" onmouseover="showTip(event, 'fs38', 56)" class="t">Random</span>()
+    [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs39', 57)" onmouseover="showTip(event, 'fs39', 57)" class="i">s</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs36', 58)" onmouseover="showTip(event, 'fs36', 58)" class="i">stockInfo</span> <span class="k">-&gt;</span> 
+         { <span class="i">Symbol</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs39', 59)" onmouseover="showTip(event, 'fs39', 59)" class="i">s</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 60)" onmouseover="showTip(event, 'fs18', 60)" class="i">Symbol</span>
+           <span class="i">Price</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs39', 61)" onmouseover="showTip(event, 'fs39', 61)" class="i">s</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 62)" onmouseover="showTip(event, 'fs20', 62)" class="i">Price</span> <span class="o">*</span>  (<span class="n">1.0</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs37', 63)" onmouseover="showTip(event, 'fs37', 63)" class="i">r</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs40', 64)" onmouseover="showTip(event, 'fs40', 64)" class="f">NextDouble</span>()<span class="o">/</span><span class="n">5.0</span> <span class="o">-</span> <span class="n">0.1</span>)
+           <span class="i">Volume</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs39', 65)" onmouseover="showTip(event, 'fs39', 65)" class="i">s</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 66)" onmouseover="showTip(event, 'fs22', 66)" class="i">Volume</span>
+           <span class="i">Asks</span> <span class="o">=</span> [| <span onmouseout="hideTip(event, 'fs41', 67)" onmouseover="showTip(event, 'fs41', 67)" class="f">float</span> (<span onmouseout="hideTip(event, 'fs37', 68)" onmouseover="showTip(event, 'fs37', 68)" class="i">r</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 69)" onmouseover="showTip(event, 'fs42', 69)" class="f">Next</span>(<span class="n">500</span>, <span class="n">1500</span>)) |]
+           <span class="i">Bids</span> <span class="o">=</span> [| <span onmouseout="hideTip(event, 'fs41', 70)" onmouseover="showTip(event, 'fs41', 70)" class="f">float</span> (<span onmouseout="hideTip(event, 'fs37', 71)" onmouseover="showTip(event, 'fs37', 71)" class="i">r</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 72)" onmouseover="showTip(event, 'fs42', 72)" class="f">Next</span>(<span class="n">500</span>, <span class="n">1500</span>)) |] 
+         } 
+    |]
+</code></pre></td>
+</tr>
+</table>
+<p>Next, define the queue which stores incoming market trading data.</p>
+<p>We group many data packages together, write them to storage, and put them into the queue as one element.
+Group many packages together will reduce the number of cloud I/O operations which is
+restricted by quota on most fabrics.  Additionally, the size of elements we can write to the queue
+is also restricted, so we write a cloud value, and the queue holds a reference to this cloud value.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs43', 73)" onmouseover="showTip(event, 'fs43', 73)" class="t">MarketDataGroup</span> <span class="o">=</span> <span class="i">CloudValue</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs29', 74)" onmouseover="showTip(event, 'fs29', 74)" class="i">MarketDataPackage</span>[]<span class="o">&gt;</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 75)" onmouseover="showTip(event, 'fs44', 75)" class="i">tradingDataQueue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs43', 76)" onmouseover="showTip(event, 'fs43', 76)" class="i">MarketDataGroup</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 77)" onmouseover="showTip(event, 'fs8', 77)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 78)" onmouseover="showTip(event, 'fs45', 78)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, define the queue to store analysis results:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 79)" onmouseover="showTip(event, 'fs46', 79)" class="i">resultQueue</span> <span class="o">=</span> <span class="i">CloudQueue</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs43', 80)" onmouseover="showTip(event, 'fs43', 80)" class="i">MarketDataGroup</span><span class="o">&gt;</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 81)" onmouseover="showTip(event, 'fs8', 81)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 82)" onmouseover="showTip(event, 'fs45', 82)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, define a function to generate simulated market data and write it into the request queue:
+Wait 3 seconds between two slices.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 83)" onmouseover="showTip(event, 'fs47', 83)" class="f">SimulateMarket</span> <span onmouseout="hideTip(event, 'fs48', 84)" onmouseover="showTip(event, 'fs48', 84)" class="i">stockInfo</span> <span class="o">=</span>
+    <span class="i">cloud</span> {                
+        <span class="k">while</span> <span class="k">true</span> <span class="k">do</span>
+        <span class="c">//for i in 1..10 do</span>
+            <span class="k">let</span> <span class="i">md</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 85)" onmouseover="showTip(event, 'fs35', 85)" class="i">SimulateMarketSlice</span> <span onmouseout="hideTip(event, 'fs48', 86)" onmouseover="showTip(event, 'fs48', 86)" class="i">stockInfo</span>
+            <span class="k">let!</span> <span class="i">mdc</span> <span class="o">=</span> <span class="i">CloudValue</span><span class="o">.</span><span class="i">New</span> <span class="i">md</span>
+            <span onmouseout="hideTip(event, 'fs44', 87)" onmouseover="showTip(event, 'fs44', 87)" class="i">tradingDataQueue</span><span class="o">.</span><span class="i">Enqueue</span> <span class="i">mdc</span>
+            <span class="k">do!</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Sleep</span> <span class="n">3000</span>
+    } 
+    
+</code></pre></td>
+</tr>
+</table>
+<p>Next, start the simulation task to generate market data into the request queue:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 88)" onmouseover="showTip(event, 'fs49', 88)" class="i">simulationTask</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs47', 89)" onmouseover="showTip(event, 'fs47', 89)" class="f">SimulateMarket</span> <span onmouseout="hideTip(event, 'fs23', 90)" onmouseover="showTip(event, 'fs23', 90)" class="i">stockInfo</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 91)" onmouseover="showTip(event, 'fs8', 91)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 92)" onmouseover="showTip(event, 'fs50', 92)" class="f">CreateProcess</span>   
+ 
+</code></pre></td>
+</tr>
+</table>
+<p>Next, you define a function to determine if market data has a large ask or bid volume:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs51', 93)" onmouseover="showTip(event, 'fs51', 93)" class="i">LargeBidVolume</span> <span class="o">=</span> <span class="n">1000.0</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 94)" onmouseover="showTip(event, 'fs52', 94)" class="i">LargeAskVolume</span> <span class="o">=</span> <span class="n">1000.0</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 95)" onmouseover="showTip(event, 'fs53', 95)" class="f">HasLargeAskOrBid</span>(<span onmouseout="hideTip(event, 'fs54', 96)" onmouseover="showTip(event, 'fs54', 96)" class="i">md</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs29', 97)" onmouseover="showTip(event, 'fs29', 97)" class="t">MarketDataPackage</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs55', 98)" onmouseover="showTip(event, 'fs55', 98)" class="i">largeAsk</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs54', 99)" onmouseover="showTip(event, 'fs54', 99)" class="i">md</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 100)" onmouseover="showTip(event, 'fs33', 100)" class="i">Asks</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs56', 101)" onmouseover="showTip(event, 'fs56', 101)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 102)" onmouseover="showTip(event, 'fs57', 102)" class="f">filter</span>(<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs58', 103)" onmouseover="showTip(event, 'fs58', 103)" class="i">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs58', 104)" onmouseover="showTip(event, 'fs58', 104)" class="i">v</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs51', 105)" onmouseover="showTip(event, 'fs51', 105)" class="i">LargeBidVolume</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs59', 106)" onmouseover="showTip(event, 'fs59', 106)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs60', 107)" onmouseover="showTip(event, 'fs60', 107)" class="f">length</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs61', 108)" onmouseover="showTip(event, 'fs61', 108)" class="i">largeBid</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs54', 109)" onmouseover="showTip(event, 'fs54', 109)" class="i">md</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 110)" onmouseover="showTip(event, 'fs34', 110)" class="i">Bids</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs56', 111)" onmouseover="showTip(event, 'fs56', 111)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 112)" onmouseover="showTip(event, 'fs57', 112)" class="f">filter</span>(<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs58', 113)" onmouseover="showTip(event, 'fs58', 113)" class="i">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs58', 114)" onmouseover="showTip(event, 'fs58', 114)" class="i">v</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs52', 115)" onmouseover="showTip(event, 'fs52', 115)" class="i">LargeAskVolume</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs59', 116)" onmouseover="showTip(event, 'fs59', 116)" class="t">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs60', 117)" onmouseover="showTip(event, 'fs60', 117)" class="f">length</span>
+    <span onmouseout="hideTip(event, 'fs55', 118)" onmouseover="showTip(event, 'fs55', 118)" class="i">largeAsk</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs61', 119)" onmouseover="showTip(event, 'fs61', 119)" class="i">largeBid</span> <span class="o">&gt;</span> <span class="n">0</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, define the task to process simulated stock trading data and generate
+signals when a stock with large ask or bid volume is detected.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs62', 120)" onmouseover="showTip(event, 'fs62', 120)" class="i">AnalyzeMarketData</span> <span class="o">=</span> 
+    <span class="i">cloud</span> {
+        <span class="k">while</span> <span class="k">true</span> <span class="k">do</span>
+            <span class="k">let</span> <span class="i">dataGroup</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs44', 121)" onmouseover="showTip(event, 'fs44', 121)" class="i">tradingDataQueue</span><span class="o">.</span><span class="i">Dequeue</span>()
+            <span class="k">let</span> <span class="i">dataGroups</span> <span class="o">=</span> [| <span class="i">dataGroup</span> |]                    
+            <span class="k">if</span> <span class="i">dataGroups</span><span class="o">.</span><span class="i">Length</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
+                <span class="c">// The task is simple now, just get the market data which has large asks or bids.</span>
+                <span class="k">let!</span> <span class="i">stocksWithLargeAskOrBid</span> <span class="o">=</span> 
+                    <span class="i">dataGroups</span>
+                    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 122)" onmouseover="showTip(event, 'fs63', 122)" class="i">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs64', 123)" onmouseover="showTip(event, 'fs64', 123)" class="i">OfArray</span>
+                    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 124)" onmouseover="showTip(event, 'fs63', 124)" class="i">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs65', 125)" onmouseover="showTip(event, 'fs65', 125)" class="i">collect</span>(<span class="k">fun</span> <span class="i">p</span> <span class="k">-&gt;</span> <span class="i">p</span><span class="o">.</span><span class="i">Value</span>)
+                    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 126)" onmouseover="showTip(event, 'fs63', 126)" class="i">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs66', 127)" onmouseover="showTip(event, 'fs66', 127)" class="i">filter</span>(<span class="k">fun</span> <span class="i">md</span> <span class="k">-&gt;</span>  <span onmouseout="hideTip(event, 'fs53', 128)" onmouseover="showTip(event, 'fs53', 128)" class="i">HasLargeAskOrBid</span>(<span class="i">md</span>))
+                    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 129)" onmouseover="showTip(event, 'fs63', 129)" class="i">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs67', 130)" onmouseover="showTip(event, 'fs67', 130)" class="i">toArray</span>
+
+                <span class="k">let!</span> <span class="i">analysisResult</span> <span class="o">=</span> <span class="i">CloudValue</span><span class="o">.</span><span class="i">New</span> <span class="i">stocksWithLargeAskOrBid</span>
+                <span onmouseout="hideTip(event, 'fs46', 131)" onmouseover="showTip(event, 'fs46', 131)" class="i">resultQueue</span><span class="o">.</span><span class="i">Enqueue</span> <span class="i">analysisResult</span>
+            <span class="k">else</span>
+                <span class="k">do!</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Sleep</span>(<span class="n">1000</span>)
+    }
+</code></pre></td>
+</tr>
+</table>
+<p>You now start the analysis task:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs68', 132)" onmouseover="showTip(event, 'fs68', 132)" class="i">analysisTask</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs62', 133)" onmouseover="showTip(event, 'fs62', 133)" class="i">AnalyzeMarketData</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 134)" onmouseover="showTip(event, 'fs8', 134)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 135)" onmouseover="showTip(event, 'fs50', 135)" class="f">CreateProcess</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, get batches of results from the result queue:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs46', 136)" onmouseover="showTip(event, 'fs46', 136)" class="i">resultQueue</span><span class="o">.</span><span class="i">DequeueBatch</span>(<span class="n">10</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>Finally, cancel the running simulation tasks:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs49', 137)" onmouseover="showTip(event, 'fs49', 137)" class="i">simulationTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs69', 138)" onmouseover="showTip(event, 'fs69', 138)" class="f">Cancel</span>()
+<span onmouseout="hideTip(event, 'fs68', 139)" onmouseover="showTip(event, 'fs68', 139)" class="i">analysisTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs69', 140)" onmouseover="showTip(event, 'fs69', 140)" class="f">Cancel</span>()
+</code></pre></td>
+</tr>
+</table>
+<p>And check that all tasks have completed on the cluster:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs8', 141)" onmouseover="showTip(event, 'fs8', 141)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs70', 142)" onmouseover="showTip(event, 'fs70', 142)" class="f">ShowProcesses</span>()
+<span onmouseout="hideTip(event, 'fs8', 143)" onmouseover="showTip(event, 'fs8', 143)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs71', 144)" onmouseover="showTip(event, 'fs71', 144)" class="f">ShowWorkers</span>()
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+<p>In texample, you learned you to create a simulation running in the cloud.  The components
+in the simulation take base data and write outputs to cloud queues.
+Continue with further samples to learn more about the MBrace programming model.</p>
+<blockquote>
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
+by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="tip" id="fs7">Multiple items<br />namespace FSharp.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
+<div class="tip" id="fs8">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 400-stock-trading-analysis-example.cluster</div>
+<div class="tip" id="fs9">module Config</div>
+<div class="tip" id="fs10">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs11">Multiple items<br />type LiteralAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; LiteralAttribute<br /><br />Full name: Microsoft.FSharp.Core.LiteralAttribute<br /><br />--------------------<br />new : unit -&gt; LiteralAttribute</div>
+<div class="tip" id="fs12">val stockDataPath : string<br /><br />Full name: 400-stock-trading-analysis-example.stockDataPath</div>
+<div class="tip" id="fs13">type Stocks = CsvProvider&lt;...&gt;<br /><br />Full name: 400-stock-trading-analysis-example.Stocks</div>
+<div class="tip" id="fs14">type CsvProvider<br /><br />Full name: FSharp.Data.CsvProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a CSV file.&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a CSV sample file or a string containing a sample CSV document.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Separators&#39;&gt;Column delimiter(s). Defaults to `,`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;InferRows&#39;&gt;Number of rows to use for inference. Defaults to `1000`. If this is zero, all rows are used.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Schema&#39;&gt;Optional column types, in a comma separated list. Valid types are `int`, `int64`, `bool`, `float`, `decimal`, `date`, `guid`, `string`, `int?`, `int64?`, `bool?`, `float?`, `decimal?`, `date?`, `guid?`, `int option`, `int64 option`, `bool option`, `float option`, `decimal option`, `date option`, `guid option` and `string option`.<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;You can also specify a unit and the name of the column like this: `Name (type&amp;lt;unit&amp;gt;)`, or you can override only the name. If you don&#39;t want to specify all the columns, you can reference the columns by name like this: `ColumnName=type`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;HasHeaders&#39;&gt;Whether the sample contains the names of the columns as its first line.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;IgnoreErrors&#39;&gt;Whether to ignore rows that have the wrong number of columns or which can&#39;t be parsed using the inferred or specified schema. Otherwise an exception is thrown when these rows are encountered.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SkipRows&#39;&gt;SKips the first n rows of the CSV file.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;AssumeMissingValues&#39;&gt;When set to true, the type provider will assume all columns can have missing values, even if in the provided sample all values are present. Defaults to false.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;PreferOptionals&#39;&gt;When set to true, inference will prefer to use the option type instead of nullable types, `double.NaN` or `&quot;&quot;` for missing values. Defaults to false.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Quote&#39;&gt;The quotation mark (for surrounding values containing the delimiter). Defaults to `&quot;`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;MissingValues&#39;&gt;The set of strings recogized as missing values. Defaults to `NaN,NA,N/A,#N/A,:,-,TBA,TBD`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;CacheRows&#39;&gt;Whether the rows should be caches so they can be iterated multiple times. Defaults to true. Disable for large datasets.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates. Defaults to the invariant culture.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Encoding&#39;&gt;The encoding used to read the sample. You can specify either the character set name or the codepage number. Defaults to UTF8 for files, and to ISO-8859-1 the for HTTP requests, unless `charset` is specified in the `Content-Type` response header.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution).&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;EmbeddedResource&#39;&gt;When specified, the type provider first attempts to load the sample from the specified resource <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(e.g. &#39;MyCompany.MyAssembly, resource_name.csv&#39;). This is useful when exposing types generated by the type provider.&lt;/param&gt;</em></div>
+<div class="tip" id="fs15">val data : CsvProvider&lt;...&gt;<br /><br />Full name: 400-stock-trading-analysis-example.data</div>
+<div class="tip" id="fs16">CsvProvider&lt;...&gt;.Load(uri: string) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified uri</em><br />CsvProvider&lt;...&gt;.Load(reader: TextReader) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified reader</em><br />CsvProvider&lt;...&gt;.Load(stream: Stream) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified stream</em></div>
+<div class="tip" id="fs17">type StockInfo =<br />&#160;&#160;{Symbol: string;<br />&#160;&#160;&#160;Price: double;<br />&#160;&#160;&#160;Volume: double;}<br /><br />Full name: 400-stock-trading-analysis-example.StockInfo</div>
+<div class="tip" id="fs18">StockInfo.Symbol: string</div>
+<div class="tip" id="fs19">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs20">StockInfo.Price: double</div>
+<div class="tip" id="fs21">Multiple items<br />val double : value:&#39;T -&gt; double (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.double<br /><br />--------------------<br />type double = Double<br /><br />Full name: Microsoft.FSharp.Core.double</div>
+<div class="tip" id="fs22">StockInfo.Volume: double</div>
+<div class="tip" id="fs23">val stockInfo : StockInfo []<br /><br />Full name: 400-stock-trading-analysis-example.stockInfo</div>
+<div class="tip" id="fs24">val row : CsvProvider&lt;...&gt;.Row</div>
+<div class="tip" id="fs25">property Runtime.CsvFile.Rows: seq&lt;CsvProvider&lt;...&gt;.Row&gt;</div>
+<div class="tip" id="fs26">property CsvProvider&lt;...&gt;.Row.Symbol: string</div>
+<div class="tip" id="fs27">property CsvProvider&lt;...&gt;.Row.Price: decimal</div>
+<div class="tip" id="fs28">property CsvProvider&lt;...&gt;.Row.Volume: int</div>
+<div class="tip" id="fs29">type MarketDataPackage =<br />&#160;&#160;{Symbol: string;<br />&#160;&#160;&#160;Price: double;<br />&#160;&#160;&#160;Volume: double;<br />&#160;&#160;&#160;Asks: double [];<br />&#160;&#160;&#160;Bids: double [];}<br /><br />Full name: 400-stock-trading-analysis-example.MarketDataPackage</div>
+<div class="tip" id="fs30">MarketDataPackage.Symbol: string</div>
+<div class="tip" id="fs31">MarketDataPackage.Price: double</div>
+<div class="tip" id="fs32">MarketDataPackage.Volume: double</div>
+<div class="tip" id="fs33">MarketDataPackage.Asks: double []</div>
+<div class="tip" id="fs34">MarketDataPackage.Bids: double []</div>
+<div class="tip" id="fs35">val SimulateMarketSlice : stockInfo:StockInfo [] -&gt; MarketDataPackage []<br /><br />Full name: 400-stock-trading-analysis-example.SimulateMarketSlice</div>
+<div class="tip" id="fs36">val stockInfo : StockInfo []</div>
+<div class="tip" id="fs37">val r : Random</div>
+<div class="tip" id="fs38">Multiple items<br />type Random =<br />&#160;&#160;new : unit -&gt; Random + 1 overload<br />&#160;&#160;member Next : unit -&gt; int + 2 overloads<br />&#160;&#160;member NextBytes : buffer:byte[] -&gt; unit<br />&#160;&#160;member NextDouble : unit -&gt; float<br /><br />Full name: System.Random<br /><br />--------------------<br />Random() : unit<br />Random(Seed: int) : unit</div>
+<div class="tip" id="fs39">val s : StockInfo</div>
+<div class="tip" id="fs40">Random.NextDouble() : float</div>
+<div class="tip" id="fs41">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs42">Random.Next() : int<br />Random.Next(maxValue: int) : int<br />Random.Next(minValue: int, maxValue: int) : int</div>
+<div class="tip" id="fs43">type MarketDataGroup = obj<br /><br />Full name: 400-stock-trading-analysis-example.MarketDataGroup</div>
+<div class="tip" id="fs44">val tradingDataQueue : obj<br /><br />Full name: 400-stock-trading-analysis-example.tradingDataQueue</div>
+<div class="tip" id="fs45">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs46">val resultQueue : obj<br /><br />Full name: 400-stock-trading-analysis-example.resultQueue</div>
+<div class="tip" id="fs47">val SimulateMarket : stockInfo:&#39;a -&gt; &#39;b<br /><br />Full name: 400-stock-trading-analysis-example.SimulateMarket</div>
+<div class="tip" id="fs48">val stockInfo : &#39;a</div>
+<div class="tip" id="fs49">val simulationTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 400-stock-trading-analysis-example.simulationTask</div>
+<div class="tip" id="fs50">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs51">val LargeBidVolume : float<br /><br />Full name: 400-stock-trading-analysis-example.LargeBidVolume</div>
+<div class="tip" id="fs52">val LargeAskVolume : float<br /><br />Full name: 400-stock-trading-analysis-example.LargeAskVolume</div>
+<div class="tip" id="fs53">val HasLargeAskOrBid : md:MarketDataPackage -&gt; bool<br /><br />Full name: 400-stock-trading-analysis-example.HasLargeAskOrBid</div>
+<div class="tip" id="fs54">val md : MarketDataPackage</div>
+<div class="tip" id="fs55">val largeAsk : int</div>
+<div class="tip" id="fs56">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs57">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []<br /><br />Full name: Microsoft.FSharp.Collections.Array.filter</div>
+<div class="tip" id="fs58">val v : double</div>
+<div class="tip" id="fs59">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs60">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><br />Full name: Microsoft.FSharp.Collections.Seq.length</div>
+<div class="tip" id="fs61">val largeBid : int</div>
+<div class="tip" id="fs62">val AnalyzeMarketData : MBrace.Core.Cloud&lt;obj&gt;<br /><br />Full name: 400-stock-trading-analysis-example.AnalyzeMarketData</div>
+<div class="tip" id="fs63">Multiple items<br />module CloudFlow<br /><br />from MBrace.Flow<br /><br />--------------------<br />type CloudFlow =<br />&#160;&#160;static member OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudArrays : cloudArrays:seq&lt;#CloudArray&lt;&#39;T&gt;&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />&#160;&#160;static member OfCloudCollection : collection:ICloudCollection&lt;&#39;T&gt; * ?sizeThresholdPerWorker:(unit -&gt; int64) -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * ?deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectoryByLine : dirPath:string * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : path:string * ?encoding:Encoding -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFiles : paths:seq&lt;string&gt; * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Flow.CloudFlow<br /><br />--------------------<br />type CloudFlow&lt;&#39;T&gt; =<br />&#160;&#160;interface<br />&#160;&#160;&#160;&#160;abstract member WithEvaluators : collectorFactory:LocalCloud&lt;Collector&lt;&#39;T,&#39;S&gt;&gt; -&gt; projection:(&#39;S -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; combiner:(&#39;R [] -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; Cloud&lt;&#39;R&gt;<br />&#160;&#160;&#160;&#160;abstract member DegreeOfParallelism : int option<br />&#160;&#160;end<br /><br />Full name: MBrace.Flow.CloudFlow&lt;_&gt;</div>
+<div class="tip" id="fs64">static member CloudFlow.OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;</div>
+<div class="tip" id="fs65">val collect : f:(&#39;T -&gt; #seq&lt;&#39;R&gt;) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.collect</div>
+<div class="tip" id="fs66">val filter : predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.filter</div>
+<div class="tip" id="fs67">val toArray : flow:CloudFlow&lt;&#39;T&gt; -&gt; MBrace.Core.Cloud&lt;&#39;T []&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.toArray</div>
+<div class="tip" id="fs68">val analysisTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 400-stock-trading-analysis-example.analysisTask</div>
+<div class="tip" id="fs69">override MBrace.Runtime.CloudProcess.Cancel : unit -&gt; unit</div>
+<div class="tip" id="fs70">member MBrace.Runtime.MBraceClient.ShowProcesses : unit -&gt; unit</div>
+<div class="tip" id="fs71">member MBrace.Runtime.MBraceClient.ShowWorkers : unit -&gt; unit</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Example: Running python code using MBrace
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Example-Running-python-code-using-MBrace" class="anchor" href="#Example-Running-python-code-using-MBrace">Example: Running python code using MBrace</a></h1>
+<blockquote>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+<p>In this tutorial, you can deploy and execute python code across an MBrace cluster.
+This is achieved by defining a workflow that performs on-demand, per-worker installation of python bits.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Uri to python installation archive; modify as appropriate</span>
+<span class="c">// Alternatively this can be changed to a blob uri and could accomodate any type of software</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 17)" onmouseover="showTip(event, 'fs10', 17)" class="i">pythonBits</span> <span class="o">=</span> <span class="s">&quot;https://www.python.org/ftp/python/3.5.0/python-3.5.0-embed-amd64.zip&quot;</span>
+
+<span class="c">/// workflow that downloads and installs python to the local computer</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="f">installPython</span> () <span class="o">=</span> <span class="i">local</span> {
+    <span class="k">let</span> <span class="i">tmp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="i">GetTempPath</span>()
+    <span class="k">let!</span> <span class="i">worker</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="i">Cloud</span><span class="o">.</span><span class="i">CurrentWorker</span>
+    <span class="k">let</span> <span class="i">localDir</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="i">Combine</span>(<span class="i">tmp</span>, <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="i">sprintf</span> <span class="s">&quot;%s-p%d&quot;</span> (<span onmouseout="hideTip(event, 'fs12', 25)" onmouseover="showTip(event, 'fs12', 25)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="i">GetFileNameWithoutExtension</span> <span onmouseout="hideTip(event, 'fs10', 27)" onmouseover="showTip(event, 'fs10', 27)" class="i">pythonBits</span>) <span class="i">worker</span><span class="o">.</span><span class="i">ProcessId</span>)
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="i">not</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs19', 29)" onmouseover="showTip(event, 'fs19', 29)" class="i">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="i">Exists</span> <span class="i">localDir</span> <span class="k">then</span>
+        <span class="k">let</span> <span class="i">localArchive</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 31)" onmouseover="showTip(event, 'fs12', 31)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="i">Combine</span>(<span class="i">tmp</span>, <span onmouseout="hideTip(event, 'fs16', 33)" onmouseover="showTip(event, 'fs16', 33)" class="i">sprintf</span> <span class="s">&quot;%s-p%d&quot;</span> (<span onmouseout="hideTip(event, 'fs12', 34)" onmouseover="showTip(event, 'fs12', 34)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 35)" onmouseover="showTip(event, 'fs21', 35)" class="i">GetFileName</span> <span onmouseout="hideTip(event, 'fs10', 36)" onmouseover="showTip(event, 'fs10', 36)" class="i">pythonBits</span>) <span class="i">worker</span><span class="o">.</span><span class="i">ProcessId</span>)
+        <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs14', 37)" onmouseover="showTip(event, 'fs14', 37)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;Downloading python...&quot;</span>
+        <span class="k">use</span> <span class="i">wc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 38)" onmouseover="showTip(event, 'fs1', 38)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 39)" onmouseover="showTip(event, 'fs4', 39)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 40)" onmouseover="showTip(event, 'fs22', 40)" class="i">WebClient</span>()
+        <span class="i">wc</span><span class="o">.</span><span class="i">DownloadFile</span>(<span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="i">Uri</span> <span onmouseout="hideTip(event, 'fs10', 42)" onmouseover="showTip(event, 'fs10', 42)" class="i">pythonBits</span>, <span class="i">localArchive</span>)
+        <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;Extracting installation...&quot;</span>
+        <span class="k">use</span> <span class="i">fs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 44)" onmouseover="showTip(event, 'fs24', 44)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 45)" onmouseover="showTip(event, 'fs25', 45)" class="i">OpenRead</span> <span class="i">localArchive</span>
+        <span class="k">use</span> <span class="i">za</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs26', 46)" onmouseover="showTip(event, 'fs26', 46)" class="i">ZipArchive</span>(<span class="i">fs</span>)
+        <span class="i">za</span><span class="o">.</span><span class="i">ExtractToDirectory</span>(<span class="i">localDir</span>)
+        <span class="k">do!</span> <span onmouseout="hideTip(event, 'fs14', 47)" onmouseover="showTip(event, 'fs14', 47)" class="i">Cloud</span><span class="o">.</span><span class="i">Logf</span> <span class="s">&quot;Installation complete.&quot;</span>
+
+    <span class="k">let</span> <span class="i">pythonExe</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 48)" onmouseover="showTip(event, 'fs12', 48)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 49)" onmouseover="showTip(event, 'fs15', 49)" class="i">Combine</span>(<span class="i">localDir</span>, <span class="s">&quot;python.exe&quot;</span>)
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs18', 50)" onmouseover="showTip(event, 'fs18', 50)" class="i">not</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs24', 51)" onmouseover="showTip(event, 'fs24', 51)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 52)" onmouseover="showTip(event, 'fs27', 52)" class="i">Exists</span> <span class="i">pythonExe</span> <span class="k">then</span>
+        <span class="k">return</span> <span onmouseout="hideTip(event, 'fs28', 53)" onmouseover="showTip(event, 'fs28', 53)" class="i">failwith</span> <span class="s">&quot;Could not locate python.exe in the local installation.&quot;</span>
+
+    <span class="k">return</span> <span class="i">pythonExe</span>
+}
+</code></pre></td>
+</tr>
+</table>
+<p>We now wrap the installation workflow in a <a href="http://mbrace.io/reference/core/mbrace-library-domainlocal.html"><code>DomainLocal</code></a> type.
+This creates a serializable entity that will initialize the workflow exactly once in every AppDomain it is being executed.
+Compare this to the <a href="https://msdn.microsoft.com/en-us/library/dd642243(v=vs.110).aspx"><code>ThreadLocal</code></a> class available in mscorlib.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+<span class="l">39: </span>
+<span class="l">40: </span>
+<span class="l">41: </span>
+<span class="l">42: </span>
+<span class="l">43: </span>
+<span class="l">44: </span>
+<span class="l">45: </span>
+<span class="l">46: </span>
+<span class="l">47: </span>
+<span class="l">48: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// AppDomain-bound lazy python installer</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 54)" onmouseover="showTip(event, 'fs29', 54)" class="i">pythonInstaller</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs30', 55)" onmouseover="showTip(event, 'fs30', 55)" class="t">DomainLocal</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 56)" onmouseover="showTip(event, 'fs31', 56)" class="f">Create</span>(<span onmouseout="hideTip(event, 'fs11', 57)" onmouseover="showTip(event, 'fs11', 57)" class="f">installPython</span>())
+
+<span class="c">/// Record containing results of a single python computation</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs32', 58)" onmouseover="showTip(event, 'fs32', 58)" class="t">PythonResult</span> <span class="o">=</span>
+    {
+        <span onmouseout="hideTip(event, 'fs33', 59)" onmouseover="showTip(event, 'fs33', 59)" class="i">StartTime</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs34', 60)" onmouseover="showTip(event, 'fs34', 60)" class="t">DateTimeOffset</span>
+        <span onmouseout="hideTip(event, 'fs35', 61)" onmouseover="showTip(event, 'fs35', 61)" class="i">ExecutionTime</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs36', 62)" onmouseover="showTip(event, 'fs36', 62)" class="t">TimeSpan</span>
+        <span onmouseout="hideTip(event, 'fs37', 63)" onmouseover="showTip(event, 'fs37', 63)" class="i">Stdout</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs38', 64)" onmouseover="showTip(event, 'fs38', 64)" class="t">string</span> []
+        <span onmouseout="hideTip(event, 'fs39', 65)" onmouseover="showTip(event, 'fs39', 65)" class="i">Stderr</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs38', 66)" onmouseover="showTip(event, 'fs38', 66)" class="t">string</span> []
+        <span onmouseout="hideTip(event, 'fs40', 67)" onmouseover="showTip(event, 'fs40', 67)" class="i">ExitCode</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs41', 68)" onmouseover="showTip(event, 'fs41', 68)" class="t">int</span>
+    }
+
+<span class="c">/// Runs provided code in python and optional stdit inputs</span>
+<span class="c">/// returning the standard output as string</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 69)" onmouseover="showTip(event, 'fs42', 69)" class="f">runPythonScript</span> (<span onmouseout="hideTip(event, 'fs43', 70)" onmouseover="showTip(event, 'fs43', 70)" class="i">pythonCode</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs38', 71)" onmouseover="showTip(event, 'fs38', 71)" class="t">string</span>) (<span onmouseout="hideTip(event, 'fs44', 72)" onmouseover="showTip(event, 'fs44', 72)" class="i">stdin</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs38', 73)" onmouseover="showTip(event, 'fs38', 73)" class="t">string</span> []) <span class="o">=</span> <span class="i">local</span> {
+    <span class="c">// lazily install the python installation in the current machine</span>
+    <span class="c">// and retrieve the local executable</span>
+    <span class="k">let!</span> <span class="i">pythonExe</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 74)" onmouseover="showTip(event, 'fs29', 74)" class="i">pythonInstaller</span><span class="o">.</span><span class="i">Value</span>
+    <span class="c">// write python code to tmp file</span>
+    <span class="k">let</span> <span class="i">pythonFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 75)" onmouseover="showTip(event, 'fs12', 75)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 76)" onmouseover="showTip(event, 'fs45', 76)" class="i">GetTempFileName</span>()
+    <span onmouseout="hideTip(event, 'fs24', 77)" onmouseover="showTip(event, 'fs24', 77)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs46', 78)" onmouseover="showTip(event, 'fs46', 78)" class="i">WriteAllText</span>(<span class="i">pythonFile</span>, <span onmouseout="hideTip(event, 'fs43', 79)" onmouseover="showTip(event, 'fs43', 79)" class="i">pythonCode</span>)
+    <span class="c">// Launch the Python interpreter with provided arguments</span>
+    <span class="k">let</span> <span class="i">prcInfo</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs47', 80)" onmouseover="showTip(event, 'fs47', 80)" class="i">ProcessStartInfo</span>(<span class="i">pythonExe</span>, 
+                                    <span class="i">pythonFile</span>, 
+                                    <span class="i">UseShellExecute</span><span class="o">=</span><span class="k">false</span>, 
+                                    <span class="i">RedirectStandardInput</span><span class="o">=</span><span class="k">true</span>, 
+                                    <span class="i">RedirectStandardOutput</span><span class="o">=</span><span class="k">true</span>,
+                                    <span class="i">RedirectStandardError</span><span class="o">=</span><span class="k">true</span>)
+
+    <span class="k">let</span> <span class="i">prc</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs48', 81)" onmouseover="showTip(event, 'fs48', 81)" class="i">Process</span>(<span class="i">StartInfo</span><span class="o">=</span><span class="i">prcInfo</span>)
+    <span class="k">let</span> <span class="i">timer</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs49', 82)" onmouseover="showTip(event, 'fs49', 82)" class="i">Stopwatch</span>()
+    <span class="k">let</span> <span class="i">startTime</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 83)" onmouseover="showTip(event, 'fs34', 83)" class="i">DateTimeOffset</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 84)" onmouseover="showTip(event, 'fs50', 84)" class="i">Now</span>
+    <span class="i">timer</span><span class="o">.</span><span class="i">Start</span>()
+    <span class="i">prc</span><span class="o">.</span><span class="i">Start</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 85)" onmouseover="showTip(event, 'fs51', 85)" class="i">ignore</span>
+    <span class="k">if</span> <span onmouseout="hideTip(event, 'fs44', 86)" onmouseover="showTip(event, 'fs44', 86)" class="i">stdin</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs52', 87)" onmouseover="showTip(event, 'fs52', 87)" class="i">Length</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span> <span class="i">prc</span><span class="o">.</span><span class="i">StandardInput</span><span class="o">.</span><span class="i">Write</span>(<span onmouseout="hideTip(event, 'fs53', 88)" onmouseover="showTip(event, 'fs53', 88)" class="i">String</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 89)" onmouseover="showTip(event, 'fs54', 89)" class="i">concat</span> <span onmouseout="hideTip(event, 'fs55', 90)" onmouseover="showTip(event, 'fs55', 90)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 91)" onmouseover="showTip(event, 'fs56', 91)" class="i">NewLine</span> <span onmouseout="hideTip(event, 'fs44', 92)" onmouseover="showTip(event, 'fs44', 92)" class="i">stdin</span>)
+    <span class="i">prc</span><span class="o">.</span><span class="i">StandardInput</span><span class="o">.</span><span class="i">Close</span>()
+    <span class="i">prc</span><span class="o">.</span><span class="i">WaitForExit</span>()
+    <span class="i">timer</span><span class="o">.</span><span class="i">Stop</span>()
+    <span class="k">let</span> <span class="i">split</span> (<span class="i">output</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs38', 93)" onmouseover="showTip(event, 'fs38', 93)" class="i">string</span>) <span class="o">=</span> <span class="i">output</span><span class="o">.</span><span class="i">Split</span>([|<span onmouseout="hideTip(event, 'fs55', 94)" onmouseover="showTip(event, 'fs55', 94)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 95)" onmouseover="showTip(event, 'fs56', 95)" class="i">NewLine</span>|], <span onmouseout="hideTip(event, 'fs57', 96)" onmouseover="showTip(event, 'fs57', 96)" class="i">StringSplitOptions</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs58', 97)" onmouseover="showTip(event, 'fs58', 97)" class="i">None</span>)
+    <span class="k">return</span> {
+        <span class="i">StartTime</span> <span class="o">=</span> <span class="i">startTime</span>
+        <span class="i">ExecutionTime</span> <span class="o">=</span> <span class="i">timer</span><span class="o">.</span><span class="i">Elapsed</span>
+        <span class="i">Stdout</span> <span class="o">=</span> <span class="i">prc</span><span class="o">.</span><span class="i">StandardOutput</span><span class="o">.</span><span class="i">ReadToEnd</span>() <span class="o">|&gt;</span> <span class="i">split</span>
+        <span class="i">Stderr</span> <span class="o">=</span> <span class="i">prc</span><span class="o">.</span><span class="i">StandardError</span><span class="o">.</span><span class="i">ReadToEnd</span>() <span class="o">|&gt;</span> <span class="i">split</span>
+        <span class="i">ExitCode</span> <span class="o">=</span> <span class="i">prc</span><span class="o">.</span><span class="i">ExitCode</span>
+    }
+}
+</code></pre></td>
+</tr>
+</table>
+<p>We can now test this set up by running python code in the cloud.
+Let's begin with a simple hello world example:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 98)" onmouseover="showTip(event, 'fs59', 98)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs60', 99)" onmouseover="showTip(event, 'fs60', 99)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 100)" onmouseover="showTip(event, 'fs61', 100)" class="f">GetCluster</span>()
+
+<span onmouseout="hideTip(event, 'fs42', 101)" onmouseover="showTip(event, 'fs42', 101)" class="f">runPythonScript</span> <span class="s">&quot;&quot;&quot;print(&quot;Hello, World!&quot;) &quot;&quot;&quot;</span> [||] <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs59', 102)" onmouseover="showTip(event, 'fs59', 102)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 103)" onmouseover="showTip(event, 'fs62', 103)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Let's try passing an input through stdin</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs63', 104)" onmouseover="showTip(event, 'fs63', 104)" class="f">greet</span> (<span onmouseout="hideTip(event, 'fs64', 105)" onmouseover="showTip(event, 'fs64', 105)" class="i">name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs38', 106)" onmouseover="showTip(event, 'fs38', 106)" class="t">string</span>) <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">from sys import stdin</span>
+<span class="s">name = stdin.readline()</span>
+<span class="s">print (&quot;Hello, &quot; + name + &quot;!&quot;)</span>
+<span class="s">&quot;&quot;&quot;</span> 
+
+    <span class="k">return!</span> <span onmouseout="hideTip(event, 'fs42', 107)" onmouseover="showTip(event, 'fs42', 107)" class="i">runPythonScript</span> <span class="i">code</span> [|<span onmouseout="hideTip(event, 'fs64', 108)" onmouseover="showTip(event, 'fs64', 108)" class="i">name</span>|]
+}
+
+<span onmouseout="hideTip(event, 'fs63', 109)" onmouseover="showTip(event, 'fs63', 109)" class="f">greet</span> <span class="s">&quot;F#&quot;</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs59', 110)" onmouseover="showTip(event, 'fs59', 110)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 111)" onmouseover="showTip(event, 'fs62', 111)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Let's now try a distributed workflow.
+Our goal is to use python to fetch the hostnames of every individual worker in the cluster:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 112)" onmouseover="showTip(event, 'fs65', 112)" class="f">getHostnamePython</span> () <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">import socket</span>
+<span class="s">print (socket.gethostname())</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+    <span class="k">let!</span> <span class="i">result</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 113)" onmouseover="showTip(event, 'fs42', 113)" class="i">runPythonScript</span> <span class="i">code</span> [||]
+    <span class="k">return</span> <span class="i">result</span><span class="o">.</span><span class="i">Stdout</span><span class="o">.</span>[<span class="n">0</span>]
+}
+
+<span onmouseout="hideTip(event, 'fs14', 114)" onmouseover="showTip(event, 'fs14', 114)" class="i">Cloud</span><span class="o">.</span><span class="i">ParallelEverywhere</span>(<span onmouseout="hideTip(event, 'fs65', 115)" onmouseover="showTip(event, 'fs65', 115)" class="i">getHostnamePython</span>()) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs59', 116)" onmouseover="showTip(event, 'fs59', 116)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 117)" onmouseover="showTip(event, 'fs62', 117)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>In this tutorial, you've learned how to distribute python code using clean-slate MBrace clusters.
+Further features, such as timeouts, cancellation and asynchronous execution can be easily implemented
+using the MBrace primitives and are left as an exercise to the reader.</p>
+<p>Continue with further samples to learn more about the MBrace programming model.</p>
+<blockquote>
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
+by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace System.IO.Compression</div>
+<div class="tip" id="fs4">namespace System.Net</div>
+<div class="tip" id="fs5">namespace System.Diagnostics</div>
+<div class="tip" id="fs6">namespace MBrace</div>
+<div class="tip" id="fs7">namespace MBrace.Core</div>
+<div class="tip" id="fs8">namespace MBrace.Library</div>
+<div class="tip" id="fs9">namespace MBrace.Flow</div>
+<div class="tip" id="fs10">val pythonBits : string<br /><br />Full name: 200-launching-python-example.pythonBits</div>
+<div class="tip" id="fs11">val installPython : unit -&gt; &#39;a<br /><br />Full name: 200-launching-python-example.installPython<br /><em><br /><br />&#160;workflow that downloads and installs python to the local computer</em></div>
+<div class="tip" id="fs12">type Path =<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member GetDirectoryName : path:string -&gt; string<br />&#160;&#160;static member GetExtension : path:string -&gt; string<br />&#160;&#160;static member GetFileName : path:string -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Path</div>
+<div class="tip" id="fs13">Path.GetTempPath() : string</div>
+<div class="tip" id="fs14">module Cloud<br /><br />from MBrace.Library</div>
+<div class="tip" id="fs15">Path.Combine([&lt;ParamArray&gt;] paths: string []) : string<br />Path.Combine(path1: string, path2: string) : string<br />Path.Combine(path1: string, path2: string, path3: string) : string<br />Path.Combine(path1: string, path2: string, path3: string, path4: string) : string</div>
+<div class="tip" id="fs16">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs17">Path.GetFileNameWithoutExtension(path: string) : string</div>
+<div class="tip" id="fs18">val not : value:bool -&gt; bool<br /><br />Full name: Microsoft.FSharp.Core.Operators.not</div>
+<div class="tip" id="fs19">type Directory =<br />&#160;&#160;static member CreateDirectory : path:string -&gt; DirectoryInfo + 1 overload<br />&#160;&#160;static member Delete : path:string -&gt; unit + 1 overload<br />&#160;&#160;static member EnumerateDirectories : path:string -&gt; IEnumerable&lt;string&gt; + 2 overloads<br />&#160;&#160;static member EnumerateFileSystemEntries : path:string -&gt; IEnumerable&lt;string&gt; + 2 overloads<br />&#160;&#160;static member EnumerateFiles : path:string -&gt; IEnumerable&lt;string&gt; + 2 overloads<br />&#160;&#160;static member Exists : path:string -&gt; bool<br />&#160;&#160;static member GetAccessControl : path:string -&gt; DirectorySecurity + 1 overload<br />&#160;&#160;static member GetCreationTime : path:string -&gt; DateTime<br />&#160;&#160;static member GetCreationTimeUtc : path:string -&gt; DateTime<br />&#160;&#160;static member GetCurrentDirectory : unit -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Directory</div>
+<div class="tip" id="fs20">Directory.Exists(path: string) : bool</div>
+<div class="tip" id="fs21">Path.GetFileName(path: string) : string</div>
+<div class="tip" id="fs22">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />WebClient() : unit</div>
+<div class="tip" id="fs23">Multiple items<br />type Uri =<br />&#160;&#160;new : uriString:string -&gt; Uri + 5 overloads<br />&#160;&#160;member AbsolutePath : string<br />&#160;&#160;member AbsoluteUri : string<br />&#160;&#160;member Authority : string<br />&#160;&#160;member DnsSafeHost : string<br />&#160;&#160;member Equals : comparand:obj -&gt; bool<br />&#160;&#160;member Fragment : string<br />&#160;&#160;member GetComponents : components:UriComponents * format:UriFormat -&gt; string<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member GetLeftPart : part:UriPartial -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.Uri<br /><br />--------------------<br />Uri(uriString: string) : unit<br />Uri(uriString: string, uriKind: UriKind) : unit<br />Uri(baseUri: Uri, relativeUri: string) : unit<br />Uri(baseUri: Uri, relativeUri: Uri) : unit</div>
+<div class="tip" id="fs24">type File =<br />&#160;&#160;static member AppendAllLines : path:string * contents:IEnumerable&lt;string&gt; -&gt; unit + 1 overload<br />&#160;&#160;static member AppendAllText : path:string * contents:string -&gt; unit + 1 overload<br />&#160;&#160;static member AppendText : path:string -&gt; StreamWriter<br />&#160;&#160;static member Copy : sourceFileName:string * destFileName:string -&gt; unit + 1 overload<br />&#160;&#160;static member Create : path:string -&gt; FileStream + 3 overloads<br />&#160;&#160;static member CreateText : path:string -&gt; StreamWriter<br />&#160;&#160;static member Decrypt : path:string -&gt; unit<br />&#160;&#160;static member Delete : path:string -&gt; unit<br />&#160;&#160;static member Encrypt : path:string -&gt; unit<br />&#160;&#160;static member Exists : path:string -&gt; bool<br />&#160;&#160;...<br /><br />Full name: System.IO.File</div>
+<div class="tip" id="fs25">File.OpenRead(path: string) : FileStream</div>
+<div class="tip" id="fs26">Multiple items<br />type ZipArchive =<br />&#160;&#160;new : stream:Stream -&gt; ZipArchive + 3 overloads<br />&#160;&#160;member CreateEntry : entryName:string -&gt; ZipArchiveEntry + 1 overload<br />&#160;&#160;member Dispose : unit -&gt; unit<br />&#160;&#160;member Entries : ReadOnlyCollection&lt;ZipArchiveEntry&gt;<br />&#160;&#160;member GetEntry : entryName:string -&gt; ZipArchiveEntry<br />&#160;&#160;member Mode : ZipArchiveMode<br /><br />Full name: System.IO.Compression.ZipArchive<br /><br />--------------------<br />ZipArchive(stream: Stream) : unit<br />ZipArchive(stream: Stream, mode: ZipArchiveMode) : unit<br />ZipArchive(stream: Stream, mode: ZipArchiveMode, leaveOpen: bool) : unit<br />ZipArchive(stream: Stream, mode: ZipArchiveMode, leaveOpen: bool, entryNameEncoding: Text.Encoding) : unit</div>
+<div class="tip" id="fs27">File.Exists(path: string) : bool</div>
+<div class="tip" id="fs28">val failwith : message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.failwith</div>
+<div class="tip" id="fs29">val pythonInstaller : obj<br /><br />Full name: 200-launching-python-example.pythonInstaller<br /><em><br /><br />&#160;AppDomain-bound lazy python installer</em></div>
+<div class="tip" id="fs30">Multiple items<br />type DomainLocal =<br />&#160;&#160;static member Create : factory:LocalCloud&lt;&#39;T&gt; -&gt; DomainLocalMBrace&lt;&#39;T&gt;<br />&#160;&#160;static member Create : factory:(unit -&gt; &#39;T) -&gt; DomainLocal&lt;&#39;T&gt;<br /><br />Full name: MBrace.Library.DomainLocal<br /><br />--------------------<br />type DomainLocal&lt;&#39;T&gt; =<br />&#160;&#160;private new : factory:(unit -&gt; &#39;T) -&gt; DomainLocal&lt;&#39;T&gt;<br />&#160;&#160;member IsValueCreated : bool<br />&#160;&#160;member Value : &#39;T<br /><br />Full name: MBrace.Library.DomainLocal&lt;_&gt;</div>
+<div class="tip" id="fs31">static member DomainLocal.Create : factory:MBrace.Core.LocalCloud&lt;&#39;T&gt; -&gt; DomainLocalMBrace&lt;&#39;T&gt;<br />static member DomainLocal.Create : factory:(unit -&gt; &#39;T) -&gt; DomainLocal&lt;&#39;T&gt;</div>
+<div class="tip" id="fs32">type PythonResult =<br />&#160;&#160;{StartTime: DateTimeOffset;<br />&#160;&#160;&#160;ExecutionTime: TimeSpan;<br />&#160;&#160;&#160;Stdout: string [];<br />&#160;&#160;&#160;Stderr: string [];<br />&#160;&#160;&#160;ExitCode: int;}<br /><br />Full name: 200-launching-python-example.PythonResult<br /><em><br /><br />&#160;Record containing results of a single python computation</em></div>
+<div class="tip" id="fs33">PythonResult.StartTime: DateTimeOffset</div>
+<div class="tip" id="fs34">Multiple items<br />type DateTimeOffset =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : dateTime:DateTime -&gt; DateTimeOffset + 5 overloads<br />&#160;&#160;&#160;&#160;member Add : timeSpan:TimeSpan -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddDays : days:float -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddHours : hours:float -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddMilliseconds : milliseconds:float -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddMinutes : minutes:float -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddMonths : months:int -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddSeconds : seconds:float -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddTicks : ticks:int64 -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;member AddYears : years:int -&gt; DateTimeOffset<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.DateTimeOffset<br /><br />--------------------<br />DateTimeOffset()<br />DateTimeOffset(dateTime: DateTime) : unit<br />DateTimeOffset(ticks: int64, offset: TimeSpan) : unit<br />DateTimeOffset(dateTime: DateTime, offset: TimeSpan) : unit<br />DateTimeOffset(year: int, month: int, day: int, hour: int, minute: int, second: int, offset: TimeSpan) : unit<br />DateTimeOffset(year: int, month: int, day: int, hour: int, minute: int, second: int, millisecond: int, offset: TimeSpan) : unit<br />DateTimeOffset(year: int, month: int, day: int, hour: int, minute: int, second: int, millisecond: int, calendar: Globalization.Calendar, offset: TimeSpan) : unit</div>
+<div class="tip" id="fs35">PythonResult.ExecutionTime: TimeSpan</div>
+<div class="tip" id="fs36">Multiple items<br />type TimeSpan =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : ticks:int64 -&gt; TimeSpan + 3 overloads<br />&#160;&#160;&#160;&#160;member Add : ts:TimeSpan -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Days : int<br />&#160;&#160;&#160;&#160;member Duration : unit -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member Equals : value:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member Hours : int<br />&#160;&#160;&#160;&#160;member Milliseconds : int<br />&#160;&#160;&#160;&#160;member Minutes : int<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.TimeSpan<br /><br />--------------------<br />TimeSpan()<br />TimeSpan(ticks: int64) : unit<br />TimeSpan(hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int, milliseconds: int) : unit</div>
+<div class="tip" id="fs37">PythonResult.Stdout: string []</div>
+<div class="tip" id="fs38">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs39">PythonResult.Stderr: string []</div>
+<div class="tip" id="fs40">PythonResult.ExitCode: int</div>
+<div class="tip" id="fs41">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs42">val runPythonScript : pythonCode:string -&gt; stdin:string [] -&gt; &#39;a<br /><br />Full name: 200-launching-python-example.runPythonScript<br /><em><br /><br />&#160;Runs provided code in python and optional stdit inputs<br />&#160;returning the standard output as string</em></div>
+<div class="tip" id="fs43">val pythonCode : string</div>
+<div class="tip" id="fs44">val stdin : string []</div>
+<div class="tip" id="fs45">Path.GetTempFileName() : string</div>
+<div class="tip" id="fs46">File.WriteAllText(path: string, contents: string) : unit<br />File.WriteAllText(path: string, contents: string, encoding: Text.Encoding) : unit</div>
+<div class="tip" id="fs47">Multiple items<br />type ProcessStartInfo =<br />&#160;&#160;new : unit -&gt; ProcessStartInfo + 2 overloads<br />&#160;&#160;member Arguments : string with get, set<br />&#160;&#160;member CreateNoWindow : bool with get, set<br />&#160;&#160;member Domain : string with get, set<br />&#160;&#160;member EnvironmentVariables : StringDictionary<br />&#160;&#160;member ErrorDialog : bool with get, set<br />&#160;&#160;member ErrorDialogParentHandle : nativeint with get, set<br />&#160;&#160;member FileName : string with get, set<br />&#160;&#160;member LoadUserProfile : bool with get, set<br />&#160;&#160;member Password : SecureString with get, set<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.ProcessStartInfo<br /><br />--------------------<br />ProcessStartInfo() : unit<br />ProcessStartInfo(fileName: string) : unit<br />ProcessStartInfo(fileName: string, arguments: string) : unit</div>
+<div class="tip" id="fs48">Multiple items<br />type Process =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; Process<br />&#160;&#160;member BasePriority : int<br />&#160;&#160;member BeginErrorReadLine : unit -&gt; unit<br />&#160;&#160;member BeginOutputReadLine : unit -&gt; unit<br />&#160;&#160;member CancelErrorRead : unit -&gt; unit<br />&#160;&#160;member CancelOutputRead : unit -&gt; unit<br />&#160;&#160;member Close : unit -&gt; unit<br />&#160;&#160;member CloseMainWindow : unit -&gt; bool<br />&#160;&#160;member EnableRaisingEvents : bool with get, set<br />&#160;&#160;member ExitCode : int<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.Process<br /><br />--------------------<br />Process() : unit</div>
+<div class="tip" id="fs49">Multiple items<br />type Stopwatch =<br />&#160;&#160;new : unit -&gt; Stopwatch<br />&#160;&#160;member Elapsed : TimeSpan<br />&#160;&#160;member ElapsedMilliseconds : int64<br />&#160;&#160;member ElapsedTicks : int64<br />&#160;&#160;member IsRunning : bool<br />&#160;&#160;member Reset : unit -&gt; unit<br />&#160;&#160;member Restart : unit -&gt; unit<br />&#160;&#160;member Start : unit -&gt; unit<br />&#160;&#160;member Stop : unit -&gt; unit<br />&#160;&#160;static val Frequency : int64<br />&#160;&#160;...<br /><br />Full name: System.Diagnostics.Stopwatch<br /><br />--------------------<br />Stopwatch() : unit</div>
+<div class="tip" id="fs50">property DateTimeOffset.Now: DateTimeOffset</div>
+<div class="tip" id="fs51">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+<div class="tip" id="fs52">property Array.Length: int</div>
+<div class="tip" id="fs53">Multiple items<br />type String =<br />&#160;&#160;new : value:char -&gt; string + 7 overloads<br />&#160;&#160;member Chars : int -&gt; char<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;member Contains : value:string -&gt; bool<br />&#160;&#160;member CopyTo : sourceIndex:int * destination:char[] * destinationIndex:int * count:int -&gt; unit<br />&#160;&#160;member EndsWith : value:string -&gt; bool + 2 overloads<br />&#160;&#160;member Equals : obj:obj -&gt; bool + 2 overloads<br />&#160;&#160;member GetEnumerator : unit -&gt; CharEnumerator<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;...<br /><br />Full name: System.String<br /><br />--------------------<br />String(value: nativeptr&lt;char&gt;) : unit<br />String(value: nativeptr&lt;sbyte&gt;) : unit<br />String(value: char []) : unit<br />String(c: char, count: int) : unit<br />String(value: nativeptr&lt;char&gt;, startIndex: int, length: int) : unit<br />String(value: nativeptr&lt;sbyte&gt;, startIndex: int, length: int) : unit<br />String(value: char [], startIndex: int, length: int) : unit<br />String(value: nativeptr&lt;sbyte&gt;, startIndex: int, length: int, enc: Text.Encoding) : unit</div>
+<div class="tip" id="fs54">val concat : sep:string -&gt; strings:seq&lt;string&gt; -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.String.concat</div>
+<div class="tip" id="fs55">type Environment =<br />&#160;&#160;static member CommandLine : string<br />&#160;&#160;static member CurrentDirectory : string with get, set<br />&#160;&#160;static member Exit : exitCode:int -&gt; unit<br />&#160;&#160;static member ExitCode : int with get, set<br />&#160;&#160;static member ExpandEnvironmentVariables : name:string -&gt; string<br />&#160;&#160;static member FailFast : message:string -&gt; unit + 1 overload<br />&#160;&#160;static member GetCommandLineArgs : unit -&gt; string[]<br />&#160;&#160;static member GetEnvironmentVariable : variable:string -&gt; string + 1 overload<br />&#160;&#160;static member GetEnvironmentVariables : unit -&gt; IDictionary + 1 overload<br />&#160;&#160;static member GetFolderPath : folder:SpecialFolder -&gt; string + 1 overload<br />&#160;&#160;...<br />&#160;&#160;nested type SpecialFolder<br />&#160;&#160;nested type SpecialFolderOption<br /><br />Full name: System.Environment</div>
+<div class="tip" id="fs56">property Environment.NewLine: string</div>
+<div class="tip" id="fs57">type StringSplitOptions =<br />&#160;&#160;| None = 0<br />&#160;&#160;| RemoveEmptyEntries = 1<br /><br />Full name: System.StringSplitOptions</div>
+<div class="tip" id="fs58">field StringSplitOptions.None = 0</div>
+<div class="tip" id="fs59">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-launching-python-example.cluster</div>
+<div class="tip" id="fs60">module Config</div>
+<div class="tip" id="fs61">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs62">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs63">val greet : name:string -&gt; &#39;a<br /><br />Full name: 200-launching-python-example.greet</div>
+<div class="tip" id="fs64">val name : string</div>
+<div class="tip" id="fs65">val getHostnamePython : unit -&gt; &#39;a<br /><br />Full name: 200-launching-python-example.getHostnamePython</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

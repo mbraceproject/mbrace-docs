@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Introduction to CPU-intensive Cloud Parallelism
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Introduction-to-CPU-intensive-Cloud-Parallelism" class="anchor" href="#Introduction-to-CPU-intensive-Cloud-Parallelism">Introduction to CPU-intensive Cloud Parallelism</a></h1>
+<blockquote>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+<p>In this tutorial you learn how to perform CPU-intensive cloud-parallel workload on your MBrace cluster.
+The work will be computing prime numbers, though you can easily replace this with any code
+of your own.</p>
+<p>First, you run some work on your local machine (single-threaded). Performance will depend
+on the spec of your machine.</p>
+<blockquote>
+<p>Note that it is possible that your client scripting machine is more efficient than each individual machine in the cluster.</p>
+</blockquote>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">locallyComputedPrimes</span> <span class="o">=</span>
+    [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">30</span> <span class="k">do</span>
+         <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">primes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="t">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="f">getPrimes</span> <span class="n">100000000</span>
+         <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="f">sprintf</span> <span class="s">&quot;calculated </span><span class="pf">%d</span><span class="s"> primes: </span><span class="pf">%A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">primes</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 18)" onmouseover="showTip(event, 'fs15', 18)" class="i">Length</span> <span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="i">primes</span>  |]
+</code></pre></td>
+</tr>
+</table>
+<p>Next, you run the work on the cluster, on multiple workers. This exploits the
+the multiple machines (workers) in the cluster.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">clusterPrimesTask</span> <span class="o">=</span>
+    [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 21)" onmouseover="showTip(event, 'fs10', 21)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">30</span> <span class="k">-&gt;</span> 
+         <span class="i">local</span> { 
+            <span class="k">let</span> <span class="i">primes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 22)" onmouseover="showTip(event, 'fs12', 22)" class="i">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="i">getPrimes</span> <span class="n">100000000</span>
+            <span class="k">return</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">sprintf</span> <span class="s">&quot;calculated %d primes %A on machine &#39;%s&#39;&quot;</span> <span class="i">primes</span><span class="o">.</span><span class="i">Length</span> <span class="i">primes</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="i">MachineName</span> 
+         }
+    |]
+    <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">ParallelBalanced</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 27)" onmouseover="showTip(event, 'fs6', 27)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="f">CreateProcess</span>
+
+
+<span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="i">clusterPrimesTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="f">ShowInfo</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 31)" onmouseover="showTip(event, 'fs21', 31)" class="i">clusterPrimes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 32)" onmouseover="showTip(event, 'fs16', 32)" class="i">clusterPrimesTask</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 33)" onmouseover="showTip(event, 'fs22', 33)" class="i">Result</span>
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Starting-multiple-jobs" class="anchor" href="#Starting-multiple-jobs">Starting multiple jobs</a></h2>
+<p>The previous example used <code>Cloud.Parallel</code> to compose jobs into one combined job.</p>
+<p>Alternatively, you could have started 30 independent jobs.  This can be handy if you want to track each one independently:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 34)" onmouseover="showTip(event, 'fs23', 34)" class="i">jobs</span> <span class="o">=</span>  
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 35)" onmouseover="showTip(event, 'fs10', 35)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">-&gt;</span> 
+         <span class="i">cloud</span> { 
+            <span class="k">let</span> <span class="i">primes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 36)" onmouseover="showTip(event, 'fs12', 36)" class="i">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 37)" onmouseover="showTip(event, 'fs13', 37)" class="i">getPrimes</span> <span class="n">100000000</span>
+            <span class="k">return</span> <span onmouseout="hideTip(event, 'fs14', 38)" onmouseover="showTip(event, 'fs14', 38)" class="i">sprintf</span> <span class="s">&quot;calculated %d primes %A on machine &#39;%s&#39;&quot;</span> <span class="i">primes</span><span class="o">.</span><span class="i">Length</span> <span class="i">primes</span> <span onmouseout="hideTip(event, 'fs17', 39)" onmouseover="showTip(event, 'fs17', 39)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 40)" onmouseover="showTip(event, 'fs18', 40)" class="i">MachineName</span> 
+         }
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 41)" onmouseover="showTip(event, 'fs6', 41)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 42)" onmouseover="showTip(event, 'fs19', 42)" class="f">CreateProcess</span> ]
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 43)" onmouseover="showTip(event, 'fs24', 43)" class="i">jobResults</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs25', 44)" onmouseover="showTip(event, 'fs25', 44)" class="i">job</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="i">jobs</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 46)" onmouseover="showTip(event, 'fs25', 46)" class="i">job</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="i">Result</span> ]
+</code></pre></td>
+</tr>
+</table>
+<p>For example, you might want to track the exectuion time of each job:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 48)" onmouseover="showTip(event, 'fs26', 48)" class="i">jobTimes</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs25', 49)" onmouseover="showTip(event, 'fs25', 49)" class="i">job</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs23', 50)" onmouseover="showTip(event, 'fs23', 50)" class="i">jobs</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 51)" onmouseover="showTip(event, 'fs25', 51)" class="i">job</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 52)" onmouseover="showTip(event, 'fs27', 52)" class="i">ExecutionTime</span> ]
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Tracking-and-controlling-job-failures" class="anchor" href="#Tracking-and-controlling-job-failures">Tracking and controlling job failures</a></h2>
+<p>Jobs can fail for all sorts of reasons, normally by raising exceptions. For example, let's
+simulate this by injecting failures into our jobs:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs28', 53)" onmouseover="showTip(event, 'fs28', 53)" class="f">makeJob</span> <span onmouseout="hideTip(event, 'fs29', 54)" onmouseover="showTip(event, 'fs29', 54)" class="i">i</span> <span class="o">=</span> 
+    <span class="i">cloud</span> { 
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs29', 55)" onmouseover="showTip(event, 'fs29', 55)" class="i">i</span> <span class="o">%</span> <span class="n">8</span> <span class="o">=</span> <span class="n">0</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs30', 56)" onmouseover="showTip(event, 'fs30', 56)" class="i">failwith</span> <span class="s">&quot;fail&quot;</span>
+        <span class="k">let</span> <span class="i">primes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 57)" onmouseover="showTip(event, 'fs12', 57)" class="i">Sieve</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 58)" onmouseover="showTip(event, 'fs13', 58)" class="i">getPrimes</span> <span class="n">1000000</span>
+        <span class="k">return</span> <span onmouseout="hideTip(event, 'fs14', 59)" onmouseover="showTip(event, 'fs14', 59)" class="i">sprintf</span> <span class="s">&quot;calculated %d primes %A on machine &#39;%s&#39;&quot;</span> <span class="i">primes</span><span class="o">.</span><span class="i">Length</span> <span class="i">primes</span> <span onmouseout="hideTip(event, 'fs17', 60)" onmouseover="showTip(event, 'fs17', 60)" class="i">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 61)" onmouseover="showTip(event, 'fs18', 61)" class="i">MachineName</span> 
+    }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 62)" onmouseover="showTip(event, 'fs31', 62)" class="i">jobs2</span> <span class="o">=</span>  
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 63)" onmouseover="showTip(event, 'fs10', 63)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">-&gt;</span> 
+         <span onmouseout="hideTip(event, 'fs28', 64)" onmouseover="showTip(event, 'fs28', 64)" class="f">makeJob</span> <span onmouseout="hideTip(event, 'fs10', 65)" onmouseover="showTip(event, 'fs10', 65)" class="i">i</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 66)" onmouseover="showTip(event, 'fs6', 66)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 67)" onmouseover="showTip(event, 'fs19', 67)" class="f">CreateProcess</span> ]
+</code></pre></td>
+</tr>
+</table>
+<p>If you now attempt to access the results of the job, you will get the exception propagated back to your client scripting session:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// raises an exception since some of the jobs failed</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 68)" onmouseover="showTip(event, 'fs32', 68)" class="i">jobResults2</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs33', 69)" onmouseover="showTip(event, 'fs33', 69)" class="i">job</span> <span class="k">in</span> <span class="i">jobs2</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs33', 70)" onmouseover="showTip(event, 'fs33', 70)" class="i">job</span><span class="o">.</span><span class="i">Result</span> ]  
+</code></pre></td>
+</tr>
+</table>
+<p>When this happens, it is useful to protect your jobs by a wrapper that captures information about the failing work:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs34', 71)" onmouseover="showTip(event, 'fs34', 71)" class="t">Result</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span>, <span class="o">&#39;</span><span class="i">Info</span><span class="o">&gt;</span> <span class="o">=</span>
+   | <span onmouseout="hideTip(event, 'fs35', 72)" onmouseover="showTip(event, 'fs35', 72)" class="p">Success</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">T</span>
+   | <span onmouseout="hideTip(event, 'fs36', 73)" onmouseover="showTip(event, 'fs36', 73)" class="p">Failure</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">Info</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 74)" onmouseover="showTip(event, 'fs37', 74)" class="t">exn</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 75)" onmouseover="showTip(event, 'fs38', 75)" class="f">protectJob</span> <span onmouseout="hideTip(event, 'fs39', 76)" onmouseover="showTip(event, 'fs39', 76)" class="i">info</span> (<span onmouseout="hideTip(event, 'fs40', 77)" onmouseover="showTip(event, 'fs40', 77)" class="i">work</span><span class="o">:</span> <span class="i">Cloud</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="o">=</span> 
+    <span class="i">cloud</span> { 
+       <span class="k">try</span>
+           <span class="k">let!</span> <span class="i">result</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 78)" onmouseover="showTip(event, 'fs40', 78)" class="i">work</span> 
+           <span class="k">return</span> <span onmouseout="hideTip(event, 'fs35', 79)" onmouseover="showTip(event, 'fs35', 79)" class="i">Success</span> <span class="i">result</span>
+       <span class="k">with</span> <span onmouseout="hideTip(event, 'fs37', 80)" onmouseover="showTip(event, 'fs37', 80)" class="i">exn</span> <span class="k">-&gt;</span> 
+           <span class="k">return</span> <span onmouseout="hideTip(event, 'fs41', 81)" onmouseover="showTip(event, 'fs41', 81)" class="i">Failure</span> (<span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="i">info</span>, <span onmouseout="hideTip(event, 'fs37', 83)" onmouseover="showTip(event, 'fs37', 83)" class="i">exn</span>)
+    }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 84)" onmouseover="showTip(event, 'fs42', 84)" class="i">jobs3</span> <span class="o">=</span>  
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs10', 85)" onmouseover="showTip(event, 'fs10', 85)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">10</span> <span class="k">-&gt;</span> 
+         <span onmouseout="hideTip(event, 'fs28', 86)" onmouseover="showTip(event, 'fs28', 86)" class="f">makeJob</span> <span onmouseout="hideTip(event, 'fs10', 87)" onmouseover="showTip(event, 'fs10', 87)" class="i">i</span>
+         <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs38', 88)" onmouseover="showTip(event, 'fs38', 88)" class="f">protectJob</span> (<span class="s">&quot;job &quot;</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs43', 89)" onmouseover="showTip(event, 'fs43', 89)" class="f">string</span> <span onmouseout="hideTip(event, 'fs10', 90)" onmouseover="showTip(event, 'fs10', 90)" class="i">i</span>) 
+         <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 91)" onmouseover="showTip(event, 'fs6', 91)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 92)" onmouseover="showTip(event, 'fs19', 92)" class="f">CreateProcess</span> ]
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 93)" onmouseover="showTip(event, 'fs44', 93)" class="i">jobResults3</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs25', 94)" onmouseover="showTip(event, 'fs25', 94)" class="i">job</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs42', 95)" onmouseover="showTip(event, 'fs42', 95)" class="i">jobs3</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 96)" onmouseover="showTip(event, 'fs25', 96)" class="i">job</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 97)" onmouseover="showTip(event, 'fs22', 97)" class="i">Result</span> ]
+</code></pre></td>
+</tr>
+</table>
+<p>The results will now show the success and failure of each job:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="i">jobResults3</span> <span class="o">:</span> <span class="i">Result</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs45', 98)" onmouseover="showTip(event, 'fs45', 98)" class="i">string</span>,<span onmouseout="hideTip(event, 'fs45', 99)" onmouseover="showTip(event, 'fs45', 99)" class="i">string</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs46', 100)" onmouseover="showTip(event, 'fs46', 100)" class="i">list</span> <span class="o">=</span>
+  [<span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span onmouseout="hideTip(event, 'fs47', 101)" onmouseover="showTip(event, 'fs47', 101)" class="i">Failure</span> (<span class="s">&quot;job 8&quot;</span>, <span onmouseout="hideTip(event, 'fs1', 102)" onmouseover="showTip(event, 'fs1', 102)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs48', 103)" onmouseover="showTip(event, 'fs48', 103)" class="i">Exception</span><span class="o">:</span> <span class="i">fail</span><span class="o">..</span><span class="o">.</span>)
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>];
+   <span class="i">Success</span> <span class="s">&quot;calculated 78498 primes [|2; 3; 5; 7; 11; 13; 17; 19; 23; 29;&quot;</span><span class="o">+</span>[<span class="n">477</span> <span class="i">chars</span>]]
+</code></pre></td>
+</tr>
+</table>
+<p>You can then re-create adjusted versions of failing jobs and re-run them:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs28', 104)" onmouseover="showTip(event, 'fs28', 104)" class="f">makeJob</span> <span class="n">8</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 105)" onmouseover="showTip(event, 'fs6', 105)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 106)" onmouseover="showTip(event, 'fs49', 106)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+<p>In this tutorial, you've learned how to do simple CPU-intensive work
+using MBrace.Azure. Continue with further samples to learn more about the
+MBrace programming model.</p>
+<blockquote>
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 3-cloud-parallel-cpu-intensive.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">val locallyComputedPrimes : string []<br /><br />Full name: 3-cloud-parallel-cpu-intensive.locallyComputedPrimes</div>
+<div class="tip" id="fs10">val i : int</div>
+<div class="tip" id="fs11">val primes : int []</div>
+<div class="tip" id="fs12">module Sieve</div>
+<div class="tip" id="fs13">val getPrimes : nmax:int -&gt; int []<br /><br />Full name: Sieve.getPrimes</div>
+<div class="tip" id="fs14">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs15">property Array.Length: int</div>
+<div class="tip" id="fs16">val clusterPrimesTask : MBrace.Runtime.CloudProcess&lt;obj&gt;<br /><br />Full name: 3-cloud-parallel-cpu-intensive.clusterPrimesTask</div>
+<div class="tip" id="fs17">type Environment =<br />&#160;&#160;static member CommandLine : string<br />&#160;&#160;static member CurrentDirectory : string with get, set<br />&#160;&#160;static member Exit : exitCode:int -&gt; unit<br />&#160;&#160;static member ExitCode : int with get, set<br />&#160;&#160;static member ExpandEnvironmentVariables : name:string -&gt; string<br />&#160;&#160;static member FailFast : message:string -&gt; unit + 1 overload<br />&#160;&#160;static member GetCommandLineArgs : unit -&gt; string[]<br />&#160;&#160;static member GetEnvironmentVariable : variable:string -&gt; string + 1 overload<br />&#160;&#160;static member GetEnvironmentVariables : unit -&gt; IDictionary + 1 overload<br />&#160;&#160;static member GetFolderPath : folder:SpecialFolder -&gt; string + 1 overload<br />&#160;&#160;...<br />&#160;&#160;nested type SpecialFolder<br />&#160;&#160;nested type SpecialFolderOption<br /><br />Full name: System.Environment</div>
+<div class="tip" id="fs18">property Environment.MachineName: string</div>
+<div class="tip" id="fs19">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs20">member MBrace.Runtime.CloudProcess.ShowInfo : unit -&gt; unit</div>
+<div class="tip" id="fs21">val clusterPrimes : obj<br /><br />Full name: 3-cloud-parallel-cpu-intensive.clusterPrimes</div>
+<div class="tip" id="fs22">property MBrace.Runtime.CloudProcess.Result: obj</div>
+<div class="tip" id="fs23">val jobs : MBrace.Runtime.CloudProcess&lt;obj&gt; list<br /><br />Full name: 3-cloud-parallel-cpu-intensive.jobs</div>
+<div class="tip" id="fs24">val jobResults : obj list<br /><br />Full name: 3-cloud-parallel-cpu-intensive.jobResults</div>
+<div class="tip" id="fs25">val job : MBrace.Runtime.CloudProcess&lt;obj&gt;</div>
+<div class="tip" id="fs26">val jobTimes : TimeSpan option list<br /><br />Full name: 3-cloud-parallel-cpu-intensive.jobTimes</div>
+<div class="tip" id="fs27">property MBrace.Runtime.CloudProcess.ExecutionTime: TimeSpan option</div>
+<div class="tip" id="fs28">val makeJob : i:&#39;a -&gt; &#39;b<br /><br />Full name: 3-cloud-parallel-cpu-intensive.makeJob</div>
+<div class="tip" id="fs29">val i : &#39;a</div>
+<div class="tip" id="fs30">val failwith : message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.failwith</div>
+<div class="tip" id="fs31">val jobs2 : MBrace.Runtime.CloudProcess&lt;obj&gt; list<br /><br />Full name: 3-cloud-parallel-cpu-intensive.jobs2</div>
+<div class="tip" id="fs32">val jobResults2 : obj list<br /><br />Full name: cloudparallelcpuintensive.jobResults2</div>
+<div class="tip" id="fs33">val job : obj</div>
+<div class="tip" id="fs34">type Result&lt;&#39;T,&#39;Info&gt; =<br />&#160;&#160;| Success of &#39;T<br />&#160;&#160;| Failure of &#39;Info * exn<br /><br />Full name: 3-cloud-parallel-cpu-intensive.Result&lt;_,_&gt;</div>
+<div class="tip" id="fs35">union case Result.Success: &#39;T -&gt; Result&lt;&#39;T,&#39;Info&gt;</div>
+<div class="tip" id="fs36">Multiple items<br />union case Result.Failure: &#39;Info * exn -&gt; Result&lt;&#39;T,&#39;Info&gt;<br /><br />--------------------<br />active recognizer Failure: exn -&gt; string option<br /><br />Full name: Microsoft.FSharp.Core.Operators.( |Failure|_| )</div>
+<div class="tip" id="fs37">type exn = Exception<br /><br />Full name: Microsoft.FSharp.Core.exn</div>
+<div class="tip" id="fs38">val protectJob : info:&#39;a -&gt; work:&#39;b -&gt; &#39;c<br /><br />Full name: 3-cloud-parallel-cpu-intensive.protectJob</div>
+<div class="tip" id="fs39">val info : &#39;a</div>
+<div class="tip" id="fs40">val work : &#39;b</div>
+<div class="tip" id="fs41">union case Result.Failure: &#39;Info * exn -&gt; Result&lt;&#39;T,&#39;Info&gt;</div>
+<div class="tip" id="fs42">val jobs3 : MBrace.Runtime.CloudProcess&lt;obj&gt; list<br /><br />Full name: 3-cloud-parallel-cpu-intensive.jobs3</div>
+<div class="tip" id="fs43">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs44">val jobResults3 : obj list<br /><br />Full name: 3-cloud-parallel-cpu-intensive.jobResults3</div>
+<div class="tip" id="fs45">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs46">type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;</div>
+<div class="tip" id="fs47">Multiple items<br />val Failure : message:string -&gt; exn<br /><br />Full name: Microsoft.FSharp.Core.Operators.Failure<br /><br />--------------------<br />active recognizer Failure: exn -&gt; string option<br /><br />Full name: Microsoft.FSharp.Core.Operators.( |Failure|_| )</div>
+<div class="tip" id="fs48">Multiple items<br />type Exception =<br />&#160;&#160;new : unit -&gt; Exception + 2 overloads<br />&#160;&#160;member Data : IDictionary<br />&#160;&#160;member GetBaseException : unit -&gt; Exception<br />&#160;&#160;member GetObjectData : info:SerializationInfo * context:StreamingContext -&gt; unit<br />&#160;&#160;member GetType : unit -&gt; Type<br />&#160;&#160;member HelpLink : string with get, set<br />&#160;&#160;member InnerException : Exception<br />&#160;&#160;member Message : string<br />&#160;&#160;member Source : string with get, set<br />&#160;&#160;member StackTrace : string<br />&#160;&#160;...<br /><br />Full name: System.Exception<br /><br />--------------------<br />System.Exception() : unit<br />System.Exception(message: string) : unit<br />System.Exception(message: string, innerException: exn) : unit</div>
+<div class="tip" id="fs49">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

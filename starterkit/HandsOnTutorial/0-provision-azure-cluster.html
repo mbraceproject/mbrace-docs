@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Provisioning your cluster using F# interactive
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Provisioning-your-cluster-using-F-interactive" class="anchor" href="#Provisioning-your-cluster-using-F-interactive">Provisioning your cluster using F# interactive</a></h1>
+<blockquote>
+<p>If using a locally simulated cluster (via ThespianCluster.fsx) you can ignore this tutorial.
+This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+<p>In this tutorial you learn how you can use the <a href="https://www.nuget.org/packages/MBrace.Azure">MBrace.Azure.Management</a> library
+to provision an MBrace cluster using F# Interactive. In order to proceed, you will need
+to <a href="https://azure.microsoft.com/en-us/pricing/free-trial/">sign up</a> for an Azure subscription. Once signed up,
+<a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p>
+<p>Before proceeding, please go to <code>AzureCluster.fsx</code> and set your azure authentication data and deployment preferences.
+Once done, we can reload the script.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#load</span> <span class="s">&quot;AzureCluster.fsx&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Now let's create a new cluster by calling</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">deployment</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="f">ProvisionCluster</span>()
+</code></pre></td>
+</tr>
+</table>
+<p>We can track the provisioning progress of the cluster by calling</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="i">deployment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="f">ShowInfo</span>()
+</code></pre></td>
+</tr>
+</table>
+<p>Provisioning can take some time (approximately 5 minutes).
+Once done, you can now connect to your cluster as follows:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="f">GetCluster</span>()
+
+<span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="f">ShowWorkers</span>()
+</code></pre></td>
+</tr>
+</table>
+<p>You can now run any of the subsequent tutorials and examples in your Azure cluster.</p>
+<h2><a name="Modifying-the-cluster" class="anchor" href="#Modifying-the-cluster">Modifying the cluster</a></h2>
+<p>You can resize the cluster by calling</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs5', 16)" onmouseover="showTip(event, 'fs5', 16)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="f">ResizeCluster</span> <span class="n">20</span>
+</code></pre></td>
+</tr>
+</table>
+<p>When done, it is important to make sure that the cluster has been deprovisioned</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="t">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="f">DeleteCluster</span>()
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+<p>In this tutorial, you've learned how to provision an MBrace clusters running on Azure using MBrace.Azure.Management.
+You are now ready to proceed with further samples to learn more about the MBrace programming model.</p>
+<p>To learn more about provisioning, monitoring, scaling and deleting clusters using MBrace.Azure.Management
+see <a href="going-further/200-managing-azure-clusters.html">going-further/200-managing-azure-clusters.fsx</a>.</p>
+
+<div class="tip" id="fs1">namespace MBrace</div>
+<div class="tip" id="fs2">namespace MBrace.Azure</div>
+<div class="tip" id="fs3">namespace MBrace.Azure.Management</div>
+<div class="tip" id="fs4">val deployment : Deployment<br /><br />Full name: 0-provision-azure-cluster.deployment</div>
+<div class="tip" id="fs5">Multiple items<br />module Config<br /><br />--------------------<br />type Config =<br />&#160;&#160;private new : unit -&gt; Config<br />&#160;&#160;static member DefaultLogger : ISystemLogger<br />&#160;&#160;static member DefaultLogger : ISystemLogger with set<br /><br />Full name: MBrace.Azure.Management.Config</div>
+<div class="tip" id="fs6">val ProvisionCluster : unit -&gt; Deployment<br /><br />Full name: Config.ProvisionCluster<br /><em><br /><br />&#160;Provisions a new cluster to Azure with supplied parameters</em></div>
+<div class="tip" id="fs7">member Deployment.ShowInfo : ?showVmInstances:bool -&gt; unit</div>
+<div class="tip" id="fs8">val cluster : AzureCluster<br /><br />Full name: 0-provision-azure-cluster.cluster</div>
+<div class="tip" id="fs9">val GetCluster : unit -&gt; AzureCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Connect to the cluster </em></div>
+<div class="tip" id="fs10">member MBrace.Runtime.MBraceClient.ShowWorkers : unit -&gt; unit</div>
+<div class="tip" id="fs11">val ResizeCluster : newVmCount:int -&gt; unit<br /><br />Full name: Config.ResizeCluster<br /><em><br /><br />&#160;Resizes the cluster using an updated VM count</em></div>
+<div class="tip" id="fs12">val DeleteCluster : unit -&gt; unit<br /><br />Full name: Config.DeleteCluster<br /><em><br /><br />&#160;Deletes an existing cluster deployment</em></div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

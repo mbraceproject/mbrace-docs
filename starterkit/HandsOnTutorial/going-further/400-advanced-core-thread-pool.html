@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Running MBrace workflows in the Thread Pool
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Running-MBrace-workflows-in-the-Thread-Pool" class="anchor" href="#Running-MBrace-workflows-in-the-Thread-Pool">Running MBrace workflows in the Thread Pool</a></h1>
+<p>It is possible to run and test your MBrace workflows using the local thread pool.
+To do this, you will need to reference <a href="https://www.nuget.org/packages/MBrace.Runtime">MBrace.Runtime</a> library.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 16)" onmouseover="showTip(event, 'fs1', 16)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 17)" onmouseover="showTip(event, 'fs4', 17)" class="i">ThreadPool</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="i">tp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="t">ThreadPoolRuntime</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="f">Create</span>() <span class="c">// creates a thread pool handle</span>
+
+<span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="f">RunSynchronously</span>(<span class="i">cloud</span> { <span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="i">printfn</span> <span class="s">&quot;Hello, World!&quot;</span>})
+</code></pre></td>
+</tr>
+</table>
+<p>The thread pool runtime can be used to test arbitrary cloud code in the confines of your current process:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="f">test</span> () <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let!</span> <span class="i">atom</span> <span class="o">=</span> <span class="i">CloudAtom</span><span class="o">.</span><span class="i">New</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">int</span><span class="o">&gt;</span>(<span class="n">0</span>)
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="i">incr</span> () <span class="o">=</span> <span class="i">cloud</span> { <span class="k">do!</span> <span class="i">atom</span><span class="o">.</span><span class="i">UpdateAsync</span> (<span class="k">fun</span> <span class="i">i</span> <span class="k">-&gt;</span> <span class="i">i</span> <span class="o">+</span> <span class="n">1</span>) }
+    <span class="k">let!</span> _ <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">incr</span> () ]
+    <span class="k">return</span> <span class="i">atom</span><span class="o">.</span><span class="i">Value</span>
+}
+
+<span onmouseout="hideTip(event, 'fs11', 28)" onmouseover="showTip(event, 'fs11', 28)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 29)" onmouseover="showTip(event, 'fs14', 29)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs16', 30)" onmouseover="showTip(event, 'fs16', 30)" class="f">test</span> ())
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Emulating-distribution" class="anchor" href="#Emulating-distribution">Emulating distribution</a></h2>
+<p>By default, the thread pool runtime uses the expected async semantics, i.e. everything runs in shared memory.
+However, when debugging cloud applications it is often useful to emulate conditions particular to distribution.
+In the thread pool runtime this can be done by overriding the <code>MemoryEmulation</code> parameter, which is an enumeration
+with three possible values:</p>
+<ol>
+<li>Shared: the default async semantics, values passed to child workflows are shared among worker threads.</li>
+<li>
+<p>EnsureSerializable: values passed to child workflows are shared among worker threads, however checks are made
+at runtime to ensure that closures are serializable.</p>
+</li>
+<li>Copied: values are passed to child workflows as cloned copies, ensuring proper emulation of distribution semantics.</li>
+</ol>
+<p>Let's highlight the differences using a couple of examples:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">example1</span> <span class="o">=</span> <span class="i">cloud</span> { <span class="k">return</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">WebClient</span>() }
+</code></pre></td>
+</tr>
+</table>
+<p>Running <code>example1</code> with the default shared semantics produces no error</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs11', 35)" onmouseover="showTip(event, 'fs11', 35)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 36)" onmouseover="showTip(event, 'fs14', 36)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs19', 37)" onmouseover="showTip(event, 'fs19', 37)" class="i">example1</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Shared</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>however attempting to do the same with either of the other two options</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs11', 38)" onmouseover="showTip(event, 'fs11', 38)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 39)" onmouseover="showTip(event, 'fs14', 39)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs19', 40)" onmouseover="showTip(event, 'fs19', 40)" class="i">example1</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">EnsureSerializable</span>)
+<span onmouseout="hideTip(event, 'fs11', 41)" onmouseover="showTip(event, 'fs11', 41)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 42)" onmouseover="showTip(event, 'fs14', 42)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs19', 43)" onmouseover="showTip(event, 'fs19', 43)" class="i">example1</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Copied</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>produces the error:</p>
+<p><code>System.Runtime.Serialization.SerializationException: Cloud process returns non-serializable type 'System.Net.WebClient'.</code></p>
+<p>which is precisely what would happen if we were to run the computation in a distributed MBrace cluster.
+Consider now the following example</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 44)" onmouseover="showTip(event, 'fs23', 44)" class="i">example2</span> <span class="o">=</span> <span class="i">cloud</span> {
+    <span class="k">let</span> <span class="i">i</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 45)" onmouseover="showTip(event, 'fs24', 45)" class="i">ref</span> <span class="n">0</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 46)" onmouseover="showTip(event, 'fs18', 46)" class="i">incr</span> () <span class="o">=</span> <span class="i">cloud</span> { <span onmouseout="hideTip(event, 'fs25', 47)" onmouseover="showTip(event, 'fs25', 47)" class="i">ignore</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs20', 48)" onmouseover="showTip(event, 'fs20', 48)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 49)" onmouseover="showTip(event, 'fs26', 49)" class="i">Threading</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="i">Interlocked</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 51)" onmouseover="showTip(event, 'fs28', 51)" class="i">Increment</span> <span class="i">i</span> }
+    <span class="k">let!</span> _ <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs18', 52)" onmouseover="showTip(event, 'fs18', 52)" class="i">incr</span>() ]
+    <span class="k">return</span> <span class="o">!</span><span class="i">i</span>
+}
+</code></pre></td>
+</tr>
+</table>
+<p>Running the example using <code>Shared</code> and <code>EnsureSerializable</code> emulation modes produces the same expected result (100):</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs11', 53)" onmouseover="showTip(event, 'fs11', 53)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 54)" onmouseover="showTip(event, 'fs14', 54)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs23', 55)" onmouseover="showTip(event, 'fs23', 55)" class="i">example2</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">EnsureSerializable</span>)
+<span onmouseout="hideTip(event, 'fs11', 56)" onmouseover="showTip(event, 'fs11', 56)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 57)" onmouseover="showTip(event, 'fs14', 57)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs23', 58)" onmouseover="showTip(event, 'fs23', 58)" class="i">example2</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Shared</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>However, using <code>Copied</code> produces a wholly different output (0):</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs11', 59)" onmouseover="showTip(event, 'fs11', 59)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 60)" onmouseover="showTip(event, 'fs14', 60)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs23', 61)" onmouseover="showTip(event, 'fs23', 61)" class="i">example2</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Copied</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>This is entirely consistent with the behaviour of the workflow in the cloud,
+since each child work item will be performing the increment operation in a copy of the value.</p>
+<h2><a name="Testing-MBrace-code-locally-before-deploying" class="anchor" href="#Testing-MBrace-code-locally-before-deploying">Testing MBrace code locally before deploying</a></h2>
+<p>When working with a distributed MBrace cluster, it is easy to test your code locally before deploying
+using the companion ThreadPool runtime available to every MBrace client instance:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 62)" onmouseover="showTip(event, 'fs6', 62)" class="i">someDistributedCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 63)" onmouseover="showTip(event, 'fs29', 63)" class="f">RunLocally</span>(<span onmouseout="hideTip(event, 'fs23', 64)" onmouseover="showTip(event, 'fs23', 64)" class="i">example2</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Copied</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>When we are certain that everything works fine in the local process, we can confidently deploy as usual</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs6', 65)" onmouseover="showTip(event, 'fs6', 65)" class="i">someDistributedCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 66)" onmouseover="showTip(event, 'fs30', 66)" class="f">CreateProcess</span>(<span onmouseout="hideTip(event, 'fs23', 67)" onmouseover="showTip(event, 'fs23', 67)" class="i">example2</span>)
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Gotchas" class="anchor" href="#Gotchas">Gotchas</a></h2>
+<p>It should always be kept in mind that thread pool emulation does not sufficiently reproduce all
+fine semantics variations that occur when executing the same workflow in the cloud.
+The simplest example are side-effects:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 68)" onmouseover="showTip(event, 'fs31', 68)" class="i">hello</span> <span class="o">=</span> <span class="i">cloud</span> { <span onmouseout="hideTip(event, 'fs15', 69)" onmouseover="showTip(event, 'fs15', 69)" class="i">printfn</span> <span class="s">&quot;Hello, World&quot;</span> }
+
+<span onmouseout="hideTip(event, 'fs11', 70)" onmouseover="showTip(event, 'fs11', 70)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 71)" onmouseover="showTip(event, 'fs14', 71)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs31', 72)" onmouseover="showTip(event, 'fs31', 72)" class="i">hello</span>) <span class="c">// writes to stdout of the current process, effect easily observable</span>
+
+<span onmouseout="hideTip(event, 'fs6', 73)" onmouseover="showTip(event, 'fs6', 73)" class="i">someDistributedCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 74)" onmouseover="showTip(event, 'fs32', 74)" class="f">Run</span>(<span onmouseout="hideTip(event, 'fs31', 75)" onmouseover="showTip(event, 'fs31', 75)" class="i">hello</span>) <span class="c">// writes to stdout of some worker process, effect will most likely not be observed</span>
+</code></pre></td>
+</tr>
+</table>
+<p>In general, side effects affecting global state behave differently in the local as opposed to the distributed setting:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs33', 76)" onmouseover="showTip(event, 'fs33', 76)" class="f">GlobalCounter</span> <span class="k">private</span> () <span class="o">=</span>
+    <span class="k">static</span> <span class="k">let</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs34', 77)" onmouseover="showTip(event, 'fs34', 77)" class="v">count</span> <span class="o">=</span> <span class="n">0</span>
+    <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs35', 78)" onmouseover="showTip(event, 'fs35', 78)" class="i">Value</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 79)" onmouseover="showTip(event, 'fs34', 79)" class="v">count</span>
+    <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs36', 80)" onmouseover="showTip(event, 'fs36', 80)" class="f">Incr</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 81)" onmouseover="showTip(event, 'fs20', 81)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 82)" onmouseover="showTip(event, 'fs26', 82)" class="i">Threading</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 83)" onmouseover="showTip(event, 'fs27', 83)" class="t">Interlocked</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 84)" onmouseover="showTip(event, 'fs28', 84)" class="f">Increment</span>(<span class="o">&amp;</span><span onmouseout="hideTip(event, 'fs34', 85)" onmouseover="showTip(event, 'fs34', 85)" class="v">count</span>)
+    <span class="k">static</span> <span class="k">member</span> <span onmouseout="hideTip(event, 'fs37', 86)" onmouseover="showTip(event, 'fs37', 86)" class="f">Reset</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 87)" onmouseover="showTip(event, 'fs34', 87)" class="v">count</span> <span class="o">&lt;-</span> <span class="n">0</span>
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 88)" onmouseover="showTip(event, 'fs38', 88)" class="i">example3</span> <span class="o">=</span> <span class="i">cloud</span> {
+    <span onmouseout="hideTip(event, 'fs39', 89)" onmouseover="showTip(event, 'fs39', 89)" class="i">GlobalCounter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs40', 90)" onmouseover="showTip(event, 'fs40', 90)" class="i">Reset</span>()
+    <span class="k">let!</span> _ <span class="o">=</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">Parallel</span> [<span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> <span class="k">-&gt;</span> <span class="i">cloud</span> { <span onmouseout="hideTip(event, 'fs25', 91)" onmouseover="showTip(event, 'fs25', 91)" class="i">ignore</span> <span class="o">&lt;|</span> <span onmouseout="hideTip(event, 'fs39', 92)" onmouseover="showTip(event, 'fs39', 92)" class="i">GlobalCounter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 93)" onmouseover="showTip(event, 'fs41', 93)" class="i">Incr</span>() }]
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs39', 94)" onmouseover="showTip(event, 'fs39', 94)" class="i">GlobalCounter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 95)" onmouseover="showTip(event, 'fs42', 95)" class="i">Value</span>
+}
+
+<span onmouseout="hideTip(event, 'fs11', 96)" onmouseover="showTip(event, 'fs11', 96)" class="i">tp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 97)" onmouseover="showTip(event, 'fs14', 97)" class="f">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs38', 98)" onmouseover="showTip(event, 'fs38', 98)" class="i">example3</span>, <span class="i">memoryEmulation</span> <span class="o">=</span> <span class="i">MemoryEmulation</span><span class="o">.</span><span class="i">Copied</span>) <span class="c">// 100, as expected</span>
+
+<span onmouseout="hideTip(event, 'fs6', 99)" onmouseover="showTip(event, 'fs6', 99)" class="i">someDistributedCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 100)" onmouseover="showTip(event, 'fs32', 100)" class="f">Run</span>(<span onmouseout="hideTip(event, 'fs38', 101)" onmouseover="showTip(event, 'fs38', 101)" class="i">example3</span>) <span class="c">// nondeterministic result</span>
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+<p>In this tutorial, you've learned about <code>MBrace.ThreadPool</code> as ways of executing and testing
+cloud workflows using the thread pool of your local client process.</p>
+<blockquote>
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace MBrace</div>
+<div class="tip" id="fs2">namespace MBrace.Core</div>
+<div class="tip" id="fs3">module BuilderAsyncExtensions<br /><br />from MBrace.Core</div>
+<div class="tip" id="fs4">namespace MBrace.ThreadPool</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val someDistributedCluster : MBrace.Runtime.MBraceClient<br /><br />Full name: 400-advanced-core-thread-pool.someDistributedCluster</div>
+<div class="tip" id="fs7">module Unchecked<br /><br />from Microsoft.FSharp.Core.Operators</div>
+<div class="tip" id="fs8">val defaultof&lt;&#39;T&gt; : &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.Unchecked.defaultof</div>
+<div class="tip" id="fs9">namespace MBrace.Runtime</div>
+<div class="tip" id="fs10"></div>
+<div class="tip" id="fs11">val tp : ThreadPoolRuntime<br /><br />Full name: 400-advanced-core-thread-pool.tp</div>
+<div class="tip" id="fs12">type ThreadPoolRuntime =<br />&#160;&#160;private new : resources:ResourceRegistry * _logger:ICloudLogger * _memoryEmulation:MemoryEmulation -&gt; ThreadPoolRuntime<br />&#160;&#160;member RunSynchronously : workflow:Cloud&lt;&#39;T&gt; * cancellationToken:CancellationToken * ?memoryEmulation:MemoryEmulation * ?logger:ICloudLogger * ?resources:ResourceRegistry -&gt; &#39;T<br />&#160;&#160;member RunSynchronously : workflow:Cloud&lt;&#39;T&gt; * ?cancellationToken:ICloudCancellationToken * ?memoryEmulation:MemoryEmulation * ?logger:ICloudLogger * ?resources:ResourceRegistry -&gt; &#39;T<br />&#160;&#160;member StartAsTask : workflow:Cloud&lt;&#39;T&gt; * cancellationToken:CancellationToken * ?memoryEmulation:MemoryEmulation * ?logger:ICloudLogger * ?resources:ResourceRegistry -&gt; ThreadPoolProcess&lt;&#39;T&gt;<br />&#160;&#160;member StartAsTask : workflow:Cloud&lt;&#39;T&gt; * ?cancellationToken:ICloudCancellationToken * ?memoryEmulation:MemoryEmulation * ?logger:ICloudLogger * ?resources:ResourceRegistry -&gt; ThreadPoolProcess&lt;&#39;T&gt;<br />&#160;&#160;member ToAsync : workflow:Cloud&lt;&#39;T&gt; * ?memoryEmulation:MemoryEmulation * ?logger:ICloudLogger * ?resources:ResourceRegistry -&gt; Async&lt;&#39;T&gt;<br />&#160;&#160;member MemoryEmulation : MemoryEmulation<br />&#160;&#160;member Resources : ResourceRegistry<br />&#160;&#160;static member Create : ?logger:ICloudLogger * ?memoryEmulation:MemoryEmulation * ?fileStore:ICloudFileStore * ?serializer:ISerializer * ?textSerializer:ITextSerializer * ?valueProvider:ICloudValueProvider * ?atomProvider:ICloudAtomProvider * ?queueProvider:ICloudQueueProvider * ?dictionaryProvider:ICloudDictionaryProvider * ?resources:ResourceRegistry -&gt; ThreadPoolRuntime<br />&#160;&#160;static member CreateCancellationToken : sysToken:CancellationToken -&gt; ThreadPoolCancellationToken<br />&#160;&#160;...<br /><br />Full name: MBrace.ThreadPool.ThreadPoolRuntime</div>
+<div class="tip" id="fs13">static member ThreadPoolRuntime.Create : ?logger:MBrace.Core.Internals.ICloudLogger * ?memoryEmulation:MBrace.Core.MemoryEmulation * ?fileStore:MBrace.Core.Internals.ICloudFileStore * ?serializer:MBrace.Core.Internals.ISerializer * ?textSerializer:MBrace.Core.Internals.ITextSerializer * ?valueProvider:MBrace.Core.Internals.ICloudValueProvider * ?atomProvider:MBrace.Core.Internals.ICloudAtomProvider * ?queueProvider:MBrace.Core.Internals.ICloudQueueProvider * ?dictionaryProvider:MBrace.Core.Internals.ICloudDictionaryProvider * ?resources:MBrace.Core.Internals.ResourceRegistry -&gt; ThreadPoolRuntime</div>
+<div class="tip" id="fs14">member ThreadPoolRuntime.RunSynchronously : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * cancellationToken:System.Threading.CancellationToken * ?memoryEmulation:MBrace.Core.MemoryEmulation * ?logger:MBrace.Core.Internals.ICloudLogger * ?resources:MBrace.Core.Internals.ResourceRegistry -&gt; &#39;T<br />member ThreadPoolRuntime.RunSynchronously : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?memoryEmulation:MBrace.Core.MemoryEmulation * ?logger:MBrace.Core.Internals.ICloudLogger * ?resources:MBrace.Core.Internals.ResourceRegistry -&gt; &#39;T</div>
+<div class="tip" id="fs15">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs16">val test : unit -&gt; &#39;a<br /><br />Full name: 400-advanced-core-thread-pool.test</div>
+<div class="tip" id="fs17">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs18">val incr : cell:int ref -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.incr</div>
+<div class="tip" id="fs19">val example1 : MBrace.Core.Cloud&lt;obj&gt;<br /><br />Full name: 400-advanced-core-thread-pool.example1</div>
+<div class="tip" id="fs20">namespace System</div>
+<div class="tip" id="fs21">namespace System.Net</div>
+<div class="tip" id="fs22">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />System.Net.WebClient() : unit</div>
+<div class="tip" id="fs23">val example2 : MBrace.Core.Cloud&lt;obj&gt;<br /><br />Full name: 400-advanced-core-thread-pool.example2</div>
+<div class="tip" id="fs24">Multiple items<br />val ref : value:&#39;T -&gt; &#39;T ref<br /><br />Full name: Microsoft.FSharp.Core.Operators.ref<br /><br />--------------------<br />type &#39;T ref = Ref&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.ref&lt;_&gt;</div>
+<div class="tip" id="fs25">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+<div class="tip" id="fs26">namespace System.Threading</div>
+<div class="tip" id="fs27">type Interlocked =<br />&#160;&#160;static member Add : location1:int * value:int -&gt; int + 1 overload<br />&#160;&#160;static member CompareExchange : location1:int * value:int * comparand:int -&gt; int + 6 overloads<br />&#160;&#160;static member Decrement : location:int -&gt; int + 1 overload<br />&#160;&#160;static member Exchange : location1:int * value:int -&gt; int + 6 overloads<br />&#160;&#160;static member Increment : location:int -&gt; int + 1 overload<br />&#160;&#160;static member Read : location:int64 -&gt; int64<br /><br />Full name: System.Threading.Interlocked</div>
+<div class="tip" id="fs28">System.Threading.Interlocked.Increment(location: byref&lt;int64&gt;) : int64<br />System.Threading.Interlocked.Increment(location: byref&lt;int&gt;) : int</div>
+<div class="tip" id="fs29">member MBrace.Runtime.MBraceClient.RunLocally : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?memoryEmulation:MBrace.Core.MemoryEmulation -&gt; &#39;T</div>
+<div class="tip" id="fs30">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs31">val hello : MBrace.Core.Cloud&lt;obj&gt;<br /><br />Full name: 400-advanced-core-thread-pool.hello</div>
+<div class="tip" id="fs32">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs33">Multiple items<br />type GlobalCounter =<br />&#160;&#160;private new : unit -&gt; GlobalCounter<br />&#160;&#160;static member Incr : unit -&gt; int<br />&#160;&#160;static member Reset : unit -&gt; unit<br />&#160;&#160;static member Value : int<br /><br />Full name: 400-advanced-core-thread-pool.GlobalCounter<br /><br />--------------------<br />private new : unit -&gt; GlobalCounter</div>
+<div class="tip" id="fs34">val mutable count : int</div>
+<div class="tip" id="fs35">static member GlobalCounter.Value : int<br /><br />Full name: 400-advanced-core-thread-pool.GlobalCounter.Value</div>
+<div class="tip" id="fs36">static member GlobalCounter.Incr : unit -&gt; int<br /><br />Full name: 400-advanced-core-thread-pool.GlobalCounter.Incr</div>
+<div class="tip" id="fs37">static member GlobalCounter.Reset : unit -&gt; unit<br /><br />Full name: 400-advanced-core-thread-pool.GlobalCounter.Reset</div>
+<div class="tip" id="fs38">val example3 : MBrace.Core.Cloud&lt;obj&gt;<br /><br />Full name: 400-advanced-core-thread-pool.example3</div>
+<div class="tip" id="fs39">type GlobalCounter =<br />&#160;&#160;private new : unit -&gt; GlobalCounter<br />&#160;&#160;static member Incr : unit -&gt; int<br />&#160;&#160;static member Reset : unit -&gt; unit<br />&#160;&#160;static member Value : int<br /><br />Full name: 400-advanced-core-thread-pool.GlobalCounter</div>
+<div class="tip" id="fs40">static member GlobalCounter.Reset : unit -&gt; unit</div>
+<div class="tip" id="fs41">static member GlobalCounter.Incr : unit -&gt; int</div>
+<div class="tip" id="fs42">property GlobalCounter.Value: int</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

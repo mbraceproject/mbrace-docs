@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ThespianCluster</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#I</span> <span class="k">__SOURCE_DIRECTORY__</span>
+<span class="prep">#I</span> <span class="s">&quot;../packages/MBrace.Thespian/tools&quot;</span> 
+<span class="prep">#I</span> <span class="s">&quot;../packages/Streams/lib/net45&quot;</span> 
+<span class="prep">#r</span> <span class="s">&quot;../packages/Streams/lib/net45/Streams.dll&quot;</span>
+<span class="prep">#I</span> <span class="s">&quot;../packages/MBrace.Flow/lib/net45&quot;</span> 
+<span class="prep">#r</span> <span class="s">&quot;../packages/MBrace.Flow/lib/net45/MBrace.Flow.dll&quot;</span>
+<span class="prep">#load</span> <span class="s">&quot;../packages/MBrace.Thespian/MBrace.Thespian.fsx&quot;</span>
+
+<span class="k">namespace</span> <span class="k">global</span>
+
+<span class="k">module</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">Config</span> <span class="o">=</span> 
+
+    <span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Core</span>
+    <span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">Runtime</span>
+    <span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 6)" onmouseover="showTip(event, 'fs2', 6)" class="i">MBrace</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">Thespian</span>
+
+    <span class="c">// change to alter cluster size</span>
+    <span class="k">let</span> <span class="k">private</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="i">workerCount</span> <span class="o">=</span> <span class="n">4</span>
+    
+    <span class="k">let</span> <span class="k">mutable</span> <span class="k">private</span> <span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="v">thespian</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="p">None</span>
+    <span class="c">/// Gets or creates a new Thespian cluster session.</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="f">GetCluster</span>() <span class="o">=</span> 
+        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs7', 12)" onmouseover="showTip(event, 'fs7', 12)" class="v">thespian</span> <span class="k">with</span> 
+        | <span onmouseout="hideTip(event, 'fs8', 13)" onmouseover="showTip(event, 'fs8', 13)" class="p">None</span> <span class="k">-&gt;</span> 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">cluster</span> <span class="o">=</span> 
+                <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="t">ThespianCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="f">InitOnCurrentMachine</span>(<span onmouseout="hideTip(event, 'fs6', 17)" onmouseover="showTip(event, 'fs6', 17)" class="i">workerCount</span>, 
+                                                     <span class="i">logger</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="t">ConsoleLogger</span>(), 
+                                                     <span class="i">logLevel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="t">LogLevel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="i">Info</span>)
+            <span onmouseout="hideTip(event, 'fs7', 21)" onmouseover="showTip(event, 'fs7', 21)" class="v">thespian</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="i">cluster</span>
+        | <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">t</span> <span class="k">-&gt;</span> ()
+        <span onmouseout="hideTip(event, 'fs7', 26)" onmouseover="showTip(event, 'fs7', 26)" class="v">thespian</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">Value</span>
+
+    <span class="c">/// Kills the current cluster session</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="f">KillCluster</span>() <span class="o">=</span>
+        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs7', 29)" onmouseover="showTip(event, 'fs7', 29)" class="v">thespian</span> <span class="k">with</span>
+        | <span onmouseout="hideTip(event, 'fs8', 30)" onmouseover="showTip(event, 'fs8', 30)" class="p">None</span> <span class="k">-&gt;</span> ()
+        | <span onmouseout="hideTip(event, 'fs16', 31)" onmouseover="showTip(event, 'fs16', 31)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs17', 32)" onmouseover="showTip(event, 'fs17', 32)" class="i">t</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs17', 33)" onmouseover="showTip(event, 'fs17', 33)" class="i">t</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="f">KillAllWorkers</span>() ; <span onmouseout="hideTip(event, 'fs7', 35)" onmouseover="showTip(event, 'fs7', 35)" class="v">thespian</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs8', 36)" onmouseover="showTip(event, 'fs8', 36)" class="p">None</span>
+</code></pre></td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">module Config</div>
+<div class="tip" id="fs2">namespace MBrace</div>
+<div class="tip" id="fs3">namespace MBrace.Core</div>
+<div class="tip" id="fs4">namespace MBrace.Runtime</div>
+<div class="tip" id="fs5">namespace MBrace.Thespian</div>
+<div class="tip" id="fs6">val private workerCount : int<br /><br />Full name: Config.workerCount</div>
+<div class="tip" id="fs7">val mutable private thespian : ThespianCluster option<br /><br />Full name: Config.thespian</div>
+<div class="tip" id="fs8">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs9">val GetCluster : unit -&gt; ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs10">val cluster : ThespianCluster</div>
+<div class="tip" id="fs11">type ThespianCluster =<br />&#160;&#160;inherit MBraceClient<br />&#160;&#160;private new : state:ClusterState * logLevel:LogLevel option * defaultFaultPolicy:FaultPolicy option -&gt; ThespianCluster<br />&#160;&#160;private new : state:ClusterState * manager:IRuntimeManager * defaultFaultPolicy:FaultPolicy option -&gt; ThespianCluster<br />&#160;&#160;member AttachNewLocalWorkers : workerCount:int * ?logLevel:LogLevel * ?quiet:bool -&gt; unit<br />&#160;&#160;member AttachWorker : worker:ThespianWorker -&gt; unit<br />&#160;&#160;member DetachWorker : worker:IWorkerRef -&gt; unit<br />&#160;&#160;member KillAllWorkers : unit -&gt; unit<br />&#160;&#160;member KillWorker : worker:IWorkerRef -&gt; unit<br />&#160;&#160;member IsWorkerHosted : bool<br />&#160;&#160;member MasterNode : ThespianWorker option<br />&#160;&#160;...<br /><br />Full name: MBrace.Thespian.ThespianCluster</div>
+<div class="tip" id="fs12">static member ThespianCluster.InitOnCurrentMachine : workerCount:int * ?hostClusterStateOnCurrentProcess:bool * ?fileStore:MBrace.Core.Internals.ICloudFileStore * ?faultPolicy:MBrace.Core.FaultPolicy * ?resources:MBrace.Core.Internals.ResourceRegistry * ?quiet:bool * ?logger:ISystemLogger * ?logLevel:LogLevel -&gt; ThespianCluster</div>
+<div class="tip" id="fs13">type ConsoleLogger = ConsoleLogger<br /><br />Full name: MBrace.Thespian.ConsoleLogger</div>
+<div class="tip" id="fs14">Multiple items<br />module LogLevel<br /><br />from MBrace.Runtime<br /><br />--------------------<br />type LogLevel = LogLevel<br /><br />Full name: MBrace.Thespian.LogLevel</div>
+<div class="tip" id="fs15">LogLevel.Info: LogLevel = 4</div>
+<div class="tip" id="fs16">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs17">val t : ThespianCluster</div>
+<div class="tip" id="fs18">property Option.Value: ThespianCluster</div>
+<div class="tip" id="fs19">val KillCluster : unit -&gt; unit<br /><br />Full name: Config.KillCluster<br /><em><br /><br />&#160;Kills the current cluster session</em></div>
+<div class="tip" id="fs20">member ThespianCluster.KillAllWorkers : unit -&gt; unit</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

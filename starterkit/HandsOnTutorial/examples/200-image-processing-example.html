@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Example: Using MBrace for image processing
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Example-Using-MBrace-for-image-processing" class="anchor" href="#Example-Using-MBrace-for-image-processing">Example: Using MBrace for image processing</a></h1>
+<blockquote>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+<p>In this tutorial, you use the AForge (you can install AForge from Nuget) to turn color images into gray ones by applying a gray filter.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#r</span> <span class="s">&quot;../../packages/AForge/lib/AForge.dll&quot;</span> 
+<span class="prep">#r</span> <span class="s">&quot;../../packages/AForge.Math/lib/AForge.Math.dll&quot;</span> 
+<span class="prep">#r</span> <span class="s">&quot;../../packages/AForge.Imaging/lib/AForge.Imaging.dll&quot;</span> 
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 11)" onmouseover="showTip(event, 'fs1', 11)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="i">Drawing</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="i">AForge</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">Imaging</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">Filters</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 16)" onmouseover="showTip(event, 'fs1', 16)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="i">Net</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 19)" onmouseover="showTip(event, 'fs2', 19)" class="i">IO</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, you define a method to download an image from a url, and return a stream containing the downloaded image.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="f">GetStreamFromUrl</span> (<span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="i">url</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="t">string</span>) <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="i">webClient</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="t">WebClient</span>()
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 25)" onmouseover="showTip(event, 'fs19', 25)" class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="i">webClient</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 27)" onmouseover="showTip(event, 'fs20', 27)" class="f">DownloadData</span>(<span onmouseout="hideTip(event, 'fs15', 28)" onmouseover="showTip(event, 'fs15', 28)" class="i">url</span>)
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 29)" onmouseover="showTip(event, 'fs21', 29)" class="i">stream</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs22', 30)" onmouseover="showTip(event, 'fs22', 30)" class="t">MemoryStream</span>(<span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">data</span>)
+    <span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="i">stream</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, you create a method that turns the downloaded color image into a gray image by applying an AForge filter, and then uploads the gray image to cloud storage.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 33)" onmouseover="showTip(event, 'fs23', 33)" class="f">GrayImageFromWeb</span> (<span onmouseout="hideTip(event, 'fs15', 34)" onmouseover="showTip(event, 'fs15', 34)" class="i">url</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="t">string</span>) <span onmouseout="hideTip(event, 'fs24', 36)" onmouseover="showTip(event, 'fs24', 36)" class="i">file</span> <span class="o">=</span>
+    <span class="i">cloud</span> {
+        <span class="c">// Download image.</span>
+        <span class="k">let</span> <span class="i">inputStream</span> <span class="o">=</span><span onmouseout="hideTip(event, 'fs14', 37)" onmouseover="showTip(event, 'fs14', 37)" class="i">GetStreamFromUrl</span> <span onmouseout="hideTip(event, 'fs15', 38)" onmouseover="showTip(event, 'fs15', 38)" class="i">url</span>
+        <span class="c">// Apply the gray filter to the original image.</span>
+        <span class="k">let</span> <span class="i">originalBmp</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs25', 39)" onmouseover="showTip(event, 'fs25', 39)" class="i">Bitmap</span>(<span class="i">inputStream</span>)
+        <span class="k">let</span> <span class="i">grayedBmp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 40)" onmouseover="showTip(event, 'fs26', 40)" class="i">Grayscale</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 41)" onmouseover="showTip(event, 'fs27', 41)" class="i">CommonAlgorithms</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 42)" onmouseover="showTip(event, 'fs28', 42)" class="i">BT709</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 43)" onmouseover="showTip(event, 'fs29', 43)" class="i">Apply</span> <span class="i">originalBmp</span>        
+        <span class="c">// Get the grayed image.</span>
+        <span class="k">let</span> <span class="i">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs22', 44)" onmouseover="showTip(event, 'fs22', 44)" class="i">MemoryStream</span>()
+        <span class="k">do</span> <span class="i">grayedBmp</span><span class="o">.</span><span class="i">Save</span>(<span class="i">outputStream</span>, <span onmouseout="hideTip(event, 'fs30', 45)" onmouseover="showTip(event, 'fs30', 45)" class="i">Imaging</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 46)" onmouseover="showTip(event, 'fs31', 46)" class="i">ImageFormat</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 47)" onmouseover="showTip(event, 'fs32', 47)" class="i">Bmp</span>)        
+        <span class="c">// Upload the gray image to cloud storage.</span>
+        <span class="k">let!</span> <span class="i">cFile</span> <span class="o">=</span> <span class="i">CloudFile</span><span class="o">.</span><span class="i">WriteAllBytes</span>(<span onmouseout="hideTip(event, 'fs24', 48)" onmouseover="showTip(event, 'fs24', 48)" class="i">file</span>, <span class="i">outputStream</span><span class="o">.</span><span class="i">ToArray</span>())
+        <span class="i">inputStream</span><span class="o">.</span><span class="i">Close</span>()
+        <span class="i">outputStream</span><span class="o">.</span><span class="i">Close</span>()
+        <span class="k">return</span> <span class="i">cFile</span>
+    }
+</code></pre></td>
+</tr>
+</table>
+<p>Last, you perform parallel downloading and image processing in the MBrace cluster.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 49)" onmouseover="showTip(event, 'fs33', 49)" class="i">urls</span> <span class="o">=</span> [|
+    <span class="s">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Tigress_at_Jim_Corbett_National_Park.jpg/330px-Tigress_at_Jim_Corbett_National_Park.jpg&quot;</span>;
+    <span class="s">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Poligraf_Poligrafovich.JPG/800px-Poligraf_Poligrafovich.JPG&quot;</span> 
+    <span class="s">&quot;https://upload.wikimedia.org/wikipedia/commons/e/eb/Denizli_Atat%C3%BCrk_Stadyumu.jpg&quot;</span>
+    |]
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 50)" onmouseover="showTip(event, 'fs34', 50)" class="i">tasks</span> <span class="o">=</span> 
+    [|<span class="k">for</span> <span onmouseout="hideTip(event, 'fs15', 51)" onmouseover="showTip(event, 'fs15', 51)" class="i">url</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs33', 52)" onmouseover="showTip(event, 'fs33', 52)" class="i">urls</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs23', 53)" onmouseover="showTip(event, 'fs23', 53)" class="f">GrayImageFromWeb</span> <span onmouseout="hideTip(event, 'fs15', 54)" onmouseover="showTip(event, 'fs15', 54)" class="i">url</span> (<span onmouseout="hideTip(event, 'fs35', 55)" onmouseover="showTip(event, 'fs35', 55)" class="f">sprintf</span> (<span class="s">&quot;tmp/</span><span class="pf">%s</span><span class="s">&quot;</span>) (<span onmouseout="hideTip(event, 'fs36', 56)" onmouseover="showTip(event, 'fs36', 56)" class="t">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 57)" onmouseover="showTip(event, 'fs37', 57)" class="f">GetFileName</span>(<span onmouseout="hideTip(event, 'fs38', 58)" onmouseover="showTip(event, 'fs38', 58)" class="t">Uri</span>(<span onmouseout="hideTip(event, 'fs15', 59)" onmouseover="showTip(event, 'fs15', 59)" class="i">url</span>)<span class="o">.</span><span class="i">LocalPath</span>)))  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 60)" onmouseover="showTip(event, 'fs6', 60)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 61)" onmouseover="showTip(event, 'fs39', 61)" class="f">CreateProcess</span> |] 
+</code></pre></td>
+</tr>
+</table>
+<p>The results are a set of cloud storage file paths for the generated images.  You can look these up in your
+cloud storage account browser.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 62)" onmouseover="showTip(event, 'fs40', 62)" class="i">results</span> <span class="o">=</span> 
+    [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs41', 63)" onmouseover="showTip(event, 'fs41', 63)" class="i">t</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs34', 64)" onmouseover="showTip(event, 'fs34', 64)" class="i">tasks</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs41', 65)" onmouseover="showTip(event, 'fs41', 65)" class="i">t</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 66)" onmouseover="showTip(event, 'fs42', 66)" class="i">Result</span> |]
+</code></pre></td>
+</tr>
+</table>
+<p>In this tutorial, you've learned how to use the AForge image processing library to turn color images to gray ones in MBrace.
+Continue with further samples to learn more about the MBrace programming model.</p>
+<blockquote>
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
+by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or <a href="../AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-image-processing-example.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">namespace System.Drawing</div>
+<div class="tip" id="fs10">namespace AForge</div>
+<div class="tip" id="fs11">namespace AForge.Imaging</div>
+<div class="tip" id="fs12">namespace AForge.Imaging.Filters</div>
+<div class="tip" id="fs13">namespace System.Net</div>
+<div class="tip" id="fs14">val GetStreamFromUrl : url:string -&gt; MemoryStream<br /><br />Full name: 200-image-processing-example.GetStreamFromUrl</div>
+<div class="tip" id="fs15">val url : string</div>
+<div class="tip" id="fs16">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs17">val webClient : WebClient</div>
+<div class="tip" id="fs18">Multiple items<br />type WebClient =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; WebClient<br />&#160;&#160;member BaseAddress : string with get, set<br />&#160;&#160;member CachePolicy : RequestCachePolicy with get, set<br />&#160;&#160;member CancelAsync : unit -&gt; unit<br />&#160;&#160;member Credentials : ICredentials with get, set<br />&#160;&#160;member DownloadData : address:string -&gt; byte[] + 1 overload<br />&#160;&#160;member DownloadDataAsync : address:Uri -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFile : address:string * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadFileAsync : address:Uri * fileName:string -&gt; unit + 1 overload<br />&#160;&#160;member DownloadString : address:string -&gt; string + 1 overload<br />&#160;&#160;...<br /><br />Full name: System.Net.WebClient<br /><br />--------------------<br />WebClient() : unit</div>
+<div class="tip" id="fs19">val data : byte []</div>
+<div class="tip" id="fs20">WebClient.DownloadData(address: Uri) : byte []<br />WebClient.DownloadData(address: string) : byte []</div>
+<div class="tip" id="fs21">val stream : MemoryStream</div>
+<div class="tip" id="fs22">Multiple items<br />type MemoryStream =<br />&#160;&#160;inherit Stream<br />&#160;&#160;new : unit -&gt; MemoryStream + 6 overloads<br />&#160;&#160;member CanRead : bool<br />&#160;&#160;member CanSeek : bool<br />&#160;&#160;member CanWrite : bool<br />&#160;&#160;member Capacity : int with get, set<br />&#160;&#160;member Flush : unit -&gt; unit<br />&#160;&#160;member GetBuffer : unit -&gt; byte[]<br />&#160;&#160;member Length : int64<br />&#160;&#160;member Position : int64 with get, set<br />&#160;&#160;member Read : buffer:byte[] * offset:int * count:int -&gt; int<br />&#160;&#160;...<br /><br />Full name: System.IO.MemoryStream<br /><br />--------------------<br />MemoryStream() : unit<br />MemoryStream(capacity: int) : unit<br />MemoryStream(buffer: byte []) : unit<br />MemoryStream(buffer: byte [], writable: bool) : unit<br />MemoryStream(buffer: byte [], index: int, count: int) : unit<br />MemoryStream(buffer: byte [], index: int, count: int, writable: bool) : unit<br />MemoryStream(buffer: byte [], index: int, count: int, writable: bool, publiclyVisible: bool) : unit</div>
+<div class="tip" id="fs23">val GrayImageFromWeb : url:string -&gt; file:&#39;a -&gt; &#39;b<br /><br />Full name: 200-image-processing-example.GrayImageFromWeb</div>
+<div class="tip" id="fs24">val file : &#39;a</div>
+<div class="tip" id="fs25">Multiple items<br />type Bitmap =<br />&#160;&#160;inherit Image<br />&#160;&#160;new : filename:string -&gt; Bitmap + 11 overloads<br />&#160;&#160;member Clone : rect:Rectangle * format:PixelFormat -&gt; Bitmap + 1 overload<br />&#160;&#160;member GetHbitmap : unit -&gt; nativeint + 1 overload<br />&#160;&#160;member GetHicon : unit -&gt; nativeint<br />&#160;&#160;member GetPixel : x:int * y:int -&gt; Color<br />&#160;&#160;member LockBits : rect:Rectangle * flags:ImageLockMode * format:PixelFormat -&gt; BitmapData + 1 overload<br />&#160;&#160;member MakeTransparent : unit -&gt; unit + 1 overload<br />&#160;&#160;member SetPixel : x:int * y:int * color:Color -&gt; unit<br />&#160;&#160;member SetResolution : xDpi:float32 * yDpi:float32 -&gt; unit<br />&#160;&#160;member UnlockBits : bitmapdata:BitmapData -&gt; unit<br />&#160;&#160;...<br /><br />Full name: System.Drawing.Bitmap<br /><br />--------------------<br />Bitmap(filename: string) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(stream: Stream) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(original: Image) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(filename: string, useIcm: bool) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(type: Type, resource: string) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(stream: Stream, useIcm: bool) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(width: int, height: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(original: Image, newSize: Size) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(width: int, height: int, format: Imaging.PixelFormat) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Bitmap(width: int, height: int, g: Graphics) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em></div>
+<div class="tip" id="fs26">Multiple items<br />type Grayscale =<br />&#160;&#160;inherit BaseFilter<br />&#160;&#160;new : cr:float * cg:float * cb:float -&gt; Grayscale<br />&#160;&#160;val RedCoefficient : float<br />&#160;&#160;val GreenCoefficient : float<br />&#160;&#160;val BlueCoefficient : float<br />&#160;&#160;member FormatTranslations : Dictionary&lt;PixelFormat, PixelFormat&gt;<br />&#160;&#160;nested type CommonAlgorithms<br /><br />Full name: AForge.Imaging.Filters.Grayscale<br /><br />--------------------<br />Grayscale(cr: float, cg: float, cb: float) : unit</div>
+<div class="tip" id="fs27">type CommonAlgorithms =<br />&#160;&#160;static val BT709 : Grayscale<br />&#160;&#160;static val RMY : Grayscale<br />&#160;&#160;static val Y : Grayscale<br /><br />Full name: AForge.Imaging.Filters.Grayscale.CommonAlgorithms</div>
+<div class="tip" id="fs28">field Grayscale.CommonAlgorithms.BT709</div>
+<div class="tip" id="fs29">BaseFilter.Apply(image: AForge.Imaging.UnmanagedImage) : AForge.Imaging.UnmanagedImage<br />BaseFilter.Apply(imageData: Imaging.BitmapData) : Bitmap<br />BaseFilter.Apply(image: Bitmap) : Bitmap<br />BaseFilter.Apply(sourceImage: AForge.Imaging.UnmanagedImage, destinationImage: AForge.Imaging.UnmanagedImage) : unit</div>
+<div class="tip" id="fs30">namespace System.Drawing.Imaging</div>
+<div class="tip" id="fs31">Multiple items<br />type ImageFormat =<br />&#160;&#160;new : guid:Guid -&gt; ImageFormat<br />&#160;&#160;member Equals : o:obj -&gt; bool<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member Guid : Guid<br />&#160;&#160;member ToString : unit -&gt; string<br />&#160;&#160;static member Bmp : ImageFormat<br />&#160;&#160;static member Emf : ImageFormat<br />&#160;&#160;static member Exif : ImageFormat<br />&#160;&#160;static member Gif : ImageFormat<br />&#160;&#160;static member Icon : ImageFormat<br />&#160;&#160;...<br /><br />Full name: System.Drawing.Imaging.ImageFormat<br /><br />--------------------<br />Imaging.ImageFormat(guid: Guid) : unit</div>
+<div class="tip" id="fs32">property Imaging.ImageFormat.Bmp: Imaging.ImageFormat</div>
+<div class="tip" id="fs33">val urls : string []<br /><br />Full name: 200-image-processing-example.urls</div>
+<div class="tip" id="fs34">val tasks : MBrace.Runtime.CloudProcess&lt;obj&gt; []<br /><br />Full name: 200-image-processing-example.tasks</div>
+<div class="tip" id="fs35">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs36">type Path =<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member GetDirectoryName : path:string -&gt; string<br />&#160;&#160;static member GetExtension : path:string -&gt; string<br />&#160;&#160;static member GetFileName : path:string -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Path</div>
+<div class="tip" id="fs37">Path.GetFileName(path: string) : string</div>
+<div class="tip" id="fs38">Multiple items<br />type Uri =<br />&#160;&#160;new : uriString:string -&gt; Uri + 5 overloads<br />&#160;&#160;member AbsolutePath : string<br />&#160;&#160;member AbsoluteUri : string<br />&#160;&#160;member Authority : string<br />&#160;&#160;member DnsSafeHost : string<br />&#160;&#160;member Equals : comparand:obj -&gt; bool<br />&#160;&#160;member Fragment : string<br />&#160;&#160;member GetComponents : components:UriComponents * format:UriFormat -&gt; string<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member GetLeftPart : part:UriPartial -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.Uri<br /><br />--------------------<br />Uri(uriString: string) : unit<br />Uri(uriString: string, uriKind: UriKind) : unit<br />Uri(baseUri: Uri, relativeUri: string) : unit<br />Uri(baseUri: Uri, relativeUri: Uri) : unit</div>
+<div class="tip" id="fs39">member MBrace.Runtime.MBraceClient.CreateProcess : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; MBrace.Runtime.CloudProcess&lt;&#39;T&gt;</div>
+<div class="tip" id="fs40">val results : obj []<br /><br />Full name: 200-image-processing-example.results</div>
+<div class="tip" id="fs41">val t : MBrace.Runtime.CloudProcess&lt;obj&gt;</div>
+<div class="tip" id="fs42">property MBrace.Runtime.CloudProcess.Result: obj</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

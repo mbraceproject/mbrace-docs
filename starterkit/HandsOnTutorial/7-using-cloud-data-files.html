@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Creating and Using Cloud Files
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Creating-and-Using-Cloud-Files" class="anchor" href="#Creating-and-Using-Cloud-Files">Creating and Using Cloud Files</a></h1>
+<blockquote>
+<p>This tutorial is from the <a href="https://github.com/mbraceproject/MBrace.StarterKit">MBrace Starter Kit</a>.</p>
+</blockquote>
+<p>MBrace clusters have a cloud file system mapped to the corresponding cloud fabric. This can be
+used like a distributed file system such as HDFS.</p>
+<h2><a name="Accessing-the-Cloud-File-System-from-F-scripts" class="anchor" href="#Accessing-the-Cloud-File-System-from-F-scripts">Accessing the Cloud File System from F# scripts</a></h2>
+<p>First let's define and use some Unix-like file functions to access the cloud file system
+from your F# client script. (Using these is optional: you can also use the MBrace API directly).</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">fs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="i">Store</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">CloudFileSystem</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">root</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="i">DefaultDirectory</span>
+
+<span class="k">let</span> (<span class="o">++</span>) <span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="i">path1</span> <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">path2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 21)" onmouseover="showTip(event, 'fs9', 21)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="f">Combine</span>(<span onmouseout="hideTip(event, 'fs15', 24)" onmouseover="showTip(event, 'fs15', 24)" class="i">path1</span>, <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">path2</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="f">ls</span> <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 28)" onmouseover="showTip(event, 'fs9', 28)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 30)" onmouseover="showTip(event, 'fs21', 30)" class="f">Enumerate</span>(<span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="i">path</span>)
+
+<span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs22', 32)" onmouseover="showTip(event, 'fs22', 32)" class="f">lsRec</span> <span onmouseout="hideTip(event, 'fs19', 33)" onmouseover="showTip(event, 'fs19', 33)" class="i">path</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs23', 34)" onmouseover="showTip(event, 'fs23', 34)" class="i">seq</span> { <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs9', 35)" onmouseover="showTip(event, 'fs9', 35)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 36)" onmouseover="showTip(event, 'fs20', 36)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 37)" onmouseover="showTip(event, 'fs21', 37)" class="f">Enumerate</span>(<span onmouseout="hideTip(event, 'fs19', 38)" onmouseover="showTip(event, 'fs19', 38)" class="i">path</span>)
+          <span class="k">for</span> <span onmouseout="hideTip(event, 'fs24', 39)" onmouseover="showTip(event, 'fs24', 39)" class="i">d</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs9', 40)" onmouseover="showTip(event, 'fs9', 40)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="i">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 42)" onmouseover="showTip(event, 'fs26', 42)" class="f">Enumerate</span>(<span onmouseout="hideTip(event, 'fs19', 43)" onmouseover="showTip(event, 'fs19', 43)" class="i">path</span>) <span class="k">do</span> 
+              <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs22', 44)" onmouseover="showTip(event, 'fs22', 44)" class="f">lsRec</span> <span onmouseout="hideTip(event, 'fs19', 45)" onmouseover="showTip(event, 'fs19', 45)" class="i">path</span> }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="f">mkdir</span> <span onmouseout="hideTip(event, 'fs19', 47)" onmouseover="showTip(event, 'fs19', 47)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 48)" onmouseover="showTip(event, 'fs9', 48)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 49)" onmouseover="showTip(event, 'fs25', 49)" class="i">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 50)" onmouseover="showTip(event, 'fs28', 50)" class="f">Create</span>(<span onmouseout="hideTip(event, 'fs19', 51)" onmouseover="showTip(event, 'fs19', 51)" class="i">path</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 52)" onmouseover="showTip(event, 'fs29', 52)" class="f">rmdir</span> <span onmouseout="hideTip(event, 'fs19', 53)" onmouseover="showTip(event, 'fs19', 53)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 54)" onmouseover="showTip(event, 'fs9', 54)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 55)" onmouseover="showTip(event, 'fs25', 55)" class="i">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 56)" onmouseover="showTip(event, 'fs30', 56)" class="f">Delete</span>(<span onmouseout="hideTip(event, 'fs19', 57)" onmouseover="showTip(event, 'fs19', 57)" class="i">path</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 58)" onmouseover="showTip(event, 'fs31', 58)" class="f">rmdirRec</span> <span onmouseout="hideTip(event, 'fs19', 59)" onmouseover="showTip(event, 'fs19', 59)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 60)" onmouseover="showTip(event, 'fs9', 60)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 61)" onmouseover="showTip(event, 'fs25', 61)" class="i">Directory</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 62)" onmouseover="showTip(event, 'fs30', 62)" class="f">Delete</span>(<span onmouseout="hideTip(event, 'fs19', 63)" onmouseover="showTip(event, 'fs19', 63)" class="i">path</span>,<span class="i">recursiveDelete</span><span class="o">=</span><span class="k">true</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 64)" onmouseover="showTip(event, 'fs32', 64)" class="f">randdir</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 65)" onmouseover="showTip(event, 'fs9', 65)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 66)" onmouseover="showTip(event, 'fs13', 66)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 67)" onmouseover="showTip(event, 'fs33', 67)" class="f">GetRandomDirectoryName</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 68)" onmouseover="showTip(event, 'fs34', 68)" class="f">randfile</span>() <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 69)" onmouseover="showTip(event, 'fs9', 69)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 70)" onmouseover="showTip(event, 'fs13', 70)" class="i">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 71)" onmouseover="showTip(event, 'fs35', 71)" class="f">GetRandomFilePath</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 72)" onmouseover="showTip(event, 'fs36', 72)" class="f">rm</span> <span onmouseout="hideTip(event, 'fs19', 73)" onmouseover="showTip(event, 'fs19', 73)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 74)" onmouseover="showTip(event, 'fs9', 74)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 75)" onmouseover="showTip(event, 'fs20', 75)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 76)" onmouseover="showTip(event, 'fs37', 76)" class="f">Delete</span> <span onmouseout="hideTip(event, 'fs19', 77)" onmouseover="showTip(event, 'fs19', 77)" class="i">path</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 78)" onmouseover="showTip(event, 'fs38', 78)" class="f">cat</span> <span onmouseout="hideTip(event, 'fs19', 79)" onmouseover="showTip(event, 'fs19', 79)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 80)" onmouseover="showTip(event, 'fs9', 80)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 81)" onmouseover="showTip(event, 'fs20', 81)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="f">ReadAllText</span> <span onmouseout="hideTip(event, 'fs19', 83)" onmouseover="showTip(event, 'fs19', 83)" class="i">path</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 84)" onmouseover="showTip(event, 'fs40', 84)" class="f">catLines</span> <span onmouseout="hideTip(event, 'fs19', 85)" onmouseover="showTip(event, 'fs19', 85)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 86)" onmouseover="showTip(event, 'fs9', 86)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 87)" onmouseover="showTip(event, 'fs20', 87)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 88)" onmouseover="showTip(event, 'fs41', 88)" class="f">ReadAllLines</span> <span onmouseout="hideTip(event, 'fs19', 89)" onmouseover="showTip(event, 'fs19', 89)" class="i">path</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 90)" onmouseover="showTip(event, 'fs42', 90)" class="f">catBytes</span> <span onmouseout="hideTip(event, 'fs19', 91)" onmouseover="showTip(event, 'fs19', 91)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 92)" onmouseover="showTip(event, 'fs9', 92)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 93)" onmouseover="showTip(event, 'fs20', 93)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs43', 94)" onmouseover="showTip(event, 'fs43', 94)" class="f">ReadAllBytes</span> <span onmouseout="hideTip(event, 'fs19', 95)" onmouseover="showTip(event, 'fs19', 95)" class="i">path</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 96)" onmouseover="showTip(event, 'fs44', 96)" class="f">write</span> <span onmouseout="hideTip(event, 'fs19', 97)" onmouseover="showTip(event, 'fs19', 97)" class="i">path</span> <span onmouseout="hideTip(event, 'fs45', 98)" onmouseover="showTip(event, 'fs45', 98)" class="i">text</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 99)" onmouseover="showTip(event, 'fs9', 99)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 100)" onmouseover="showTip(event, 'fs20', 100)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs46', 101)" onmouseover="showTip(event, 'fs46', 101)" class="f">WriteAllText</span>(<span onmouseout="hideTip(event, 'fs19', 102)" onmouseover="showTip(event, 'fs19', 102)" class="i">path</span>, <span onmouseout="hideTip(event, 'fs45', 103)" onmouseover="showTip(event, 'fs45', 103)" class="i">text</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 104)" onmouseover="showTip(event, 'fs47', 104)" class="f">writeLines</span> <span onmouseout="hideTip(event, 'fs19', 105)" onmouseover="showTip(event, 'fs19', 105)" class="i">path</span> <span onmouseout="hideTip(event, 'fs48', 106)" onmouseover="showTip(event, 'fs48', 106)" class="i">lines</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 107)" onmouseover="showTip(event, 'fs9', 107)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 108)" onmouseover="showTip(event, 'fs20', 108)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 109)" onmouseover="showTip(event, 'fs49', 109)" class="f">WriteAllLines</span>(<span onmouseout="hideTip(event, 'fs19', 110)" onmouseover="showTip(event, 'fs19', 110)" class="i">path</span>, <span onmouseout="hideTip(event, 'fs48', 111)" onmouseover="showTip(event, 'fs48', 111)" class="i">lines</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs50', 112)" onmouseover="showTip(event, 'fs50', 112)" class="f">writeBytes</span> <span onmouseout="hideTip(event, 'fs19', 113)" onmouseover="showTip(event, 'fs19', 113)" class="i">path</span> <span onmouseout="hideTip(event, 'fs51', 114)" onmouseover="showTip(event, 'fs51', 114)" class="i">bytes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 115)" onmouseover="showTip(event, 'fs9', 115)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 116)" onmouseover="showTip(event, 'fs20', 116)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs52', 117)" onmouseover="showTip(event, 'fs52', 117)" class="f">WriteAllBytes</span>(<span onmouseout="hideTip(event, 'fs19', 118)" onmouseover="showTip(event, 'fs19', 118)" class="i">path</span>, <span onmouseout="hideTip(event, 'fs51', 119)" onmouseover="showTip(event, 'fs51', 119)" class="i">bytes</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>You now use these functions to create directories and files:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs27', 120)" onmouseover="showTip(event, 'fs27', 120)" class="f">mkdir</span> (<span onmouseout="hideTip(event, 'fs12', 121)" onmouseover="showTip(event, 'fs12', 121)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>)
+
+<span onmouseout="hideTip(event, 'fs44', 122)" onmouseover="showTip(event, 'fs44', 122)" class="f">write</span> (<span onmouseout="hideTip(event, 'fs12', 123)" onmouseover="showTip(event, 'fs12', 123)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span> <span class="o">++</span> <span class="s">&quot;humpty.txt&quot;</span>) <span class="s">&quot;All the king&#39;s horses and all the king&#39;s men&quot;</span>
+<span onmouseout="hideTip(event, 'fs47', 124)" onmouseover="showTip(event, 'fs47', 124)" class="f">writeLines</span> (<span onmouseout="hideTip(event, 'fs12', 125)" onmouseover="showTip(event, 'fs12', 125)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span> <span class="o">++</span> <span class="s">&quot;spider.txt&quot;</span>) [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs53', 126)" onmouseover="showTip(event, 'fs53', 126)" class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="n">1000</span> <span class="k">-&gt;</span> <span class="s">&quot;Incy wincy spider climed up the water spout&quot;</span> ]
+
+<span onmouseout="hideTip(event, 'fs18', 127)" onmouseover="showTip(event, 'fs18', 127)" class="f">ls</span> (<span onmouseout="hideTip(event, 'fs12', 128)" onmouseover="showTip(event, 'fs12', 128)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>)
+</code></pre></td>
+</tr>
+</table>
+<p>Now check you've created the files correctly:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs38', 129)" onmouseover="showTip(event, 'fs38', 129)" class="f">cat</span> (<span onmouseout="hideTip(event, 'fs12', 130)" onmouseover="showTip(event, 'fs12', 130)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span> <span class="o">++</span> <span class="s">&quot;spider.txt&quot;</span>) 
+<span onmouseout="hideTip(event, 'fs40', 131)" onmouseover="showTip(event, 'fs40', 131)" class="f">catLines</span> (<span onmouseout="hideTip(event, 'fs12', 132)" onmouseover="showTip(event, 'fs12', 132)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span> <span class="o">++</span> <span class="s">&quot;spider.txt&quot;</span>) 
+</code></pre></td>
+</tr>
+</table>
+<p>Now remove the directory of data:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs31', 221)" onmouseover="showTip(event, 'fs31', 221)" class="f">rmdirRec</span> (<span onmouseout="hideTip(event, 'fs12', 222)" onmouseover="showTip(event, 'fs12', 222)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>)
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Progammatic-upload-of-data-as-part-of-cloud-workflows" class="anchor" href="#Progammatic-upload-of-data-as-part-of-cloud-workflows">Progammatic upload of data as part of cloud workflows</a></h2>
+<p>The Unix-like abbreviations from the previous section are for use from your client scripts.
+You can also use the MBrace cloud file API directly from cloud workflows.</p>
+<p>First, crete a local temp file.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs54', 135)" onmouseover="showTip(event, 'fs54', 135)" class="i">localTmpFile</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 136)" onmouseover="showTip(event, 'fs19', 136)" class="i">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs55', 137)" onmouseover="showTip(event, 'fs55', 137)" class="t">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 138)" onmouseover="showTip(event, 'fs56', 138)" class="f">GetTempFileName</span>()
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 139)" onmouseover="showTip(event, 'fs57', 139)" class="i">lines</span> <span class="o">=</span> 
+        [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs53', 140)" onmouseover="showTip(event, 'fs53', 140)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">1000</span> <span class="k">do</span> 
+             <span class="k">let</span> <span onmouseout="hideTip(event, 'fs58', 141)" onmouseover="showTip(event, 'fs58', 141)" class="i">time</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs59', 142)" onmouseover="showTip(event, 'fs59', 142)" class="t">DateTime</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs60', 143)" onmouseover="showTip(event, 'fs60', 143)" class="i">Now</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 144)" onmouseover="showTip(event, 'fs61', 144)" class="i">Date</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 145)" onmouseover="showTip(event, 'fs62', 145)" class="f">AddSeconds</span>(<span onmouseout="hideTip(event, 'fs63', 146)" onmouseover="showTip(event, 'fs63', 146)" class="f">float</span> <span onmouseout="hideTip(event, 'fs53', 147)" onmouseover="showTip(event, 'fs53', 147)" class="i">i</span>)
+             <span class="k">let</span> <span onmouseout="hideTip(event, 'fs45', 148)" onmouseover="showTip(event, 'fs45', 148)" class="i">text</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs64', 149)" onmouseover="showTip(event, 'fs64', 149)" class="f">sprintf</span> <span class="s">&quot;click user</span><span class="pf">%d</span><span class="s"> </span><span class="pf">%s</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs53', 150)" onmouseover="showTip(event, 'fs53', 150)" class="i">i</span><span class="o">%</span><span class="n">10</span>) (<span onmouseout="hideTip(event, 'fs58', 151)" onmouseover="showTip(event, 'fs58', 151)" class="i">time</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs65', 152)" onmouseover="showTip(event, 'fs65', 152)" class="f">ToString</span>())
+             <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs45', 153)" onmouseover="showTip(event, 'fs45', 153)" class="i">text</span> ]
+    <span onmouseout="hideTip(event, 'fs66', 154)" onmouseover="showTip(event, 'fs66', 154)" class="t">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs67', 155)" onmouseover="showTip(event, 'fs67', 155)" class="f">WriteAllLines</span>(<span onmouseout="hideTip(event, 'fs19', 156)" onmouseover="showTip(event, 'fs19', 156)" class="i">path</span>, <span onmouseout="hideTip(event, 'fs57', 157)" onmouseover="showTip(event, 'fs57', 157)" class="i">lines</span>)
+    <span onmouseout="hideTip(event, 'fs19', 158)" onmouseover="showTip(event, 'fs19', 158)" class="i">path</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Next, you upload the created file to the tmp container in cloud storage. The tmp container
+will be created if it does not exist.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs68', 159)" onmouseover="showTip(event, 'fs68', 159)" class="i">cloudFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 160)" onmouseover="showTip(event, 'fs9', 160)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 161)" onmouseover="showTip(event, 'fs20', 161)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs69', 162)" onmouseover="showTip(event, 'fs69', 162)" class="f">Upload</span>(<span onmouseout="hideTip(event, 'fs54', 163)" onmouseover="showTip(event, 'fs54', 163)" class="i">localTmpFile</span>, <span onmouseout="hideTip(event, 'fs64', 164)" onmouseover="showTip(event, 'fs64', 164)" class="f">sprintf</span> <span class="s">&quot;tmp/</span><span class="pf">%s</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs55', 165)" onmouseover="showTip(event, 'fs55', 165)" class="t">Path</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs70', 166)" onmouseover="showTip(event, 'fs70', 166)" class="f">GetFileName</span> <span onmouseout="hideTip(event, 'fs54', 167)" onmouseover="showTip(event, 'fs54', 167)" class="i">localTmpFile</span>))     
+</code></pre></td>
+</tr>
+</table>
+<p>After uploading the file, you remove the local file.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs66', 168)" onmouseover="showTip(event, 'fs66', 168)" class="t">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs71', 169)" onmouseover="showTip(event, 'fs71', 169)" class="f">Delete</span> <span onmouseout="hideTip(event, 'fs54', 170)" onmouseover="showTip(event, 'fs54', 170)" class="i">localTmpFile</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Now process the file in the MBrace cluster. This cloud expression runs in the MBrace cluster.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs72', 171)" onmouseover="showTip(event, 'fs72', 171)" class="i">lines</span> <span class="o">=</span> 
+    <span class="i">cloud</span> {
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs72', 172)" onmouseover="showTip(event, 'fs72', 172)" class="i">lines</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 173)" onmouseover="showTip(event, 'fs9', 173)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 174)" onmouseover="showTip(event, 'fs20', 174)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 175)" onmouseover="showTip(event, 'fs41', 175)" class="i">ReadAllLines</span> <span onmouseout="hideTip(event, 'fs68', 176)" onmouseover="showTip(event, 'fs68', 176)" class="i">cloudFile</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs73', 177)" onmouseover="showTip(event, 'fs73', 177)" class="i">Path</span>
+        <span class="k">let</span> <span class="i">users</span> <span class="o">=</span> [ <span class="k">for</span> <span class="i">line</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs72', 178)" onmouseover="showTip(event, 'fs72', 178)" class="i">lines</span> <span class="k">-&gt;</span> <span class="i">line</span><span class="o">.</span><span class="i">Split</span>(<span class="s">&#39; &#39;</span>)<span class="o">.</span>[<span class="n">1</span>] ]
+        <span class="k">return</span> <span class="i">users</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs74', 179)" onmouseover="showTip(event, 'fs74', 179)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs75', 180)" onmouseover="showTip(event, 'fs75', 180)" class="i">distinct</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs74', 181)" onmouseover="showTip(event, 'fs74', 181)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs76', 182)" onmouseover="showTip(event, 'fs76', 182)" class="i">toList</span>
+    } 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 183)" onmouseover="showTip(event, 'fs6', 183)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 184)" onmouseover="showTip(event, 'fs77', 184)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Using-multiple-cloud-files-as-input-to-distributed-cloud-flows" class="anchor" href="#Using-multiple-cloud-files-as-input-to-distributed-cloud-flows">Using multiple cloud files as input to distributed cloud flows</a></h2>
+<p>Processing one small file in the cloud is not of much use.  However multiple, large cloud files can
+be used as inputs to distributed cloud flows in a similar way to map-reduce jobs in Hadoop.</p>
+<p>Next you generate a collection of 100 cloud files and process them using a distributed cloud flow.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs78', 185)" onmouseover="showTip(event, 'fs78', 185)" class="i">dataDir</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 186)" onmouseover="showTip(event, 'fs12', 186)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>
+
+<span onmouseout="hideTip(event, 'fs27', 187)" onmouseover="showTip(event, 'fs27', 187)" class="f">mkdir</span> <span onmouseout="hideTip(event, 'fs78', 188)" onmouseover="showTip(event, 'fs78', 188)" class="i">dataDir</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs79', 189)" onmouseover="showTip(event, 'fs79', 189)" class="i">cloudFiles</span> <span class="o">=</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs53', 190)" onmouseover="showTip(event, 'fs53', 190)" class="i">i</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">100</span> <span class="k">-&gt;</span>
+        <span class="i">local</span> { 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs72', 191)" onmouseover="showTip(event, 'fs72', 191)" class="i">lines</span> <span class="o">=</span> 
+                [ <span class="k">for</span> <span class="i">j</span> <span class="k">in</span> <span class="n">1</span> <span class="o">..</span> <span class="n">100000</span> <span class="k">-&gt;</span> 
+                    <span class="s">&quot;file &quot;</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs80', 192)" onmouseover="showTip(event, 'fs80', 192)" class="i">string</span> <span onmouseout="hideTip(event, 'fs53', 193)" onmouseover="showTip(event, 'fs53', 193)" class="i">i</span> <span class="o">+</span> <span class="s">&quot;, item &quot;</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs80', 194)" onmouseover="showTip(event, 'fs80', 194)" class="i">string</span> (<span onmouseout="hideTip(event, 'fs53', 195)" onmouseover="showTip(event, 'fs53', 195)" class="i">i</span><span class="o">*</span><span class="n">100</span><span class="o">+</span><span class="i">j</span>) <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs80', 196)" onmouseover="showTip(event, 'fs80', 196)" class="i">string</span> (<span class="i">j</span><span class="o">+</span><span onmouseout="hideTip(event, 'fs53', 197)" onmouseover="showTip(event, 'fs53', 197)" class="i">i</span><span class="o">*</span><span class="n">100</span>) ] 
+            <span class="k">let</span> <span class="i">nm</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs78', 198)" onmouseover="showTip(event, 'fs78', 198)" class="i">dataDir</span> <span class="o">+</span> <span class="s">&quot;/file&quot;</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs80', 199)" onmouseover="showTip(event, 'fs80', 199)" class="i">string</span> <span onmouseout="hideTip(event, 'fs53', 200)" onmouseover="showTip(event, 'fs53', 200)" class="i">i</span>
+            <span class="k">do!</span> <span class="i">CloudFile</span><span class="o">.</span><span class="i">Delete</span>(<span class="i">nm</span>)
+            <span class="k">let</span> <span class="i">file</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 201)" onmouseover="showTip(event, 'fs9', 201)" class="i">fs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 202)" onmouseover="showTip(event, 'fs20', 202)" class="i">File</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs49', 203)" onmouseover="showTip(event, 'fs49', 203)" class="i">WriteAllLines</span>(<span class="i">nm</span>, <span onmouseout="hideTip(event, 'fs72', 204)" onmouseover="showTip(event, 'fs72', 204)" class="i">lines</span>)
+            <span class="k">return</span> <span class="i">file</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 205)" onmouseover="showTip(event, 'fs55', 205)" class="i">Path</span>
+        } ]
+   <span class="o">|&gt;</span> <span class="i">Cloud</span><span class="o">.</span><span class="i">ParallelBalanced</span>
+   <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 206)" onmouseover="showTip(event, 'fs6', 206)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 207)" onmouseover="showTip(event, 'fs77', 207)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>A collection of cloud files can be used as input to a cloud parallel data flow, summing
+the third column of each line of each file in a distributed way.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs81', 208)" onmouseover="showTip(event, 'fs81', 208)" class="i">sumOfLengthsOfLines</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs79', 209)" onmouseover="showTip(event, 'fs79', 209)" class="i">cloudFiles</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs82', 210)" onmouseover="showTip(event, 'fs82', 210)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs83', 211)" onmouseover="showTip(event, 'fs83', 211)" class="f">OfCloudFileByLine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs82', 212)" onmouseover="showTip(event, 'fs82', 212)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs84', 213)" onmouseover="showTip(event, 'fs84', 213)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs85', 214)" onmouseover="showTip(event, 'fs85', 214)" class="i">line</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs85', 215)" onmouseover="showTip(event, 'fs85', 215)" class="i">line</span><span class="o">.</span><span class="i">Split</span>(<span class="s">&#39;,&#39;</span>)<span class="o">.</span>[<span class="n">2</span>] <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs86', 216)" onmouseover="showTip(event, 'fs86', 216)" class="f">int</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs82', 217)" onmouseover="showTip(event, 'fs82', 217)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs87', 218)" onmouseover="showTip(event, 'fs87', 218)" class="f">sum</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 219)" onmouseover="showTip(event, 'fs6', 219)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 220)" onmouseover="showTip(event, 'fs77', 220)" class="f">Run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>Cleanup the cloud data</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs31', 221)" onmouseover="showTip(event, 'fs31', 221)" class="f">rmdirRec</span> (<span onmouseout="hideTip(event, 'fs12', 222)" onmouseover="showTip(event, 'fs12', 222)" class="i">root</span> <span class="o">++</span> <span class="s">&quot;data&quot;</span>)
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Summary" class="anchor" href="#Summary">Summary</a></h2>
+<p>In this tutorial, you've learned how to use cloud files, from some simple Unix-like
+operations to using multiple cloud files as partitioned inputs into CloudFlow programming.
+Continue with further samples to learn more about the MBrace programming model.</p>
+<blockquote>
+<p>Note, you can use the above techniques from both scripts and compiled projects. To see the components referenced
+by this script, see <a href="ThespianCluster.html">ThespianCluster.fsx</a> or <a href="AzureCluster.html">AzureCluster.fsx</a>.</p>
+</blockquote>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace MBrace</div>
+<div class="tip" id="fs4">namespace MBrace.Core</div>
+<div class="tip" id="fs5">namespace MBrace.Flow</div>
+<div class="tip" id="fs6">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 7-using-cloud-data-files.cluster</div>
+<div class="tip" id="fs7">module Config</div>
+<div class="tip" id="fs8">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
+<div class="tip" id="fs9">val fs : MBrace.Core.Internals.CloudFileSystem<br /><br />Full name: 7-using-cloud-data-files.fs</div>
+<div class="tip" id="fs10">property MBrace.Runtime.MBraceClient.Store: MBrace.Core.Internals.CloudStoreClient</div>
+<div class="tip" id="fs11">property MBrace.Core.Internals.CloudStoreClient.CloudFileSystem: MBrace.Core.Internals.CloudFileSystem</div>
+<div class="tip" id="fs12">val root : string<br /><br />Full name: 7-using-cloud-data-files.root</div>
+<div class="tip" id="fs13">property MBrace.Core.Internals.CloudFileSystem.Path: MBrace.Core.Internals.CloudPathClient</div>
+<div class="tip" id="fs14">property MBrace.Core.Internals.CloudPathClient.DefaultDirectory: string</div>
+<div class="tip" id="fs15">val path1 : string</div>
+<div class="tip" id="fs16">val path2 : string</div>
+<div class="tip" id="fs17">member MBrace.Core.Internals.CloudPathClient.Combine : [&lt;ParamArray&gt;] paths:string [] -&gt; string</div>
+<div class="tip" id="fs18">val ls : path:string -&gt; MBrace.Core.CloudFileInfo []<br /><br />Full name: 7-using-cloud-data-files.ls</div>
+<div class="tip" id="fs19">val path : string</div>
+<div class="tip" id="fs20">property MBrace.Core.Internals.CloudFileSystem.File: MBrace.Core.Internals.CloudFileClient</div>
+<div class="tip" id="fs21">member MBrace.Core.Internals.CloudFileClient.Enumerate : dirPath:string -&gt; MBrace.Core.CloudFileInfo []</div>
+<div class="tip" id="fs22">val lsRec : path:string -&gt; seq&lt;MBrace.Core.CloudFileInfo&gt;<br /><br />Full name: 7-using-cloud-data-files.lsRec</div>
+<div class="tip" id="fs23">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.Operators.seq<br /><br />--------------------<br />type seq&lt;&#39;T&gt; = Collections.Generic.IEnumerable&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.seq&lt;_&gt;</div>
+<div class="tip" id="fs24">val d : MBrace.Core.CloudDirectoryInfo</div>
+<div class="tip" id="fs25">property MBrace.Core.Internals.CloudFileSystem.Directory: MBrace.Core.Internals.CloudDirectoryClient</div>
+<div class="tip" id="fs26">member MBrace.Core.Internals.CloudDirectoryClient.Enumerate : dirPath:string -&gt; MBrace.Core.CloudDirectoryInfo []</div>
+<div class="tip" id="fs27">val mkdir : path:string -&gt; MBrace.Core.CloudDirectoryInfo<br /><br />Full name: 7-using-cloud-data-files.mkdir</div>
+<div class="tip" id="fs28">member MBrace.Core.Internals.CloudDirectoryClient.Create : dirPath:string -&gt; MBrace.Core.CloudDirectoryInfo</div>
+<div class="tip" id="fs29">val rmdir : path:string -&gt; unit<br /><br />Full name: 7-using-cloud-data-files.rmdir</div>
+<div class="tip" id="fs30">member MBrace.Core.Internals.CloudDirectoryClient.Delete : dirPath:string * ?recursiveDelete:bool -&gt; unit</div>
+<div class="tip" id="fs31">val rmdirRec : path:string -&gt; unit<br /><br />Full name: 7-using-cloud-data-files.rmdirRec</div>
+<div class="tip" id="fs32">val randdir : unit -&gt; string<br /><br />Full name: 7-using-cloud-data-files.randdir</div>
+<div class="tip" id="fs33">member MBrace.Core.Internals.CloudPathClient.GetRandomDirectoryName : unit -&gt; string</div>
+<div class="tip" id="fs34">val randfile : unit -&gt; string<br /><br />Full name: 7-using-cloud-data-files.randfile</div>
+<div class="tip" id="fs35">member MBrace.Core.Internals.CloudPathClient.GetRandomFilePath : ?container:string -&gt; string</div>
+<div class="tip" id="fs36">val rm : path:string -&gt; unit<br /><br />Full name: 7-using-cloud-data-files.rm</div>
+<div class="tip" id="fs37">member MBrace.Core.Internals.CloudFileClient.Delete : path:string -&gt; unit</div>
+<div class="tip" id="fs38">val cat : path:string -&gt; string<br /><br />Full name: 7-using-cloud-data-files.cat</div>
+<div class="tip" id="fs39">member MBrace.Core.Internals.CloudFileClient.ReadAllText : path:string * ?encoding:Text.Encoding -&gt; string</div>
+<div class="tip" id="fs40">val catLines : path:string -&gt; string []<br /><br />Full name: 7-using-cloud-data-files.catLines</div>
+<div class="tip" id="fs41">member MBrace.Core.Internals.CloudFileClient.ReadAllLines : path:string * ?encoding:Text.Encoding -&gt; string []</div>
+<div class="tip" id="fs42">val catBytes : path:string -&gt; byte []<br /><br />Full name: 7-using-cloud-data-files.catBytes</div>
+<div class="tip" id="fs43">member MBrace.Core.Internals.CloudFileClient.ReadAllBytes : path:string -&gt; byte []</div>
+<div class="tip" id="fs44">val write : path:string -&gt; text:string -&gt; MBrace.Core.CloudFileInfo<br /><br />Full name: 7-using-cloud-data-files.write</div>
+<div class="tip" id="fs45">val text : string</div>
+<div class="tip" id="fs46">member MBrace.Core.Internals.CloudFileClient.WriteAllText : path:string * text:string * ?encoding:Text.Encoding -&gt; MBrace.Core.CloudFileInfo</div>
+<div class="tip" id="fs47">val writeLines : path:string -&gt; lines:seq&lt;string&gt; -&gt; MBrace.Core.CloudFileInfo<br /><br />Full name: 7-using-cloud-data-files.writeLines</div>
+<div class="tip" id="fs48">val lines : seq&lt;string&gt;</div>
+<div class="tip" id="fs49">member MBrace.Core.Internals.CloudFileClient.WriteAllLines : path:string * lines:seq&lt;string&gt; * ?encoding:Text.Encoding -&gt; MBrace.Core.CloudFileInfo</div>
+<div class="tip" id="fs50">val writeBytes : path:string -&gt; bytes:byte [] -&gt; MBrace.Core.CloudFileInfo<br /><br />Full name: 7-using-cloud-data-files.writeBytes</div>
+<div class="tip" id="fs51">val bytes : byte []</div>
+<div class="tip" id="fs52">member MBrace.Core.Internals.CloudFileClient.WriteAllBytes : path:string * buffer:byte [] -&gt; MBrace.Core.CloudFileInfo</div>
+<div class="tip" id="fs53">val i : int</div>
+<div class="tip" id="fs54">val localTmpFile : string<br /><br />Full name: 7-using-cloud-data-files.localTmpFile</div>
+<div class="tip" id="fs55">type Path =<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member GetDirectoryName : path:string -&gt; string<br />&#160;&#160;static member GetExtension : path:string -&gt; string<br />&#160;&#160;static member GetFileName : path:string -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.Path</div>
+<div class="tip" id="fs56">Path.GetTempFileName() : string</div>
+<div class="tip" id="fs57">val lines : string list</div>
+<div class="tip" id="fs58">val time : DateTime</div>
+<div class="tip" id="fs59">Multiple items<br />type DateTime =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : ticks:int64 -&gt; DateTime + 10 overloads<br />&#160;&#160;&#160;&#160;member Add : value:TimeSpan -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddDays : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddHours : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddMilliseconds : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddMinutes : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddMonths : months:int -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddSeconds : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddTicks : value:int64 -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddYears : value:int -&gt; DateTime<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.DateTime<br /><br />--------------------<br />DateTime()<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(ticks: int64) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(ticks: int64, kind: DateTimeKind) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, calendar: Globalization.Calendar) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, kind: DateTimeKind) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, calendar: Globalization.Calendar) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, millisecond: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, millisecond: int, kind: DateTimeKind) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em></div>
+<div class="tip" id="fs60">property DateTime.Now: DateTime</div>
+<div class="tip" id="fs61">property DateTime.Date: DateTime</div>
+<div class="tip" id="fs62">DateTime.AddSeconds(value: float) : DateTime</div>
+<div class="tip" id="fs63">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs64">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs65">DateTime.ToString() : string<br />DateTime.ToString(provider: IFormatProvider) : string<br />DateTime.ToString(format: string) : string<br />DateTime.ToString(format: string, provider: IFormatProvider) : string</div>
+<div class="tip" id="fs66">type File =<br />&#160;&#160;static member AppendAllLines : path:string * contents:IEnumerable&lt;string&gt; -&gt; unit + 1 overload<br />&#160;&#160;static member AppendAllText : path:string * contents:string -&gt; unit + 1 overload<br />&#160;&#160;static member AppendText : path:string -&gt; StreamWriter<br />&#160;&#160;static member Copy : sourceFileName:string * destFileName:string -&gt; unit + 1 overload<br />&#160;&#160;static member Create : path:string -&gt; FileStream + 3 overloads<br />&#160;&#160;static member CreateText : path:string -&gt; StreamWriter<br />&#160;&#160;static member Decrypt : path:string -&gt; unit<br />&#160;&#160;static member Delete : path:string -&gt; unit<br />&#160;&#160;static member Encrypt : path:string -&gt; unit<br />&#160;&#160;static member Exists : path:string -&gt; bool<br />&#160;&#160;...<br /><br />Full name: System.IO.File</div>
+<div class="tip" id="fs67">File.WriteAllLines(path: string, contents: Collections.Generic.IEnumerable&lt;string&gt;) : unit<br />File.WriteAllLines(path: string, contents: string []) : unit<br />File.WriteAllLines(path: string, contents: Collections.Generic.IEnumerable&lt;string&gt;, encoding: Text.Encoding) : unit<br />File.WriteAllLines(path: string, contents: string [], encoding: Text.Encoding) : unit</div>
+<div class="tip" id="fs68">val cloudFile : MBrace.Core.CloudFileInfo<br /><br />Full name: 7-using-cloud-data-files.cloudFile</div>
+<div class="tip" id="fs69">member MBrace.Core.Internals.CloudFileClient.Upload : sourcePaths:seq&lt;string&gt; * targetDirectory:string * ?overwrite:bool * ?compress:bool -&gt; MBrace.Core.CloudFileInfo []<br />member MBrace.Core.Internals.CloudFileClient.Upload : sourcePath:string * targetPath:string * ?overwrite:bool * ?compress:bool -&gt; MBrace.Core.CloudFileInfo</div>
+<div class="tip" id="fs70">Path.GetFileName(path: string) : string</div>
+<div class="tip" id="fs71">File.Delete(path: string) : unit</div>
+<div class="tip" id="fs72">val lines : obj<br /><br />Full name: 7-using-cloud-data-files.lines</div>
+<div class="tip" id="fs73">property MBrace.Core.CloudFileInfo.Path: string</div>
+<div class="tip" id="fs74">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs75">val distinct : source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt; (requires equality)<br /><br />Full name: Microsoft.FSharp.Collections.Seq.distinct</div>
+<div class="tip" id="fs76">val toList : source:seq&lt;&#39;T&gt; -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.Seq.toList</div>
+<div class="tip" id="fs77">member MBrace.Runtime.MBraceClient.Run : workflow:MBrace.Core.Cloud&lt;&#39;T&gt; * ?cancellationToken:MBrace.Core.ICloudCancellationToken * ?faultPolicy:MBrace.Core.FaultPolicy * ?target:MBrace.Core.IWorkerRef * ?additionalResources:MBrace.Core.Internals.ResourceRegistry * ?taskName:string -&gt; &#39;T</div>
+<div class="tip" id="fs78">val dataDir : string<br /><br />Full name: 7-using-cloud-data-files.dataDir</div>
+<div class="tip" id="fs79">val cloudFiles : obj<br /><br />Full name: 7-using-cloud-data-files.cloudFiles</div>
+<div class="tip" id="fs80">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs81">val sumOfLengthsOfLines : int<br /><br />Full name: 7-using-cloud-data-files.sumOfLengthsOfLines</div>
+<div class="tip" id="fs82">Multiple items<br />module CloudFlow<br /><br />from MBrace.Flow<br /><br />--------------------<br />module CloudFlow<br /><br />from Utils<br /><br />--------------------<br />type CloudFlow =<br />&#160;&#160;static member OfArray : source:&#39;T [] -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudArrays : cloudArrays:seq&lt;#CloudArray&lt;&#39;T&gt;&gt; -&gt; LocalCloud&lt;PersistedCloudFlow&lt;&#39;T&gt;&gt;<br />&#160;&#160;static member OfCloudCollection : collection:ICloudCollection&lt;&#39;T&gt; * ?sizeThresholdPerWorker:(unit -&gt; int64) -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * ?deserializer:(Stream -&gt; seq&lt;&#39;T&gt;) * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectory : dirPath:string * deserializer:(TextReader -&gt; seq&lt;&#39;T&gt;) * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;static member OfCloudDirectoryByLine : dirPath:string * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : path:string * ?encoding:Encoding -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;<br />&#160;&#160;static member OfCloudFiles : paths:seq&lt;string&gt; * serializer:ISerializer * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;&#39;T&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Flow.CloudFlow<br /><br />--------------------<br />type CloudFlow&lt;&#39;T&gt; =<br />&#160;&#160;interface<br />&#160;&#160;&#160;&#160;abstract member WithEvaluators : collectorFactory:LocalCloud&lt;Collector&lt;&#39;T,&#39;S&gt;&gt; -&gt; projection:(&#39;S -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; combiner:(&#39;R [] -&gt; LocalCloud&lt;&#39;R&gt;) -&gt; Cloud&lt;&#39;R&gt;<br />&#160;&#160;&#160;&#160;abstract member DegreeOfParallelism : int option<br />&#160;&#160;end<br /><br />Full name: MBrace.Flow.CloudFlow&lt;_&gt;</div>
+<div class="tip" id="fs83">static member CloudFlow.OfCloudFileByLine : path:string * ?encoding:Text.Encoding -&gt; CloudFlow&lt;string&gt;<br />static member CloudFlow.OfCloudFileByLine : paths:seq&lt;string&gt; * ?encoding:Text.Encoding * ?sizeThresholdPerCore:int64 -&gt; CloudFlow&lt;string&gt;</div>
+<div class="tip" id="fs84">val map : f:(&#39;T -&gt; &#39;R) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;R&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.map</div>
+<div class="tip" id="fs85">val line : obj</div>
+<div class="tip" id="fs86">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs87">val sum : flow:CloudFlow&lt;&#39;T&gt; -&gt; MBrace.Core.Cloud&lt;&#39;T&gt; (requires member ( + ) and member get_Zero)<br /><br />Full name: MBrace.Flow.CloudFlow.sum</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

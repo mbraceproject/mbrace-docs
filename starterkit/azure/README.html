@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>MBrace on Azure
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="MBrace-on-Azure" class="anchor" href="#MBrace-on-Azure">MBrace on Azure</a></h1>
+<p>See <a href="http://mbrace.io/#try-azure">Getting started with MBrace on Azure</a>.</p>
+<h3><a name="Manually-Creating-a-Custom-Package-to-Deploy" class="anchor" href="#Manually-Creating-a-Custom-Package-to-Deploy">Manually Creating a Custom Package to Deploy</a></h3>
+<p>An MBrace cluster is provisioned on Azure by deploying an Azure Cloud Service with MBrace Worker Roles.
+The basic provisioning process creates storage, service bus and virtual machine assets in Azure using
+<a href="https://github.com/mbraceproject/MBrace.Azure/releases">default packages created as part of MBrace.Azure releases</a>.</p>
+<p>You can build your own artisan packages that contain pre-installed software, adjusted settings or installation scripts.
+The directory contains template solutions for this.</p>
+<p>By building an artisan cloud service you can:</p>
+<ul>
+<li>
+<p>adjust the endpoints to your cloud service from the defaults (so your MBrace cluster can publish
+TCP and HTTP endpoints, either public or to your virtual network,
+for example, you want your MBrace cluster to publish a web server); or</p>
+</li>
+<li>enable Remote Access to MBrace cluster worker instances; or</li>
+<li>specify the size of local storage available on MBrace cluster worker instances; or</li>
+<li>upload certificates as part of your provisioning process; or</li>
+<li>specify Azure-specific local caching options; or</li>
+<li>include additional web and worker roles in your cloud service; or</li>
+<li>compile and deploy your own version of the MBrace cluster worker instance software.</li>
+</ul>
+<p>In order to provision explicitly, as a prerequisite you need
+to have an Azure account and basic knowledge of Azure computing.</p>
+<p>You will need the <a href="http://azure.microsoft.com/en-us/downloads/">Azure SDK 2.7</a>.</p>
+<h3><a name="Provisioning-your-custom-MBrace-service" class="anchor" href="#Provisioning-your-custom-MBrace-service">Provisioning your custom MBrace service</a></h3>
+<ol>
+<li>Make any appropriate changes to your Worker role implementation.</li>
+<li>Set the desired VM size by double clicking the <code>Roles/MBrace.Azure.WorkerRole</code> item in the cloud service project.</li>
+<li>Right click the <code>MBrace.Azure.CloudService</code> project and hit <code>Package..</code>. This will create a new cspkg in your local bin folder.</li>
+<li>Open <code>HandsOnTutorial.sln</code> in the StarterKit and find <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/HandsOnTutorial/AzureCluster.fsx"><code>AzureCluster.fsx</code></a>. Follow the instructions and be sure to set the <code>useCustomCloudService</code> binding to <code>true</code>. Save any changes to <code>AzureCluster.fsx</code>.</li>
+<li>Open <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/HandsOnTutorial/0-provision-azure-cluster.fsx">0-provision-azure-cluster.fsx</a>. Follow the instructions and provision your custom cloud service.</li>
+<li>
+Run any of the supplied samples and tutorials.
+with the script-based deployment process above:
+</li>
+</ol>
+<h3><a name="Provisioning-using-Visual-Studio" class="anchor" href="#Provisioning-using-Visual-Studio">Provisioning using Visual Studio</a></h3>
+<p>Alternatively, you can provision and deploy from Visual Studio. Right click and Publish the <code>MBrace.Azure.CloudService</code> project. During publication, choose a new name for your cloud service. After your service is published it should appear as a cloud service in the <a href="https://manage.windowsazure.com/">Azure management portal</a>.</p>
+<p>If using the hands-on tutorials, insert the same connection trings in <a href="../HandsOnTutorial/AzureCluster.fsx#L24">MBraceCluster.fsx</a> and connect
+to your runtime (see <a href="../HandsOnTutorial/1-hello-world.fsx">hello-world.fsx</a> for an example).</p>
+
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

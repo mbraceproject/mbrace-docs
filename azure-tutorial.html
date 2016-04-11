@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Using MBrace on Azure
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Using-MBrace-on-Azure" class="anchor" href="#Using-MBrace-on-Azure">Using MBrace on Azure</a></h1>
+<ol>
+<li><p><a href="https://azure.microsoft.com">Create an Azure account</a> and <a href="https://manage.windowsazure.com/publishsettings">download your publication settings file </a>.</p></li>
+<li><p><a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/mbrace-versions.md">Download or clone the starter pack</a>.</p></li>
+<li>Build the solution to get the required packages</li>
+<li><p>Open the <code>HandsOnTutorial/AzureCluster.fsx</code> script. Insert the path to your publication settings file and edit any other Azure settings as required.</p></li>
+<li>
+<p>Open the <code>HandsOnTutorial/0-provision-azure-cluster.fsx</code> script and follow the instruction up to the line</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"> <span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">deployment</span> <span class="o">=</span> <span class="i">Config</span><span class="o">.</span><span class="i">ProvisionCluster</span>()
+</code></pre></td>
+</tr>
+</table>
+<p>Diagnostics will be shown.  When created your cluster will now appear as a cloud service in the <a href="https://manage.windowsazure.com">Azure management portal</a>.
+If you have any trouble, <a href="https://github.com/mbraceproject/MBrace.Azure/issues">report an issue on github</a>.</p>
+</li>
+<li>
+<p>Open the first tutorial script in the starter pack
+hands-on tutorial (or read <a href="starterkit/HandsOnTutorial/1-hello-world.html">the online version</a>). The scripts follow the tutorials in the
+<a href="http://www.mbrace.io/programming-model.html">Core Programming Model</a>.</p>
+</li>
+</ol>
+<h3><a name="How-your-MBrace-code-runs-on-Azure" class="anchor" href="#How-your-MBrace-code-runs-on-Azure">How your MBrace code runs on Azure</a></h3>
+<p>Your MBrace code has two parts: a client and a cluster. The cluster runs as an Azure Cloud Service with associated
+storage and queue assets. You can <a href="https://manage.windowsazure.com/">manage your cluster on the Azure management portal</a>.</p>
+<p>Typically your MBrace client will run in:</p>
+<ul>
+<li>an F# interactive instance in your editor; or</li>
+<li>as part of another cloud service, website or web job; or</li>
+<li>as a client desktop process.</li>
+</ul>
+<p>In all cases, the client will need sufficient network access to be able to write to the
+Azure storage and Service Bus accounts used by the MBrace runtime/cluster nodes.</p>
+<p>When your client submits jobs using <code>cluster.CreateProcess</code> or <code>cluster.Run</code>, parts of
+your client code will be transported to the cluster and executed
+there. MBrace looks after the transport of code and data using Vagabond.</p>
+<p>Take care that the base architectures on client and cluster are compatible, e.g. both are 64-bit.</p>
+<h3><a name="Using-your-Azure-cluster-from-compiled-code" class="anchor" href="#Using-your-Azure-cluster-from-compiled-code">Using your Azure cluster from compiled code</a></h3>
+<p>To use your Azure cluster from compiled projects (rather than scripts),
+add a reference to the <code>MBrace.Azure</code> package and use the
+following code. The configuration strings can be found by the
+Azure management console or the <code>GetDeployment().Configuration</code> in
+an MBrace data script.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">myStorageConnectionString</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">myServiceBusConnectionString</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">config</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="t">Configuration</span>(<span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">myStorageConnectionString</span>, <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">myServiceBusConnectionString</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">cluster</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="t">AzureCluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="f">Connect</span>(<span onmouseout="hideTip(event, 'fs6', 13)" onmouseover="showTip(event, 'fs6', 13)" class="i">config</span>, 
+                                   <span class="i">logger</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="t">ConsoleLogger</span>(<span class="k">true</span>), 
+                                   <span class="i">logLevel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="t">LogLevel</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">Info</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">namespace MBrace</div>
+<div class="tip" id="fs2">namespace MBrace.Azure</div>
+<div class="tip" id="fs3">val deployment : obj<br /><br />Full name: azuretutorial.deployment</div>
+<div class="tip" id="fs4">val myStorageConnectionString : string<br /><br />Full name: Azure-tutorial.myStorageConnectionString</div>
+<div class="tip" id="fs5">val myServiceBusConnectionString : string<br /><br />Full name: Azure-tutorial.myServiceBusConnectionString</div>
+<div class="tip" id="fs6">val config : Configuration<br /><br />Full name: Azure-tutorial.config</div>
+<div class="tip" id="fs7">Multiple items<br />type Configuration =<br />&#160;&#160;new : storageConnectionString:string * serviceBusConnectionString:string -&gt; Configuration<br />&#160;&#160;member AssemblyContainer : string<br />&#160;&#160;member CloudValueContainer : string<br />&#160;&#160;member OptimizeClosureSerialization : bool<br />&#160;&#160;member RuntimeContainer : string<br />&#160;&#160;member RuntimeLogsTable : string<br />&#160;&#160;member RuntimeTable : string<br />&#160;&#160;member ServiceBusAccount : string<br />&#160;&#160;member ServiceBusConnectionString : string<br />&#160;&#160;member StorageAccount : string<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.Configuration<br /><br />--------------------<br />new : storageConnectionString:string * serviceBusConnectionString:string -&gt; Configuration</div>
+<div class="tip" id="fs8">val cluster : AzureCluster<br /><br />Full name: Azure-tutorial.cluster</div>
+<div class="tip" id="fs9">type AzureCluster =<br />&#160;&#160;inherit MBraceClient<br />&#160;&#160;private new : manager:ClusterManager * faultPolicy:FaultPolicy option -&gt; AzureCluster<br />&#160;&#160;member AttachLocalWorker : ?workerId:string * ?workingDirectory:string * ?maxWorkItems:int * ?logFile:string * ?logLevel:LogLevel * ?quiet:bool * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member AttachLocalWorkers : workerCount:int * ?maxWorkItems:int * ?logLevel:LogLevel * ?quiet:bool * ?heartbeatInterval:TimeSpan * ?heartbeatThreshold:TimeSpan * ?background:bool -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkers : heartbeatThreshold:TimeSpan -&gt; unit<br />&#160;&#160;member CullNonResponsiveWorkersAsync : heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />&#160;&#160;member KillAllLocalWorkers : unit -&gt; unit<br />&#160;&#160;member KillLocalWorker : worker:IWorkerRef -&gt; bool<br />&#160;&#160;member Reset : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; unit<br />&#160;&#160;member ResetAsync : ?deleteQueues:bool * ?deleteRuntimeState:bool * ?deleteLogs:bool * ?deleteUserData:bool * ?deleteAssemblyData:bool * ?force:bool * ?reactivate:bool -&gt; Async&lt;unit&gt;<br />&#160;&#160;...<br /><br />Full name: MBrace.Azure.AzureCluster</div>
+<div class="tip" id="fs10">static member AzureCluster.Connect : config:Configuration * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster<br />static member AzureCluster.Connect : storageConnectionString:string * serviceBusConnectionString:string * ?clientId:string * ?faultPolicy:MBrace.Core.FaultPolicy * ?logger:MBrace.Runtime.ISystemLogger * ?logLevel:LogLevel -&gt; AzureCluster</div>
+<div class="tip" id="fs11">type ConsoleLogger = MBrace.Runtime.ConsoleLogger<br /><br />Full name: MBrace.Azure.ConsoleLogger</div>
+<div class="tip" id="fs12">type LogLevel = MBrace.Runtime.LogLevel<br /><br />Full name: MBrace.Azure.LogLevel</div>
+<div class="tip" id="fs13">MBrace.Runtime.LogLevel.Info: MBrace.Runtime.LogLevel = 4</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
