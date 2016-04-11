@@ -114,7 +114,7 @@ let buildDocumentation () =
 
   Fake.FileHelper.CleanDir starterKit
   Fake.Git.Repository.cloneSingleBranch __SOURCE_DIRECTORY__ "https://github.com/mbraceproject/MBrace.StarterKit" "master" starterKit
-  if Fake.ProcessHelper.Shell.Exec(__SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ ".paket" @@ "paket.exe","install",starterKit) <> 0 then
+  if Fake.ProcessHelper.Shell.Exec(__SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ ".paket" @@ "paket.exe","restore",starterKit) <> 0 then
       failwith "paket restore failed"
 
   let processDir topInDir topOutDir = 
