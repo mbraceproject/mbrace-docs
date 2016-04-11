@@ -48,29 +48,6 @@
 <p>Tools for writing worker system logs to store.</p>
 
 </div>
-  <h3>Constructors</h3>
-  <table class="table table-bordered member-list">
-    <thead>
-      <tr><td>Constructor</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1322', 1322)" onmouseover="showTip(event, '1322', 1322)">
-            new(schema, store)
-          </code>
-          <div class="tip" id="1322">
-            <strong>Signature:</strong> (schema:ISystemLogStoreSchema * store:ICloudFileStore) -&gt; StoreSystemLogManager<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
-              <p>CompiledName: <code>.ctor</code></p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
     <thead>
@@ -80,15 +57,39 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1323', 1323)" onmouseover="showTip(event, '1323', 1323)">
+          <code onmouseout="hideTip(event, '1322', 1322)" onmouseover="showTip(event, '1322', 1322)">
             CreateLogWriter(workerId)
           </code>
-          <div class="tip" id="1323">
+          <div class="tip" id="1322">
             <strong>Signature:</strong> workerId:IWorkerId -&gt; Async&lt;IRemoteSystemLogger&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           <p>Creates a logger implementation that asynchronously writes entries to blob store</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1323', 1323)" onmouseover="showTip(event, '1323', 1323)">
+            Create(...)
+          </code>
+          <div class="tip" id="1323">
+            <strong>Signature:</strong> (schema:ISystemLogStoreSchema * store:ICloudFileStore * minInterval:int option * maxInterval:int option * minEntries:int option) -&gt; StoreSystemLogManager<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Creates a new store log manager instance with supplied store and container parameters.</p>
 
 
         </td>

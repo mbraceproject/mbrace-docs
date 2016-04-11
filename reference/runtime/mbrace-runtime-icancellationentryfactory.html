@@ -57,25 +57,8 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1077', 1077)" onmouseover="showTip(event, '1077', 1077)">
-            CreateCancellationEntry()
-          </code>
-          <div class="tip" id="1077">
-            <strong>Signature:</strong> unit -&gt; Async&lt;ICancellationEntry&gt;<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Asynchronously creates a cancellation entry with no parents.</p>
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
           <code onmouseout="hideTip(event, '1078', 1078)" onmouseover="showTip(event, '1078', 1078)">
-            TryCreateLinkedCancellationEntry(...)
+            TryCreateCancellationEntry(parents)
           </code>
           <div class="tip" id="1078">
             <strong>Signature:</strong> (parents:ICancellationEntry []) -&gt; Async&lt;ICancellationEntry option&gt;<br />
@@ -83,8 +66,8 @@
                       </div>
         </td>
         <td class="xmldoc">
-          <p>Asynchronously creates a cancellation entry provided parents.
-Returns 'None' if all parents have been cancelled.</p>
+          <p>Asynchronously creates a cancellation entry using provided parent entries.
+Returns 'None' if any of the parents are already canceled and child was not created.</p>
 
 
         </td>

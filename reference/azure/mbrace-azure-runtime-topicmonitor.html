@@ -59,11 +59,11 @@ Queue, to be further processed by a different worker for fault handling.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2011', 2011)" onmouseover="showTip(event, '2011', 2011)">
-            Create(clusterId, workerManager, logger)
+          <code onmouseout="hideTip(event, '2009', 2009)" onmouseover="showTip(event, '2009', 2009)">
+            Create(...)
           </code>
-          <div class="tip" id="2011">
-            <strong>Signature:</strong> (clusterId:ClusterId * workerManager:WorkerManager * logger:ISystemLogger) -&gt; Async&lt;TopicMonitor&gt;<br />
+          <div class="tip" id="2009">
+            <strong>Signature:</strong> (workerManager:WorkerManager * workQueue:WorkItemQueue * logger:ISystemLogger * currentWorker:IWorkerId option) -&gt; Async&lt;TopicMonitor&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">

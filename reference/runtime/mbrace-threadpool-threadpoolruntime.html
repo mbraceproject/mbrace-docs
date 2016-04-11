@@ -235,27 +235,11 @@ provided by the thread pool of the current process.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1471', 1471)" onmouseover="showTip(event, '1471', 1471)">
-            CreateCancellationTokenSource()
+            CreateCancellationTokenSource(parents)
           </code>
           <div class="tip" id="1471">
-            <strong>Signature:</strong> unit -&gt; ICloudCancellationTokenSource<br />
+            <strong>Signature:</strong> (parents:ICloudCancellationToken []) -&gt; ThreadPoolCancellationTokenSource<br />
                       </div>
-        </td>
-        <td class="xmldoc">
-          <p>Creates a new thread pool cancellation token source instance.</p>
-
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1472', 1472)" onmouseover="showTip(event, '1472', 1472)">
-            CreateLinkedCancellationTokenSource(...)
-          </code>
-          <div class="tip" id="1472">
-            <strong>Signature:</strong> parents:seq&lt;&#39;?39072&gt; -&gt; ThreadPoolCancellationTokenSource<br />
-                          <strong>Type parameters:</strong> '?39072          </div>
         </td>
         <td class="xmldoc">
           <p>Creates a thread pool cancellation token source linked to a collection of parent tokens.</p>
