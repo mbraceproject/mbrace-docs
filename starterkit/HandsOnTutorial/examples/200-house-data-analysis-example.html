@@ -74,15 +74,15 @@ due to possible rate-limiting from the server).</p>
 <span class="l">16: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 17)" onmouseover="showTip(event, 'fs15', 17)" class="i">smallSources</span> <span class="o">=</span> 
-  [ <span class="s">&quot;http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/b/pp-2012-part1.csv&quot;</span> ]
+  [ <span class="s">&quot;http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2012-part1.csv&quot;</span> ]
 
 <span class="c">(* For larger data you can add more years: *)</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 18)" onmouseover="showTip(event, 'fs16', 18)" class="i">bigSources</span> <span class="o">=</span> 
-  [ <span class="s">&quot;http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/a/pp-2012.csv&quot;</span>
-    <span class="s">&quot;http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/a/pp-2013.csv&quot;</span>
-    <span class="s">&quot;http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/a/pp-2014.csv&quot;</span>
-    <span class="s">&quot;http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/a/pp-2015.csv&quot;</span>  ]
+  [ <span class="s">&quot;http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2012.csv&quot;</span>
+    <span class="s">&quot;http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2013.csv&quot;</span>
+    <span class="s">&quot;http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2014.csv&quot;</span>
+    <span class="s">&quot;http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2015.csv&quot;</span>  ]
 
 <span class="c">(* For testing you can uses micro data: *)</span>
 
