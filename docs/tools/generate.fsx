@@ -10,6 +10,7 @@ let mbraceThespianBinaries = [ "MBrace.Thespian.dll" ]
 let mbraceFlowBinaries = [ "MBrace.Flow.dll"  ]
 let mbraceAzureBinaries = [ "MBrace.Azure.dll" ]
 let mbraceAzureManagementBinaries = [ "MBrace.Azure.Management.dll" ]
+let mbraceAWSBinaries = [ "MBrace.AWS.dll" ]
 // Web site location for the generated documentation
 //let website = "http://nessos.github.io/MBrace"
 let website = "http://www.mbrace.io"
@@ -18,6 +19,7 @@ let mbraceCoreGithubLink = "http://github.com/mbraceproject/MBrace.Core"
 let mbraceAzureGithubLink = "http://github.com/mbraceproject/MBrace.Azure"
 let mbraceFlowGithubLink = "http://github.com/mbraceproject/MBrace.Flow"
 let mbraceThespianGithubLink = "http://github.com/mbraceproject/MBrace.Thespian"
+let mbraceAWSGithubLink = "http://github.com/mbraceproject/MBrace.AWS"
 
 // Specify more information about your project
 let info =
@@ -56,6 +58,7 @@ let mbraceCorePkgDir  = mbraceThespianPkgDir
 let mbraceFlowPkgDir  = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Flow" @@ "lib" @@ "net45"
 let mbraceAzurePkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure" @@ "tools"
 let mbraceAzureManagementPkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.Azure.Management" @@ "lib" @@ "net45"
+let mbraceAWSPkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBrace.AWS" @@ "tools"
 let streamsPkgDir     = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "Streams" @@ "lib" @@ "net45"
 let content    = __SOURCE_DIRECTORY__ @@ ".." @@ "content"
 let starterKit = __SOURCE_DIRECTORY__ @@ ".." @@ "starterkit"
@@ -91,13 +94,16 @@ let buildReference () =
         for lib in mbraceAzureManagementBinaries -> mbraceAzureManagementPkgDir @@ lib 
     ]
 
-  let libDirs = [mbraceThespianPkgDir; mbraceFlowPkgDir; mbraceAzurePkgDir; streamsPkgDir ]
+  let awsBinaries = [ for lib in mbraceAWSBinaries -> mbraceAWSPkgDir @@ lib ]
+
+  let libDirs = [mbraceThespianPkgDir; mbraceFlowPkgDir; mbraceAzurePkgDir; streamsPkgDir ; mbraceAWSPkgDir ]
     
   for (proj, binaries, outdir, githubLink) in 
       [("MBrace.Core", coreBinaries, output @@ "reference" @@ "core", mbraceCoreGithubLink)
        ("MBrace.Flow", flowBinaries, output @@ "reference" @@ "flow", mbraceFlowGithubLink)
        ("MBrace.Runtime", runtimeBinaries, output @@ "reference" @@ "runtime", mbraceCoreGithubLink)
        ("MBrace.Azure", azureBinaries, output @@ "reference" @@ "azure", mbraceAzureGithubLink)
+       ("MBrace.AWS", awsBinaries, output @@ "reference" @@ "aws", mbraceAWSGithubLink)
        ("MBrace local cluster simulator", thespianBinaries, output @@ "reference" @@ "thespian", mbraceThespianGithubLink)] do
       CleanDir outdir
       MetadataFormat.Generate

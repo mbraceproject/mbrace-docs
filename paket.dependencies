@@ -1,3 +1,4 @@
+framework: >= net45
 source https://nuget.org/api/v2
 
 nuget FAKE
@@ -8,3 +9,4 @@ nuget MBrace.Runtime
 nuget MBrace.Thespian
 nuget MBrace.Azure 1.2.1
 nuget MBrace.Azure.Management
+nuget MBrace.AWS
