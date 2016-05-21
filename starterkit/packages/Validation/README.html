@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Validation
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Validation" class="anchor" href="#Validation">Validation</a></h1>
+<p><em>Method input validation and runtime checks that report errors or throw
+exceptions when failures are detected.</em></p>
+<p><a href="https://ci.appveyor.com/project/AArnott/validation"><img src="https://ci.appveyor.com/api/projects/status/nhrah957le2jri3q?svg=true" alt="Build status" /></a></p>
+<p>This project is available as the <a href="http://nuget.org/packages/Validation" title="Validation NuGet package">Validation</a> NuGet package.</p>
+<p>Basic input validation via the <code>Requires</code> class throws an ArgumentException.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Requires</span><span class="o">.</span><span class="i">NotNull</span>(<span class="i">arg1</span>, <span class="s">&quot;arg1&quot;</span>);
+<span class="i">Requires</span><span class="o">.</span><span class="i">NotNullOrEmpty</span>(<span class="i">arg2</span>, <span class="s">&quot;arg2&quot;</span>);
+</code></pre></td>
+</tr>
+</table>
+<p>State validation via the <code>Verify</code> class throws an InvalidOperationException.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Verify</span><span class="o">.</span><span class="i">Operation</span>(<span class="i">condition</span>, <span class="s">&quot;some error occurred.&quot;</span>);
+</code></pre></td>
+</tr>
+</table>
+<p>Internal integrity checks via the <code>Assumes</code> class throws an
+InternalErrorException.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Assumes</span><span class="o">.</span><span class="i">True</span>(<span class="i">condition</span>, <span class="s">&quot;some error&quot;</span>);
+</code></pre></td>
+</tr>
+</table>
+<p>Warning signs that should not throw exceptions via the <code>Report</code> class.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Report</span><span class="o">.</span><span class="i">IfNot</span>(<span class="i">condition</span>, <span class="s">&quot;some error&quot;</span>);
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="Code-Snippets" class="anchor" href="#Code-Snippets">Code Snippets</a></h2>
+<p>Make writing input validation especially convenient with [code snippets][2].
+Run the tools\install_snippets.cmd script within this package to copy the code snippets
+into your <code>Documents\Visual Studio 201x\Code Snippets\Visual C#\My Code Snippets</code>
+folder(s) and just type the first few letters of the code snippet name to get
+auto-completion assisted input validation.</p>
+<p>Note that if you have Resharper installed, code snippets don't appear in
+auto-completion lists so you may have to press <code>Ctrl+J</code> after the first few letters
+of the code snippet name for it to become available.</p>
+<p>Example:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">private</span> <span class="k">void</span> <span class="i">SomeMethod</span>(<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">string</span> <span class="i">input</span>) {
+    <span class="i">rnne</span><span class="o">&lt;</span><span class="i">TAB</span><span class="o">&gt;</span>
+}
+</code></pre></td>
+</tr>
+</table>
+<p>Expands to</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">private</span> <span class="k">void</span> <span class="i">SomeMethod</span>(<span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">string</span> <span class="i">input</span>) {
+    <span class="i">Requires</span><span class="o">.</span><span class="i">NotNullOrEmpty</span>(<span class="i">paramName</span>, <span class="i">nameof</span>(<span class="i">paramName</span>));
+}
+</code></pre></td>
+</tr>
+</table>
+<p>And the first <code>paramName</code> is selected. Simply type the actual parameter name
+(Intellisense will auto-complete for you) and then the quoted paramName name
+will automatically be changed to match.</p>
+<p>The two snippets are <code>rnn</code> and <code>rnne</code>
+which expand to check for null inputs or null-or-empty inputs, respectively.</p>
+
+<div class="tip" id="fs1">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+              <li><a href="http://www.mbrace.io/reference/aws/index.html">Reference (AWS)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

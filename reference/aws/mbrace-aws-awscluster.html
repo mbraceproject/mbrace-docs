@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>AWSCluster - MBrace.AWS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.AWS</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>AWSCluster</h1>
+<p>
+  <span>Namespace: MBrace.AWS</span><br />
+</p>
+<div class="xmldoc">
+<p>Windows AWS Cluster management client. Provides methods for management, execution and debugging of MBrace processes in AWS.</p>
+
+</div>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2244', 2244)" onmouseover="showTip(event, '2244', 2244)">
+            AttachLocalWorker(...)
+          </code>
+          <div class="tip" id="2244">
+            <strong>Signature:</strong> (workerId:string option * workingDirectory:string option * maxWorkItems:int option * logFile:string option * logLevel:LogLevel option * quiet:bool option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Spawns a worker instance in the local machine, subscribed to the current cluster configuration.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2245', 2245)" onmouseover="showTip(event, '2245', 2245)">
+            AttachLocalWorkers(...)
+          </code>
+          <div class="tip" id="2245">
+            <strong>Signature:</strong> (workerCount:int * maxWorkItems:int option * logLevel:LogLevel option * quiet:bool option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Spawns worker instances in the local machine, subscribed to the current cluster configuration.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2246', 2246)" onmouseover="showTip(event, '2246', 2246)">
+            Configuration
+          </code>
+          <div class="tip" id="2246">
+            <strong>Signature:</strong> Configuration<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets a copy of the configuration object used for the runtime</p>
+
+
+              <p>CompiledName: <code>get_Configuration</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2247', 2247)" onmouseover="showTip(event, '2247', 2247)">
+            CullNonResponsiveWorkers(...)
+          </code>
+          <div class="tip" id="2247">
+            <strong>Signature:</strong> heartbeatThreshold:TimeSpan -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Culls cluster workers that have stopped sending heartbeats
+for a duration larger than the supplied threshold parameter.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2248', 2248)" onmouseover="showTip(event, '2248', 2248)">
+            CullNonResponsiveWorkersAsync(...)
+          </code>
+          <div class="tip" id="2248">
+            <strong>Signature:</strong> heartbeatThreshold:TimeSpan -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Culls cluster workers that have stopped sending heartbeats
+for a duration larger than the supplied threshold parameter.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2249', 2249)" onmouseover="showTip(event, '2249', 2249)">
+            DynamoDBAccount
+          </code>
+          <div class="tip" id="2249">
+            <strong>Signature:</strong> MBraceAWSCredentials<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the AWS DynamoDB account name used by the cluster</p>
+
+
+              <p>CompiledName: <code>get_DynamoDBAccount</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2250', 2250)" onmouseover="showTip(event, '2250', 2250)">
+            Hash
+          </code>
+          <div class="tip" id="2250">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Cluster configuration hash identifier</p>
+
+
+              <p>CompiledName: <code>get_Hash</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2251', 2251)" onmouseover="showTip(event, '2251', 2251)">
+            KillAllLocalWorkers()
+          </code>
+          <div class="tip" id="2251">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Kills all worker processes of the cluster that are running on the local machine.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2252', 2252)" onmouseover="showTip(event, '2252', 2252)">
+            KillLocalWorker(worker)
+          </code>
+          <div class="tip" id="2252">
+            <strong>Signature:</strong> worker:IWorkerRef -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Kill worker process if running on local machine.
+Returns true if successful, false if local worker not found.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2253', 2253)" onmouseover="showTip(event, '2253', 2253)">
+            Reset(...)
+          </code>
+          <div class="tip" id="2253">
+            <strong>Signature:</strong> (deleteQueues:bool option * deleteRuntimeState:bool option * deleteLogs:bool option * deleteUserData:bool option * force:bool option * reactivate:bool option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Delete and re-activate runtime state.
+Using 'Reset' may cause unexpected behavior in clients and workers.
+Workers should be restarted manually.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2254', 2254)" onmouseover="showTip(event, '2254', 2254)">
+            ResetAsync(...)
+          </code>
+          <div class="tip" id="2254">
+            <strong>Signature:</strong> (deleteQueues:bool option * deleteRuntimeState:bool option * deleteLogs:bool option * deleteUserData:bool option * force:bool option * reactivate:bool option) -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Delete and re-activate runtime state.
+Using 'Reset' may cause unexpected behavior in clients and workers.
+Workers should be restarted manually.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2255', 2255)" onmouseover="showTip(event, '2255', 2255)">
+            S3Account
+          </code>
+          <div class="tip" id="2255">
+            <strong>Signature:</strong> MBraceAWSCredentials<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the AWS S3 account name used by the cluster</p>
+
+
+              <p>CompiledName: <code>get_S3Account</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2256', 2256)" onmouseover="showTip(event, '2256', 2256)">
+            SQSAccount
+          </code>
+          <div class="tip" id="2256">
+            <strong>Signature:</strong> MBraceAWSCredentials<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the AWS SQS account name used by the cluster</p>
+
+
+              <p>CompiledName: <code>get_SQSAccount</code></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Static members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Static member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2257', 2257)" onmouseover="showTip(event, '2257', 2257)">
+            Connect(...)
+          </code>
+          <div class="tip" id="2257">
+            <strong>Signature:</strong> (config:Configuration * clientId:string option * faultPolicy:FaultPolicy option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; AWSCluster<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Connects to an MBrace-on-AWS cluster as identified by provided configuration object.
+If successful returns a management handle object to the cluster.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2258', 2258)" onmouseover="showTip(event, '2258', 2258)">
+            ConnectAsync(...)
+          </code>
+          <div class="tip" id="2258">
+            <strong>Signature:</strong> (config:Configuration * clientId:string option * faultPolicy:FaultPolicy option * logger:ISystemLogger option * logLevel:LogLevel option) -&gt; Async&lt;AWSCluster&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Connects to an MBrace-on-AWS cluster as identified by provided configuration object.
+If successful returns a management handle object to the cluster.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2259', 2259)" onmouseover="showTip(event, '2259', 2259)">
+            InitOnCurrentMachine(...)
+          </code>
+          <div class="tip" id="2259">
+            <strong>Signature:</strong> (config:Configuration * workerCount:int * clientId:string option * faultPolicy:FaultPolicy option * maxWorkItems:int option * logger:ISystemLogger option * quiet:bool option * logLevel:LogLevel option * heartbeatInterval:TimeSpan option * heartbeatThreshold:TimeSpan option * background:bool option) -&gt; AWSCluster<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Initialize a new local runtime instance with supplied worker count and return a handle.</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.AWS</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+              <li><a href="http://www.mbrace.io/reference/aws/index.html">Reference (AWS)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

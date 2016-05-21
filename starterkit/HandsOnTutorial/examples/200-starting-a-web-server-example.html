@@ -351,13 +351,13 @@ by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or
 <div class="tip" id="fs8">module Successful<br /><br />from Suave</div>
 <div class="tip" id="fs9">module Web<br /><br />from Suave</div>
 <div class="tip" id="fs10">module Webserver</div>
-<div class="tip" id="fs11">val getCluster : unit -&gt; MBrace.Azure.AzureCluster<br /><br />Full name: 200-starting-a-web-server-example.getCluster</div>
+<div class="tip" id="fs11">val getCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-starting-a-web-server-example.getCluster</div>
 <div class="tip" id="fs12">module Config</div>
-<div class="tip" id="fs13">val GetCluster : unit -&gt; MBrace.Azure.AzureCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Connect to the cluster </em></div>
+<div class="tip" id="fs13">val GetCluster : unit -&gt; MBrace.Thespian.ThespianCluster<br /><br />Full name: Config.GetCluster<br /><em><br /><br />&#160;Gets or creates a new Thespian cluster session.</em></div>
 <div class="tip" id="fs14">val getWorkersRequest : ctxt:&#39;a -&gt; Async&lt;&#39;b&gt;<br /><br />Full name: 200-starting-a-web-server-example.getWorkersRequest</div>
 <div class="tip" id="fs15">val ctxt : &#39;a</div>
 <div class="tip" id="fs16">val async : AsyncBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.async</div>
-<div class="tip" id="fs17">val cluster : MBrace.Azure.AzureCluster</div>
+<div class="tip" id="fs17">val cluster : MBrace.Thespian.ThespianCluster</div>
 <div class="tip" id="fs18">val workers : MBrace.Runtime.WorkerRef []</div>
 <div class="tip" id="fs19">property MBrace.Runtime.MBraceClient.Workers: MBrace.Runtime.WorkerRef []</div>
 <div class="tip" id="fs20">val msg : string</div>
@@ -394,7 +394,7 @@ by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or
 <div class="tip" id="fs51">val choose : options:WebPart&lt;&#39;a&gt; list -&gt; WebPart&lt;&#39;a&gt;<br /><br />Full name: Suave.WebPart.choose</div>
 <div class="tip" id="fs52">union case HttpMethod.GET: HttpMethod</div>
 <div class="tip" id="fs53">union case HttpMethod.POST: HttpMethod</div>
-<div class="tip" id="fs54">val cluster : MBrace.Azure.AzureCluster<br /><br />Full name: 200-starting-a-web-server-example.cluster</div>
+<div class="tip" id="fs54">val cluster : MBrace.Thespian.ThespianCluster<br /><br />Full name: 200-starting-a-web-server-example.cluster</div>
 <div class="tip" id="fs55">member MBrace.Runtime.MBraceClient.ShowProcesses : unit -&gt; unit</div>
 <div class="tip" id="fs56">val endPointNames : obj<br /><br />Full name: 200-starting-a-web-server-example.endPointNames</div>
 <div class="tip" id="fs57">namespace Microsoft</div>
@@ -438,8 +438,9 @@ by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or
             <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
             <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
             <li class="divider"></li>
-            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
             <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+              <li><a href="http://www.mbrace.io/reference/aws/index.html">Reference (AWS)</a></li>
           </ul>
         </div>
       </div>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>MBrace.AWS.WebWorker
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An open source framework for large-scale distributed computation and data processing written in F#."/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.Core and MBrace.Azure</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="MBrace-AWS-WebWorker" class="anchor" href="#MBrace-AWS-WebWorker">MBrace.AWS.WebWorker</a></h1>
+<p>Provides an IIS hosted MBrace.AWS worker implementation that can be hosted by AWS's ElasticBeanstalk.</p>
+<h3><a name="Installing-the-AWS-SDK" class="anchor" href="#Installing-the-AWS-SDK">Installing the AWS SDK</a></h3>
+<p>Before proceeding please install the <a href="https://aws.amazon.com/visualstudio/">AWS toolkit for Visual Studio</a>.</p>
+<h3><a name="Setting-up-the-Web-Worker" class="anchor" href="#Setting-up-the-Web-Worker">Setting up the Web Worker</a></h3>
+<p>Open up
+<a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/aws/MBrace.AWS.WebWorker/Config.cs"><code>Config.cs</code></a>
+and fill out the following fields:</p>
+<ul>
+<li><code>Region</code>: The prefered AWS data center for deploying your cluster.</li>
+<li>
+<code>AccessKey</code> and <code>SecretKey</code>: Credentials key pair corresponding to your user.
+User must have full access to S3, DynamoDB and SQS.
+</li>
+</ul>
+<p>The above information uniquely identifies your cluster,
+so make sure that all workers/clients are providing the same configuration.</p>
+<h3><a name="Testing-the-web-worker" class="anchor" href="#Testing-the-web-worker">Testing the web worker</a></h3>
+<p>You can test your configuration by building and debugging your web worker in your local machine.
+Once the worker is up, use your AWS client instance to verify that the worker is attached to the cluster state.</p>
+<h3><a name="Deploying-to-Elastic-Beanstalk" class="anchor" href="#Deploying-to-Elastic-Beanstalk">Deploying to Elastic Beanstalk</a></h3>
+<p>Right click on the web worker project and select "Publish to AWS". Follow the on-screen instructions
+to configure your new cluster. Please ensure that the region matches your <code>Config.cs</code> setting.</p>
+<h3><a name="Connecting-to-your-cluster" class="anchor" href="#Connecting-to-your-cluster">Connecting to your cluster</a></h3>
+<p>An MBrace.AWS cluster is uniquely identified by its region and credentials key pair. You can connect to
+your deployed cluster by specifying that information on the client side:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">using</span> MBrace.AWS;
+
+<span class="k">var</span> credentials <span class="o">=</span> <span class="k">new</span> MBraceAWSCredentials(<span class="s">"AccessKey"</span>, <span class="s">"SecretKey"</span>);
+<span class="k">var</span> configuration <span class="o">=</span> <span class="k">new</span> Configuration(AWSRegion.EUCentral<span class="n">1</span>, credentials);
+<span class="k">var</span> cluster <span class="o">=</span> AWSCluster.Connect(configuration);
+</code></pre></td></tr></table>
+
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.Core and MBrace.Azure</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+              <li><a href="http://www.mbrace.io/reference/aws/index.html">Reference (AWS)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

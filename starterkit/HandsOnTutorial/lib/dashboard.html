@@ -392,7 +392,7 @@
 <div class="tip" id="fs62">field ChartDashStyle.Dash = 1</div>
 <div class="tip" id="fs63">val private showWithCancellation : cts:CancellationTokenSource -&gt; chart:ChartTypes.GenericChart -&gt; IDisposable<br /><br />Full name: Dashboard.ChartBuilders.showWithCancellation</div>
 <div class="tip" id="fs64">val chart : ChartTypes.GenericChart</div>
-<div class="tip" id="fs65">Multiple items<br />type GenericChart =<br />&#160;&#160;inherit obj<br />&#160;&#160;new : chartType:SeriesChartType -&gt; GenericChart<br />&#160;&#160;member CopyAsBitmap : unit -&gt; Image<br />&#160;&#160;member CopyChartToClipboard : unit -&gt; unit<br />&#160;&#160;member CopyChartToClipboardEmf : control:Control -&gt; unit<br />&#160;&#160;member private ForceLegend : unit -&gt; Legend<br />&#160;&#160;member private ForceTitle : unit -&gt; Title<br />&#160;&#160;member private GetCustomProperty : name:string * def:&#39;T -&gt; &#39;T<br />&#160;&#160;member SaveChartAs : filename:string * format:ChartImageFormat -&gt; unit<br />&#160;&#160;member private SetCustomProperty : name:string * v:&#39;T -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FSharp.Charting.ChartTypes.GenericChart<br /><br />--------------------<br />new : chartType:SeriesChartType -&gt; ChartTypes.GenericChart</div>
+<div class="tip" id="fs65">Multiple items<br />type GenericChart =<br />&#160;&#160;inherit obj<br />&#160;&#160;new : chartType:SeriesChartType -&gt; GenericChart<br />&#160;&#160;member ApplyToChart : fn:(Chart -&gt; unit) -&gt; GenericChart<br />&#160;&#160;member CopyAsBitmap : unit -&gt; Image<br />&#160;&#160;member CopyChartToClipboard : unit -&gt; unit<br />&#160;&#160;member CopyChartToClipboardEmf : control:Control -&gt; unit<br />&#160;&#160;member private ForceLegend : unit -&gt; Legend<br />&#160;&#160;member private ForceTitle : unit -&gt; Title<br />&#160;&#160;member private GetCustomProperty : name:string * def:&#39;T -&gt; &#39;T<br />&#160;&#160;member SaveChartAs : filename:string * format:ChartImageFormat -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FSharp.Charting.ChartTypes.GenericChart<br /><br />--------------------<br />new : chartType:SeriesChartType -&gt; ChartTypes.GenericChart</div>
 <div class="tip" id="fs66">val form : Forms.Form</div>
 <div class="tip" id="fs67">member ChartTypes.GenericChart.ShowChart : unit -&gt; Forms.Form</div>
 <div class="tip" id="fs68">event Forms.Form.Closing: IEvent&lt;ComponentModel.CancelEventHandler,ComponentModel.CancelEventArgs&gt;</div>
@@ -513,8 +513,9 @@
             <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
             <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
             <li class="divider"></li>
-            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
             <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+              <li><a href="http://www.mbrace.io/reference/aws/index.html">Reference (AWS)</a></li>
           </ul>
         </div>
       </div>

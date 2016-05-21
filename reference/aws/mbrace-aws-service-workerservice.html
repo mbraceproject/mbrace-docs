@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>WorkerService - MBrace.AWS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
+    
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="http://www.mbrace.io/img/favicon-32x32.png" sizes="32x32"/>
+
+    <link type="text/css" rel="stylesheet" href="http://www.mbrace.io/content/style.css" />
+    <script type="text/javascript" src="http://www.mbrace.io/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://github.com/mbraceproject/MBrace.Core">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="http://www.mbrace.io/index.html">MBrace.AWS</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>WorkerService</h1>
+<p>
+  <span>Namespace: MBrace.AWS.Service</span><br />
+</p>
+<div class="xmldoc">
+<p>MBrace.AWS worker service manager</p>
+
+</div>
+  <h3>Constructors</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Constructor</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2552', 2552)" onmouseover="showTip(event, '2552', 2552)">
+            new(config)
+          </code>
+          <div class="tip" id="2552">
+            <strong>Signature:</strong> config:Configuration -&gt; WorkerService<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>MBrace Runtime Service.</p>
+
+
+              <p>CompiledName: <code>.ctor</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2553', 2553)" onmouseover="showTip(event, '2553', 2553)">
+            new(config, workerId)
+          </code>
+          <div class="tip" id="2553">
+            <strong>Signature:</strong> (config:Configuration * workerId:string) -&gt; WorkerService<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+              <p>CompiledName: <code>.ctor</code></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2554', 2554)" onmouseover="showTip(event, '2554', 2554)">
+            AttachLogger(logger)
+          </code>
+          <div class="tip" id="2554">
+            <strong>Signature:</strong> logger:ISystemLogger -&gt; IDisposable<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Attach logger to worker. Return an unsubscribe token.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2555', 2555)" onmouseover="showTip(event, '2555', 2555)">
+            Configuration()
+          </code>
+          <div class="tip" id="2555">
+            <strong>Signature:</strong> unit -&gt; Configuration<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set service configuration.</p>
+
+
+              <p>CompiledName: <code>set_Configuration</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2556', 2556)" onmouseover="showTip(event, '2556', 2556)">
+            Configuration()
+          </code>
+          <div class="tip" id="2556">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set service configuration.</p>
+
+
+              <p>CompiledName: <code>get_Configuration</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2557', 2557)" onmouseover="showTip(event, '2557', 2557)">
+            HeartbeatInterval()
+          </code>
+          <div class="tip" id="2557">
+            <strong>Signature:</strong> unit -&gt; TimeSpan<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+              <p>CompiledName: <code>set_HeartbeatInterval</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2558', 2558)" onmouseover="showTip(event, '2558', 2558)">
+            HeartbeatInterval()
+          </code>
+          <div class="tip" id="2558">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+              <p>CompiledName: <code>get_HeartbeatInterval</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2559', 2559)" onmouseover="showTip(event, '2559', 2559)">
+            HeartbeatThreshold()
+          </code>
+          <div class="tip" id="2559">
+            <strong>Signature:</strong> unit -&gt; TimeSpan<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+              <p>CompiledName: <code>set_HeartbeatThreshold</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2560', 2560)" onmouseover="showTip(event, '2560', 2560)">
+            HeartbeatThreshold()
+          </code>
+          <div class="tip" id="2560">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or sets the worker heartbeat update interval</p>
+
+
+              <p>CompiledName: <code>get_HeartbeatThreshold</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2561', 2561)" onmouseover="showTip(event, '2561', 2561)">
+            Id
+          </code>
+          <div class="tip" id="2561">
+            <strong>Signature:</strong> string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get service unique identifier.</p>
+
+
+              <p>CompiledName: <code>get_Id</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2562', 2562)" onmouseover="showTip(event, '2562', 2562)">
+            LogFile()
+          </code>
+          <div class="tip" id="2562">
+            <strong>Signature:</strong> unit -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the logfile used by the service.</p>
+
+
+              <p>CompiledName: <code>set_LogFile</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2563', 2563)" onmouseover="showTip(event, '2563', 2563)">
+            LogFile()
+          </code>
+          <div class="tip" id="2563">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the logfile used by the service.</p>
+
+
+              <p>CompiledName: <code>get_LogFile</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2564', 2564)" onmouseover="showTip(event, '2564', 2564)">
+            LogLevel()
+          </code>
+          <div class="tip" id="2564">
+            <strong>Signature:</strong> unit -&gt; LogLevel<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the logger verbosity.</p>
+
+
+              <p>CompiledName: <code>set_LogLevel</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2565', 2565)" onmouseover="showTip(event, '2565', 2565)">
+            LogLevel()
+          </code>
+          <div class="tip" id="2565">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the logger verbosity.</p>
+
+
+              <p>CompiledName: <code>get_LogLevel</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2566', 2566)" onmouseover="showTip(event, '2566', 2566)">
+            MaxConcurrentWorkItems()
+          </code>
+          <div class="tip" id="2566">
+            <strong>Signature:</strong> unit -&gt; int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the maximum number of jobs that this worker may execute concurrently.</p>
+
+
+              <p>CompiledName: <code>set_MaxConcurrentWorkItems</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2567', 2567)" onmouseover="showTip(event, '2567', 2567)">
+            MaxConcurrentWorkItems()
+          </code>
+          <div class="tip" id="2567">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set the maximum number of jobs that this worker may execute concurrently.</p>
+
+
+              <p>CompiledName: <code>get_MaxConcurrentWorkItems</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2568', 2568)" onmouseover="showTip(event, '2568', 2568)">
+            RegisterAtomProvider(atom)
+          </code>
+          <div class="tip" id="2568">
+            <strong>Signature:</strong> atom:ICloudAtomProvider -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register a CloudAtomConfiguration instance. Defaults to table store implementation with configuration's storage connection string.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2569', 2569)" onmouseover="showTip(event, '2569', 2569)">
+            RegisterDictionaryProvider(dictionary)
+          </code>
+          <div class="tip" id="2569">
+            <strong>Signature:</strong> dictionary:ICloudDictionaryProvider -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register an ICloudChannelProvider instance. Defaults to SQS queue implementation with configuration's SQS connection string.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2570', 2570)" onmouseover="showTip(event, '2570', 2570)">
+            RegisterQueueProvider(channel)
+          </code>
+          <div class="tip" id="2570">
+            <strong>Signature:</strong> channel:ICloudQueueProvider -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register a CloudQueueConfiguration instance. Defaults to SQS queue implementation with configuration's SQS connection string.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2571', 2571)" onmouseover="showTip(event, '2571', 2571)">
+            RegisterResource(resource)
+          </code>
+          <div class="tip" id="2571">
+            <strong>Signature:</strong> resource:&#39;TResource -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'TResource          </div>
+        </td>
+        <td class="xmldoc">
+          <p>Add a custom resource in workers ResourceRegistry.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2572', 2572)" onmouseover="showTip(event, '2572', 2572)">
+            RegisterStoreConfiguration(store)
+          </code>
+          <div class="tip" id="2572">
+            <strong>Signature:</strong> store:ICloudFileStore -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Register a CloudFileStoreConfiguration instance. Defaults to BlobStore with configuration's storage connection string.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2573', 2573)" onmouseover="showTip(event, '2573', 2573)">
+            Run()
+          </code>
+          <div class="tip" id="2573">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously starts the worker service with specified configuration and blocks the calling thread until stopped.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2574', 2574)" onmouseover="showTip(event, '2574', 2574)">
+            Start()
+          </code>
+          <div class="tip" id="2574">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously starts the worker service with specified configuration</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2575', 2575)" onmouseover="showTip(event, '2575', 2575)">
+            StartAsTask()
+          </code>
+          <div class="tip" id="2575">
+            <strong>Signature:</strong> unit -&gt; Task<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously starts the service with specified configuration</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2576', 2576)" onmouseover="showTip(event, '2576', 2576)">
+            StartAsync()
+          </code>
+          <div class="tip" id="2576">
+            <strong>Signature:</strong> unit -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously starts the service with specified configuration</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2577', 2577)" onmouseover="showTip(event, '2577', 2577)">
+            Status
+          </code>
+          <div class="tip" id="2577">
+            <strong>Signature:</strong> ServiceStatus<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets the current service status</p>
+
+
+              <p>CompiledName: <code>get_Status</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2578', 2578)" onmouseover="showTip(event, '2578', 2578)">
+            Stop()
+          </code>
+          <div class="tip" id="2578">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Synchronously stops the worker service</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2579', 2579)" onmouseover="showTip(event, '2579', 2579)">
+            StopAsTask()
+          </code>
+          <div class="tip" id="2579">
+            <strong>Signature:</strong> unit -&gt; Task&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously stops the worker service</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2580', 2580)" onmouseover="showTip(event, '2580', 2580)">
+            StopAsync()
+          </code>
+          <div class="tip" id="2580">
+            <strong>Signature:</strong> unit -&gt; Async&lt;unit&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Asynchronously stops the worker service</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2581', 2581)" onmouseover="showTip(event, '2581', 2581)">
+            UseAppDomainIsolation()
+          </code>
+          <div class="tip" id="2581">
+            <strong>Signature:</strong> unit -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set off AppDomain isolation will be used.</p>
+
+
+              <p>CompiledName: <code>set_UseAppDomainIsolation</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2582', 2582)" onmouseover="showTip(event, '2582', 2582)">
+            UseAppDomainIsolation()
+          </code>
+          <div class="tip" id="2582">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Get or set off AppDomain isolation will be used.</p>
+
+
+              <p>CompiledName: <code>get_UseAppDomainIsolation</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2583', 2583)" onmouseover="showTip(event, '2583', 2583)">
+            WorkingDirectory()
+          </code>
+          <div class="tip" id="2583">
+            <strong>Signature:</strong> unit -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the working directory for the worker process</p>
+
+
+              <p>CompiledName: <code>set_WorkingDirectory</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2584', 2584)" onmouseover="showTip(event, '2584', 2584)">
+            WorkingDirectory()
+          </code>
+          <div class="tip" id="2584">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Gets or sets the working directory for the worker process</p>
+
+
+              <p>CompiledName: <code>get_WorkingDirectory</code></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="http://www.mbrace.io/index.html">
+            <img src="http://www.mbrace.io/img/mbrace.png" alt="F# Project" style="width:150px;margin:10px" />
+          </a>
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">MBrace.AWS</li>
+            <li><a href="http://www.mbrace.io/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.nuget.org/packages/MBrace.Core">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/LICENSE.md">License</a></li>
+            <li><a href="http://github.com/mbraceproject/MBrace.Core/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+
+            <li class="nav-header">Getting Started</li>
+            <li><a href="http://www.mbrace.io/thespian-tutorial.html">Local cluster</a></li>
+            <li><a href="http://www.mbrace.io/azure-tutorial.html">Azure cluster</a></li>
+            <li class="divider"></li>
+            <li><a target="_blank" href="http://www.mbrace.io/mbrace-plos.pdf">PLOS'13 Publication</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="http://www.mbrace.io/programming-model.html">Programming model</a></li>
+            <li><a href="http://www.mbrace.io/reference/core/index.html">API Reference (MBrace.Core)</a></li>
+            <li><a href="http://www.mbrace.io/reference/runtime/index.html">API Reference (MBrace.Runtime)</a></li>
+            <li><a href="http://www.mbrace.io/reference/flow/index.html">API Reference (MBrace.Flow)</a></li>
+            <li class="divider"></li>
+            <li><a href="http://www.mbrace.io/reference/thespian/index.html">Reference (Local)</a></li>
+            <li><a href="http://www.mbrace.io/reference/azure/index.html">Reference (Azure)</a></li>
+              <li><a href="http://www.mbrace.io/reference/aws/index.html">Reference (AWS)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mbraceproject/MBrace.Core"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
