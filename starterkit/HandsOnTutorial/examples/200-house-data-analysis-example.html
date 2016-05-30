@@ -430,13 +430,13 @@ This is a type provider in FSharp.Data that helps you crack the content of HTML 
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs88', 218)" onmouseover="showTip(event, 'fs88', 218)" class="i">monopolyStreets</span> <span class="o">=</span> 
         [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs89', 219)" onmouseover="showTip(event, 'fs89', 219)" class="i">p</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs84', 220)" onmouseover="showTip(event, 'fs84', 220)" class="i">data</span> <span class="k">do</span> 
-             <span class="k">let</span> <span onmouseout="hideTip(event, 'fs90', 221)" onmouseover="showTip(event, 'fs90', 221)" class="i">streetName</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs89', 222)" onmouseover="showTip(event, 'fs89', 222)" class="i">p</span><span class="o">.</span><span class="i">Column1</span><span class="o">.</span><span class="i">ToLower</span>()
+             <span class="k">let</span> <span onmouseout="hideTip(event, 'fs90', 221)" onmouseover="showTip(event, 'fs90', 221)" class="i">streetName</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs89', 222)" onmouseover="showTip(event, 'fs89', 222)" class="i">p</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs91', 223)" onmouseover="showTip(event, 'fs91', 223)" class="i">Property</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs92', 224)" onmouseover="showTip(event, 'fs92', 224)" class="f">ToLower</span>()
              <span class="c">// Strip off the header </span>
-             <span class="k">if</span> <span onmouseout="hideTip(event, 'fs90', 223)" onmouseover="showTip(event, 'fs90', 223)" class="i">streetName</span> <span class="o">&lt;&gt;</span> <span class="s">&quot;Property&quot;</span> <span class="k">then</span> 
-                 <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs90', 224)" onmouseover="showTip(event, 'fs90', 224)" class="i">streetName</span>
+             <span class="k">if</span> <span onmouseout="hideTip(event, 'fs90', 225)" onmouseover="showTip(event, 'fs90', 225)" class="i">streetName</span> <span class="o">&lt;&gt;</span> <span class="s">&quot;Property&quot;</span> <span class="k">then</span> 
+                 <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs90', 226)" onmouseover="showTip(event, 'fs90', 226)" class="i">streetName</span>
           <span class="c">// Yield one random street in Mayfair</span>
           <span class="k">yield</span> <span class="s">&quot;Grosvenor Street&quot;</span><span class="o">.</span><span class="f">ToLower</span>()]
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs91', 225)" onmouseover="showTip(event, 'fs91', 225)" class="f">set</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs93', 227)" onmouseover="showTip(event, 'fs93', 227)" class="f">set</span>
 </code></pre></td>
 </tr>
 </table>
@@ -450,13 +450,13 @@ of average-prices on streets:</p>
 <span class="l">6: </span>
 <span class="l">7: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs92', 226)" onmouseover="showTip(event, 'fs92', 226)" class="i">monopoly</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs71', 227)" onmouseover="showTip(event, 'fs71', 227)" class="i">averagePrices</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 228)" onmouseover="showTip(event, 'fs20', 228)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs93', 229)" onmouseover="showTip(event, 'fs93', 229)" class="f">filter</span> (<span class="k">fun</span> ((<span onmouseout="hideTip(event, 'fs94', 230)" onmouseover="showTip(event, 'fs94', 230)" class="i">city</span>, <span onmouseout="hideTip(event, 'fs95', 231)" onmouseover="showTip(event, 'fs95', 231)" class="i">district</span>, <span onmouseout="hideTip(event, 'fs96', 232)" onmouseover="showTip(event, 'fs96', 232)" class="i">street</span>),<span onmouseout="hideTip(event, 'fs97', 233)" onmouseover="showTip(event, 'fs97', 233)" class="i">price</span>) <span class="k">-&gt;</span> 
-          <span class="i">city</span> <span class="o">=</span> <span class="s">&quot;LONDON&quot;</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs88', 234)" onmouseover="showTip(event, 'fs88', 234)" class="i">monopolyStreets</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs98', 235)" onmouseover="showTip(event, 'fs98', 235)" class="f">Contains</span>(<span class="i">street</span><span class="o">.</span><span class="f">ToLower</span>())) 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 236)" onmouseover="showTip(event, 'fs20', 236)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs74', 237)" onmouseover="showTip(event, 'fs74', 237)" class="f">sortByDescending</span> <span onmouseout="hideTip(event, 'fs75', 238)" onmouseover="showTip(event, 'fs75', 238)" class="f">snd</span> <span class="n">100</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 239)" onmouseover="showTip(event, 'fs20', 239)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 240)" onmouseover="showTip(event, 'fs33', 240)" class="f">toArray</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 241)" onmouseover="showTip(event, 'fs10', 241)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 242)" onmouseover="showTip(event, 'fs61', 242)" class="f">Run</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs94', 228)" onmouseover="showTip(event, 'fs94', 228)" class="i">monopoly</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs71', 229)" onmouseover="showTip(event, 'fs71', 229)" class="i">averagePrices</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 230)" onmouseover="showTip(event, 'fs20', 230)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs95', 231)" onmouseover="showTip(event, 'fs95', 231)" class="f">filter</span> (<span class="k">fun</span> ((<span onmouseout="hideTip(event, 'fs96', 232)" onmouseover="showTip(event, 'fs96', 232)" class="i">city</span>, <span onmouseout="hideTip(event, 'fs97', 233)" onmouseover="showTip(event, 'fs97', 233)" class="i">district</span>, <span onmouseout="hideTip(event, 'fs98', 234)" onmouseover="showTip(event, 'fs98', 234)" class="i">street</span>),<span onmouseout="hideTip(event, 'fs99', 235)" onmouseover="showTip(event, 'fs99', 235)" class="i">price</span>) <span class="k">-&gt;</span> 
+          <span class="i">city</span> <span class="o">=</span> <span class="s">&quot;LONDON&quot;</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs88', 236)" onmouseover="showTip(event, 'fs88', 236)" class="i">monopolyStreets</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs100', 237)" onmouseover="showTip(event, 'fs100', 237)" class="f">Contains</span>(<span class="i">street</span><span class="o">.</span><span class="f">ToLower</span>())) 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 238)" onmouseover="showTip(event, 'fs20', 238)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs74', 239)" onmouseover="showTip(event, 'fs74', 239)" class="f">sortByDescending</span> <span onmouseout="hideTip(event, 'fs75', 240)" onmouseover="showTip(event, 'fs75', 240)" class="f">snd</span> <span class="n">100</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 241)" onmouseover="showTip(event, 'fs20', 241)" class="t">CloudFlow</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 242)" onmouseover="showTip(event, 'fs33', 242)" class="f">toArray</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 243)" onmouseover="showTip(event, 'fs10', 243)" class="i">cluster</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 244)" onmouseover="showTip(event, 'fs61', 244)" class="f">Run</span>
 </code></pre></td>
 </tr>
 </table>
@@ -613,14 +613,16 @@ by this script, see <a href="../ThespianCluster.html">ThespianCluster.fsx</a> or
 <div class="tip" id="fs88">val monopolyStreets : Set&lt;string&gt;<br /><br />Full name: 200-house-data-analysis-example.monopolyStreets</div>
 <div class="tip" id="fs89">val p : HtmlProvider&lt;...&gt;.Table2.Row</div>
 <div class="tip" id="fs90">val streetName : string</div>
-<div class="tip" id="fs91">val set : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.set</div>
-<div class="tip" id="fs92">val monopoly : ((string * string * string) * float) []<br /><br />Full name: 200-house-data-analysis-example.monopoly</div>
-<div class="tip" id="fs93">val filter : predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.filter</div>
-<div class="tip" id="fs94">val city : string</div>
-<div class="tip" id="fs95">val district : string</div>
-<div class="tip" id="fs96">val street : string</div>
-<div class="tip" id="fs97">val price : float</div>
-<div class="tip" id="fs98">member Set.Contains : value:&#39;T -&gt; bool</div>
+<div class="tip" id="fs91">property HtmlProvider&lt;...&gt;.Table2.Row.Property: string</div>
+<div class="tip" id="fs92">String.ToLower() : string<br />String.ToLower(culture: Globalization.CultureInfo) : string</div>
+<div class="tip" id="fs93">val set : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.set</div>
+<div class="tip" id="fs94">val monopoly : ((string * string * string) * float) []<br /><br />Full name: 200-house-data-analysis-example.monopoly</div>
+<div class="tip" id="fs95">val filter : predicate:(&#39;T -&gt; bool) -&gt; flow:CloudFlow&lt;&#39;T&gt; -&gt; CloudFlow&lt;&#39;T&gt;<br /><br />Full name: MBrace.Flow.CloudFlow.filter</div>
+<div class="tip" id="fs96">val city : string</div>
+<div class="tip" id="fs97">val district : string</div>
+<div class="tip" id="fs98">val street : string</div>
+<div class="tip" id="fs99">val price : float</div>
+<div class="tip" id="fs100">member Set.Contains : value:&#39;T -&gt; bool</div>
 
         </div>
         <div class="span3">

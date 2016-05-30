@@ -48,29 +48,6 @@
 <p>Collects statistics on CPU, memory, network, etc.</p>
 
 </div>
-  <h3>Constructors</h3>
-  <table class="table table-bordered member-list">
-    <thead>
-      <tr><td>Constructor</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1435', 1435)" onmouseover="showTip(event, '1435', 1435)">
-            new(updateInterval, maxSamplesCount)
-          </code>
-          <div class="tip" id="1435">
-            <strong>Signature:</strong> (updateInterval:int option * maxSamplesCount:int option) -&gt; PerformanceMonitor<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
-              <p>CompiledName: <code>.ctor</code></p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
     <thead>
@@ -80,10 +57,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1436', 1436)" onmouseover="showTip(event, '1436', 1436)">
+          <code onmouseout="hideTip(event, '1452', 1452)" onmouseover="showTip(event, '1452', 1452)">
             GetCounters()
           </code>
-          <div class="tip" id="1436">
+          <div class="tip" id="1452">
             <strong>Signature:</strong> unit -&gt; PerformanceInfo<br />
                       </div>
         </td>
@@ -94,30 +71,16 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1437', 1437)" onmouseover="showTip(event, '1437', 1437)">
+          <code onmouseout="hideTip(event, '1453', 1453)" onmouseover="showTip(event, '1453', 1453)">
             MonitoredCategories
           </code>
-          <div class="tip" id="1437">
+          <div class="tip" id="1453">
             <strong>Signature:</strong> seq&lt;string&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
           
               <p>CompiledName: <code>get_MonitoredCategories</code></p>
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1438', 1438)" onmouseover="showTip(event, '1438', 1438)">
-            Start()
-          </code>
-          <div class="tip" id="1438">
-            <strong>Signature:</strong> unit -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          
         </td>
       </tr>
     </tbody>
@@ -131,15 +94,17 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1439', 1439)" onmouseover="showTip(event, '1439', 1439)">
-            TryGetCpuClockSpeed()
+          <code onmouseout="hideTip(event, '1454', 1454)" onmouseover="showTip(event, '1454', 1454)">
+            Start(...)
           </code>
-          <div class="tip" id="1439">
-            <strong>Signature:</strong> unit -&gt; float option<br />
+          <div class="tip" id="1454">
+            <strong>Signature:</strong> (updateInterval:int option * maxSamplesCount:int option * cancellationToken:CancellationToken option) -&gt; PerformanceMonitor<br />
                       </div>
         </td>
         <td class="xmldoc">
-          
+          <p>Starts a new performance monitor instance with supplied intervals.</p>
+
+
         </td>
       </tr>
     </tbody>
