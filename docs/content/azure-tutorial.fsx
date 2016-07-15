@@ -29,7 +29,7 @@ open MBrace.Azure
    If you have any trouble, [report an issue on github](https://github.com/mbraceproject/MBrace.Azure/issues).
 
 5. Open the first tutorial script in the starter pack 
-   hands-on tutorial (or read [the online version](starterkit/HandsOnTutorial/1-hello-world.html)). The scripts follow the tutorials in the
+   hands-on tutorial (or read [the online version](starterkit/HandsOnTutorial.FSharp/1-hello-world.html)). The scripts follow the tutorials in the
    [Core Programming Model](http://www.mbrace.io/programming-model.html).
 
 

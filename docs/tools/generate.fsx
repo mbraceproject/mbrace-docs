@@ -62,7 +62,7 @@ let mbraceAWSPkgDir = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "MBr
 let streamsPkgDir     = __SOURCE_DIRECTORY__ @@ ".." @@ ".." @@ "packages" @@ "Streams" @@ "lib" @@ "net45"
 let content    = __SOURCE_DIRECTORY__ @@ ".." @@ "content"
 let starterKit = __SOURCE_DIRECTORY__ @@ ".." @@ "starterkit"
-let starterKitImg = __SOURCE_DIRECTORY__ @@ ".." @@ "starterkit" @@ "HandsOnTutorial" @@ "img"
+let starterKitImg = __SOURCE_DIRECTORY__ @@ ".." @@ "starterkit" @@ "HandsOnTutorial.FSharp" @@ "img"
 let output     = __SOURCE_DIRECTORY__ @@ ".." @@ "output"
 let files      = __SOURCE_DIRECTORY__ @@ ".." @@ "files"
 let templates  = __SOURCE_DIRECTORY__ @@ "templates"
@@ -134,7 +134,7 @@ let buildDocumentation () =
             layoutRoots = layoutRoots, generateAnchors = true )
   processDir content output
   processDir starterKit (output @@ "starterkit")
-  CopyRecursive starterKitImg (output @@ "starterkit" @@ "HandsOnTutorial" @@ "img") true |> Log "Copying StarterKit img files: "
+  CopyRecursive starterKitImg (output @@ "starterkit" @@ "HandsOnTutorial.FSharp" @@ "img") true |> Log "Copying StarterKit img files: "
 
 
 // Generate

@@ -2,7 +2,7 @@ framework: >= net45
 source https://nuget.org/api/v2
 
 nuget FAKE
-nuget FSharp.Formatting prerelease
+nuget FSharp.Formatting
 nuget MBrace.Core
 nuget MBrace.Flow
 nuget MBrace.Runtime

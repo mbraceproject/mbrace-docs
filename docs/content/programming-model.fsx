@@ -23,40 +23,40 @@ to the domain of distributed cloud computation.
 The following tutorials demonstrate different aspects of the core programming model.  All the tutorials and samples
 can be found in the [MBrace Starter Kit](https://github.com/mbraceproject/MBrace.StarterKit)
 
-* [Hello World with MBrace](starterkit/HandsOnTutorial/1-hello-world.html)
-* [Introduction to cloud combinators](starterkit/HandsOnTutorial/2-cloud-parallel.html)
-* [Introduction to CPU-intensive cloud parallelism](starterkit/HandsOnTutorial/3-cloud-parallel-cpu-intensive.html)
-* [Introduction to data parallel cloud flows](starterkit/HandsOnTutorial/4-cloud-parallel-data-flow.html)
-* [Exceptions and Fault tolerance](starterkit/HandsOnTutorial/10-exceptions-and-fault-tolerance.html)
-* [Local Cloud Workflows](starterkit/HandsOnTutorial/11-local-cloud-workflows.html)
-* [Using C# and native components](starterkit/HandsOnTutorial/5-using-csharp-and-native-dlls.html)
-* [Using cloud value storage](starterkit/HandsOnTutorial/6-using-cloud-values.html)
-* [Using cloud file storage](starterkit/HandsOnTutorial/7-using-cloud-data-files.html)
-* [Using cloud queue storage](starterkit/HandsOnTutorial/8-using-cloud-queues.html)
-* [Using cloud key/value storage](starterkit/HandsOnTutorial/9-using-cloud-key-value-stores.html)
-* [Provisioning MBrace clusters on Azure](starterkit/HandsOnTutorial/0-provision-azure-cluster.html)
+* [Hello World with MBrace](starterkit/HandsOnTutorial.FSharp/1-hello-world.html)
+* [Introduction to cloud combinators](starterkit/HandsOnTutorial.FSharp/2-cloud-parallel.html)
+* [Introduction to CPU-intensive cloud parallelism](starterkit/HandsOnTutorial.FSharp/3-cloud-parallel-cpu-intensive.html)
+* [Introduction to data parallel cloud flows](starterkit/HandsOnTutorial.FSharp/4-cloud-parallel-data-flow.html)
+* [Exceptions and Fault tolerance](starterkit/HandsOnTutorial.FSharp/10-exceptions-and-fault-tolerance.html)
+* [Local Cloud Workflows](starterkit/HandsOnTutorial.FSharp/11-local-cloud-workflows.html)
+* [Using C# and native components](starterkit/HandsOnTutorial.FSharp/5-using-csharp-and-native-dlls.html)
+* [Using cloud value storage](starterkit/HandsOnTutorial.FSharp/6-using-cloud-values.html)
+* [Using cloud file storage](starterkit/HandsOnTutorial.FSharp/7-using-cloud-data-files.html)
+* [Using cloud queue storage](starterkit/HandsOnTutorial.FSharp/8-using-cloud-queues.html)
+* [Using cloud key/value storage](starterkit/HandsOnTutorial.FSharp/9-using-cloud-key-value-stores.html)
+* [Provisioning MBrace clusters on Azure](starterkit/HandsOnTutorial.FSharp/0-provision-azure-cluster.html)
 
 Examples:
 
-* [Example: Using Data Parallel Cloud Flows and F# Type Providers for House Prices](starterkit/HandsOnTutorial/examples/200-house-data-analysis-example.html)
-* [Example: Distributed Image Processing](starterkit/HandsOnTutorial/examples/200-image-processing-example.html)
-* [Example: KMeans Clustering with Incremental Notifications](starterkit/HandsOnTutorial/examples/200-kmeans-clustering-example.html)
-* [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial/examples/400-stock-trading-analysis-example.html)
-* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
-* [Example: Using the R type provider with MBrace](starterkit/HandsOnTutorial/examples/200-using-r-provider.html)
+* [Example: Using Data Parallel Cloud Flows and F# Type Providers for House Prices](starterkit/HandsOnTutorial.FSharp/examples/200-house-data-analysis-example.html)
+* [Example: Distributed Image Processing](starterkit/HandsOnTutorial.FSharp/examples/200-image-processing-example.html)
+* [Example: KMeans Clustering with Incremental Notifications](starterkit/HandsOnTutorial.FSharp/examples/200-kmeans-clustering-example.html)
+* [Example: Incremental Stock Trading Analysis](starterkit/HandsOnTutorial.FSharp/examples/400-stock-trading-analysis-example.html)
+* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial.FSharp/examples/200-norvigs-spelling-corrector-example.html)
+* [Example: Using the R type provider with MBrace](starterkit/HandsOnTutorial.FSharp/examples/200-using-r-provider.html)
 
-* [Example: Parallel Web Download](starterkit/HandsOnTutorial/examples/200-cloud-parallel-web-download-example.html)
-* [Example: Word Count](starterkit/HandsOnTutorial/examples/200-wordcount-example.html)
-* [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial/examples/200-monte-carlo-pi-approximation-example.html)
-* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial/examples/200-norvigs-spelling-corrector-example.html)
-* [Example: KNN Digit Recognizer](starterkit/HandsOnTutorial/examples/200-knn-digit-recognizer-example.html)
+* [Example: Parallel Web Download](starterkit/HandsOnTutorial.FSharp/examples/200-cloud-parallel-web-download-example.html)
+* [Example: Word Count](starterkit/HandsOnTutorial.FSharp/examples/200-wordcount-example.html)
+* [Example: Monte Carlo Pi Approximation](starterkit/HandsOnTutorial.FSharp/examples/200-monte-carlo-pi-approximation-example.html)
+* [Example: Extracting Statistics for a Spelling Corrector](starterkit/HandsOnTutorial.FSharp/examples/200-norvigs-spelling-corrector-example.html)
+* [Example: KNN Digit Recognizer](starterkit/HandsOnTutorial.FSharp/examples/200-knn-digit-recognizer-example.html)
 
 More Techniques:
 
-* [Launching Python and Other Executables](starterkit/HandsOnTutorial/examples/200-launching-python-example.html)
-* [Prototyping a WebServer to Control Your Cluster](starterkit/HandsOnTutorial/examples/200-starting-a-web-server-example.html)
-* [Running MBrace in the Local Machine Thread Pool](starterkit/HandsOnTutorial/going-further/400-advanced-core-thread-pool.html)
-* [Cloud Gotchas](starterkit/HandsOnTutorial/going-further/400-cloud-gotchas.html)
+* [Launching Python and Other Executables](starterkit/HandsOnTutorial.FSharp/examples/200-launching-python-example.html)
+* [Prototyping a WebServer to Control Your Cluster](starterkit/HandsOnTutorial.FSharp/examples/200-starting-a-web-server-example.html)
+* [Running MBrace in the Local Machine Thread Pool](starterkit/HandsOnTutorial.FSharp/going-further/400-advanced-core-thread-pool.html)
+* [Cloud Gotchas](starterkit/HandsOnTutorial.FSharp/going-further/400-cloud-gotchas.html)
 
 What follows is a general overview. 
 
