@@ -68,8 +68,8 @@ to have an Azure account and basic knowledge of Azure computing.</p>
 <li>Make any appropriate changes to your Worker role implementation.</li>
 <li>Set the desired VM size by double clicking the <code>Roles/MBrace.Azure.WorkerRole</code> item in the cloud service project.</li>
 <li>Right click the <code>MBrace.Azure.CloudService</code> project and hit <code>Package..</code>. This will create a new cspkg in your local bin folder.</li>
-<li>Open <code>HandsOnTutorial.sln</code> in the StarterKit and find <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/HandsOnTutorial/AzureCluster.fsx"><code>AzureCluster.fsx</code></a>. Follow the instructions and be sure to set the <code>useCustomCloudService</code> binding to <code>true</code>. Save any changes to <code>AzureCluster.fsx</code>.</li>
-<li>Open <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/HandsOnTutorial/0-provision-azure-cluster.fsx">0-provision-azure-cluster.fsx</a>. Follow the instructions and provision your custom cloud service.</li>
+<li>Open <code>HandsOnTutorial.sln</code> in the StarterKit and find <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/HandsOnTutorial.FSharp/AzureCluster.fsx"><code>AzureCluster.fsx</code></a>. Follow the instructions and be sure to set the <code>useCustomCloudService</code> binding to <code>true</code>. Save any changes to <code>AzureCluster.fsx</code>.</li>
+<li>Open <a href="https://github.com/mbraceproject/MBrace.StarterKit/blob/master/HandsOnTutorial.FSharp/0-provision-azure-cluster.fsx">0-provision-azure-cluster.fsx</a>. Follow the instructions and provision your custom cloud service.</li>
 <li>
 Run any of the supplied samples and tutorials.
 with the script-based deployment process above:
@@ -77,8 +77,8 @@ with the script-based deployment process above:
 </ol>
 <h3><a name="Provisioning-using-Visual-Studio" class="anchor" href="#Provisioning-using-Visual-Studio">Provisioning using Visual Studio</a></h3>
 <p>Alternatively, you can provision and deploy from Visual Studio. Right click and Publish the <code>MBrace.Azure.CloudService</code> project. During publication, choose a new name for your cloud service. After your service is published it should appear as a cloud service in the <a href="https://manage.windowsazure.com/">Azure management portal</a>.</p>
-<p>If using the hands-on tutorials, insert the same connection trings in <a href="../HandsOnTutorial/AzureCluster.fsx#L24">MBraceCluster.fsx</a> and connect
-to your runtime (see <a href="../HandsOnTutorial/1-hello-world.fsx">hello-world.fsx</a> for an example).</p>
+<p>If using the hands-on tutorials, insert the same connection trings in <a href="../HandsOnTutorial.FSharp/AzureCluster.fsx#L24">MBraceCluster.fsx</a> and connect
+to your runtime (see <a href="../HandsOnTutorial.FSharp/1-hello-world.fsx">hello-world.fsx</a> for an example).</p>
 
 
         </div>

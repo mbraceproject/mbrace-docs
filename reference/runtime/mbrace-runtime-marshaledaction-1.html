@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>PerformanceMonitor - MBrace.Runtime</title>
+    <title>MarshaledAction<'T> - MBrace.Runtime</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="Jan Dzik, Nick Palladinos, Kostas Rontogiannis, Eirik Tsarpalis"/>
@@ -40,12 +40,12 @@
 
 
 
-<h1>PerformanceMonitor</h1>
+<h1>MarshaledAction<'T></h1>
 <p>
-  <span>Namespace: MBrace.Runtime.Utils.PerformanceMonitor</span><br />
+  <span>Namespace: MBrace.Runtime</span><br />
 </p>
 <div class="xmldoc">
-<p>Collects statistics on CPU, memory, network, etc.</p>
+<p>Action that can be marshalled across AppDomains</p>
 
 </div>
   <h3>Instance members</h3>
@@ -57,52 +57,31 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1452', 1452)" onmouseover="showTip(event, '1452', 1452)">
-            GetCounters()
+          <code onmouseout="hideTip(event, '1218', 1218)" onmouseover="showTip(event, '1218', 1218)">
+            Dispose()
           </code>
-          <div class="tip" id="1452">
-            <strong>Signature:</strong> unit -&gt; PerformanceInfo<br />
+          <div class="tip" id="1218">
+            <strong>Signature:</strong> unit -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          
+          <p>Disposes the marshaled action</p>
+
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '1453', 1453)" onmouseover="showTip(event, '1453', 1453)">
-            MonitoredCategories
+          <code onmouseout="hideTip(event, '1219', 1219)" onmouseover="showTip(event, '1219', 1219)">
+            Invoke(t)
           </code>
-          <div class="tip" id="1453">
-            <strong>Signature:</strong> seq&lt;string&gt;<br />
+          <div class="tip" id="1219">
+            <strong>Signature:</strong> t:&#39;T -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-          
-              <p>CompiledName: <code>get_MonitoredCategories</code></p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <h3>Static members</h3>
-  <table class="table table-bordered member-list">
-    <thead>
-      <tr><td>Static member</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '1454', 1454)" onmouseover="showTip(event, '1454', 1454)">
-            Start(...)
-          </code>
-          <div class="tip" id="1454">
-            <strong>Signature:</strong> (updateInterval:int option * maxSamplesCount:int option * cancellationToken:CancellationToken option) -&gt; PerformanceMonitor<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-          <p>Starts a new performance monitor instance with supplied intervals.</p>
+          <p>Invokes the marshaled action with supplied argument</p>
 
 
         </td>
